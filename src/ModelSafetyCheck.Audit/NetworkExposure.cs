@@ -33,7 +33,7 @@ public static partial class NetworkExposure
     [GeneratedRegex("ollama|vllm|sglang|llama|lmstudio|lm-studio|text-generation|tgi|localai|koboldcpp|open-webui", RegexOptions.IgnoreCase)]
     private static partial Regex AiImageRegex();
 
-    /// <summary>OLLAMA_HOST / OLLAMA_ORIGINS from the process, user and machine environment, systemd units and launchd.</summary>
+    /// <summary>OLLAMA_HOST / OLLAMA_ORIGINS / LMS_SERVER_HOST from the process, user and machine environment, systemd units and launchd.</summary>
     public static IEnumerable<Finding> CheckOllamaConfig()
     {
         foreach (var (name, value, source) in OllamaSettings())
@@ -41,6 +41,10 @@ public static partial class NetworkExposure
             if (name == "OLLAMA_HOST" && IsExposedHost(value, out var how))
                 yield return new Finding("A002", Severity.High, "Ollama is configured to listen beyond this machine",
                     $"OLLAMA_HOST={value} ({how}) in {source}. Anyone who can route to this machine can use the model and its tools, and Ollama skips its DNS-rebinding host check when not bound to loopback, so web pages you visit can reach it too.\nFix: {Remedy}",
+                    source);
+            else if (name == "LMS_SERVER_HOST" && IsExposedHost(value, out var lmsHow))
+                yield return new Finding("A002", Severity.High, "LM Studio's server is configured to listen beyond this machine",
+                    $"LMS_SERVER_HOST={value} ({lmsHow}) in {source}. `lms server start` binds to it, so devices on the network can use the server. LM Studio does not require authentication unless you turn it on in the Developer page.\nFix: {Remedy} If you must serve the network, enable Require Authentication.",
                     source);
             else if (name == "OLLAMA_ORIGINS" && value.Split(',').Any(o => o.Trim() == "*"))
                 yield return new Finding("A003", Severity.High, "Ollama accepts requests from any web origin",
@@ -51,7 +55,7 @@ public static partial class NetworkExposure
 
     static IEnumerable<(string Name, string Value, string Source)> OllamaSettings()
     {
-        foreach (var name in new[] { "OLLAMA_HOST", "OLLAMA_ORIGINS" })
+        foreach (var name in new[] { "OLLAMA_HOST", "OLLAMA_ORIGINS", "LMS_SERVER_HOST" })
         {
             if (Environment.GetEnvironmentVariable(name) is { Length: > 0 } process)
                 yield return (name, process, "this shell's environment");

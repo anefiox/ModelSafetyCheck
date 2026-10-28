@@ -36,3 +36,14 @@ jobs:
           dotnet build src/ModelSafetyCheck.Cli -c Release -o "$RUNNER_TEMP/cli"
           exe="$RUNNER_TEMP/cli/modelcheck"; [[ -f "$exe.exe" ]] && exe="$exe.exe"
           MODELCHECK="$exe" python integrations/open-webui/test_modelcheck_filter.py
+          echo "MODELCHECK=$exe" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: LM Studio plugin typecheck and tests
+        working-directory: integrations/lmstudio-plugin
+        shell: bash
+        run: |
+          npm ci
+          npm run typecheck
+          npm test

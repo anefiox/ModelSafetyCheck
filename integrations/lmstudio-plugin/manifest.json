@@ -1,0 +1,12 @@
+{
+  "type": "plugin",
+  "runner": "node",
+  "owner": "modelsafetycheck",
+  "name": "modelcheck-guard",
+  "revision": 1,
+  "tags": ["security", "gguf", "chat-template"],
+  "sandbox": {
+    "enabled": false,
+    "reason": "Runs the local modelcheck executable on the loaded model's GGUF file to check its chat template and structure before chatting."
+  }
+}

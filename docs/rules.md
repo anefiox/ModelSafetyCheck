@@ -83,6 +83,7 @@ Exit codes: `0` no findings above Info, `1` Low/Medium, `2` High/Critical, `3` s
 | A006 | Info–Critical | `--probe`: the server answers on the LAN without authentication |
 | A007 | Info | Runner detected |
 | A008 | Info | MCP tool configured for a local-model client, with its powers |
+| A009 | Info–Critical | Windows: a staged Ollama update installer is not validly signed (Critical) or signed by someone other than Ollama (High) |
 | G001 | High | Secrets an agent can read (values never printed) |
 | G002 | Info–Critical | Overall risk, per layer, with escalation when layers combine |
 | G003 | Info | Privilege-separation guidance |

@@ -43,7 +43,8 @@ To check before every download, use the wrappers in [`scripts/`](scripts): `olla
 Optional ML check: `modelcheck classifier download` installs a local prompt-injection classifier
 (protectai/deberta-v3-base-prompt-injection-v2, Apache-2.0, ~700 MB, sha256-verified); add `--classifier` to any scan
 for rule T015. It is supporting evidence only: measured on real templates it also flags ordinary instructions.
-An Open WebUI filter that blocks chats with flagged Ollama models is in [`integrations/open-webui`](integrations/open-webui).
+Integrations: an Open WebUI filter ([`integrations/open-webui`](integrations/open-webui)) and an LM Studio plugin
+([`integrations/lmstudio-plugin`](integrations/lmstudio-plugin)) block chats with flagged models.
 
 Common options: `--format text|json|sarif`, `--min-severity info|low|medium|high|critical`, `--no-color`.
 Exit codes: `0` clean, `1` warnings (low/medium), `2` high or critical findings, `3` scan error.
@@ -60,7 +61,7 @@ Exit codes: `0` clean, `1` warnings (low/medium), `2` high or critical findings,
 | Chat templates | T001–T014 | Jinja sandbox escapes (CVE-2024-34359 "Llama Drama"), trigger phrases, date/random conditions, hidden instructions, exfiltration links, Unicode tag smuggling, diff against 62 official templates (including earlier versions), and **rendered evidence**: the template is run in a sandbox with and without each suspected trigger |
 | Other formats | F001–F006, PK001–PK004, OX001–OX005 | safetensors header/offset checks; pickle checkpoints (raw, legacy torch, PyTorch zip) analysed opcode by opcode for imports like `os.system`; ONNX external-data path traversal (incl. symlinks) and custom operators |
 | Ollama | O001–O005 | Ollama's own template and system layers (what actually runs), path-traversal digests |
-| Runner & network | A001–A008 | known-vulnerable versions, `OLLAMA_HOST=0.0.0.0`, `OLLAMA_ORIGINS=*`, open ports and the process behind them, Docker port publishing, unauthenticated access, MCP tools given to local models |
+| Runner & network | A001–A009 | known-vulnerable versions, `OLLAMA_HOST=0.0.0.0`, `OLLAMA_ORIGINS=*`, open ports and the process behind them, Docker port publishing, unauthenticated access, MCP tools given to local models, staged Ollama updates' signatures |
 | Agent | G001–G004 | readable secrets (values never printed), file/shell + network tool combinations, per-layer risk rating |
 | Provenance | P001–P003 | `local --online`: installed file still matches its Hugging Face upload (size / sha256) |
 | Hugging Face repo | H001–H011 | executables and lure instructions in the card, publisher tier, lineage, file template differing from the displayed one, pickle files, model cards copied from an official repo |

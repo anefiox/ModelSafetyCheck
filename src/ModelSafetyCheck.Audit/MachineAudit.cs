@@ -29,6 +29,7 @@ public static class MachineAudit
         var exposed = NetworkExposure.ExposedListeners(serverPorts);
         report.Findings.AddRange(NetworkExposure.CheckListeners(exposed, exposed.Count > 0 ? PortOwners.Find() : null));
         report.Findings.AddRange(NetworkExposure.CheckDocker());
+        report.Findings.AddRange(OllamaUpdates.Check());
         if (options.Probe)
             report.Findings.AddRange(NetworkExposure.Probe(exposed, http));
 
@@ -81,7 +82,7 @@ public static class MachineAudit
         var models = modelReports.SelectMany(r => r.Findings).ToList();
         var file = Max(models.Where(f => f.RuleId[0] is 'S' or 'M' or 'K' or 'O'));
         var template = Max(models.Where(f => f.RuleId[0] == 'T'));
-        var runner = Max(findings.Where(f => f.RuleId == "A001"));
+        var runner = Max(findings.Where(f => f.RuleId is "A001" or "A009"));
         var network = Max(findings.Where(f => f.RuleId is "A002" or "A003" or "A004" or "A005" or "A006"));
         var agent = Max(findings.Where(f => f.RuleId is "G001" or "G004"));
 
