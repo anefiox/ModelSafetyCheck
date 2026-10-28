@@ -1,7 +1,9 @@
 using System.Security.Cryptography;
 using System.Text;
 using ModelSafetyCheck.Core;
+using System.Text.RegularExpressions;
 using ModelSafetyCheck.Data;
+using ModelSafetyCheck.Jinja;
 
 namespace ModelSafetyCheck.Rules;
 
@@ -55,7 +57,12 @@ public static class KnownTemplateCheck
             return new Finding("T010", Severity.Info, "Unrecognised chat template",
                 "This template does not match any official template in the database. That is normal for fine-tunes and new models; read it with --dump-template if the model will get tools.", location);
 
-        static bool IsProse(string line) => TextHeuristics.CountWords(line) >= 4 && !line.TrimStart().StartsWith("{%", StringComparison.Ordinal);
+        static bool IsProse(string line)
+        {
+            // Special tokens are markup, and a one-sentence identity ("You are X, trained by Y.") is normal in fine-tunes.
+            var text = Regex.Replace(ModelVisibleText(line), @"<\|?[^<>\s]{1,40}\|?>", " ").Trim();
+            return TextHeuristics.CountWords(text) >= 8 && !Regex.IsMatch(text, @"^You are [^.!?]{1,100}[.!?]?$", RegexOptions.IgnoreCase);
+        }
         var added = Added(lines, best.Lines).OrderByDescending(IsProse).ToList();
         var removed = Added(best.Lines, lines);
         var injectedText = added.Any(IsProse);
@@ -69,7 +76,7 @@ public static class KnownTemplateCheck
                 $"{best.Similarity:P0} similar to {best.Template.Source} ({added.Count} line(s) added, {removed.Count} removed). " +
                 $"Large differences usually mean a different release of the template, such as an older download. {addedText}", location);
 
-        return new Finding("T010", injectedText ? Severity.Medium : Severity.Low,
+        return new Finding("T010", injectedText ? Severity.Medium : Severity.Info,
             $"Modified copy of the official {best.Template.Family} template",
             $"{best.Similarity:P0} similar to {best.Template.Source}, with {added.Count} line(s) added and {removed.Count} removed. " +
             (injectedText ? "Some added lines contain natural-language text, which is how hidden instructions are injected. " : "") + addedText,
@@ -84,10 +91,24 @@ public static class KnownTemplateCheck
         return (Added(a, b), Added(b, a), Similarity(a, b));
     }
 
+    /// <summary>What the model would read from one template line: quoted strings and text outside tags. Comments and code are dropped.</summary>
+    static string ModelVisibleText(string line)
+    {
+        var withoutComments = Regex.Replace(line, @"\{#.*?(?:#\}|$)", " ");
+        var lex = TemplateLexer.Lex(withoutComments, TemplateDialect.Jinja);
+        return string.Join(" ", lex.Segments.Select(s => s.Kind switch
+        {
+            SegmentKind.Text => s.Raw,
+            SegmentKind.Expression or SegmentKind.Statement => string.Join(" ", s.Tokens.Where(t => t.Kind == TokenKind.String).Select(t => t.Value)),
+            _ => "",
+        }));
+    }
+
+    /// <summary>Lines of the template without Jinja comments, which the model never sees (and which may span lines).</summary>
     static Dictionary<string, int> LineCounts(string text)
     {
         var counts = new Dictionary<string, int>(StringComparer.Ordinal);
-        foreach (var raw in text.Split('\n'))
+        foreach (var raw in Regex.Replace(text, @"\{#.*?#\}", "", RegexOptions.Singleline).Split('\n'))
         {
             var line = raw.Trim();
             if (line.Length > 0)

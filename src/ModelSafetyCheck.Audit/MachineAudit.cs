@@ -4,7 +4,10 @@ using ModelSafetyCheck.Rules;
 
 namespace ModelSafetyCheck.Audit;
 
-public sealed record AuditOptions(string? AgentDirectory = null, bool Probe = false);
+public sealed record AuditOptions(string? AgentDirectory = null, bool Probe = false, IReadOnlyList<string>? ExtraMcpConfigs = null)
+{
+    public IReadOnlyList<string> McpConfigs => ExtraMcpConfigs ?? [];
+}
 
 /// <summary>
 /// The `audit` command: checks layers 3-5 of the local setup (runner, network, agent) and rolls up
@@ -22,10 +25,19 @@ public static class MachineAudit
 
         report.Findings.AddRange(NetworkExposure.CheckOllamaConfig());
         var exposed = NetworkExposure.ExposedListeners();
-        report.Findings.AddRange(NetworkExposure.CheckListeners(exposed));
+        report.Findings.AddRange(NetworkExposure.CheckListeners(exposed, exposed.Count > 0 ? PortOwners.Find() : null));
         report.Findings.AddRange(NetworkExposure.CheckDocker());
         if (options.Probe)
             report.Findings.AddRange(NetworkExposure.Probe(exposed, http));
+
+        var tools = McpTools.Read(McpTools.KnownConfigs().Concat(options.McpConfigs.Select(p => ("custom", p))));
+        report.Findings.AddRange(McpTools.Check(tools));
+
+        // Folders a file tool can already read are agent directories too, unless they are the whole home/drive (reported above).
+        var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        foreach (var dir in tools.SelectMany(t => t.Directories).Distinct()
+                     .Where(d => !string.Equals(Path.TrimEndingDirectorySeparator(d), home, StringComparison.OrdinalIgnoreCase) && Path.GetPathRoot(d) != d))
+            report.Findings.AddRange(SecretScanner.Scan(dir).Select(f => f with { Detail = $"Reachable through an MCP file tool. {f.Detail}" }));
 
         if (options.AgentDirectory is not null)
         {
@@ -68,7 +80,7 @@ public static class MachineAudit
         var template = Max(models.Where(f => f.RuleId[0] == 'T'));
         var runner = Max(findings.Where(f => f.RuleId == "A001"));
         var network = Max(findings.Where(f => f.RuleId is "A002" or "A003" or "A004" or "A005" or "A006"));
-        var agent = Max(findings.Where(f => f.RuleId == "G001"));
+        var agent = Max(findings.Where(f => f.RuleId is "G001" or "G004"));
 
         var overall = new[] { file, template, runner, network, agent }.Max();
         var reasons = new List<string>();
@@ -90,7 +102,7 @@ public static class MachineAudit
             Line("L2 chat templates", template) +
             Line("L3 runners", runner) +
             Line("L4 network exposure", network) +
-            Line("L5 agent / tools", agent, agentChecked ? "" : " (not checked; pass --agent-dir)") +
+            Line("L5 agent / tools", agent, agentChecked ? "" : " (MCP tools checked; pass --agent-dir for an agent folder)") +
             (reasons.Count > 0 ? $"\nEscalated because {string.Join(" and ", reasons)}." : "") +
             "\nWeights can contain trained-in backdoors that no scan detects: give agents official weights only and keep secrets out of their reach.";
 

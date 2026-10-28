@@ -150,14 +150,19 @@ public static partial class NetworkExposure
         }
     }
 
-    public static IEnumerable<Finding> CheckListeners(List<Listener> exposed)
+    public static IEnumerable<Finding> CheckListeners(List<Listener> exposed, IReadOnlyDictionary<int, PortOwner>? owners = null)
     {
         foreach (var l in exposed)
         {
+            var owner = owners?.GetValueOrDefault(l.Port.Port);
+            // Shared default ports (8000, 8080) are only reported when the owner could be a model server.
+            if (!l.Port.Dedicated && !PortOwners.MayBeAiServer(owner))
+                continue;
             var scope = l.EndPoint.Address.Equals(IPAddress.Any) || l.EndPoint.Address.Equals(IPAddress.IPv6Any) ? "every network interface" : l.EndPoint.Address.ToString();
+            var ownerText = owner is null ? "" : $" by {owner.Name} (PID {owner.Pid})";
             yield return new Finding("A004", l.Port.Dedicated ? Severity.High : Severity.Medium,
-                $"{l.Port.Runner} port {l.Port.Port} is listening on {scope}",
-                $"Port {l.Port.Port} is open to the network{(l.Port.Dedicated ? "" : " (if this is an AI server)")}. On untrusted networks anyone nearby can use the model, its tools and its API.\nFix: {Remedy} Run with --probe to test whether it answers without authentication.",
+                $"{l.Port.Runner} port {l.Port.Port} is listening on {scope}{ownerText}",
+                $"Port {l.Port.Port} is open to the network{(l.Port.Dedicated || owner is not null ? "" : " (if this is an AI server)")}. On untrusted networks anyone nearby can use the model, its tools and its API.\nFix: {Remedy} Run with --probe to test whether it answers without authentication.",
                 l.EndPoint.ToString());
         }
     }

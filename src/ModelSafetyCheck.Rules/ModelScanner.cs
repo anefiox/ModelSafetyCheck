@@ -63,6 +63,65 @@ public static class ModelScanner
         return report;
     }
 
+    /// <summary>File types `scan` understands: GGUF, safetensors, pickle checkpoints and Hugging Face template files.</summary>
+    public static bool IsScannable(string path)
+    {
+        var name = System.IO.Path.GetFileName(path);
+        var ext = System.IO.Path.GetExtension(path);
+        return ext.Equals(".gguf", StringComparison.OrdinalIgnoreCase) || ext.Equals(".safetensors", StringComparison.OrdinalIgnoreCase) ||
+               PickleScanner.Extensions.Contains(ext) || name is "tokenizer_config.json" or "chat_template.jinja" or "chat_template.json";
+    }
+
+    /// <summary>Scans any supported file by type.</summary>
+    public static ScanReport ScanAnyFile(string path)
+    {
+        var ext = System.IO.Path.GetExtension(path);
+        var name = System.IO.Path.GetFileName(path);
+        if (ext.Equals(".gguf", StringComparison.OrdinalIgnoreCase))
+            return ScanFile(path);
+
+        var kind = ext.Equals(".safetensors", StringComparison.OrdinalIgnoreCase) ? "safetensors" : PickleScanner.Extensions.Contains(ext) ? "pickle" : "template-file";
+        var report = new ScanReport { Target = path, Kind = kind, Path = path };
+        try
+        {
+            if (kind == "template-file")
+            {
+                ScanTemplateFile(path, name, report);
+                return report;
+            }
+            using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 1 << 20);
+            var info = new FileInfo(path);
+            report.Fingerprint = $"size:{info.Length};mtime:{info.LastWriteTimeUtc:O}";
+            if (kind == "safetensors") SafetensorsScanner.Scan(stream, report);
+            else PickleScanner.Scan(stream, report);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException)
+        {
+            report.Error = ex.Message;
+        }
+        return report;
+    }
+
+    /// <summary>chat_template.jinja or the chat_template in tokenizer_config.json: what transformers and vLLM render.</summary>
+    static void ScanTemplateFile(string path, string name, ScanReport report)
+    {
+        var text = File.ReadAllText(path);
+        if (name.EndsWith(".jinja", StringComparison.Ordinal))
+        {
+            ScanTemplate(report, text, TemplateDialect.Jinja, name);
+            return;
+        }
+        using var doc = System.Text.Json.JsonDocument.Parse(text);
+        if (!doc.RootElement.TryGetProperty("chat_template", out var t))
+            return;
+        if (t.ValueKind == System.Text.Json.JsonValueKind.String)
+            ScanTemplate(report, t.GetString()!, TemplateDialect.Jinja, $"{name}:chat_template");
+        else if (t.ValueKind == System.Text.Json.JsonValueKind.Array)
+            foreach (var item in t.EnumerateArray())
+                if (item.TryGetProperty("template", out var tt) && tt.GetString() is { } template)
+                    ScanTemplate(report, template, TemplateDialect.Jinja, $"{name}:chat_template.{(item.TryGetProperty("name", out var n) ? n.GetString() : "?")}");
+    }
+
     public static ScanReport ScanStream(Stream stream, string target)
     {
         var report = new ScanReport { Target = target, Kind = "gguf" };
@@ -106,6 +165,8 @@ public static class ModelScanner
     public static List<Finding> AnalyzeTemplate(string template, TemplateDialect dialect, string location)
     {
         var findings = TemplateAnalyzer.Analyze(template, dialect, location);
+        if (dialect == TemplateDialect.Jinja)
+            findings = AddRenderedEvidence(template, location, findings);
         var known = dialect == TemplateDialect.Jinja ? KnownTemplateCheck.Check(template, location) : null;
         if (known is null)
             return findings;
@@ -117,6 +178,29 @@ public static class ModelScanner
                     : f)
                 .ToList();
         findings.Add(known);
+        return findings;
+    }
+
+    /// <summary>
+    /// Renders the template in the sandbox with trigger probes (T013). Confirmed payloads raise the static
+    /// trigger finding (T005) to High; a template that cannot be rendered is noted (T014).
+    /// </summary>
+    static List<Finding> AddRenderedEvidence(string template, string location, List<Finding> findings)
+    {
+        var explanation = TemplateExplainer.Explain(template);
+        if (explanation.Error is not null)
+        {
+            findings.Add(new Finding("T014", Severity.Info, "Template could not be rendered in the sandbox",
+                $"{explanation.Error}. Trigger probes were skipped; the static checks above still apply.", location));
+            return findings;
+        }
+
+        var rendered = TemplateExplainer.Findings(explanation, location).ToList();
+        findings.AddRange(rendered);
+        if (rendered.Any(f => f.Severity >= Severity.High))
+            findings = findings.Select(f => f is { RuleId: "T005", Severity: Severity.Medium }
+                ? f with { Severity = Severity.High, Detail = f.Detail + "\nRaised to High: rendering confirmed that a trigger adds text (T013)." }
+                : f).ToList();
         return findings;
     }
 

@@ -34,6 +34,15 @@ public sealed record TemplateSegment(SegmentKind Kind, string Raw, int Offset, I
 {
     /// <summary>First name inside a tag, e.g. "if", "for", "set", "include".</summary>
     public string? Keyword => Tokens.Count > 0 && Tokens[0].Kind == TokenKind.Name ? Tokens[0].Value : null;
+
+    /// <summary>`{%-` / `{{-` / `{#-`: strip whitespace before the tag.</summary>
+    public bool TrimBefore => Kind != SegmentKind.Text && Raw.Length > 2 && Raw[2] == '-';
+
+    /// <summary>`{%+`: keep leading whitespace even with lstrip_blocks.</summary>
+    public bool KeepBefore => Kind != SegmentKind.Text && Raw.Length > 2 && Raw[2] == '+';
+
+    /// <summary>`-%}` / `-}}` / `-#}`: strip whitespace after the tag.</summary>
+    public bool TrimAfter => Kind != SegmentKind.Text && Raw.Length >= 5 && Raw[^3] == '-';
 }
 
 public sealed record LexError(string Message, int Offset);

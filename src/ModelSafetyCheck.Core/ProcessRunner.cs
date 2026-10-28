@@ -7,7 +7,8 @@ public sealed record ProcessResult(int ExitCode, string Output, string Error);
 /// <summary>Runs a command with a timeout. Returns null when the program is missing or does not finish in time.</summary>
 public static class ProcessRunner
 {
-    public static ProcessResult? Run(string fileName, IEnumerable<string> arguments, TimeSpan? timeout = null)
+    /// <param name="environment">Extra environment variables. Use these to pass untrusted text (e.g. model names) to scripts instead of splicing it into code.</param>
+    public static ProcessResult? Run(string fileName, IEnumerable<string> arguments, TimeSpan? timeout = null, IReadOnlyDictionary<string, string>? environment = null)
     {
         var info = new ProcessStartInfo(fileName)
         {
@@ -18,6 +19,8 @@ public static class ProcessRunner
         };
         foreach (var argument in arguments)
             info.ArgumentList.Add(argument);
+        foreach (var (key, value) in environment ?? new Dictionary<string, string>())
+            info.Environment[key] = value;
 
         try
         {

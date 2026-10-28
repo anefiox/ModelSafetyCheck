@@ -36,9 +36,15 @@ public static partial class TextHeuristics
         int tags = 0, bidi = 0, zeroWidth = 0, selectors = 0, privateUse = 0;
         var decoded = new StringBuilder();
         var first = true;
+        var previous = new Rune(' ');
         foreach (var rune in text.EnumerateRunes())
         {
             var v = rune.Value;
+            // Emoji presentation selectors follow symbols (⚖️ ❗️ 〰️ 🛠️) or keycap characters (1️⃣ #️⃣).
+            var afterSymbol = previous.Value is >= 0x2000 and <= 0x2BFF or >= 0x3000 and <= 0x303F or 0x3297 or 0x3299 or >= 0x1F000
+                                  or (>= '0' and <= '9') or '#' or '*' or 0xA9 or 0xAE ||
+                              Rune.GetUnicodeCategory(previous) is System.Globalization.UnicodeCategory.OtherSymbol or System.Globalization.UnicodeCategory.MathSymbol;
+            previous = rune;
             if (v is >= 0xE0000 and <= 0xE007F)
             {
                 tags++;
@@ -49,8 +55,8 @@ public static partial class TextHeuristics
                 bidi++;
             else if (v is >= 0x200B and <= 0x200F or >= 0x2060 and <= 0x2064 or 0x180E or 0x00AD || (v == 0xFEFF && !first))
                 zeroWidth++;
-            else if (v is >= 0xFE00 and <= 0xFE0F or >= 0xE0100 and <= 0xE01EF)
-                selectors++;
+            else if (v is >= 0xE0100 and <= 0xE01EF || (v is >= 0xFE00 and <= 0xFE0F && !afterSymbol))
+                selectors++; // One FE0F after an emoji (e.g. ✅️) is normal; stray or stacked selectors can encode bytes.
             else if (v is >= 0xE000 and <= 0xF8FF or >= 0xF0000)
                 privateUse++;
             first = false;
@@ -63,7 +69,7 @@ public static partial class TextHeuristics
 
     public static IEnumerable<string> FindUrls(string text) => UrlRegex().Matches(text).Select(m => m.Value);
 
-    [GeneratedRegex(@"<\s*(?:script|img|iframe|object|embed|link|meta|svg)\b|!\[[^\]]*\]\(\s*(?:https?:)?//", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"<\s*script\b|<\s*(?:img|iframe|object|embed|link|meta|svg|image|audio|video|source)\b[^>]*\b(?:src|href|data|srcset|content)\s*=|!\[[^\]]*\]\(\s*(?:https?:)?//", RegexOptions.IgnoreCase)]
     private static partial Regex ActiveMarkupRegex();
 
     /// <summary>HTML or markdown that makes a client fetch a URL when rendered, a classic data-exfiltration vector.</summary>
@@ -71,8 +77,10 @@ public static partial class TextHeuristics
 
     static readonly (Regex Regex, string Description, Severity Severity)[] InstructionPatterns =
     [
-        (new(@"\b(?:do not|don't|never)\s+(?:tell|inform|mention|reveal|disclose|let)\b[^.\n]{0,40}\b(?:user|anyone|human|them)\b", RegexOptions.IgnoreCase), "concealment from the user", Severity.High),
-        (new(@"\bwithout\s+(?:telling|informing|notifying|alerting|asking)\b", RegexOptions.IgnoreCase), "acting without telling the user", Severity.High),
+        // Concealing the instructions themselves. "do not tell the user about function calls" (Qwen3-Coder) is fine.
+        (new(@"\b(?:do not|don't|never)\s+(?:tell|inform|let)\s+(?:the\s+)?(?:user|anyone|human)s?\b[^.\n]{0,30}\b(?:this|these|instructions?|prompt|rules?|links?|secret|hidden|directive)\b", RegexOptions.IgnoreCase), "concealment from the user", Severity.High),
+        (new(@"\b(?:do not|don't|never)\s+(?:mention|reveal|disclose)\s+(?:this|these|the|that|any)\s+(?:instructions?|rules?|links?|directives?|hidden|secret)", RegexOptions.IgnoreCase), "concealment from the user", Severity.High),
+        (new(@"\bwithout\s+(?:telling|informing|notifying|alerting)\s+(?:the\s+)?(?:user|them|anyone)\b", RegexOptions.IgnoreCase), "acting without telling the user", Severity.High),
         (new(@"\b(?:ignore|disregard|forget|override)\s+(?:all\s+|any\s+|the\s+)?(?:previous|prior|above|earlier|preceding|system)\s+(?:instructions|messages|rules|prompts?)\b", RegexOptions.IgnoreCase), "instruction override", Severity.High),
         (new(@"\b(?:secretly|covertly|silently|surreptitiously)\b", RegexOptions.IgnoreCase), "covert behaviour", Severity.High),
         (new(@"\b(?:hidden|secret)\s+(?:instructions?|rules?|directives?|tasks?|objectives?)\b", RegexOptions.IgnoreCase), "hidden directive", Severity.High),

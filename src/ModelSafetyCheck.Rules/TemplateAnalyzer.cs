@@ -15,6 +15,18 @@ public static partial class TemplateAnalyzer
     const int MaxEvidence = 5;
 
     static readonly HashSet<string> EscapeNames = ["popen", "subprocess", "__import__", "importlib", "builtins", "__builtins__", "func_globals", "f_globals", "gi_frame", "co_code"];
+    /// <summary>Python dunders used to walk from any object to builtins/os. Other dunder-shaped names are harmless.</summary>
+    static readonly HashSet<string> DangerousDunders =
+    [
+        "__class__", "__base__", "__bases__", "__mro__", "__subclasses__", "__globals__", "__builtins__", "__import__", "__init__",
+        "__dict__", "__getattribute__", "__getitem__", "__code__", "__func__", "__self__", "__module__", "__loader__", "__spec__",
+        "__reduce__", "__reduce_ex__", "__closure__", "__defaults__", "__kwdefaults__", "__name__", "__qualname__", "__call__", "__new__",
+    ];
+
+    /// <summary>Mode switches that templates legitimately look for in the system prompt.</summary>
+    static readonly string[] ControlPhrases =
+        ["detailed thinking on", "detailed thinking off", "reasoning strength", "reasoning effort", "reasoning:", "thinking mode", "/think", "/no_think", "/nothink"];
+
     static readonly HashSet<string> GadgetGlobals = ["lipsum", "cycler", "joiner", "self", "config", "request", "url_for", "get_flashed_messages"];
     static readonly HashSet<string> DangerousCalls = ["eval", "exec", "open", "system", "compile", "getattr", "setattr", "globals", "locals", "vars", "mro"];
     static readonly HashSet<string> LoaderStatements = ["include", "import", "extends", "from"];
@@ -75,7 +87,28 @@ public static partial class TemplateAnalyzer
             .Concat(tags.SelectMany(s => s.Tokens).Where(t => t.Kind == TokenKind.String).Select(t => t.Value))
             .ToList();
         AnalyzeText(literals, location, findings, "template");
-        return findings;
+        return Escalate(findings);
+    }
+
+    /// <summary>
+    /// A trigger alone, or a link alone, is common in community templates. A trigger together with a
+    /// payload (instructions, links, hidden text) is the shape of a poisoned template, so it rates higher.
+    /// </summary>
+    static List<Finding> Escalate(List<Finding> findings)
+    {
+        var trigger = findings.Any(f => f.RuleId == "T005" && f.Severity >= Severity.Medium);
+        var instructions = findings.Any(f => f.RuleId == "T004" && f.Severity >= Severity.Medium);
+        var links = findings.Any(f => f.RuleId == "T003");
+        var hidden = findings.Any(f => f.RuleId == "T007" && f.Severity >= Severity.High);
+
+        return findings.Select(f => f switch
+        {
+            { RuleId: "T005", Severity: Severity.Medium } when instructions || links || hidden =>
+                f with { Severity = Severity.High, Detail = f.Detail + "\nRaised to High: the template also contains instructions, links or hidden text that a trigger could switch on." },
+            { RuleId: "T003", Severity: Severity.Low } when trigger || instructions =>
+                f with { Severity = Severity.Medium },
+            _ => f,
+        }).ToList();
     }
 
     /// <summary>Content rules (T003, T004, T007, T009) for plain text such as an Ollama SYSTEM layer.</summary>
@@ -102,8 +135,8 @@ public static partial class TemplateAnalyzer
 
         var urls = literals.SelectMany(TextHeuristics.FindUrls).Distinct().ToList();
         if (urls.Count > 0)
-            findings.Add(new("T003", Severity.Medium, $"URL in {what}",
-                $"The {what} contains URLs the model will see. Poisoned templates use this to make the model serve attacker links: {Evidence(urls)}", location));
+            findings.Add(new("T003", Severity.Low, $"URL in {what}",
+                $"The {what} contains URLs the model will see. Often an author's own link; poisoned templates use this to make the model serve attacker links: {Evidence(urls)}", location));
 
         var phrases = literals.SelectMany(TextHeuristics.FindInstructionPhrases).ToList();
         if (phrases.Count > 0)
@@ -137,8 +170,10 @@ public static partial class TemplateAnalyzer
                 var next = i + 1 < toks.Count ? toks[i + 1].Value : null;
                 if (t.Kind == TokenKind.Name)
                 {
-                    if (DunderRegex().IsMatch(t.Value) || EscapeNames.Contains(t.Value))
+                    if (DangerousDunders.Contains(t.Value) || EscapeNames.Contains(t.Value))
                         critical.Add($"'{t.Value}': {Snippet(template, t.Offset)}");
+                    else if (DunderRegex().IsMatch(t.Value) && prev == ".")
+                        high.Add($"attribute '{t.Value}': {Snippet(template, t.Offset)}");
                     else if (prev != "." && next != "=" && GadgetGlobals.Contains(t.Value) && (next is "." or "(" or "|" or "["))
                         high.Add($"global '{t.Value}': {Snippet(template, t.Offset)}");
                     else if (DangerousCalls.Contains(t.Value) && next == "(")
@@ -148,10 +183,13 @@ public static partial class TemplateAnalyzer
                 }
                 else if (t.Kind == TokenKind.String)
                 {
-                    if (DunderInStringRegex().IsMatch(t.Value))
+                    // Strings matter for `|attr('__globals__')`. Harmless dunder-shaped strings (e.g. '__sentinel__') are ignored.
+                    if (DunderInStringRegex().Matches(t.Value).Any(m => DangerousDunders.Contains(m.Value)))
                         critical.Add($"string '{TextHeuristics.Truncate(t.Value, 40)}': {Snippet(template, t.Offset)}");
-                    else if (t.Value.Length > 2 && (t.Value.StartsWith("__", StringComparison.Ordinal) || t.Value.EndsWith("__", StringComparison.Ordinal)))
-                        high.Add($"string fragment '{TextHeuristics.Truncate(t.Value, 40)}': {Snippet(template, t.Offset)}");
+                    else if (t.Value.Length > 2 && DangerousDunders.Any(d => d != t.Value &&
+                                 ((t.Value.StartsWith("__", StringComparison.Ordinal) && d.StartsWith(t.Value, StringComparison.Ordinal)) ||
+                                  (t.Value.EndsWith("__", StringComparison.Ordinal) && d.EndsWith(t.Value, StringComparison.Ordinal)))))
+                        high.Add($"string fragment of a dangerous name '{TextHeuristics.Truncate(t.Value, 40)}': {Snippet(template, t.Offset)}");
                 }
             }
         }
@@ -168,7 +206,7 @@ public static partial class TemplateAnalyzer
     {
         var evidence = tags.SelectMany(s => s.Tokens)
             .Where(t => t.Value == "**" ||
-                        (t.Kind == TokenKind.Number && double.TryParse(t.Value.Replace("_", ""), System.Globalization.CultureInfo.InvariantCulture, out var n) && n >= 1_000_000))
+                        (t.Kind == TokenKind.Number && double.TryParse(t.Value.Replace("_", ""), System.Globalization.CultureInfo.InvariantCulture, out var n) && n >= 100_000_000))
             .Select(t => $"'{t.Value}'")
             .Distinct()
             .ToList();
@@ -177,11 +215,11 @@ public static partial class TemplateAnalyzer
                 $"Exponentiation or very large numbers can make template rendering hang or exhaust memory on every prompt: {Evidence(evidence)}", location));
     }
 
-    static void CheckTriggers(List<TemplateSegment> tags, TemplateDialect dialect, string template, string location, List<Finding> findings)
+    /// <summary>A string literal that a template compares message content (or anything) against.</summary>
+    sealed record ComparedLiteral(string Value, LiteralClass Class, bool SubstringTest, bool SearchesContent, TemplateSegment Segment);
+
+    static IEnumerable<ComparedLiteral> ComparedLiterals(List<TemplateSegment> tags, TemplateDialect dialect)
     {
-        var high = new List<string>();
-        var medium = new List<string>();
-        var dates = new List<string>();
         foreach (var segment in tags)
         {
             var toks = segment.Tokens;
@@ -211,24 +249,57 @@ public static partial class TemplateAnalyzer
                     : toks;
                 var searchesContent = operand.Any(t => t.Kind is TokenKind.Name or TokenKind.String && ContentNames.Contains(t.Value));
                 var comparison = (prev is not null && ComparisonOps.Contains(prev)) || (next is not null && ComparisonOps.Contains(next));
-                if (!substringTest && !comparison)
-                    continue;
-
-                var evidence = $"\"{TextHeuristics.Truncate(value, 60)}\": {Snippet(template, segment.Offset)}";
-                if (cls == LiteralClass.Date)
-                    dates.Add(evidence);
-                else if (cls == LiteralClass.Phrase)
-                    high.Add(evidence);
-                else if (substringTest && searchesContent && !CommonWords.Contains(value) && !ContentNames.Contains(value))
-                    medium.Add(evidence);
+                if (substringTest || comparison)
+                    yield return new ComparedLiteral(value, cls, substringTest, searchesContent, segment);
             }
         }
+    }
 
-        if (high.Count + medium.Count > 0)
-            findings.Add(new("T005", high.Count > 0 ? Severity.High : Severity.Medium, "Template behaves differently when a message contains specific text",
+    /// <summary>
+    /// Text worth putting into a message to see whether the template reacts: phrases, unusual words and
+    /// dates that the template compares against. Used by the explainer's trigger probes.
+    /// </summary>
+    public static List<string> TriggerCandidates(string template, TemplateDialect dialect)
+    {
+        var tags = TemplateLexer.Lex(template, dialect).Segments.Where(s => s.Kind is SegmentKind.Expression or SegmentKind.Statement).ToList();
+        return ComparedLiterals(tags, dialect)
+            .Where(c => !ControlPhrases.Any(p => c.Value.Trim().Equals(p, StringComparison.OrdinalIgnoreCase)))
+            .Where(c => c.Class is LiteralClass.Phrase or LiteralClass.Date ||
+                        (c.SubstringTest && c.SearchesContent && !CommonWords.Contains(c.Value) && !ContentNames.Contains(c.Value)))
+            .Select(c => c.Value)
+            .Distinct()
+            .Take(40)
+            .ToList();
+    }
+
+    static void CheckTriggers(List<TemplateSegment> tags, TemplateDialect dialect, string template, string location, List<Finding> findings)
+    {
+        var phrases = new List<string>();
+        var words = new List<string>();
+        var dates = new List<string>();
+        foreach (var c in ComparedLiterals(tags, dialect))
+        {
+            var value = c.Value;
+            var evidence = $"\"{TextHeuristics.Truncate(value, 60)}\": {Snippet(template, c.Segment.Offset)}";
+            if (c.Class == LiteralClass.Date)
+                dates.Add(evidence);
+            else if (ControlPhrases.Any(p => value.Trim().Equals(p, StringComparison.OrdinalIgnoreCase)))
+                continue;
+            else if (c.Class == LiteralClass.Phrase)
+                phrases.Add(evidence);
+            else if (c.SubstringTest && c.SearchesContent && !CommonWords.Contains(value) && !ContentNames.Contains(value))
+                words.Add(evidence);
+        }
+
+        // Medium on its own; Escalate() raises it to High when the template also carries a payload.
+        if (phrases.Count > 0)
+            findings.Add(new("T005", Severity.Medium, "Template behaves differently when a message contains specific text",
                 "Poisoned templates hide instructions that only activate on a trigger phrase, so the model looks normal in testing. " +
-                "Legitimate templates test for roles and markup tokens, not natural-language phrases: " + Evidence([.. high, .. medium]),
+                "Some community templates also route on message content; check what these branches emit: " + Evidence(phrases),
                 location));
+        if (words.Count > 0)
+            findings.Add(new("T005", Severity.Info, "Template tests message content for keywords",
+                "Usually key or content-type checks; listed for review: " + Evidence(words), location));
         if (dates.Count > 0)
             findings.Add(new("T006", Severity.High, "Template compares against a specific date",
                 "A template that behaves differently after a given date is a time bomb: " + Evidence(dates), location));

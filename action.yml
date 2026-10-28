@@ -1,0 +1,94 @@
+name: ModelSafetyCheck
+description: Scan model files, chat templates and Hugging Face / Ollama models for malicious content, and upload the results to GitHub code scanning.
+branding:
+  icon: shield
+  color: purple
+
+inputs:
+  command:
+    description: "modelcheck command: scan (files in the repo) or repo (Hugging Face / Ollama models)."
+    default: scan
+  args:
+    description: "Arguments for the command, e.g. 'models/' for scan or 'bartowski/Llama-3.2-3B-Instruct-GGUF ollama:llama3.2' for repo."
+    default: "."
+  fail-on:
+    description: "Fail the step at this severity or above: high, low, or never."
+    default: high
+  upload-sarif:
+    description: "Upload findings to GitHub code scanning (needs 'security-events: write')."
+    default: "true"
+  version:
+    description: "Release tag of modelcheck to use. Defaults to the tag this action was referenced at, or the latest release."
+    default: ""
+
+outputs:
+  exit-code:
+    description: "modelcheck exit code: 0 clean, 1 warnings, 2 high/critical, 3 error."
+    value: ${{ steps.run.outputs.exit-code }}
+  sarif-file:
+    description: Path to the SARIF report.
+    value: ${{ steps.run.outputs.sarif-file }}
+
+runs:
+  using: composite
+  steps:
+    - name: Download modelcheck
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        ACTION_REPO: ${{ github.action_repository }}
+        ACTION_REF: ${{ github.action_ref }}
+        VERSION: ${{ inputs.version }}
+      run: |
+        set -euo pipefail
+        case "${RUNNER_OS}-${RUNNER_ARCH}" in
+          Linux-X64) rid=linux-x64; ext=tar.gz ;;
+          Linux-ARM64) rid=linux-arm64; ext=tar.gz ;;
+          macOS-ARM64) rid=osx-arm64; ext=tar.gz ;;
+          Windows-X64) rid=win-x64; ext=zip ;;
+          Windows-ARM64) rid=win-arm64; ext=zip ;;
+          *) echo "Unsupported runner ${RUNNER_OS}-${RUNNER_ARCH}"; exit 1 ;;
+        esac
+        tag="${VERSION:-}"
+        if [[ -z "$tag" && "${ACTION_REF:-}" == v* ]]; then tag="$ACTION_REF"; fi
+        if [[ -z "$tag" ]]; then tag=$(gh release view --repo "$ACTION_REPO" --json tagName -q .tagName); fi
+        dir="$RUNNER_TEMP/modelcheck"
+        mkdir -p "$dir"
+        gh release download "$tag" --repo "$ACTION_REPO" --pattern "modelcheck-${tag}-${rid}.${ext}" --pattern SHA256SUMS --dir "$dir"
+        (cd "$dir" && grep " modelcheck-${tag}-${rid}.${ext}\$" SHA256SUMS | sha256sum --check -)
+        if [[ "$ext" == zip ]]; then unzip -q -o "$dir/modelcheck-${tag}-${rid}.zip" -d "$dir"; else tar xzf "$dir/modelcheck-${tag}-${rid}.tar.gz" -C "$dir"; fi
+        echo "$dir" >> "$GITHUB_PATH"
+
+    - name: Run modelcheck
+      id: run
+      shell: bash
+      env:
+        COMMAND: ${{ inputs.command }}
+        ARGS: ${{ inputs.args }}
+      run: |
+        set +e
+        sarif="$RUNNER_TEMP/modelcheck.sarif"
+        # shellcheck disable=SC2086 # ARGS is a list of paths or repo ids
+        modelcheck "$COMMAND" $ARGS --format sarif > "$sarif"
+        code=$?
+        modelcheck "$COMMAND" $ARGS --min-severity low --no-color || true
+        echo "exit-code=$code" >> "$GITHUB_OUTPUT"
+        echo "sarif-file=$sarif" >> "$GITHUB_OUTPUT"
+
+    - name: Upload to code scanning
+      if: inputs.upload-sarif == 'true'
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: ${{ steps.run.outputs.sarif-file }}
+        category: modelcheck
+
+    - name: Apply fail-on
+      shell: bash
+      env:
+        CODE: ${{ steps.run.outputs.exit-code }}
+        FAIL_ON: ${{ inputs.fail-on }}
+      run: |
+        if [[ "$CODE" == 3 ]]; then echo "modelcheck could not complete the scan"; exit 1; fi
+        if [[ "$FAIL_ON" == high && "$CODE" -ge 2 ]]; then echo "High or critical findings"; exit 1; fi
+        if [[ "$FAIL_ON" == low && "$CODE" -ge 1 ]]; then echo "Findings at low severity or above"; exit 1; fi
+        exit 0

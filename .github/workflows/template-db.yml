@@ -1,0 +1,34 @@
+name: Refresh template database
+
+# Weekly: rebuild data/known-templates.json from the official repos in data/template-sources.json
+# and open a pull request when it changed, so new official templates reach the next release.
+on:
+  schedule:
+    - cron: '17 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Rebuild database
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: dotnet run --project tools/TemplateDbBuilder
+      - name: Check false positives on official templates
+        run: dotnet test --filter "FullyQualifiedName~OfficialTemplateTests"
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/template-db
+          title: Refresh known chat templates
+          commit-message: Refresh known chat templates
+          body: Automated weekly rebuild of `data/known-templates.json` by `tools/TemplateDbBuilder`. Review new and changed templates before merging.
+          add-paths: data/known-templates.json

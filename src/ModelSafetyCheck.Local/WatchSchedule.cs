@@ -26,7 +26,7 @@ public static class WatchSchedule
 
     public static SchedulePlan Plan()
     {
-        var command = SelfCommand().Concat(["watch", "--no-color", "--log", LogPath]).ToArray();
+        var command = SelfCommand().Concat(["watch", "--no-color", "--notify", "--log", LogPath]).ToArray();
         var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
         if (OperatingSystem.IsWindows())

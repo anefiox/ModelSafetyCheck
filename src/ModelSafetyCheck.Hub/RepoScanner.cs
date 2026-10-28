@@ -68,10 +68,11 @@ public static partial class RepoScanner
             ModelScanner.ScanTemplate(report, displayed, TemplateDialect.Jinja, "template shown on Hugging Face");
 
         reports.AddRange(ScanGgufHeaders(client, repo, info, options, report));
+        reports.AddRange(ScanOtherWeights(client, repo, info, options));
         return reports;
     }
 
-    static void CheckPublisherAndLineage(HfModelInfo info, ScanReport report)
+    public static void CheckPublisherAndLineage(HfModelInfo info, ScanReport report)
     {
         var tier = ReferenceData.TierOf(info.Author);
         var lineage = info.Tags.Where(t => t.StartsWith("base_model:", StringComparison.Ordinal)).Select(t => t["base_model:".Length..]).ToList();
@@ -253,6 +254,34 @@ public static partial class RepoScanner
         if (distinct > 1 && displayedHash is null)
             repoReport.Findings.Add(new Finding("H005", Severity.High, "GGUF files in this repo embed different templates",
                 $"{distinct} different chat templates across {templatesByFile.Count} files. Quantizations of one model should share a template.", "files"));
+    }
+
+    /// <summary>
+    /// Pickle checkpoints and safetensors headers, read remotely. A PyTorch zip keeps its index at the end and
+    /// data.pkl is small, so only a few MiB of a multi-gigabyte .bin are fetched.
+    /// </summary>
+    static IEnumerable<ScanReport> ScanOtherWeights(HuggingFaceClient client, string repo, HfModelInfo info, RepoScanOptions options)
+    {
+        var pickles = info.Files.Where(f => PickleScanner.Extensions.Contains(Path.GetExtension(f.Path))).Take(options.AllFiles ? 50 : 3);
+        var safetensors = info.Files.Where(f => f.Path.EndsWith(".safetensors", StringComparison.OrdinalIgnoreCase)).Take(options.AllFiles ? 50 : 2);
+        foreach (var file in pickles.Concat(safetensors))
+        {
+            var isPickle = PickleScanner.Extensions.Contains(Path.GetExtension(file.Path));
+            var report = new ScanReport { Target = $"hf:{repo}/{file.Path}", Kind = isPickle ? "hf-pickle" : "hf-safetensors", Fingerprint = file.Sha256 };
+            try
+            {
+                using var stream = new HttpRangeStream(client.Http, client.FileUrl(repo, file.Path), (long)options.BudgetMiB << 20);
+                if (isPickle) PickleScanner.Scan(stream, report);
+                else SafetensorsScanner.Scan(stream, report);
+                report.Findings.Add(new Finding("H004", Severity.Info, "Checked without downloading the file",
+                    $"Read {stream.Downloaded / 1024.0 / 1024.0:0.0} MiB of {file.Size / 1024.0 / 1024.0:0.0} MiB.", file.Path));
+            }
+            catch (Exception ex) when (ex is IOException or HttpRequestException or TaskCanceledException or InvalidDataException)
+            {
+                report.Error = ex.Message;
+            }
+            yield return report;
+        }
     }
 
     static List<HfFile> Spread(List<HfFile> sorted, int count)

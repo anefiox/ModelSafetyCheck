@@ -20,4 +20,13 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reference renders from real jinja2
+        shell: bash
+        run: |
+          pip install jinja2
+          python tools/render-fidelity/render_reference.py > "$RUNNER_TEMP/jinja2-reference.json"
+          echo "MODELCHECK_FIDELITY_FILE=$RUNNER_TEMP/jinja2-reference.json" >> "$GITHUB_ENV"
       - run: dotnet test --configuration Release

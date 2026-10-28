@@ -188,7 +188,7 @@ public sealed class MetadataRules : IGgufRule
         return findings;
     }
 
-    static void CheckString(string key, string value, string location, List<Finding> findings)
+    public static void CheckString(string key, string value, string location, List<Finding> findings)
     {
         if (value.Length > 64 * 1024 && !key.StartsWith("tokenizer.", StringComparison.Ordinal))
             findings.Add(new("M001", Severity.Medium, "Very large metadata string", $"The value is {value.Length:N0} characters.", location));
