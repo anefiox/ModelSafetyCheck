@@ -1,0 +1,110 @@
+using System.Security.Cryptography;
+using System.Text;
+using ModelSafetyCheck.Core;
+using ModelSafetyCheck.Data;
+
+namespace ModelSafetyCheck.Rules;
+
+/// <summary>
+/// Rule T010: compares a chat template with the database of official templates. An exact match is
+/// reassuring. The interesting case is a near match - an official template with lines added - because
+/// that is how poisoned templates are built; the added lines are shown so a human can judge them.
+/// </summary>
+public static class KnownTemplateCheck
+{
+    const double CloseMatch = 0.6;
+    const double NearCopy = 0.85;
+    const int MaxShownLines = 8;
+
+    static readonly Lazy<Dictionary<string, KnownTemplate>> ByHash = new(() =>
+        ReferenceData.KnownTemplates.Templates
+            .GroupBy(t => t.NormalizedSha256)
+            .ToDictionary(g => g.Key, g => g.First()));
+
+    static readonly Lazy<List<(KnownTemplate Template, Dictionary<string, int> Lines)>> Indexed = new(() =>
+        ReferenceData.KnownTemplates.Templates
+            .DistinctBy(t => t.NormalizedSha256)
+            .Select(t => (t, LineCounts(t.Text)))
+            .ToList());
+
+    /// <summary>Whitespace-insensitive hash, so re-indented copies of the same template still match.</summary>
+    public static string NormalizedHash(string template)
+    {
+        var builder = new StringBuilder(template.Length);
+        foreach (var c in template)
+            if (!char.IsWhiteSpace(c))
+                builder.Append(c);
+        return Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(builder.ToString())));
+    }
+
+    public static Finding? Check(string template, string location)
+    {
+        if (ReferenceData.KnownTemplates.Templates.Count == 0)
+            return null;
+
+        if (ByHash.Value.TryGetValue(NormalizedHash(template), out var exact))
+            return new Finding("T010", Severity.Info, $"Matches the official {exact.Family} template",
+                $"Identical (ignoring whitespace) to the template in {exact.Source}{(exact.Via is null ? "" : $" ({exact.Via})")}.", location);
+
+        var lines = LineCounts(template);
+        var best = Indexed.Value
+            .Select(k => (k.Template, Similarity: Similarity(lines, k.Lines), k.Lines))
+            .MaxBy(x => x.Similarity);
+
+        if (best.Template is null || best.Similarity < CloseMatch)
+            return new Finding("T010", Severity.Info, "Unrecognised chat template",
+                "This template does not match any official template in the database. That is normal for fine-tunes and new models; read it with --dump-template if the model will get tools.", location);
+
+        static bool IsProse(string line) => TextHeuristics.CountWords(line) >= 4 && !line.TrimStart().StartsWith("{%", StringComparison.Ordinal);
+        var added = Added(lines, best.Lines).OrderByDescending(IsProse).ToList();
+        var removed = Added(best.Lines, lines);
+        var injectedText = added.Any(IsProse);
+        var shown = added.Take(MaxShownLines).Select(l => $"\n  + {TextHeuristics.Truncate(l, 140)}");
+        var addedText = $"Added lines:{string.Concat(shown)}{(added.Count > MaxShownLines ? $"\n  (+{added.Count - MaxShownLines} more)" : "")}";
+
+        // A near-identical copy with a few added lines is the shape of an injection. A large rewrite is
+        // usually a different release of the template (e.g. an older download).
+        if (best.Similarity < NearCopy)
+            return new Finding("T010", Severity.Info, $"Different version of the {best.Template.Family} template",
+                $"{best.Similarity:P0} similar to {best.Template.Source} ({added.Count} line(s) added, {removed.Count} removed). " +
+                $"Large differences usually mean a different release of the template, such as an older download. {addedText}", location);
+
+        return new Finding("T010", injectedText ? Severity.Medium : Severity.Low,
+            $"Modified copy of the official {best.Template.Family} template",
+            $"{best.Similarity:P0} similar to {best.Template.Source}, with {added.Count} line(s) added and {removed.Count} removed. " +
+            (injectedText ? "Some added lines contain natural-language text, which is how hidden instructions are injected. " : "") + addedText,
+            location);
+    }
+
+    /// <summary>Line-level comparison: lines in <paramref name="candidate"/> but not <paramref name="reference"/>, and vice versa.</summary>
+    public static (List<string> Added, List<string> Removed, double Similarity) Compare(string candidate, string reference)
+    {
+        var a = LineCounts(candidate);
+        var b = LineCounts(reference);
+        return (Added(a, b), Added(b, a), Similarity(a, b));
+    }
+
+    static Dictionary<string, int> LineCounts(string text)
+    {
+        var counts = new Dictionary<string, int>(StringComparer.Ordinal);
+        foreach (var raw in text.Split('\n'))
+        {
+            var line = raw.Trim();
+            if (line.Length > 0)
+                counts[line] = counts.GetValueOrDefault(line) + 1;
+        }
+        return counts;
+    }
+
+    static double Similarity(Dictionary<string, int> a, Dictionary<string, int> b)
+    {
+        var common = a.Sum(kv => Math.Min(kv.Value, b.GetValueOrDefault(kv.Key)));
+        var total = a.Values.Sum() + b.Values.Sum();
+        return total == 0 ? 0 : 2.0 * common / total;
+    }
+
+    static List<string> Added(Dictionary<string, int> candidate, Dictionary<string, int> reference) =>
+        candidate.Where(kv => kv.Value > reference.GetValueOrDefault(kv.Key))
+            .SelectMany(kv => Enumerable.Repeat(kv.Key, kv.Value - reference.GetValueOrDefault(kv.Key)))
+            .ToList();
+}

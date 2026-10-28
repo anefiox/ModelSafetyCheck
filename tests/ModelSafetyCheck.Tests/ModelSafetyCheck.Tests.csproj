@@ -18,6 +18,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\ModelSafetyCheck.Rules\ModelSafetyCheck.Rules.csproj" />
     <ProjectReference Include="..\..\src\ModelSafetyCheck.Local\ModelSafetyCheck.Local.csproj" />
+    <ProjectReference Include="..\..\src\ModelSafetyCheck.Audit\ModelSafetyCheck.Audit.csproj" />
+    <ProjectReference Include="..\..\src\ModelSafetyCheck.Hub\ModelSafetyCheck.Hub.csproj" />
   </ItemGroup>
 
 </Project>

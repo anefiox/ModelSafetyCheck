@@ -23,6 +23,15 @@ public sealed class ScanReport
     /// <summary>"gguf", "ollama", "lmstudio".</summary>
     public required string Kind { get; init; }
 
+    /// <summary>Local file path, when the target is a file on disk.</summary>
+    public string? Path { get; init; }
+
+    /// <summary>Identifies the model weights (Ollama blob digest, or size and modification time of a file). Used by `watch`.</summary>
+    public string? Fingerprint { get; set; }
+
+    /// <summary>sha256 of every template and system prompt, by location. Used by `watch` to spot rewrites.</summary>
+    public Dictionary<string, string> ContentHashes { get; } = [];
+
     public ModelSummary? Summary { get; set; }
     public List<Finding> Findings { get; } = [];
     public List<ExtractedTemplate> Templates { get; } = [];
@@ -39,9 +48,11 @@ public static class ModelScanner
 
     public static ScanReport ScanFile(string path, string kind = "gguf", string? target = null)
     {
-        var report = new ScanReport { Target = target ?? path, Kind = kind };
+        var report = new ScanReport { Target = target ?? path, Kind = kind, Path = path };
         try
         {
+            var info = new FileInfo(path);
+            report.Fingerprint = $"size:{info.Length};mtime:{info.LastWriteTimeUtc:O}";
             using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 1 << 20);
             ScanGguf(stream, report);
         }
@@ -81,13 +92,39 @@ public static class ModelScanner
     {
         var extracted = new ExtractedTemplate(location, dialect, Sha256(template), template.Length, template);
         report.Templates.Add(extracted);
+        report.ContentHashes[location] = extracted.Sha256;
         report.Findings.Add(new Finding("T001", Severity.Info, "Chat template found",
             $"{template.Length:N0} characters, {dialect}, sha256 {extracted.Sha256}. Use --dump-template to read it.", location));
-        report.Findings.AddRange(TemplateAnalyzer.Analyze(template, dialect, location));
+        report.Findings.AddRange(AnalyzeTemplate(template, dialect, location));
     }
 
-    public static void ScanSystemPrompt(ScanReport report, string text, string location) =>
+    /// <summary>
+    /// Heuristic rules plus the known-template check. An exact match with an official template turns
+    /// heuristic hits into Info: official templates contain phrases like "do not tell the user about
+    /// function calls", and any injected text would break the exact match anyway.
+    /// </summary>
+    public static List<Finding> AnalyzeTemplate(string template, TemplateDialect dialect, string location)
+    {
+        var findings = TemplateAnalyzer.Analyze(template, dialect, location);
+        var known = dialect == TemplateDialect.Jinja ? KnownTemplateCheck.Check(template, location) : null;
+        if (known is null)
+            return findings;
+
+        if (known.Severity == Severity.Info && known.Title.StartsWith("Matches the official", StringComparison.Ordinal))
+            findings = findings
+                .Select(f => f.Severity > Severity.Info
+                    ? f with { Severity = Severity.Info, Title = f.Title + " (in official template)", Detail = $"Was {f.Severity}; this text is part of the official template.\n{f.Detail}" }
+                    : f)
+                .ToList();
+        findings.Add(known);
+        return findings;
+    }
+
+    public static void ScanSystemPrompt(ScanReport report, string text, string location)
+    {
+        report.ContentHashes[location] = Sha256(text);
         report.Findings.AddRange(TemplateAnalyzer.AnalyzePlainText(text, location));
+    }
 
     static ModelSummary Summarize(GgufFile file)
     {
@@ -108,5 +145,5 @@ public static class ModelScanner
     static Finding Prefix(Finding finding, string prefix) =>
         prefix.Length == 0 ? finding : finding with { Location = finding.Location is null ? prefix.TrimEnd(' ', '/') : prefix + finding.Location };
 
-    static string Sha256(string text) => Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(text)));
+    public static string Sha256(string text) => Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(text)));
 }

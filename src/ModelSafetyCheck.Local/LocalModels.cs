@@ -81,12 +81,15 @@ public static partial class LocalModels
     {
         var report = new ScanReport { Target = $"ollama:{OllamaName(Path.Combine(modelsDir, "manifests"), manifestPath)}", Kind = "ollama" };
         List<(string MediaType, string Digest)> layers;
+        string? configDigest = null;
         try
         {
             using var doc = JsonDocument.Parse(File.ReadAllText(manifestPath));
             layers = doc.RootElement.GetProperty("layers").EnumerateArray()
                 .Select(l => (l.GetProperty("mediaType").GetString() ?? "", l.GetProperty("digest").GetString() ?? ""))
                 .ToList();
+            if (doc.RootElement.TryGetProperty("config", out var config) && config.TryGetProperty("digest", out var cd))
+                configDigest = cd.GetString();
         }
         catch (Exception ex) when (ex is IOException or JsonException or KeyNotFoundException or InvalidOperationException or UnauthorizedAccessException)
         {
@@ -121,7 +124,10 @@ public static partial class LocalModels
                         var before = report.Templates.Count;
                         ModelScanner.ScanGguf(stream, report, $"{label}/");
                         if (mediaType == ModelMediaType)
+                        {
                             hasModelTemplate = report.Templates.Count > before;
+                            report.Fingerprint = digest;
+                        }
                     }
                     catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
                     {
@@ -139,11 +145,38 @@ public static partial class LocalModels
             }
         }
 
+        CheckOllamaConfig(modelsDir, configDigest, report);
+
         if (hasModelTemplate && layers.Any(l => l.MediaType == TemplateMediaType))
             report.Findings.Add(new Finding("O003", Severity.Info, "Ollama template overrides the embedded template",
                 "Ollama uses its own template layer instead of the GGUF's chat template. Both were scanned; the Ollama layer is the one that runs.",
                 "ollama template layer"));
         return report;
+    }
+
+    /// <summary>Newer Ollama models can use a built-in renderer/parser instead of a template layer (rule O005).</summary>
+    static void CheckOllamaConfig(string modelsDir, string? digest, ScanReport report)
+    {
+        if (digest is null || !DigestRegex().IsMatch(digest))
+            return;
+        var blob = Path.Combine(modelsDir, "blobs", digest.Replace(':', '-'));
+        if (!File.Exists(blob) || new FileInfo(blob).Length > MaxTextLayerBytes)
+            return;
+        try
+        {
+            using var doc = JsonDocument.Parse(File.ReadAllText(blob));
+            var names = new[] { "renderer", "parser" }
+                .Where(n => doc.RootElement.TryGetProperty(n, out var v) && v.ValueKind == JsonValueKind.String && v.GetString()!.Length > 0)
+                .Select(n => $"{n} '{doc.RootElement.GetProperty(n).GetString()}'")
+                .ToList();
+            if (names.Count > 0)
+                report.Findings.Add(new Finding("O005", Severity.Info, "Ollama formats prompts with built-in code",
+                    $"This model uses Ollama's {string.Join(" and ", names)} instead of (or as well as) a template layer, so part of the prompt formatting is not on disk to review.",
+                    "ollama config"));
+        }
+        catch (Exception ex) when (ex is IOException or JsonException or UnauthorizedAccessException)
+        {
+        }
     }
 
     static string? ReadTextLayer(string blob, ScanReport report, string what)

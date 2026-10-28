@@ -7,6 +7,9 @@ public sealed class GgufArray(GgufValueType elementType, ulong count)
     public ulong Count { get; } = count;
     public IReadOnlyList<string>? Strings { get; init; }
     public IReadOnlyList<object>? Values { get; init; }
+
+    /// <summary>Large integer arrays that a rule needs (see <see cref="GgufLimits.KeepIntegerArrays"/>).</summary>
+    public IReadOnlyList<long>? Integers { get; init; }
     public IReadOnlyList<GgufArray>? Arrays { get; init; }
 }
 

@@ -53,7 +53,7 @@ data/
 
 ## Feature checklist
 
-Status: `[ ]` todo · `[~]` in progress · `[x]` done. Every rule has a stable ID.
+Status: `[ ]` todo · `[~]` partial · `[x]` done. Every rule has a stable ID.
 
 ### Phase 1 — MVP: `scan` + `local`
 
@@ -101,13 +101,13 @@ Template rules (GGUF-T) — applied to `tokenizer.chat_template` and every `toke
 - [x] T008 Template lex failure / unusually large template
 - [x] T009 Fixed natural-language text the template adds (info, quoted so the user can read what the model is told)
 - [x] T011 Resource exhaustion: `**` or numeric literals ≥ 1,000,000 (render-time DoS on every prompt)
-- [ ] T010 Known-good / unknown template (see D-02) — phase 2
+- [x] T010 Known-good / unknown template (see D-02)
 - [ ] T012 Special-token injection: template emits role markers taken from user content unescaped — phase 2
 
 Tokenizer rules (GGUF-K)
 - [x] K001 BOS/EOS/PAD/UNK ids out of vocabulary range
 - [x] K002 Vocab size ≠ embedding tensor dimension
-- [ ] K003 Special/added tokens whose text looks like instructions or role spoofing — phase 2
+- [x] K003 Special/added tokens whose text looks like instructions (see phase 2)
 
 Local discovery (`local`)
 - [x] L-01 LM Studio model dirs (`~/.lmstudio/models`, `~/.cache/lm-studio/models`)
@@ -119,10 +119,10 @@ Local discovery (`local`)
 - [x] O002 Manifest references a missing blob
 - [x] O004 Oversized template/system layer
 - [x] L-09 Ollama projector and adapter layers scanned as GGUF too
-- [ ] L-06 llama.cpp cache (`LLAMA_CACHE`, `~/.cache/llama.cpp`) — phase 2
-- [ ] L-07 Hugging Face hub cache (`~/.cache/huggingface/hub`) `.gguf` files — phase 2
-- [ ] L-08 LM Studio per-model prompt-template overrides (user config under `~/.lmstudio/.internal/`) — these replace the embedded template the same way Ollama's layer does — phase 2
-- [ ] L-10 Ollama Modelfile `RENDERER`/`PARSER` built-in templates (newer Ollama) — note when the template isn't on disk — phase 2
+- [x] L-06 llama.cpp cache (`LLAMA_CACHE`, platform default)
+- [x] L-07 Hugging Face hub cache `.gguf` files
+- [x] L-08 LM Studio per-model prompt-template overrides (user config under `~/.lmstudio/.internal/`) — these replace the embedded template the same way Ollama's layer does
+- [x] L-10 Ollama `renderer`/`parser` built-in formatting noted (O005)
 
 CLI / output
 - [x] C-01 `modelcheck scan <path...>` (files or directories, recursive)
@@ -132,7 +132,7 @@ CLI / output
 - [x] C-05 `--dump-template` prints extracted templates
 - [x] C-06 Exit codes 0/1/2/3
 - [x] C-07 `--min-severity` filter
-- [ ] C-08 `--format sarif` — phase 2
+- [x] C-08 `--format sarif`
 - [x] C-09 Native AOT publish verified on win-x64 (4.8 MB single exe, no trim/AOT warnings). On Windows the link step needs the VS C++ build tools and `vswhere.exe` on PATH (`C:\Program Files (x86)\Microsoft Visual Studio\Installer`)
 
 Testing
@@ -140,59 +140,74 @@ Testing
 - [x] X-02 One fixture per structural rule
 - [x] X-03 Malicious template fixtures (SSTI, trigger, hidden instruction, unicode tags)
 - [x] X-04 Clean template fixtures from real model families (no false positives) — ChatML/Qwen, Llama 3, Mistral, Gemma, SmolLM3 mode switches, Ollama Go template; also verified clean on a real Gemma 4 12B GGUF
-- [ ] X-06 Corpus test: run over the embedded templates of the top ~500 GGUF repos and track the false-positive rate (needs `repo`) — phase 3
-- [ ] X-07 Tests on Linux and macOS in CI (path handling, Ollama system install locations) — phase 2
-- [ ] X-05 SharpFuzz harness for the parser — phase 2
+- [~] X-06 False-positive corpus: official-template benchmark done; top-500 GGUF repo corpus via `repo` still TODO
+- [x] X-07 CI matrix workflow written (ubuntu/windows/macos); not run yet
+- [~] X-05 Mutation fuzz test done; SharpFuzz harness TODO
 
 ### Phase 2 — `audit`, reference data, releases
 
-Reference data
-- [ ] D-01 `known-templates.json`: SHA-256 of official templates (Llama 3.x, Qwen 2.5/3, Mistral, Gemma 2/3/4, Phi, DeepSeek, GPT-OSS, …) with source URL
-- [ ] D-02 T010 Template matches known-good (info) / unknown (warning with nearest-match diff)
-- [ ] D-03 Normalised template hashing (whitespace-insensitive) to avoid noise
-- [ ] D-04 Tool to regenerate the DB from upstream repos (`tools/build-template-db`)
-- [ ] D-05 `runner-vulns.json` from real advisories (Bleeding Llama, Ollama Windows updater signature bypass, Ollama path traversal 2024, Ollama DNS rebinding 2024, Ollama desktop drive-by 2025, llama-cpp-python CVE-2024-34359, SGLang template SSTI 2026). Verify every version range against the advisory, not the video.
+Reference data (`data/`, embedded; a newer copy in `~/.modelcheck/data` or `$MODELCHECK_DATA` overrides it)
+- [x] D-01 `known-templates.json`: 50 templates (41 distinct) from 50 official/established repos — Qwen 2.5/3/Coder/QwQ, DeepSeek R1/V3, Phi 3.5/4, GPT-OSS, Gemma 2/3/3n/4, Llama 3/3.1/3.2/3.3/4, Mistral/Nemo/Small/Devstral, Granite, SmolLM, OLMo, GLM, Kimi K2, LFM2, Nemotron, Command R
+- [x] D-02 T010: exact match → Info; ≥85% similar copy with added prose lines → Medium (shows added lines, prose first); larger differences → Info "different version"; no match → Info
+- [x] D-03 Whitespace-insensitive normalised hash
+- [x] D-04 `tools/TemplateDbBuilder` regenerates the DB from `data/template-sources.json` (HF_TOKEN optional). Version = build date
+- [x] D-05 `runner-vulns.json`: CVE-2026-7482 Bleeding Llama (<0.17.1), CVE-2026-42248/42249 Windows updater (0.12.10–<0.23.0, **fix version only third-party reported**, marked `confidence: reported`), Ollama desktop drive-by 2025 (0.10.0, fixed 0.10.1, no CVE), CVE-2024-37032 (<0.1.34), CVE-2024-28224 (<0.1.29), CVE-2024-34359 llama-cpp-python (0.2.30–<0.2.72), CVE-2026-5760 SGLang (<0.5.11, reported). Each entry lists its sources
+- [x] D-06 Exact match with an official template downgrades heuristic hits to Info (official templates contain e.g. "do not tell the user about function calls"; injected text breaks the exact match)
+- [ ] D-07 Keep historical template versions per repo so stale-but-official templates match exactly
+- [ ] D-08 Scheduled CI job that rebuilds the template DB and opens a PR on change
 
 `audit` command
-- [ ] A-01 Detect installed runners + versions (Ollama, LM Studio, llama.cpp server, vLLM, SGLang)
-- [ ] A-02 Match versions against `runner-vulns.json`
-- [ ] A-03 `OLLAMA_HOST` in process env, user/system env (Windows registry), systemd unit + overrides, launchd plist
-- [ ] A-04 Listening sockets on known ports (11434, 1234, 8080, 8000, 30000): flag non-loopback binds
-- [ ] A-05 Docker: containers publishing AI ports on 0.0.0.0 (note ufw bypass on Linux)
-- [ ] A-06 LM Studio server settings: network serving enabled, require-auth disabled
-- [ ] A-07 Live reachability probe on LAN IP (opt-in `--probe`)
-- [ ] A-08 Ollama auto-update setting on Windows
-- [ ] A-09 Remediation text for every finding (loopback, Tailscale, auth reverse proxy, update)
+- [x] A-01 Runner detection: Ollama (running server `/api/version`, else CLI), LM Studio (`historical-version-info.json`), llama-cpp-python / SGLang / vLLM (first Python on PATH only; other venvs are not seen)
+- [x] A-02 A001 version matching against `runner-vulns.json`, platform-aware, with fix text and sources
+- [x] A-03 A002 `OLLAMA_HOST` exposure + A003 `OLLAMA_ORIGINS=*`: process env, Windows user/machine env, systemd units and drop-ins (system + user), `/etc/environment`, `launchctl getenv`
+- [x] A-04 A004 non-loopback listeners on 11434/1234/30000 (High) and 8080/8000/5001 (Medium); `lsof` fallback where .NET can't list listeners
+- [x] A-05 A005 Docker containers publishing AI ports on 0.0.0.0/:: (ufw bypass note on Linux)
+- [~] A-06 LM Studio network/auth settings: LM Studio only writes its server config once configured and the schema is undocumented, so exposure is covered by A004 + the A006 probe instead. TODO: parse the server config once the schema is known
+- [x] A-07 A006 `--probe`: unauthenticated request to exposed servers via this machine's own LAN addresses
+- [~] A-08 Ollama Windows auto-update: covered by the CVE-2026-42248 entry's remediation (the setting itself is not read)
+- [x] A-09 Every network/runner finding includes a "Fix:" line
+- [ ] A-10 Identify the process that owns an exposed port (PID → executable)
+- [ ] A-11 Read LM Studio `mcp.json` and agent tool configs for tools granting shell/file access (feeds the L5 rating)
 
 Agent risk (`audit --agent-dir <path>`)
-- [ ] G-01 Secrets reachable: `.env*`, `id_rsa`/`id_ed25519`, `.aws/credentials`, `.npmrc`, `.pypirc`, `*.pem`, kube configs, git credential files, high-entropy tokens
-- [ ] G-02 Overall risk rating combining: model provenance × tool access × secret exposure × network exposure
-- [ ] G-03 Privilege-separation guidance (exec process ≠ network process)
+- [x] G-01 G001 secrets by file name (.env*, SSH keys, key stores, .netrc, .git-credentials, cloud creds, tfstate) and content (private keys, AWS, GitHub, OpenAI, Anthropic, Slack, Google, Stripe, HF, npm tokens, credentials in URLs incl. `.git/config`). Values are never printed
+- [x] G-02 G002 per-layer rating L1–L5 with escalation (exposed + vulnerable runner; exposed + readable secrets)
+- [x] G-03 Privilege-separation guidance
 
 Other
-- [ ] K003 (see above), L-06, L-07, C-08 SARIF, X-05 fuzzing
-- [ ] R-01 Native AOT publish profiles + GitHub Actions release workflow (all RIDs, checksums)
-- [ ] R-02 `dotnet tool` package
+- [x] K003 Control/user-defined tokens containing instructions, invisible characters, URLs or sentences (parser keeps `tokenizer.ggml.token_type`)
+- [x] L-06 / L-07 llama.cpp and Hugging Face hub caches (symlinks de-duplicated)
+- [x] L-08 LM Studio per-model overrides and presets: prompt templates (Jinja) and system prompts scanned
+- [x] L-10 O005 Ollama config `renderer`/`parser` noted (formatting code not on disk)
+- [x] C-08 `--format sarif` (SARIF 2.1.0 with `security-severity` for GitHub code scanning)
+- [~] X-05 Mutation fuzz test in the suite (3 × 3,000 mutated files, fixed seeds). Coverage-guided SharpFuzz harness still TODO
+- [~] X-06 False-positive benchmark: every official template in the DB analyses clean; raw heuristics fire on only 2/41 before the official-match downgrade. Top-500 GGUF repo corpus still TODO
+- [x] X-07 CI on ubuntu/windows/macos (`.github/workflows/ci.yml`). Not run yet (no remote)
+- [x] R-01 `.github/workflows/release.yml`: tag `v*` → Native AOT for win-x64, win-arm64, linux-x64, linux-arm64, osx-arm64 + SHA256SUMS → GitHub release. Not run yet
+- [x] R-02 `dotnet pack` → `ModelSafetyCheck` dotnet tool (portable); `dotnet publish -r <rid>` → native single binary. Both verified locally
+- [x] R-03 `.gitattributes` normalises line endings
 
 ### Phase 3 — `repo` + `watch`
 
-`repo <hf-user/repo>` (pre-download)
-- [ ] H-01 List repo files via HF API
-- [ ] H-02 Flag lure files: `.bat`, `.cmd`, `.ps1`, `.sh`, `.exe`, `.dll`, `.dmg`, `.pkg`, `.msi`, `.py`, `.js`, `.jar`, `.lnk`, `.scr`, archives
-- [ ] H-03 README analysis: instructions to run scripts / paste commands / disable AV
-- [ ] H-04 Header-only GGUF scan via HTTP Range (download until header + KV parsed; cap bytes)
-- [ ] H-05 Compare embedded template vs `tokenizer_config.json` / HF-displayed template (Pillar card-vs-file mismatch)
-- [ ] H-06 Lineage: `general.base_model.*`, card `base_model`, merge/abliterated/uncensored markers, chain depth
-- [ ] H-07 Publisher trust tier: official org / well-known quantizer allowlist (`data/trusted-publishers.json`) / unknown
-- [ ] H-08 Repo age, recent creation + very high downloads, card copied from another repo (similarity) — suspicion signals
-- [ ] H-09 Pickle/`.bin`/`.pt` files present → recommend picklescan / safetensors
+`repo <org/name | URL>...` (`--max-files`, `--all-files`, `--budget-mb`)
+- [x] H-01 HF API with `?blobs=true` (files, LFS sha256, tags, cardData, displayed GGUF template). HF_TOKEN is sent only to huggingface.co
+- [x] H-02 Executables/scripts (High), Python (Medium), archives (Medium)
+- [x] H-03 README lures: run .bat/.ps1/.exe/scripts, pipe-to-shell, encoded PowerShell, disable AV, `trust_remote_code`, hidden characters. High for unknown publishers, Medium for official/quantizers
+- [x] H-04 Header-only GGUF scan via `HttpRangeStream` (1 MiB blocks, budget cap). ~16 MiB read for a 7–12 GB Gemma 4 file. Split GGUFs: first shard only. Default 6 files spread across sizes
+- [x] H-05 File template vs HF-displayed template (High if the file's template also has warnings, else Medium = likely a stale upload); differing templates across files. Also scans `chat_template.jinja` / `tokenizer_config.json` in non-GGUF repos
+- [x] H-06 Lineage from `base_model:*` tags and card; abliterated/merge/uncensored markers
+- [x] H-07 Publisher tier from `data/trusted-publishers.json`
+- [x] H-08 New repo with >50k downloads; card naming an official org ≥3 times with no base model (impersonation)
+- [x] H-09 Pickle formats → picklescan/safetensors advice
+- [ ] H-10 `local --online`: match local LM Studio / HF-cache files to their repo by path and verify the LFS sha256
+- [ ] H-11 Card-similarity check against the claimed base model's card (copied cards)
 
-`watch` (template drift)
-- [ ] W-01 Snapshot store (`~/.modelcheck/snapshots.json`): model id → template hash, system hash, blob digest
-- [ ] W-02 `watch --baseline` / `watch --check`: report changed templates/system prompts with diff
-- [ ] W-03 Distinguish legit model update (blob digest changed) from template-only change (suspicious — DNS-rebinding rewrite)
-- [ ] W-04 Install helpers: Windows Scheduled Task, systemd user timer, launchd agent
-- [ ] W-05 Optional desktop notification
+`watch` (`--baseline`, `--update`, `--store`, `--log`, `--print-schedule`, `--install-schedule`)
+- [x] W-01 Snapshot store `~/.modelcheck/snapshots.json`: target → weights fingerprint (Ollama blob digest / file size+mtime) + sha256 of every template and system prompt
+- [x] W-02 First run saves a baseline; later runs report changes; `--update` accepts them
+- [x] W-03 W001 High: template/system prompt changed or added with unchanged weights; W001 Medium for LM Studio override changes; W002 Info for model updates; W003 Info for added/removed models
+- [x] W-04 Schedule plans: Windows `schtasks` hourly, systemd user timer, launchd agent. `--print-schedule` verified on Windows; `--install-schedule` not run here because it changes the system
+- [ ] W-05 Desktop notification on W001
 
 ### Phase 4 — later
 

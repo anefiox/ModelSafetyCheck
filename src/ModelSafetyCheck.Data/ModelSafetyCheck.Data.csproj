@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\ModelSafetyCheck.Core\ModelSafetyCheck.Core.csproj" />
+  </ItemGroup>
+
+  <!-- Reference data ships inside the binary; newer copies in ~/.modelcheck/data override it. -->
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\data\*.json" Exclude="..\..\data\template-sources.json" LogicalName="data/%(Filename)%(Extension)" />
+  </ItemGroup>
+
+</Project>

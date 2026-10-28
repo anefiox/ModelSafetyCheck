@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "updated": "2026-10-28",
+  "notes": "Publisher tiers for Hugging Face. 'official' publishes its own models; 'quantizer' is an established GGUF publisher with a long track record. Anything else is 'unknown' - not malicious, but a stranger. Names are matched case-insensitively.",
+  "official": [
+    "meta-llama", "google", "Qwen", "mistralai", "microsoft", "deepseek-ai", "openai", "nvidia", "ibm-granite",
+    "allenai", "HuggingFaceTB", "ggml-org", "CohereLabs", "CohereForAI", "zai-org", "THUDM", "moonshotai",
+    "MiniMaxAI", "LiquidAI", "tiiuae", "apple", "ServiceNow-AI", "baidu", "tencent", "stepfun-ai"
+  ],
+  "quantizer": [
+    "bartowski", "unsloth", "lmstudio-community", "mradermacher", "MaziyarPanahi", "QuantFactory", "TheBloke", "NousResearch"
+  ]
+}

@@ -4,13 +4,27 @@
     <OutputType>Exe</OutputType>
     <AssemblyName>modelcheck</AssemblyName>
     <RootNamespace>ModelSafetyCheck.Cli</RootNamespace>
-    <PublishAot>true</PublishAot>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <!-- `dotnet publish -r <rid>` builds a native single binary; `dotnet pack` builds a portable dotnet tool. -->
+    <PublishAot Condition="'$(RuntimeIdentifier)' != ''">true</PublishAot>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>modelcheck</ToolCommandName>
+    <PackageId>ModelSafetyCheck</PackageId>
+    <Description>Scan local AI models (GGUF), chat templates and local AI setups for malicious files, hidden instructions and network exposure.</Description>
+    <PackageTags>gguf;llm;security;ollama;lmstudio;jinja;scanner</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ModelSafetyCheck.Rules\ModelSafetyCheck.Rules.csproj" />
     <ProjectReference Include="..\ModelSafetyCheck.Local\ModelSafetyCheck.Local.csproj" />
+    <ProjectReference Include="..\ModelSafetyCheck.Audit\ModelSafetyCheck.Audit.csproj" />
+    <ProjectReference Include="..\ModelSafetyCheck.Hub\ModelSafetyCheck.Hub.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>

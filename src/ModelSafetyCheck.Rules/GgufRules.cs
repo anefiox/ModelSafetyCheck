@@ -212,7 +212,7 @@ public sealed class MetadataRules : IGgufRule
 }
 
 /// <summary>GGUF-K rules: tokenizer consistency. Out-of-range token ids make runners index past their tables.</summary>
-public sealed class TokenizerRules : IGgufRule
+public sealed partial class TokenizerRules : IGgufRule
 {
     static readonly string[] TokenIdKeys =
     [
@@ -241,11 +241,57 @@ public sealed class TokenizerRules : IGgufRule
                     $"{key} is {id} but the vocabulary has {vocab} tokens. Runners that trust it index past the token table.", $"kv:{key}");
         }
 
+        foreach (var finding in CheckSpecialTokens(file, tokens))
+            yield return finding;
+
         var embedding = file.Tensors.FirstOrDefault(t => t.Name == "token_embd.weight");
         if (embedding is { Dimensions.Length: >= 2 } && embedding.Dimensions[1] < vocab)
             yield return new("K002", Severity.High, "Vocabulary larger than the embedding table",
                 $"The tokenizer has {vocab} tokens but token_embd.weight has only {embedding.Dimensions[1]} rows. Token ids past that read out of bounds.",
                 "tensor:token_embd.weight");
+    }
+}
+
+public sealed partial class TokenizerRules
+{
+    const int ControlToken = 3;
+    const int UserDefinedToken = 4;
+
+    /// <summary>
+    /// K003: control and user-defined tokens are single ids the runner inserts verbatim. One whose text
+    /// is a sentence or an instruction smuggles a whole prompt into "one token" that reviewers skip.
+    /// </summary>
+    static IEnumerable<Finding> CheckSpecialTokens(GgufFile file, GgufArray tokens)
+    {
+        var types = file.GetArray("tokenizer.ggml.token_type")?.Integers;
+        if (types is null || tokens.Strings is null)
+            yield break;
+
+        var suspicious = new List<(string Text, Severity Severity, string Why)>();
+        for (var i = 0; i < Math.Min(types.Count, tokens.Strings.Count); i++)
+        {
+            if (types[i] is not (ControlToken or UserDefinedToken))
+                continue;
+            var text = tokens.Strings[i];
+            var phrase = TextHeuristics.FindInstructionPhrases(text).OrderByDescending(p => p.Severity).FirstOrDefault();
+            var invisible = TextHeuristics.ScanInvisible(text);
+            if (phrase is not null)
+                suspicious.Add((text, phrase.Severity, phrase.Description));
+            else if (invisible.Tags > 0 || invisible.Bidi > 0)
+                suspicious.Add((text, Severity.High, invisible.Describe()));
+            else if (TextHeuristics.FindUrls(text).Any())
+                suspicious.Add((text, Severity.Medium, "contains a URL"));
+            else if (TextHeuristics.CountWords(text) >= 6)
+                suspicious.Add((text, Severity.Medium, "a whole sentence as one special token"));
+        }
+
+        if (suspicious.Count == 0)
+            yield break;
+        yield return new Finding("K003", suspicious.Max(s => s.Severity), "Special tokens that contain text or instructions",
+            "Control/user-defined tokens are inserted as single ids, so text inside them is easy to miss: " +
+            string.Join("", suspicious.Take(5).Select(s => $"\n  - {s.Why}: \"{TextHeuristics.Truncate(s.Text, 100)}\"")) +
+            (suspicious.Count > 5 ? $"\n  (+{suspicious.Count - 5} more)" : ""),
+            "kv:tokenizer.ggml.tokens");
     }
 }
 

@@ -16,6 +16,9 @@ public sealed record GgufLimits
     public int MaxArrayDepth { get; init; } = 4;
     public uint MaxDimensions { get; init; } = 64;
 
+    /// <summary>Large integer arrays are normally skipped; these keys are kept because rules need them.</summary>
+    public IReadOnlySet<string> KeepIntegerArrays { get; init; } = new HashSet<string> { "tokenizer.ggml.token_type" };
+
     public static GgufLimits Default { get; } = new();
 }
 
@@ -211,6 +214,13 @@ public static class GgufParser
                 return new GgufArray(elementType, count) { Arrays = items };
             }
             default:
+                if (count > SmallArrayKeep && limits.KeepIntegerArrays.Contains(key) && depth == 0 && IsInteger(elementType))
+                {
+                    var integers = new long[count];
+                    for (ulong i = 0; i < count; i++)
+                        integers[i] = Convert.ToInt64(ReadValue(reader, elementType, v1, limits, depth + 1, key));
+                    return new GgufArray(elementType, count) { Integers = integers };
+                }
                 if (count > SmallArrayKeep)
                 {
                     reader.Skip(count * minSize, $"array '{key}'");
@@ -222,6 +232,9 @@ public static class GgufParser
                 return new GgufArray(elementType, count) { Values = values };
         }
     }
+
+    static bool IsInteger(GgufValueType type) =>
+        type is GgufValueType.UInt8 or GgufValueType.Int8 or GgufValueType.UInt16 or GgufValueType.Int16 or GgufValueType.UInt32 or GgufValueType.Int32 or GgufValueType.Int64;
 
     static ulong? MinEncodedSize(GgufValueType type, bool v1) => type switch
     {

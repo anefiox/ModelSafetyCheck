@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ModelSafetyCheck.Core\ModelSafetyCheck.Core.csproj" />
     <ProjectReference Include="..\ModelSafetyCheck.Jinja\ModelSafetyCheck.Jinja.csproj" />
+    <ProjectReference Include="..\ModelSafetyCheck.Data\ModelSafetyCheck.Data.csproj" />
   </ItemGroup>
 
 
