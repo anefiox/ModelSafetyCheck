@@ -21,7 +21,7 @@ public class RenderFidelityTests
         var mismatches = new List<string>();
         foreach (var t in ReferenceData.KnownTemplates.Templates)
         {
-            var key = t.Source + (t.Name is null ? "" : "#" + t.Name);
+            var key = OfficialTemplateTests.Id(t);
             if (!doc.RootElement.TryGetProperty(key, out var expected) || expected.ValueKind != JsonValueKind.String)
                 continue;
             var actual = TemplateExplainer.Explain(t.Text).Prompt;

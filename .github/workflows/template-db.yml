@@ -22,7 +22,7 @@ jobs:
       - name: Rebuild database
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: dotnet run --project tools/TemplateDbBuilder
+        run: dotnet run --project tools/TemplateDbBuilder -- --history
       - name: Check false positives on official templates
         run: dotnet test --filter "FullyQualifiedName~OfficialTemplateTests"
       - uses: peter-evans/create-pull-request@v7

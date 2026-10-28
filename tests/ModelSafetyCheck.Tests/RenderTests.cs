@@ -73,7 +73,7 @@ public class RenderTests
     [MemberData(nameof(OfficialTemplates))]
     public void Official_templates_render_with_the_sample_conversation(string id)
     {
-        var template = ReferenceData.KnownTemplates.Templates.First(t => $"{t.Source}{(t.Name is null ? "" : "#" + t.Name)}" == id);
+        var template = ReferenceData.KnownTemplates.Templates.First(t => OfficialTemplateTests.Id(t) == id);
         var explanation = TemplateExplainer.Explain(template.Text);
         Assert.True(explanation.Error is null, explanation.Error);
         Assert.Contains("capital of France", explanation.Prompt);

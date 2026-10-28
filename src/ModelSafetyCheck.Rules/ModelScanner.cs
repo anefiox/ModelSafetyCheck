@@ -68,7 +68,7 @@ public static class ModelScanner
     {
         var name = System.IO.Path.GetFileName(path);
         var ext = System.IO.Path.GetExtension(path);
-        return ext.Equals(".gguf", StringComparison.OrdinalIgnoreCase) || ext.Equals(".safetensors", StringComparison.OrdinalIgnoreCase) ||
+        return ext.Equals(".gguf", StringComparison.OrdinalIgnoreCase) || ext.Equals(".safetensors", StringComparison.OrdinalIgnoreCase) || ext.Equals(".onnx", StringComparison.OrdinalIgnoreCase) ||
                PickleScanner.Extensions.Contains(ext) || name is "tokenizer_config.json" or "chat_template.jinja" or "chat_template.json";
     }
 
@@ -80,7 +80,9 @@ public static class ModelScanner
         if (ext.Equals(".gguf", StringComparison.OrdinalIgnoreCase))
             return ScanFile(path);
 
-        var kind = ext.Equals(".safetensors", StringComparison.OrdinalIgnoreCase) ? "safetensors" : PickleScanner.Extensions.Contains(ext) ? "pickle" : "template-file";
+        var kind = ext.Equals(".safetensors", StringComparison.OrdinalIgnoreCase) ? "safetensors"
+            : ext.Equals(".onnx", StringComparison.OrdinalIgnoreCase) ? "onnx"
+            : PickleScanner.Extensions.Contains(ext) ? "pickle" : "template-file";
         var report = new ScanReport { Target = path, Kind = kind, Path = path };
         try
         {
@@ -93,6 +95,7 @@ public static class ModelScanner
             var info = new FileInfo(path);
             report.Fingerprint = $"size:{info.Length};mtime:{info.LastWriteTimeUtc:O}";
             if (kind == "safetensors") SafetensorsScanner.Scan(stream, report);
+            else if (kind == "onnx") OnnxScanner.Scan(stream, report, path);
             else PickleScanner.Scan(stream, report);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException)
@@ -164,9 +167,7 @@ public static class ModelScanner
     /// </summary>
     public static List<Finding> AnalyzeTemplate(string template, TemplateDialect dialect, string location)
     {
-        var findings = TemplateAnalyzer.Analyze(template, dialect, location);
-        if (dialect == TemplateDialect.Jinja)
-            findings = AddRenderedEvidence(template, location, findings);
+        var findings = AddRenderedEvidence(template, dialect, location, TemplateAnalyzer.Analyze(template, dialect, location));
         var known = dialect == TemplateDialect.Jinja ? KnownTemplateCheck.Check(template, location) : null;
         if (known is null)
             return findings;
@@ -185,9 +186,9 @@ public static class ModelScanner
     /// Renders the template in the sandbox with trigger probes (T013). Confirmed payloads raise the static
     /// trigger finding (T005) to High; a template that cannot be rendered is noted (T014).
     /// </summary>
-    static List<Finding> AddRenderedEvidence(string template, string location, List<Finding> findings)
+    static List<Finding> AddRenderedEvidence(string template, TemplateDialect dialect, string location, List<Finding> findings)
     {
-        var explanation = TemplateExplainer.Explain(template);
+        var explanation = TemplateExplainer.Explain(template, new ExplainOptions { Dialect = dialect });
         if (explanation.Error is not null)
         {
             findings.Add(new Finding("T014", Severity.Info, "Template could not be rendered in the sandbox",

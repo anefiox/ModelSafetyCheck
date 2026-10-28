@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\ModelSafetyCheck.Rules\ModelSafetyCheck.Rules.csproj" />
+    <ProjectReference Include="..\..\src\ModelSafetyCheck.Hub\ModelSafetyCheck.Hub.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

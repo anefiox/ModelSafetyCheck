@@ -25,6 +25,31 @@ public static partial class OllamaRegistryScanner
     public static bool IsOllamaName(string input) =>
         input.StartsWith("ollama:", StringComparison.OrdinalIgnoreCase) || input.StartsWith("ollama.com/", StringComparison.OrdinalIgnoreCase);
 
+    /// <summary>The template layer of a registry model, or null when it has none or cannot be fetched.</summary>
+    public static string? FetchTemplate(HuggingFaceClient client, string name)
+    {
+        var m = NameRegex().Match(Regex.Replace(name, "^(ollama:|ollama.com/)", "", RegexOptions.IgnoreCase));
+        if (!m.Success) return null;
+        var basePath = $"{Registry}/v2/{(m.Groups["ns"].Success ? m.Groups["ns"].Value : "library")}/{m.Groups["model"].Value}";
+        try
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"{basePath}/manifests/{(m.Groups["tag"].Success ? m.Groups["tag"].Value : "latest")}");
+            request.Headers.Accept.ParseAdd("application/vnd.docker.distribution.manifest.v2+json");
+            using var response = client.Http.Send(request);
+            if (!response.IsSuccessStatusCode) return null;
+            using var doc = JsonDocument.Parse(response.Content.ReadAsStream());
+            var digest = doc.RootElement.GetProperty("layers").EnumerateArray()
+                .Where(l => l.GetProperty("mediaType").GetString() == "application/vnd.ollama.image.template")
+                .Select(l => l.GetProperty("digest").GetString())
+                .FirstOrDefault(d => d is not null && DigestRegex().IsMatch(d));
+            return digest is null ? null : client.Http.GetStringAsync($"{basePath}/blobs/{digest}").GetAwaiter().GetResult();
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or JsonException or IOException or KeyNotFoundException)
+        {
+            return null;
+        }
+    }
+
     public static List<ScanReport> Scan(HuggingFaceClient client, string input, RepoScanOptions options)
     {
         var name = Regex.Replace(input, "^(ollama:|ollama.com/|https://ollama.com/)", "", RegexOptions.IgnoreCase);

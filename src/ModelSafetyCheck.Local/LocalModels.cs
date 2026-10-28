@@ -179,6 +179,36 @@ public static partial class LocalModels
         }
     }
 
+    /// <summary>The template layer of an installed Ollama model ("llama3.2:1b", "user/model"), or null.</summary>
+    public static string? FindOllamaTemplate(string name)
+    {
+        var wanted = name.Contains(':') ? name : name + ":latest";
+        foreach (var dir in OllamaModelDirs())
+        {
+            var manifests = Path.Combine(dir, "manifests");
+            foreach (var manifest in Directory.EnumerateFiles(manifests, "*", new EnumerationOptions { RecurseSubdirectories = true, IgnoreInaccessible = true }))
+            {
+                if (!string.Equals(OllamaName(manifests, manifest), wanted, StringComparison.OrdinalIgnoreCase))
+                    continue;
+                try
+                {
+                    using var doc = JsonDocument.Parse(File.ReadAllText(manifest));
+                    var digest = doc.RootElement.GetProperty("layers").EnumerateArray()
+                        .Where(l => l.GetProperty("mediaType").GetString() == TemplateMediaType)
+                        .Select(l => l.GetProperty("digest").GetString())
+                        .FirstOrDefault(d => d is not null && DigestRegex().IsMatch(d));
+                    var blob = digest is null ? null : Path.Combine(dir, "blobs", digest.Replace(':', '-'));
+                    return blob is not null && File.Exists(blob) && new FileInfo(blob).Length <= MaxTextLayerBytes ? File.ReadAllText(blob) : null;
+                }
+                catch (Exception ex) when (ex is IOException or JsonException or KeyNotFoundException or InvalidOperationException)
+                {
+                    return null;
+                }
+            }
+        }
+        return null;
+    }
+
     static string? ReadTextLayer(string blob, ScanReport report, string what)
     {
         var size = new FileInfo(blob).Length;

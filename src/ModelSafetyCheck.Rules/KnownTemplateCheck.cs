@@ -18,10 +18,11 @@ public static class KnownTemplateCheck
     const double NearCopy = 0.85;
     const int MaxShownLines = 8;
 
+    // Prefer the current version of a template when an earlier revision has the same text.
     static readonly Lazy<Dictionary<string, KnownTemplate>> ByHash = new(() =>
         ReferenceData.KnownTemplates.Templates
             .GroupBy(t => t.NormalizedSha256)
-            .ToDictionary(g => g.Key, g => g.First()));
+            .ToDictionary(g => g.Key, g => g.OrderBy(t => t.Revision is null ? 0 : 1).First()));
 
     static readonly Lazy<List<(KnownTemplate Template, Dictionary<string, int> Lines)>> Indexed = new(() =>
         ReferenceData.KnownTemplates.Templates
@@ -45,8 +46,12 @@ public static class KnownTemplateCheck
             return null;
 
         if (ByHash.Value.TryGetValue(NormalizedHash(template), out var exact))
-            return new Finding("T010", Severity.Info, $"Matches the official {exact.Family} template",
-                $"Identical (ignoring whitespace) to the template in {exact.Source}{(exact.Via is null ? "" : $" ({exact.Via})")}.", location);
+            return exact.Revision is null
+                ? new Finding("T010", Severity.Info, $"Matches the official {exact.Family} template",
+                    $"Identical (ignoring whitespace) to the template in {exact.Source}{(exact.Via is null ? "" : $" ({exact.Via})")}.", location)
+                : new Finding("T010", Severity.Info, $"Matches the official {exact.Family} template (earlier version)",
+                    $"Identical (ignoring whitespace) to the template in {exact.Source} at revision {exact.Revision[..Math.Min(10, exact.Revision.Length)]} ({exact.Date}). " +
+                    "The publisher has since changed it; re-download to get the current version.", location);
 
         var lines = LineCounts(template);
         var best = Indexed.Value
@@ -65,7 +70,16 @@ public static class KnownTemplateCheck
         }
         var added = Added(lines, best.Lines).OrderByDescending(IsProse).ToList();
         var removed = Added(best.Lines, lines);
-        var injectedText = added.Any(IsProse);
+        // An edited line (same sentence, reworded) is not injected text: count only words that the closest
+        // removed line does not already have.
+        int NewWords(string line)
+        {
+            var words = Regex.Matches(ModelVisibleText(line), @"\p{L}{2,}").Select(m => m.Value.ToLowerInvariant()).ToList();
+            var closest = removed.Select(r => Regex.Matches(ModelVisibleText(r), @"\p{L}{2,}").Select(m => m.Value.ToLowerInvariant()).ToHashSet())
+                .MaxBy(set => words.Count(set.Contains)) ?? [];
+            return words.Count(w => !closest.Contains(w));
+        }
+        var injectedText = added.Any(l => IsProse(l) && NewWords(l) >= 8);
         var shown = added.Take(MaxShownLines).Select(l => $"\n  + {TextHeuristics.Truncate(l, 140)}");
         var addedText = $"Added lines:{string.Concat(shown)}{(added.Count > MaxShownLines ? $"\n  (+{added.Count - MaxShownLines} more)" : "")}";
 

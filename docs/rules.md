@@ -37,6 +37,11 @@ Exit codes: `0` no findings above Info, `1` Low/Medium, `2` High/Critical, `3` s
 | F004 | High–Critical | safetensors tensor outside the data section, or size does not match shape |
 | F005 | Critical | Overlapping safetensors tensors |
 | F006 | Low–Medium | Unused bytes in a safetensors file |
+| OX001 | High–Critical | ONNX external data outside the model folder: absolute path, `..`, or a symlink (CVE-2022-25882, CVE-2024-27318, CVE-2026-27489) |
+| OX002 | Low | ONNX external data file missing |
+| OX003 | Medium | ONNX custom operator domains (need native custom-op libraries) |
+| OX004 | Info | ONNX model summary |
+| OX005 | Medium | ONNX file could not be fully parsed |
 | PK001 | Critical | Pickle imports something that runs code on load (`os.system`, `builtins.eval`, `subprocess`, …) |
 | PK002 | Medium | Pickle imports objects outside the usual torch/numpy rebuild functions |
 | PK003 | Medium | Pickle could not be fully analysed |
@@ -55,9 +60,9 @@ Exit codes: `0` no findings above Info, `1` Low/Medium, `2` High/Critical, `3` s
 | T007 | Medium–Critical | Invisible Unicode in the template |
 | T008 | Medium | Very large template, or one that could not be fully parsed |
 | T009 | Info | Fixed text the template adds, quoted for review |
-| T010 | Info–Medium | Comparison with 41 official templates: exact match, different version, or a near copy with added text (shown) |
+| T010 | Info–Medium | Comparison with 62 official templates (current and earlier versions): exact match, earlier version, different version, or a near copy with added text (shown) |
 | T011 | Medium | Possible resource exhaustion (`**`, numbers ≥ 10⁸) |
-| T013 | Info–High | **Rendered evidence**: the sandbox renderer shows the template adds text when a trigger phrase or date is present |
+| T013 | Info–High | **Rendered evidence**: the sandbox renderer (Jinja or Ollama's Go templates) shows the template adds text when a trigger phrase or date is present |
 | T014 | Info | The template could not be rendered in the sandbox (static checks still apply) |
 
 ## Runner, network and agent (layers 3–5)

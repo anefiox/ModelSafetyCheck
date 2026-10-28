@@ -264,14 +264,18 @@ public static partial class RepoScanner
     {
         var pickles = info.Files.Where(f => PickleScanner.Extensions.Contains(Path.GetExtension(f.Path))).Take(options.AllFiles ? 50 : 3);
         var safetensors = info.Files.Where(f => f.Path.EndsWith(".safetensors", StringComparison.OrdinalIgnoreCase)).Take(options.AllFiles ? 50 : 2);
-        foreach (var file in pickles.Concat(safetensors))
+        var onnx = info.Files.Where(f => f.Path.EndsWith(".onnx", StringComparison.OrdinalIgnoreCase)).OrderBy(f => f.Size).Take(options.AllFiles ? 50 : 2);
+        foreach (var file in pickles.Concat(safetensors).Concat(onnx))
         {
-            var isPickle = PickleScanner.Extensions.Contains(Path.GetExtension(file.Path));
-            var report = new ScanReport { Target = $"hf:{repo}/{file.Path}", Kind = isPickle ? "hf-pickle" : "hf-safetensors", Fingerprint = file.Sha256 };
+            var ext = Path.GetExtension(file.Path).ToLowerInvariant();
+            var kind = PickleScanner.Extensions.Contains(ext) ? "hf-pickle" : ext == ".onnx" ? "hf-onnx" : "hf-safetensors";
+            var report = new ScanReport { Target = $"hf:{repo}/{file.Path}", Kind = kind, Fingerprint = file.Sha256 };
             try
             {
+                // ONNX tensors are skipped by seeking, so a model with many tensors needs more ranged reads.
                 using var stream = new HttpRangeStream(client.Http, client.FileUrl(repo, file.Path), (long)options.BudgetMiB << 20);
-                if (isPickle) PickleScanner.Scan(stream, report);
+                if (kind == "hf-pickle") PickleScanner.Scan(stream, report);
+                else if (kind == "hf-onnx") OnnxScanner.Scan(stream, report);
                 else SafetensorsScanner.Scan(stream, report);
                 report.Findings.Add(new Finding("H004", Severity.Info, "Checked without downloading the file",
                     $"Read {stream.Downloaded / 1024.0 / 1024.0:0.0} MiB of {file.Size / 1024.0 / 1024.0:0.0} MiB.", file.Path));

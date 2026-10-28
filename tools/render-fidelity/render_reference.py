@@ -64,7 +64,7 @@ def main():
     data = json.loads((root / "data" / "known-templates.json").read_text(encoding="utf-8"))
     out = {}
     for t in data["templates"]:
-        key = t["source"] + ("#" + t["name"] if t.get("name") else "")
+        key = t["source"] + ("#" + t["name"] if t.get("name") else "") + ("@" + t["revision"][:10] if t.get("revision") else "")
         try:
             out[key] = render(t["text"])
         except Exception as ex:  # a template jinja2 itself cannot render is skipped by the test

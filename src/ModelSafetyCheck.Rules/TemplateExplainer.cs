@@ -14,6 +14,9 @@ public sealed record ExplainOptions
     public IReadOnlyList<Dictionary<string, object?>>? Messages { get; init; }
 
     public DateTimeOffset Now { get; init; } = new(2026, 1, 15, 12, 0, 0, TimeSpan.Zero);
+
+    /// <summary>Jinja (GGUF, Hugging Face) or Go text/template (Ollama template layers).</summary>
+    public TemplateDialect Dialect { get; init; } = TemplateDialect.Jinja;
 }
 
 /// <summary>What changes when a probe (trigger phrase or date) is present.</summary>
@@ -103,13 +106,14 @@ public static partial class TemplateExplainer
         var probes = new List<ProbeResult>();
         if (options.Messages is null)
         {
-            foreach (var candidate in TemplateAnalyzer.TriggerCandidates(template, TemplateDialect.Jinja))
+            foreach (var candidate in TemplateAnalyzer.TriggerCandidates(template, options.Dialect))
             {
-                probes.Add(Probe(template, options, withSystem, candidate, inSystem: false));
+                probes.Add(Probe(template, options, withSystem, candidate, ProbePlace.UserContains));
+                probes.Add(Probe(template, options, withSystem, candidate, ProbePlace.UserExact));
                 if (withSystem)
-                    probes.Add(Probe(template, options, withSystem, candidate, inSystem: true));
+                    probes.Add(Probe(template, options, withSystem, candidate, ProbePlace.System));
             }
-            if (template.Contains("strftime_now", StringComparison.Ordinal))
+            if (template.Contains("strftime_now", StringComparison.Ordinal) || template.Contains("currentDate", StringComparison.Ordinal))
                 probes.AddRange(DateProbes(template, options, withSystem));
         }
 
@@ -130,17 +134,38 @@ public static partial class TemplateExplainer
         };
         if (tools)
             context["tools"] = new List<object?> { SampleTool };
-        return JinjaRenderer.Render(template, context, new RenderOptions { Now = now });
+        if (options.Dialect == TemplateDialect.Jinja)
+            return JinjaRenderer.Render(template, context, new RenderOptions { Now = now });
+
+        // Ollama's template data: .Messages (role/content), .System, .Prompt (last user message), .Tools, think flags.
+        var data = new Dictionary<string, object?>
+        {
+            ["Messages"] = messages,
+            ["System"] = messages.FirstOrDefault(m => Equals(m.GetValueOrDefault("role"), "system"))?.GetValueOrDefault("content") ?? "",
+            ["Prompt"] = messages.LastOrDefault(m => Equals(m.GetValueOrDefault("role"), "user"))?.GetValueOrDefault("content") ?? "",
+            ["Response"] = "",
+            ["Tools"] = tools ? new List<object?> { SampleTool } : null,
+            ["IsThinkSet"] = false,
+            ["Think"] = false,
+        };
+        return GoTemplateRenderer.Render(template, data, new RenderOptions { Now = now });
     }
 
     /// <summary>Renders with the neutral text and with the candidate in the same place, then diffs with the candidate masked out.</summary>
-    static ProbeResult Probe(string template, ExplainOptions options, bool withSystem, string candidate, bool inSystem)
+    enum ProbePlace { UserContains, UserExact, System }
+
+    /// <summary>Where a probe puts the candidate: inside a user message, as the whole user message (for exact
+    /// comparisons like `eq .Content "..."`), or inside the system message.</summary>
+    static ProbeResult Probe(string template, ExplainOptions options, bool withSystem, string candidate, ProbePlace place)
     {
         string? Run(string text)
         {
-            var messages = inSystem
-                ? SampleConversation(withSystem, " " + text, Neutral)
-                : SampleConversation(withSystem, "", text + " Thanks. And Germany?");
+            var messages = place switch
+            {
+                ProbePlace.System => SampleConversation(withSystem, " " + text, Neutral),
+                ProbePlace.UserExact => SampleConversation(withSystem, "", text),
+                _ => SampleConversation(withSystem, "", text + " Thanks. And Germany?"),
+            };
             var result = Render(template, options, messages, tools: false, options.Now);
             return result.Output ?? $"[render error: {result.Error}]";
         }
@@ -148,13 +173,20 @@ public static partial class TemplateExplainer
         var baseline = Run(ProbeSlot);
         var probed = Run(candidate);
         if (baseline is null || probed is null)
-            return new ProbeResult(candidate, inSystem ? "system message" : "user message", [], []);
+            return new ProbeResult(candidate, Where(place), [], []);
 
         // Mask the candidate wherever the template echoed it (in any letter case), so only template-added text differs.
         var masked = Regex.Replace(probed, Regex.Escape(candidate), ProbeSlot, RegexOptions.IgnoreCase);
         var (added, removed) = LineDiff(masked, baseline);
-        return new ProbeResult(candidate, inSystem ? "system message" : "user message", added, removed);
+        return new ProbeResult(candidate, Where(place), added, removed);
     }
+
+    static string Where(ProbePlace place) => place switch
+    {
+        ProbePlace.System => "system message",
+        ProbePlace.UserExact => "user message (exactly)",
+        _ => "user message",
+    };
 
     static IEnumerable<ProbeResult> DateProbes(string template, ExplainOptions options, bool withSystem)
     {
@@ -164,7 +196,7 @@ public static partial class TemplateExplainer
             yield break;
 
         var dates = new List<DateTimeOffset> { options.Now.AddDays(1), options.Now.AddMonths(6), options.Now.AddYears(1), options.Now.AddYears(3) };
-        foreach (var literal in TemplateAnalyzer.TriggerCandidates(template, TemplateDialect.Jinja))
+        foreach (var literal in TemplateAnalyzer.TriggerCandidates(template, options.Dialect))
             if (DateTimeOffset.TryParse(literal, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AssumeUniversal, out var d))
                 dates.AddRange([d.AddDays(-1), d, d.AddDays(1)]);
 

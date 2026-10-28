@@ -27,7 +27,9 @@ public sealed record RunnerVulnerability(
 
 public sealed record RunnerVulnerabilityFile(int Version, string Updated, IReadOnlyList<RunnerVulnerability> Vulnerabilities);
 
-public sealed record KnownTemplate(string Family, string Source, string Kind, string? Name, string? Via, string Sha256, string NormalizedSha256, string Text);
+/// <param name="Revision">Set for an earlier version of the template (the commit it was taken from); null for the current one.</param>
+public sealed record KnownTemplate(string Family, string Source, string Kind, string? Name, string? Via, string Sha256, string NormalizedSha256, string Text,
+    string? Revision = null, string? Date = null);
 
 public sealed record KnownTemplateFile(int Version, string Generated, IReadOnlyList<KnownTemplate> Templates);
 

@@ -1,5 +1,8 @@
 using System.Text.Json;
 using ModelSafetyCheck.Core;
+using ModelSafetyCheck.Hub;
+using ModelSafetyCheck.Jinja;
+using ModelSafetyCheck.Local;
 using ModelSafetyCheck.Rules;
 
 namespace ModelSafetyCheck.Cli;
@@ -10,7 +13,7 @@ namespace ModelSafetyCheck.Cli;
 /// </summary>
 static class ExplainCommand
 {
-    sealed record Source(string Name, string Template, string Bos, string Eos);
+    sealed record Source(string Name, string Template, string Bos, string Eos, TemplateDialect Dialect = TemplateDialect.Jinja);
 
     public static int Run(string path, string? messagesFile, TextWriter output)
     {
@@ -26,7 +29,7 @@ static class ExplainCommand
         }
         if (sources.Count == 0)
         {
-            output.WriteLine($"No Jinja chat template found in {path}. (Ollama's Go templates can't be rendered yet; use `modelcheck local --dump-template`.)");
+            output.WriteLine($"No chat template found in {path}.");
             return Program.ExitError;
         }
 
@@ -40,7 +43,7 @@ static class ExplainCommand
         var worst = Severity.Info;
         foreach (var source in sources)
         {
-            var explanation = TemplateExplainer.Explain(source.Template, new ExplainOptions { BosToken = source.Bos, EosToken = source.Eos, Messages = messages });
+            var explanation = TemplateExplainer.Explain(source.Template, new ExplainOptions { BosToken = source.Bos, EosToken = source.Eos, Messages = messages, Dialect = source.Dialect });
             output.WriteLine($"==> {source.Name}");
             if (explanation.Error is not null)
             {
@@ -83,6 +86,19 @@ static class ExplainCommand
 
     static List<Source> Load(string path)
     {
+        if (OllamaRegistryScanner.IsOllamaName(path))
+        {
+            var name = path[(path.IndexOf(':') + 1)..];
+            var template = LocalModels.FindOllamaTemplate(name);
+            var where = "local Ollama store";
+            if (template is null)
+            {
+                using var client = new HuggingFaceClient();
+                template = OllamaRegistryScanner.FetchTemplate(client, name);
+                where = "Ollama registry";
+            }
+            return template is null ? [] : [new Source($"ollama:{name} (template layer, {where})", template, "", "", TemplateDialect.GoTemplate)];
+        }
         if (path.EndsWith(".gguf", StringComparison.OrdinalIgnoreCase))
         {
             var file = GgufParser.Parse(path);
@@ -111,7 +127,10 @@ static class ExplainCommand
                 ? [new Source($"{path} (chat_template)", template.GetString()!, bos, eos)]
                 : template.EnumerateArray().Select(t => new Source($"{path} (chat_template.{t.GetProperty("name").GetString()})", t.GetProperty("template").GetString()!, bos, eos)).ToList();
         }
-        return [new Source(path, text, "<s>", "</s>")];
+        var dialect = path.EndsWith(".tmpl", StringComparison.OrdinalIgnoreCase) || path.EndsWith(".gotmpl", StringComparison.OrdinalIgnoreCase)
+            ? TemplateDialect.GoTemplate
+            : TemplateDialect.Jinja;
+        return [new Source(path, text, "<s>", "</s>", dialect)];
     }
 
     static object? ToValue(JsonElement e) => e.ValueKind switch

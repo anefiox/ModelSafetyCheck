@@ -15,12 +15,15 @@ public class OfficialTemplateTests
     {
         var data = new TheoryData<string>();
         foreach (var t in ReferenceData.KnownTemplates.Templates.DistinctBy(t => t.NormalizedSha256))
-            data.Add($"{t.Source}{(t.Name is null ? "" : "#" + t.Name)}");
+            data.Add(Id(t));
         return data;
     }
 
+    /// <summary>Source, template name and (for earlier versions) revision: unique per database entry.</summary>
+    public static string Id(KnownTemplate t) => $"{t.Source}{(t.Name is null ? "" : "#" + t.Name)}{(t.Revision is null ? "" : "@" + t.Revision[..Math.Min(10, t.Revision.Length)])}";
+
     static KnownTemplate Find(string id) =>
-        ReferenceData.KnownTemplates.Templates.First(t => $"{t.Source}{(t.Name is null ? "" : "#" + t.Name)}" == id);
+        ReferenceData.KnownTemplates.Templates.First(t => Id(t) == id);
 
     [Fact]
     public void Database_is_populated()

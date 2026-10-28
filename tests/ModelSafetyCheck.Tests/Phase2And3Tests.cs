@@ -45,7 +45,7 @@ public class ReferenceDataTests
         foreach (var v in ReferenceData.RunnerVulnerabilities.Vulnerabilities)
         {
             Assert.NotEmpty(v.Sources);
-            Assert.Contains(v.Runner, new[] { "ollama", "lmstudio", "llama-cpp-python", "sglang", "vllm" });
+            Assert.Contains(v.Runner, new[] { "ollama", "lmstudio", "llama-cpp-python", "sglang", "vllm", "onnx" });
             Assert.Contains(v.Confidence, new[] { "confirmed", "reported" });
         }
     }

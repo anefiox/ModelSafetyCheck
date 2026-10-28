@@ -71,7 +71,7 @@ public static partial class RunnerDetector
     /// <summary>Python runners (llama-cpp-python, SGLang, vLLM) in the first Python on PATH. Other virtual environments are not seen.</summary>
     static IEnumerable<DetectedRunner> DetectPythonPackages()
     {
-        const string script = "import importlib.metadata as m\nfor p in ('llama-cpp-python','sglang','vllm'):\n  try: print(p, m.version(p))\n  except Exception: pass";
+        const string script = "import importlib.metadata as m\nfor p in ('llama-cpp-python','sglang','vllm','onnx','onnxruntime'):\n  try: print(p, m.version(p))\n  except Exception: pass";
         foreach (var python in OperatingSystem.IsWindows() ? new[] { "python", "py" } : ["python3", "python"])
         {
             var result = ProcessRunner.Run(python, ["-I", "-c", script], TimeSpan.FromSeconds(15));

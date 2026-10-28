@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "updated": "2026-10-28",
   "notes": "Version ranges are taken from the linked advisories, not from video transcripts. 'confidence' is 'confirmed' when NVD or the vendor gives the fixed release, 'reported' when only third-party write-ups do. A vulnerability applies when introduced <= installed < fixed. A null 'fixed' means no fixed release is known.",
   "vulnerabilities": [
@@ -23,7 +23,9 @@
       "id": "CVE-2026-42248",
       "name": "Unsigned Windows auto-update",
       "runner": "ollama",
-      "platforms": [ "windows" ],
+      "platforms": [
+        "windows"
+      ],
       "introduced": "0.12.10",
       "fixed": "0.23.0",
       "severity": "High",
@@ -40,7 +42,9 @@
       "id": "CVE-2026-42249",
       "name": "Windows updater path traversal",
       "runner": "ollama",
-      "platforms": [ "windows" ],
+      "platforms": [
+        "windows"
+      ],
       "introduced": "0.12.10",
       "fixed": "0.23.0",
       "severity": "High",
@@ -56,14 +60,19 @@
       "id": "OLLAMA-2025-DESKTOP-DRIVEBY",
       "name": "Desktop app drive-by (no CVE assigned)",
       "runner": "ollama",
-      "platforms": [ "windows", "macos" ],
+      "platforms": [
+        "windows",
+        "macos"
+      ],
       "introduced": "0.10.0",
       "fixed": "0.10.1",
       "severity": "High",
       "summary": "Any web page could silently point the Ollama desktop app's 'Remote' setting at an attacker server, which then sees your chats. The malicious setting persists after updating.",
       "remediation": "Update Ollama, then check the desktop app's connection settings for an unexpected remote server.",
       "confidence": "confirmed",
-      "sources": [ "https://www.theregister.com/2025/08/19/ollama_driveby_attack/" ]
+      "sources": [
+        "https://www.theregister.com/2025/08/19/ollama_driveby_attack/"
+      ]
     },
     {
       "id": "CVE-2024-37032",
@@ -76,7 +85,9 @@
       "summary": "Ollama did not validate model digests, so pulling a model from a malicious registry could write files anywhere and lead to remote code execution.",
       "remediation": "Update Ollama.",
       "confidence": "confirmed",
-      "sources": [ "https://advisories.gitlab.com/pkg/golang/github.com/ollama/ollama/CVE-2024-37032/" ]
+      "sources": [
+        "https://advisories.gitlab.com/pkg/golang/github.com/ollama/ollama/CVE-2024-37032/"
+      ]
     },
     {
       "id": "CVE-2024-28224",
@@ -89,7 +100,9 @@
       "summary": "A malicious web page could use DNS rebinding to reach the local Ollama API from your browser.",
       "remediation": "Update Ollama.",
       "confidence": "confirmed",
-      "sources": [ "https://advisories.gitlab.com/pkg/golang/github.com/ollama/ollama/CVE-2024-28224/" ]
+      "sources": [
+        "https://advisories.gitlab.com/pkg/golang/github.com/ollama/ollama/CVE-2024-28224/"
+      ]
     },
     {
       "id": "CVE-2024-34359",
@@ -102,7 +115,9 @@
       "summary": "llama-cpp-python rendered GGUF chat templates with an unsandboxed Jinja environment, so a malicious template runs arbitrary code on every prompt.",
       "remediation": "Upgrade llama-cpp-python to 0.2.72 or later.",
       "confidence": "confirmed",
-      "sources": [ "https://www.mend.io/vulnerability-database/CVE-2024-34359/" ]
+      "sources": [
+        "https://www.mend.io/vulnerability-database/CVE-2024-34359/"
+      ]
     },
     {
       "id": "CVE-2026-5760",
@@ -118,6 +133,37 @@
       "sources": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-5760",
         "https://thehackernews.com/2026/04/sglang-cve-2026-5760-cvss-98-enables.html"
+      ]
+    },
+    {
+      "id": "CVE-2024-27318",
+      "name": "ONNX external data path traversal",
+      "runner": "onnx",
+      "platforms": [],
+      "introduced": null,
+      "fixed": "1.16.0",
+      "severity": "High",
+      "summary": "onnx resolved a model's external_data location without keeping it inside the model directory, so a model could make the loader read arbitrary files.",
+      "remediation": "Upgrade onnx to 1.21.0 or later, which also fixes the later symlink bypasses.",
+      "confidence": "confirmed",
+      "sources": [
+        "https://osv.dev/vulnerability/CVE-2024-27318",
+        "https://advisories.gitlab.com/pkg/pypi/onnx/CVE-2024-27318/"
+      ]
+    },
+    {
+      "id": "CVE-2026-27489",
+      "name": "ONNX external data symlink bypass",
+      "runner": "onnx",
+      "platforms": [],
+      "introduced": null,
+      "fixed": "1.21.0",
+      "severity": "High",
+      "summary": "The external-data path check followed symlinks, so a model shipped with a symlinked data file could read files outside its directory.",
+      "remediation": "Upgrade onnx to 1.21.0 or later.",
+      "confidence": "reported",
+      "sources": [
+        "https://homepage-423.pages.dev/blog/post/two-incomplete-fixes-for-a-path-traversal-vulnerability-in-onnx-cve-2026-27489-18075/"
       ]
     }
   ]

@@ -26,8 +26,9 @@ backdoored model into a credential stealer. `modelcheck` checks all five layers 
 ```bash
 modelcheck repo bartowski/Llama-3.2-3B-Instruct-GGUF   # before downloading: files, card, publisher, each GGUF's template (header only)
 modelcheck repo ollama:llama3.2:1b                      # before `ollama pull`: template layer + GGUF header from the registry
-modelcheck scan ./models                                # .gguf, .safetensors, pickle checkpoints, tokenizer_config.json, chat_template.jinja
+modelcheck scan ./models                                # .gguf, .safetensors, .onnx, pickle checkpoints, tokenizer_config.json, chat_template.jinja
 modelcheck explain model.gguf                           # the exact prompt the model receives, and what trigger phrases/dates change
+modelcheck explain ollama:llama3.2:1b                   # same for an Ollama template layer (Go templates)
 modelcheck local                                        # everything in Ollama, LM Studio, llama.cpp and HF caches
 modelcheck local --dump-template                        # ...and print the templates so you can read them
 modelcheck local --online --hash                        # ...and check each model's publisher, lineage and sha256 against Hugging Face
@@ -48,8 +49,8 @@ Exit codes: `0` clean, `1` warnings (low/medium), `2` high or critical findings,
 | File structure | S001–S013 | lying string/array lengths, impossible counts, tensors past end of file ("Bleeding Llama" class), overlaps, hidden data in gaps or after the last tensor |
 | Metadata | M001–M006 | executables or base64 payloads in strings, invisible Unicode, URLs |
 | Tokenizer | K001–K003 | special-token ids outside the vocabulary, vocabulary larger than the embedding table, instructions hidden in special tokens |
-| Chat templates | T001–T014 | Jinja sandbox escapes (CVE-2024-34359 "Llama Drama"), trigger phrases, date/random conditions, hidden instructions, exfiltration links, Unicode tag smuggling, diff against 41 official templates, and **rendered evidence**: the template is run in a sandbox with and without each suspected trigger |
-| Other formats | F001–F006, PK001–PK004 | safetensors header/offset checks; pickle checkpoints (raw, legacy torch, PyTorch zip) analysed opcode by opcode for imports like `os.system` |
+| Chat templates | T001–T014 | Jinja sandbox escapes (CVE-2024-34359 "Llama Drama"), trigger phrases, date/random conditions, hidden instructions, exfiltration links, Unicode tag smuggling, diff against 62 official templates (including earlier versions), and **rendered evidence**: the template is run in a sandbox with and without each suspected trigger |
+| Other formats | F001–F006, PK001–PK004, OX001–OX005 | safetensors header/offset checks; pickle checkpoints (raw, legacy torch, PyTorch zip) analysed opcode by opcode for imports like `os.system`; ONNX external-data path traversal (incl. symlinks) and custom operators |
 | Ollama | O001–O005 | Ollama's own template and system layers (what actually runs), path-traversal digests |
 | Runner & network | A001–A008 | known-vulnerable versions, `OLLAMA_HOST=0.0.0.0`, `OLLAMA_ORIGINS=*`, open ports and the process behind them, Docker port publishing, unauthenticated access, MCP tools given to local models |
 | Agent | G001–G004 | readable secrets (values never printed), file/shell + network tool combinations, per-layer risk rating |
@@ -61,9 +62,9 @@ False positives are measured, not guessed: every official template in the databa
 `tools/TemplateCorpus` runs all rules over the templates of the 1,000 most-downloaded GGUF repos (currently 6.5% of
 distinct templates get any warning, about 4% Medium or above, mostly unusual community templates worth a look).
 
-Templates are never run by a real Jinja engine. `explain` and rule T013 use modelcheck's own renderer, which
+Templates are never run by a real Jinja or Go engine. `explain` and rule T013 use modelcheck's own renderers (Jinja and Go text/template), which
 only sees plain data (strings, numbers, lists, dicts) and whitelisted helpers, has no reflection, file, network or
-process access, and caps steps, output and recursion. It renders all 41 official templates and 96% of the 352
+process access, and caps steps, output and recursion. It renders all 62 official templates (and Ollama's own Go templates) and 96% of the 352
 distinct templates in the top 1,000 GGUF repos; CI compares its output with real jinja2 byte for byte.
 
 Reference data (vulnerable versions, official templates, trusted publishers) lives in [`data/`](data) with sources,

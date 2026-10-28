@@ -153,7 +153,7 @@ Reference data (`data/`, embedded; a newer copy in `~/.modelcheck/data` or `$MOD
 - [x] D-04 `tools/TemplateDbBuilder` regenerates the DB from `data/template-sources.json` (HF_TOKEN optional). Version = build date
 - [x] D-05 `runner-vulns.json`: CVE-2026-7482 Bleeding Llama (<0.17.1), CVE-2026-42248/42249 Windows updater (0.12.10–<0.23.0, **fix version only third-party reported**, marked `confidence: reported`), Ollama desktop drive-by 2025 (0.10.0, fixed 0.10.1, no CVE), CVE-2024-37032 (<0.1.34), CVE-2024-28224 (<0.1.29), CVE-2024-34359 llama-cpp-python (0.2.30–<0.2.72), CVE-2026-5760 SGLang (<0.5.11, reported). Each entry lists its sources
 - [x] D-06 Exact match with an official template downgrades heuristic hits to Info (official templates contain e.g. "do not tell the user about function calls"; injected text breaks the exact match)
-- [ ] D-07 Keep historical template versions per repo so stale-but-official templates match exactly
+- [x] D-07 Historical template versions: `TemplateDbBuilder --history` reads template files at the last 12 commits and the GGUF header of up to 3 earlier uploads per GGUF repo (Range requests at the old revision). 26 earlier versions in the DB (62 distinct templates); T010 reports "earlier version" with revision and date. Your local Gemma 4 Q4_K_M now matches revision e38afa56ee (2026-06-04) exactly. `--only org/repo` merges a single source; the weekly workflow runs with `--history`
 - [x] D-08 `.github/workflows/template-db.yml`: weekly rebuild + official-template test + PR on change (HF_TOKEN secret optional). Not run yet
 
 `audit` command
@@ -218,7 +218,8 @@ Other
   - [x] Coverage: 41/41 official templates render; 337/352 (96%) distinct templates of the top 1,000 GGUF repos (the rest mostly reject the sample conversation by design). Zero T013 false positives on the corpus
   - [x] Sandbox-escape payloads (Llama Drama, `self.__init__.__globals__`, `lipsum.__globals__`, …) reach nothing; resource-exhaustion templates stop at the limits
   - [~] Byte-for-byte fidelity vs real jinja2 (HF settings): `tools/render-fidelity/render_reference.py` + `RenderFidelityTests`, wired into CI. Not run locally (jinja2 not installed here)
-  - [ ] Ollama Go templates in `explain` (needs a Go text/template evaluator)
+  - [x] Go text/template renderer for Ollama templates (fields, variables, `:=`/`=`, pipelines, if/else if/range/with/break/continue, eq/ne/lt/le/gt/ge/and/or/not/len/index/slice/print/printf/json/currentDate). Renders Ollama's own Qwen3, Llama 3.2, Mistral and Gemma 3 templates. `explain ollama:<model>` (local store, else registry) and `.tmpl` files; T013 rendered evidence now also covers Ollama template layers in `local`, `repo ollama:` and `watch`
+  - [x] Probes also try the phrase as the whole user message, for exact comparisons (`eq .Content "..."`, `== '...'`). Corpus still at zero T013 false positives
 - [ ] F-03 ONNX prompt-injection classifier on extracted literals. Deferred: needs a ~700 MB model download and licence review; T013 rendered evidence now covers the main case it was meant for
 - [~] F-04 Integrations
   - [x] Ollama pre-pull check: `repo ollama:<model>[:tag]` / `ollama:user/model` reads the registry manifest, template and system layers, and the GGUF header via Range (8 MiB of a 1.2 GiB model). `ollama:hf.co/...` routes to the Hugging Face check
@@ -228,7 +229,7 @@ Other
   - [x] Pickle: PK001–PK004, opcode walker for protocols 0–5 (GLOBAL, STACK_GLOBAL with memo), PyTorch zip and legacy multi-pickle torch files; never executes. Verified against real Python pickles of every protocol
   - [x] `scan` handles folders of mixed formats and Hugging Face `tokenizer_config.json` / `chat_template.jinja`
   - [x] `repo` checks up to 3 pickle and 2 safetensors files remotely (1 MiB of GPT-2's 523 MiB `pytorch_model.bin`)
-  - [ ] ONNX (external-data path traversal)
+  - [x] ONNX: OX001–OX005. Protobuf walk (incl. subgraphs and sparse initializers) without loading weights: external-data locations that are absolute or contain `..` (CVE-2022-25882, CVE-2024-27318), symlinks resolving outside the model folder (CVE-2026-27489, CVE-2026-34447), custom operator domains, metadata payloads. `scan` handles .onnx; `repo` reads the 2 smallest .onnx files remotely (verified on Xenova/all-MiniLM-L6-v2). `onnx`/`onnxruntime` versions added to `audit` with CVE-2024-27318 and CVE-2026-27489
 - [x] F-06 Docs: `docs/rules.md` (every rule ID), `docs/hardening.md` (five-layer guide). A docs site is not needed yet
 
 ## Sources to verify against (not the video transcript)
