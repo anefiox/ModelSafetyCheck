@@ -37,6 +37,14 @@ modelcheck watch --notify                               # first run: baseline; l
 modelcheck watch --print-schedule                       # how an hourly check would be scheduled (--install-schedule to do it)
 ```
 
+To check before every download, use the wrappers in [`scripts/`](scripts): `ollama-safe-pull` and `lms-safe-get`
+(bash and PowerShell) run `modelcheck repo` first and refuse on high/critical findings unless `--force`.
+
+Optional ML check: `modelcheck classifier download` installs a local prompt-injection classifier
+(protectai/deberta-v3-base-prompt-injection-v2, Apache-2.0, ~700 MB, sha256-verified); add `--classifier` to any scan
+for rule T015. It is supporting evidence only: measured on real templates it also flags ordinary instructions.
+An Open WebUI filter that blocks chats with flagged Ollama models is in [`integrations/open-webui`](integrations/open-webui).
+
 Common options: `--format text|json|sarif`, `--min-severity info|low|medium|high|critical`, `--no-color`.
 Exit codes: `0` clean, `1` warnings (low/medium), `2` high or critical findings, `3` scan error.
 
@@ -55,7 +63,7 @@ Exit codes: `0` clean, `1` warnings (low/medium), `2` high or critical findings,
 | Runner & network | A001–A008 | known-vulnerable versions, `OLLAMA_HOST=0.0.0.0`, `OLLAMA_ORIGINS=*`, open ports and the process behind them, Docker port publishing, unauthenticated access, MCP tools given to local models |
 | Agent | G001–G004 | readable secrets (values never printed), file/shell + network tool combinations, per-layer risk rating |
 | Provenance | P001–P003 | `local --online`: installed file still matches its Hugging Face upload (size / sha256) |
-| Hugging Face repo | H001–H009 | executables and lure instructions in the card, publisher tier, lineage, file template differing from the displayed one, pickle files |
+| Hugging Face repo | H001–H011 | executables and lure instructions in the card, publisher tier, lineage, file template differing from the displayed one, pickle files, model cards copied from an official repo |
 | Template drift | W001–W003 | template or system prompt changed while the weights did not |
 
 False positives are measured, not guessed: every official template in the database must analyse clean, and
@@ -64,8 +72,9 @@ distinct templates get any warning, about 4% Medium or above, mostly unusual com
 
 Templates are never run by a real Jinja or Go engine. `explain` and rule T013 use modelcheck's own renderers (Jinja and Go text/template), which
 only sees plain data (strings, numbers, lists, dicts) and whitelisted helpers, has no reflection, file, network or
-process access, and caps steps, output and recursion. It renders all 62 official templates (and Ollama's own Go templates) and 96% of the 352
-distinct templates in the top 1,000 GGUF repos; CI compares its output with real jinja2 byte for byte.
+process access, and caps steps, output and recursion. Its output is byte-for-byte identical to real jinja2 (with Hugging
+Face's settings) on all 62 official templates and on all 346 templates from the top 1,000 GGUF repos that jinja2 renders;
+CI and a weekly job keep checking that. The parsers have also been fuzzed (2.26M libFuzzer executions, no crashes).
 
 Reference data (vulnerable versions, official templates, trusted publishers) lives in [`data/`](data) with sources,
 and a newer copy in `~/.modelcheck/data` overrides the built-in one. See [docs/rules.md](docs/rules.md) for every rule,

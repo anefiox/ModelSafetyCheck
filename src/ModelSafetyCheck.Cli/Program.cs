@@ -42,6 +42,13 @@ public static class Program
         Recursive = true,
     };
 
+    static readonly Option<string?> ClassifierOption = new("--classifier")
+    {
+        Description = "Also score template and system-prompt text with the local prompt-injection classifier (rule T015). Optional path; default ~/.modelcheck/classifier.",
+        Arity = ArgumentArity.ZeroOrOne,
+        Recursive = true,
+    };
+
     public static int Main(string[] args)
     {
         FormatOption.AcceptOnlyFromAmong("text", "json", "sarif");
@@ -104,9 +111,18 @@ public static class Program
         };
         explain.SetAction(result => ExplainCommand.Run(result.GetValue(explainPath)!, result.GetValue(messagesOption), Console.Out));
 
+        var dirOption = new Option<string>("--dir") { Description = "Where the classifier lives.", DefaultValueFactory = _ => Classifier.PromptInjectionClassifier.DefaultDirectory };
+        var repoOption = new Option<string>("--repo") { Description = "Hugging Face repo with an onnx/ export.", DefaultValueFactory = _ => ClassifierCommand.DefaultRepo };
+        var download = new Command("download", "Download the prompt-injection classifier (~700 MB, Apache-2.0) and verify its sha256.") { dirOption, repoOption };
+        download.SetAction(result => ClassifierCommand.Download(result.GetValue(repoOption)!, result.GetValue(dirOption)!, Console.Out));
+        var textArgument = new Argument<string>("text") { Description = "Text to score." };
+        var test = new Command("test", "Score a piece of text with the classifier.") { textArgument, dirOption };
+        test.SetAction(result => ClassifierCommand.Test(result.GetValue(dirOption)!, result.GetValue(textArgument)!, Console.Out));
+        var classifier = new Command("classifier", "Optional local ML check for prompt-injection text (rule T015).") { download, test };
+
         var root = new RootCommand("modelcheck: scan local AI models and setups for malicious files, templates and configuration.")
         {
-            scan, local, audit, repo, watch, explain, FormatOption, MinSeverityOption, DumpTemplateOption, NoColorOption,
+            scan, local, audit, repo, watch, explain, classifier, FormatOption, MinSeverityOption, DumpTemplateOption, NoColorOption, ClassifierOption,
         };
         return root.Parse(args).Invoke();
     }
@@ -218,6 +234,17 @@ public static class Program
 
     static int Run(ParseResult result, IEnumerable<ScanReport> scans)
     {
+        if (result.GetResult(ClassifierOption) is not null)
+        {
+            var directory = result.GetValue(ClassifierOption) is { Length: > 0 } dir ? dir : Classifier.PromptInjectionClassifier.DefaultDirectory;
+            TextClassification.Classifier = Classifier.PromptInjectionClassifier.TryLoad(directory, out var error);
+            if (error is not null)
+            {
+                Console.Error.WriteLine(error);
+                return ExitError;
+            }
+        }
+
         var minSeverity = result.GetValue(MinSeverityOption);
         var reports = new List<ScanReport>();
         var format = result.GetValue(FormatOption);

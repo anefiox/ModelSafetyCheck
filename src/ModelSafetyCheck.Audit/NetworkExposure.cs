@@ -115,8 +115,10 @@ public static partial class NetworkExposure
     public sealed record Listener(IPEndPoint EndPoint, AiPort Port);
 
     /// <summary>Known AI ports that are listening on something other than loopback.</summary>
-    public static List<Listener> ExposedListeners()
+    /// <param name="extraPorts">Ports reported by running servers (e.g. LM Studio on a non-default port).</param>
+    public static List<Listener> ExposedListeners(IEnumerable<AiPort>? extraPorts = null)
     {
+        var ports = KnownPorts.Concat(extraPorts ?? []).DistinctBy(p => p.Port).ToList();
         var listeners = new List<IPEndPoint>();
         try
         {
@@ -129,7 +131,7 @@ public static partial class NetworkExposure
 
         return listeners
             .Where(e => !IPAddress.IsLoopback(e.Address))
-            .Select(e => (EndPoint: e, Port: KnownPorts.FirstOrDefault(p => p.Port == e.Port)))
+            .Select(e => (EndPoint: e, Port: ports.FirstOrDefault(p => p.Port == e.Port)))
             .Where(x => x.Port is not null)
             .Select(x => new Listener(x.EndPoint, x.Port!))
             .DistinctBy(l => l.EndPoint.ToString())

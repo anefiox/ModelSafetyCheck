@@ -30,3 +30,9 @@ jobs:
           python tools/render-fidelity/render_reference.py > "$RUNNER_TEMP/jinja2-reference.json"
           echo "MODELCHECK_FIDELITY_FILE=$RUNNER_TEMP/jinja2-reference.json" >> "$GITHUB_ENV"
       - run: dotnet test --configuration Release
+      - name: Open WebUI filter against the built CLI
+        shell: bash
+        run: |
+          dotnet build src/ModelSafetyCheck.Cli -c Release -o "$RUNNER_TEMP/cli"
+          exe="$RUNNER_TEMP/cli/modelcheck"; [[ -f "$exe.exe" ]] && exe="$exe.exe"
+          MODELCHECK="$exe" python integrations/open-webui/test_modelcheck_filter.py

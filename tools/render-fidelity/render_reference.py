@@ -60,16 +60,22 @@ def render(template):
 
 
 def main():
-    root = Path(__file__).resolve().parents[2]
-    data = json.loads((root / "data" / "known-templates.json").read_text(encoding="utf-8"))
+    # Default: the official templates. With a path argument: a {"key": "template"} file (e.g. from TemplateCorpus --dump).
+    if len(sys.argv) > 1:
+        items = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8")).items()
+    else:
+        root = Path(__file__).resolve().parents[2]
+        data = json.loads((root / "data" / "known-templates.json").read_text(encoding="utf-8"))
+        items = [(t["source"] + ("#" + t["name"] if t.get("name") else "") + ("@" + t["revision"][:10] if t.get("revision") else ""), t["text"])
+                 for t in data["templates"]]
     out = {}
-    for t in data["templates"]:
-        key = t["source"] + ("#" + t["name"] if t.get("name") else "") + ("@" + t["revision"][:10] if t.get("revision") else "")
+    for key, text in items:
         try:
-            out[key] = render(t["text"])
+            out[key] = render(text)
         except Exception as ex:  # a template jinja2 itself cannot render is skipped by the test
             out[key] = None
             print(f"{key}: {ex}", file=sys.stderr)
+    sys.stdout.reconfigure(encoding="utf-8")
     json.dump(out, sys.stdout, ensure_ascii=False, indent=1)
 
 

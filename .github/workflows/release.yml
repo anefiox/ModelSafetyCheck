@@ -32,7 +32,9 @@ jobs:
         run: |
           cd publish/${{ matrix.rid }}
           name=modelcheck-${{ github.ref_name }}-${{ matrix.rid }}
-          if [[ "${{ matrix.rid }}" == win-* ]]; then 7z a ../$name.zip ${{ matrix.exe }}; else tar czf ../$name.tar.gz ${{ matrix.exe }}; fi
+          # The executable works alone; the ONNX Runtime library is only needed for the optional --classifier.
+          files="${{ matrix.exe }} $(ls | grep -E '^(lib)?onnxruntime[^/]*\.(dll|so|dylib)$' | tr '\n' ' ')"
+          if [[ "${{ matrix.rid }}" == win-* ]]; then 7z a ../$name.zip $files; else tar czf ../$name.tar.gz $files; fi
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.rid }}

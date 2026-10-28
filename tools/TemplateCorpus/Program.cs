@@ -10,6 +10,10 @@ using ModelSafetyCheck.Rules;
 
 var count = args.FirstOrDefault(a => int.TryParse(a, out _)) is { } n ? int.Parse(n) : 1000;
 var show = args.SkipWhile(a => a != "--show").Skip(1).FirstOrDefault();
+if (args.Contains("--classifier"))
+    TextClassification.Classifier = ModelSafetyCheck.Classifier.PromptInjectionClassifier.Load(ModelSafetyCheck.Classifier.PromptInjectionClassifier.DefaultDirectory);
+var dump = args.SkipWhile(a => a != "--dump").Skip(1).FirstOrDefault();       // write {repo: template} for render_reference.py
+var compare = args.SkipWhile(a => a != "--compare").Skip(1).FirstOrDefault(); // compare with its jinja2 output
 
 using var http = new HttpClient { Timeout = TimeSpan.FromMinutes(2) };
 http.DefaultRequestHeaders.UserAgent.ParseAdd("modelcheck-corpus/1.0");
@@ -42,6 +46,44 @@ foreach (var group in distinct)
         if (!byRule.TryGetValue(key, out var list)) byRule[key] = list = [];
         list.Add(($"{first.Id} (+{group.Count() - 1} same)", f));
     }
+}
+
+var debug = args.SkipWhile(a => a != "--debug").Skip(1).FirstOrDefault();       // print one template and our render of it
+if (debug is not null)
+{
+    var match = distinct.FirstOrDefault(g => g.Any(r => r.Id == debug));
+    if (match is null) { Console.WriteLine($"{debug} not in corpus"); return; }
+    var e = TemplateExplainer.Explain(match.First().Template);
+    Console.WriteLine("---- template ----");
+    Console.WriteLine(match.First().Template);
+    Console.WriteLine("---- ours ----");
+    Console.WriteLine(e.Prompt ?? "ERROR: " + e.Error);
+    return;
+}
+
+if (dump is not null)
+{
+    File.WriteAllText(dump, JsonSerializer.Serialize(distinct.ToDictionary(g => g.First().Id, g => g.First().Template)));
+    Console.WriteLine($"Wrote {distinct.Count} templates to {dump}");
+}
+if (compare is not null)
+{
+    using var reference = JsonDocument.Parse(File.ReadAllText(compare));
+    int same = 0, differ = 0, skipped = 0;
+    foreach (var g in distinct)
+    {
+        if (!reference.RootElement.TryGetProperty(g.First().Id, out var expected) || expected.ValueKind != JsonValueKind.String) { skipped++; continue; }
+        var ours = TemplateExplainer.Explain(g.First().Template).Prompt;
+        if (ours == expected.GetString()) { same++; continue; }
+        differ++;
+        var a = ours ?? "(render failed)";
+        var b = expected.GetString()!;
+        var i = 0;
+        while (i < a.Length && i < b.Length && a[i] == b[i]) i++;
+        Console.WriteLine($"  differs: {g.First().Id} at char {i}: ours {JsonSerializer.Serialize(a.Substring(Math.Max(0, i - 15), Math.Min(40, a.Length - Math.Max(0, i - 15))))} vs jinja2 {JsonSerializer.Serialize(b.Substring(Math.Max(0, i - 15), Math.Min(40, b.Length - Math.Max(0, i - 15))))}");
+    }
+    Console.WriteLine($"Fidelity vs jinja2: {same} identical, {differ} different, {skipped} not rendered by jinja2\n");
+    if (differ > 0) Environment.ExitCode = 1;
 }
 
 var renderErrors = distinct

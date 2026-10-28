@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <IsPackable>false</IsPackable>
@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Fuzz\libfuzzer-corpus.zip" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
@@ -20,6 +24,7 @@
     <ProjectReference Include="..\..\src\ModelSafetyCheck.Local\ModelSafetyCheck.Local.csproj" />
     <ProjectReference Include="..\..\src\ModelSafetyCheck.Audit\ModelSafetyCheck.Audit.csproj" />
     <ProjectReference Include="..\..\src\ModelSafetyCheck.Hub\ModelSafetyCheck.Hub.csproj" />
+    <ProjectReference Include="..\..\src\ModelSafetyCheck.Classifier\ModelSafetyCheck.Classifier.csproj" />
   </ItemGroup>
 
 </Project>

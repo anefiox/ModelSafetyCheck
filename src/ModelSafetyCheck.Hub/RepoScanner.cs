@@ -148,8 +148,27 @@ public static partial class RepoScanner
         if (invisible.Tags > 0 || invisible.Bidi > 0)
             report.Findings.Add(new Finding("H003", invisible.Severity, "Hidden characters in the model card", $"Found {invisible.Describe()}.", "README.md"));
 
+        if (ReferenceData.TierOf(info.Author) != PublisherTier.Unknown)
+            return;
+
+        // H-11: a card copied from an official repo. Declared derivatives often reuse their base card, so that is
+        // only noted; an undeclared copy is the fake-"Privacy Filter" pattern.
+        if (CardCopy(client, repo, info, readme) is { } copy)
+        {
+            var lures = report.Findings.Any(f => f.RuleId is "H002" or "H003" && f.Severity >= Severity.High);
+            report.Findings.Add(copy.Declared
+                ? new Finding("H011", Severity.Info, $"Model card is largely copied from {copy.Source}",
+                    $"{copy.Similarity:P0} of the card's phrasing matches {HuggingFaceClient.Host}/{copy.Source}, which this repo declares or credits as its source. Common for fine-tunes and quantizations.", "README.md")
+                : new Finding("H011", lures ? Severity.High : Severity.Medium, $"Model card is copied from {copy.Source}, but the repo is not theirs",
+                    $"{copy.Similarity:P0} of the card's phrasing matches {HuggingFaceClient.Host}/{copy.Source}, yet '{info.Author}' declares no base model. " +
+                    "Fake repos copy an official card to borrow its credibility (the fake OpenAI 'Privacy Filter' repo did this to spread an info-stealer)." +
+                    (lures ? " This repo also ships executables or tells you to run something." : "") +
+                    $" Get the model from {HuggingFaceClient.Host}/{copy.Source} instead.", "README.md"));
+            return;
+        }
+
         // A card that names an official lab many times but is not published by it may be impersonating it.
-        if (ReferenceData.TierOf(info.Author) == PublisherTier.Unknown && info.BaseModels.Count == 0)
+        if (info.BaseModels.Count == 0)
         {
             var impersonated = ReferenceData.TrustedPublishers.Official
                 .Select(org => (org, count: Regex.Matches(readme, $@"\b{Regex.Escape(org)}\b", RegexOptions.IgnoreCase).Count))
@@ -161,6 +180,66 @@ public static partial class RepoScanner
                     $"The card names '{impersonated.org}' {impersonated.count} times, declares no base model, and is published by '{info.Author}'. Fake repos copy official model cards; get the model from {HuggingFaceClient.Host}/{impersonated.org} instead.",
                     "README.md"));
         }
+    }
+
+    sealed record CardCopyResult(string Source, double Similarity, bool Declared);
+
+    [GeneratedRegex(@"huggingface\.co/(?<org>[\w.\-]+)/(?<name>[\w.\-]+)", RegexOptions.IgnoreCase)]
+    private static partial Regex HubLinkRegex();
+
+    /// <summary>
+    /// Compares the card with candidate official cards: declared base models, official repos the card links to,
+    /// and the same repo name under each official org the card mentions. Returns the closest match above 50%.
+    /// </summary>
+    static CardCopyResult? CardCopy(HuggingFaceClient client, string repo, HfModelInfo info, string readme)
+    {
+        var name = repo.Split('/')[1];
+        var official = ReferenceData.TrustedPublishers.Official;
+        var candidates = new List<(string Repo, bool Declared)>();
+        candidates.AddRange(info.BaseModels.Concat(info.Tags.Where(t => t.StartsWith("base_model:", StringComparison.Ordinal)).Select(t => t.Split(':')[^1]))
+            .Where(b => b.Contains('/')).Select(b => (b, true)));
+        candidates.AddRange(HubLinkRegex().Matches(readme)
+            .Where(m => official.Contains(m.Groups["org"].Value, StringComparer.OrdinalIgnoreCase))
+            .Select(m => ($"{m.Groups["org"].Value}/{m.Groups["name"].Value}", false)));
+        candidates.AddRange(official.Where(org => readme.Contains(org, StringComparison.OrdinalIgnoreCase)).Select(org => ($"{org}/{name}", false)));
+
+        var mine = Shingles(readme);
+        if (mine.Count < 20)
+            return null;
+
+        CardCopyResult? best = null;
+        foreach (var (candidate, declared) in candidates.DistinctBy(c => c.Repo.ToLowerInvariant()).Where(c => !c.Repo.Equals(repo, StringComparison.OrdinalIgnoreCase)).Take(6))
+        {
+            string? theirs;
+            try { theirs = client.GetText(candidate, "README.md", 512 * 1024); }
+            catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or IOException) { continue; }
+            if (theirs is null)
+                continue;
+            var other = Shingles(theirs);
+            if (other.Count < 20)
+                continue;
+            // Containment: how much of the official card reappears here (copies often add or trim a few sections).
+            var similarity = (double)other.Count(mine.Contains) / Math.Min(mine.Count, other.Count);
+            // Quantizers often paste the original card under an attribution ("Original model: <link>"); that is
+            // crediting the source, not impersonating it.
+            var credited = readme.Contains($"huggingface.co/{candidate}", StringComparison.OrdinalIgnoreCase) &&
+                           Regex.IsMatch(readme, @"original model|quantiz|converted|conversion|based on|fine-?tun|derived from|gguf", RegexOptions.IgnoreCase);
+            if (similarity >= 0.5 && (best is null || similarity > best.Similarity))
+                best = new CardCopyResult(candidate, similarity, declared || credited);
+        }
+        return best;
+    }
+
+    /// <summary>5-word shingles of a markdown document, ignoring front matter, code, links and punctuation.</summary>
+    internal static HashSet<string> Shingles(string markdown)
+    {
+        var text = Regex.Replace(markdown, @"\A---.*?---", "", RegexOptions.Singleline);
+        text = Regex.Replace(text, @"```.*?```|\(https?://[^)]*\)|<[^>]+>", " ", RegexOptions.Singleline);
+        var words = Regex.Matches(text.ToLowerInvariant(), @"[\p{L}\p{N}]+").Select(m => m.Value).ToList();
+        var shingles = new HashSet<string>(StringComparer.Ordinal);
+        for (var i = 0; i + 5 <= words.Count; i++)
+            shingles.Add(string.Join(' ', words.Skip(i).Take(5)));
+        return shingles;
     }
 
     /// <summary>Non-GGUF repos: the template in chat_template.jinja / tokenizer_config.json is what transformers and vLLM render.</summary>
@@ -223,6 +302,10 @@ public static partial class RepoScanner
                 fileReport.Findings.Add(new Finding("H004", Severity.Info, "Header fetched without downloading the model",
                     $"Read {stream.Downloaded / 1024.0 / 1024.0:0.0} MiB of {file.Size / 1024.0 / 1024.0 / 1024.0:0.00} GiB. LFS sha256 {file.Sha256 ?? "unknown"}.", file.Path));
             }
+            catch (AccessDeniedException ex)
+            {
+                fileReport.Findings.Add(new Finding("H004", Severity.Low, "File not checked: access denied", ex.Message, file.Path));
+            }
             catch (Exception ex) when (ex is IOException or HttpRequestException or TaskCanceledException)
             {
                 fileReport.Error = ex.Message;
@@ -279,6 +362,10 @@ public static partial class RepoScanner
                 else SafetensorsScanner.Scan(stream, report);
                 report.Findings.Add(new Finding("H004", Severity.Info, "Checked without downloading the file",
                     $"Read {stream.Downloaded / 1024.0 / 1024.0:0.0} MiB of {file.Size / 1024.0 / 1024.0:0.0} MiB.", file.Path));
+            }
+            catch (AccessDeniedException ex)
+            {
+                report.Findings.Add(new Finding("H004", Severity.Low, "File not checked: access denied", ex.Message, file.Path));
             }
             catch (Exception ex) when (ex is IOException or HttpRequestException or TaskCanceledException or InvalidDataException)
             {

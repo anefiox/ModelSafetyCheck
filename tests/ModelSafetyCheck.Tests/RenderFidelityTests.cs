@@ -19,12 +19,14 @@ public class RenderFidelityTests
 
         using var doc = JsonDocument.Parse(File.ReadAllText(path));
         var mismatches = new List<string>();
+        var compared = 0;
         foreach (var t in ReferenceData.KnownTemplates.Templates)
         {
             var key = OfficialTemplateTests.Id(t);
             if (!doc.RootElement.TryGetProperty(key, out var expected) || expected.ValueKind != JsonValueKind.String)
                 continue;
             var actual = TemplateExplainer.Explain(t.Text).Prompt;
+            compared++;
             if (actual != expected.GetString())
                 mismatches.Add($"{key}: first difference at {FirstDifference(actual ?? "", expected.GetString()!)}");
         }

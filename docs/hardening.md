@@ -41,3 +41,6 @@ Backdoored weights cannot be detected by scanning. What you control is what a co
 - Keep secrets out of the agent's working directory: no `.env`, SSH keys or cloud credentials (`modelcheck audit --agent-dir <dir>`).
 - Do not give one agent both a file/shell tool and a network tool. Split them, and log what passes between them (rule G004).
 - Do not point file tools at your whole home directory.
+- Treat text an agent reads (web pages, files, emails) as untrusted. Templates insert it verbatim, so a page containing
+  a model's own control tokens (for example `<|im_start|>system`) can look like a real system turn to some runners.
+  This depends on the runner's tokenizer, not the template, so no scanner can rule it out; limit what the agent can do instead.

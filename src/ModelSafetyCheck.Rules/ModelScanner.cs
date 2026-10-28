@@ -63,13 +63,16 @@ public static class ModelScanner
         return report;
     }
 
+    /// <summary>Plain template files: Jinja (.jinja, .j2) and Go text/template as used by Ollama (.tmpl, .gotmpl).</summary>
+    static readonly HashSet<string> TemplateExtensions = new(StringComparer.OrdinalIgnoreCase) { ".jinja", ".j2", ".tmpl", ".gotmpl" };
+
     /// <summary>File types `scan` understands: GGUF, safetensors, pickle checkpoints and Hugging Face template files.</summary>
     public static bool IsScannable(string path)
     {
         var name = System.IO.Path.GetFileName(path);
         var ext = System.IO.Path.GetExtension(path);
         return ext.Equals(".gguf", StringComparison.OrdinalIgnoreCase) || ext.Equals(".safetensors", StringComparison.OrdinalIgnoreCase) || ext.Equals(".onnx", StringComparison.OrdinalIgnoreCase) ||
-               PickleScanner.Extensions.Contains(ext) || name is "tokenizer_config.json" or "chat_template.jinja" or "chat_template.json";
+               PickleScanner.Extensions.Contains(ext) || name is "tokenizer_config.json" or "chat_template.json" || TemplateExtensions.Contains(ext);
     }
 
     /// <summary>Scans any supported file by type.</summary>
@@ -109,9 +112,13 @@ public static class ModelScanner
     static void ScanTemplateFile(string path, string name, ScanReport report)
     {
         var text = File.ReadAllText(path);
-        if (name.EndsWith(".jinja", StringComparison.Ordinal))
+        var ext = System.IO.Path.GetExtension(name);
+        if (TemplateExtensions.Contains(ext))
         {
-            ScanTemplate(report, text, TemplateDialect.Jinja, name);
+            var dialect = ext.Equals(".tmpl", StringComparison.OrdinalIgnoreCase) || ext.Equals(".gotmpl", StringComparison.OrdinalIgnoreCase)
+                ? TemplateDialect.GoTemplate
+                : TemplateDialect.Jinja;
+            ScanTemplate(report, text, dialect, name);
             return;
         }
         using var doc = System.Text.Json.JsonDocument.Parse(text);
@@ -167,10 +174,22 @@ public static class ModelScanner
     /// </summary>
     public static List<Finding> AnalyzeTemplate(string template, TemplateDialect dialect, string location)
     {
-        var findings = AddRenderedEvidence(template, dialect, location, TemplateAnalyzer.Analyze(template, dialect, location));
+        var findings = AddRenderedEvidence(template, dialect, location, TemplateAnalyzer.Analyze(template, dialect, location), out var probeAdded);
+        if (TextClassification.Classifier is not null)
+        {
+            // Measured on the top 1,000 GGUF repos, the classifier flags ordinary instructions (tool formats, personas) in
+            // 13% of templates, so on its own it is only listed. It corroborates a trigger or an injected-looking copy.
+            var corroborated = findings.Any(f => f.RuleId is "T005" or "T013" && f.Severity >= Severity.Medium);
+            var classified = TextClassification.Check(TextClassification.TextToClassify(template, dialect, probeAdded), location, "template")
+                .Select(f => corroborated ? f : f with { Severity = Severity.Info }).ToList();
+            findings.AddRange(classified);
+        }
         var known = dialect == TemplateDialect.Jinja ? KnownTemplateCheck.Check(template, location) : null;
         if (known is null)
             return findings;
+
+        if (known is { RuleId: "T010", Severity: Severity.Medium })
+            findings = findings.Select(f => f is { RuleId: "T015", Severity: Severity.Info } ? f with { Severity = Severity.Medium } : f).ToList();
 
         if (known.Severity == Severity.Info && known.Title.StartsWith("Matches the official", StringComparison.Ordinal))
             findings = findings
@@ -186,9 +205,10 @@ public static class ModelScanner
     /// Renders the template in the sandbox with trigger probes (T013). Confirmed payloads raise the static
     /// trigger finding (T005) to High; a template that cannot be rendered is noted (T014).
     /// </summary>
-    static List<Finding> AddRenderedEvidence(string template, TemplateDialect dialect, string location, List<Finding> findings)
+    static List<Finding> AddRenderedEvidence(string template, TemplateDialect dialect, string location, List<Finding> findings, out List<string> probeAdded)
     {
         var explanation = TemplateExplainer.Explain(template, new ExplainOptions { Dialect = dialect });
+        probeAdded = explanation.Probes.SelectMany(p => p.Added).Select(a => a.Replace("«probe»", "")).ToList();
         if (explanation.Error is not null)
         {
             findings.Add(new Finding("T014", Severity.Info, "Template could not be rendered in the sandbox",
@@ -209,6 +229,8 @@ public static class ModelScanner
     {
         report.ContentHashes[location] = Sha256(text);
         report.Findings.AddRange(TemplateAnalyzer.AnalyzePlainText(text, location));
+        if (TextHeuristics.CountWords(text) >= 6)
+            report.Findings.AddRange(TextClassification.Check([text], location, "system prompt"));
     }
 
     static ModelSummary Summarize(GgufFile file)

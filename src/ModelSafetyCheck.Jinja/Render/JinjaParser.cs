@@ -16,6 +16,9 @@ sealed class JinjaParser
 
     public static IReadOnlyList<Node> Parse(string template, bool trimBlocks, bool lstripBlocks)
     {
+        // jinja2's default keep_trailing_newline=False drops a single trailing newline from the source.
+        if (template.EndsWith("\r\n", StringComparison.Ordinal)) template = template[..^2];
+        else if (template.EndsWith('\n')) template = template[..^1];
         var lex = TemplateLexer.Lex(template, TemplateDialect.Jinja);
         if (lex.Errors.Count > 0)
             throw new TemplateSyntaxException($"{lex.Errors[0].Message} at character {lex.Errors[0].Offset}");

@@ -4,7 +4,8 @@ using ModelSafetyCheck.Core;
 
 namespace ModelSafetyCheck.Audit;
 
-public sealed record DetectedRunner(string Runner, string? Version, string Source);
+/// <param name="ServerPort">Port of the runner's API server when it reports one (LM Studio can use any port).</param>
+public sealed record DetectedRunner(string Runner, string? Version, string Source, int? ServerPort = null);
 
 /// <summary>Finds installed model runners and their versions without changing anything.</summary>
 public static partial class RunnerDetector
@@ -60,12 +61,32 @@ public static partial class RunnerDetector
             if (doc.RootElement.TryGetProperty("targetHistories", out var histories))
                 foreach (var h in histories.EnumerateArray())
                     if (h.TryGetProperty("target", out var t) && t.GetString() == "lmstudio" && h.TryGetProperty("lastRecordedAppVersion", out var v))
-                        return new DetectedRunner("lmstudio", v.GetString(), path);
+                        return new DetectedRunner("lmstudio", v.GetString(), path, LmStudioServerPort());
         }
         catch (Exception ex) when (ex is IOException or JsonException or InvalidOperationException)
         {
         }
-        return new DetectedRunner("lmstudio", null, path);
+        return new DetectedRunner("lmstudio", null, path, LmStudioServerPort());
+    }
+
+    /// <summary>`lms server status --json` reports whether LM Studio's API server runs and on which port (it is configurable).</summary>
+    static int? LmStudioServerPort()
+    {
+        var result = ProcessRunner.Run("lms", ["server", "status", "--json"], TimeSpan.FromSeconds(10));
+        if (result is not { ExitCode: 0 })
+            return null;
+        try
+        {
+            var json = result.Output[result.Output.IndexOf('{')..];
+            using var doc = JsonDocument.Parse(json);
+            return doc.RootElement.TryGetProperty("running", out var r) && r.ValueKind == JsonValueKind.True
+                ? doc.RootElement.TryGetProperty("port", out var p) && p.TryGetInt32(out var port) ? port : 1234
+                : null;
+        }
+        catch (Exception ex) when (ex is JsonException or ArgumentOutOfRangeException)
+        {
+            return null;
+        }
     }
 
     /// <summary>Python runners (llama-cpp-python, SGLang, vLLM) in the first Python on PATH. Other virtual environments are not seen.</summary>

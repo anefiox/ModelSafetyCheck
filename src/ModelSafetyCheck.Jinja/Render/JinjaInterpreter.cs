@@ -10,7 +10,7 @@ public sealed class RenderLimitException(string message) : Exception(message);
 /// <summary>
 /// Evaluates a parsed template. It has no reflection, file, network or process access: templates can only
 /// read the data passed in and call the whitelisted functions, filters and methods below. Names starting
-/// with "_" are always undefined, and steps, output size and recursion depth are capped.
+/// with "__" are always undefined, and steps, output size and recursion depth are capped.
 /// </summary>
 sealed class JinjaInterpreter
 {
@@ -30,7 +30,7 @@ sealed class JinjaInterpreter
         {
             ["range"] = new BuiltinFunction("range", (_, a, _) => Range(a)),
             ["namespace"] = new BuiltinFunction("namespace", (_, a, k) => Namespace(a, k)),
-            ["dict"] = new BuiltinFunction("dict", (_, _, k) => new Dictionary<string, object?>(k)),
+            ["dict"] = new BuiltinFunction("dict", (_, a, k) => Dict(a, k)),
             ["raise_exception"] = new BuiltinFunction("raise_exception", (_, a, _) => throw new TemplateRaisedException(a.Count > 0 ? ToStr(a[0]) : "")),
             ["strftime_now"] = new BuiltinFunction("strftime_now", (_, a, _) => Strftime(options.Now ?? DateTimeOffset.Now, a.Count > 0 ? ToStr(a[0]) : "%Y-%m-%d")),
         };
@@ -128,6 +128,8 @@ sealed class JinjaInterpreter
 
             for (var i = 0; i < items.Count; i++)
             {
+                // Like jinja2, `set` inside the body lasts for one iteration only (namespaces are how state crosses iterations).
+                frame.Clear();
                 Assign(frame, f.Targets, items[i]);
                 var index = i;
                 frame["loop"] = new Dictionary<string, object?>
@@ -231,7 +233,7 @@ sealed class JinjaInterpreter
 
     object? Lookup(string name)
     {
-        if (name.StartsWith('_')) return Undefined.Instance;
+        if (name.StartsWith("__", StringComparison.Ordinal)) return Undefined.Instance;
         for (var i = _frames.Count - 1; i >= 0; i--)
             if (_frames[i].TryGetValue(name, out var v)) return v;
         return Undefined.Instance;
@@ -298,7 +300,9 @@ sealed class JinjaInterpreter
 
     public static object? GetAttr(object? target, string name)
     {
-        if (name.StartsWith('_')) return Undefined.Instance; // never expose dunders or private members
+        // Values are plain data, so there is no object model to escape into; dunders are refused anyway so that
+        // sandbox-escape probes evaluate to nothing. Template variables like `_sc` are ordinary names.
+        if (name.StartsWith("__", StringComparison.Ordinal)) return Undefined.Instance;
         if (target is Dictionary<string, object?> dict)
         {
             if (dict.TryGetValue(name, out var v)) return v;
@@ -369,6 +373,32 @@ sealed class JinjaInterpreter
         if (count > 100_000) throw new RenderLimitException($"range() of {count:N0} items (possible resource exhaustion)");
         var result = new List<object?>();
         for (var i = start; step > 0 ? i < stop : i > stop; i += step) result.Add(i);
+        return result;
+    }
+
+    /// <summary>Python dict(): copies a mapping or a list of pairs, then applies keyword arguments.</summary>
+    static Dictionary<string, object?> Dict(List<object?> args, Dictionary<string, object?> kwargs)
+    {
+        var result = new Dictionary<string, object?>();
+        if (args.Count > 0)
+        {
+            switch (args[0])
+            {
+                case Dictionary<string, object?> source:
+                    foreach (var (k, v) in source) result[k] = v;
+                    break;
+                case List<object?> pairs:
+                    foreach (var pair in pairs)
+                        if (pair is List<object?> { Count: 2 } kv) result[ToStr(kv[0])] = kv[1];
+                        else throw new TemplateRuntimeException("dict() needs pairs");
+                    break;
+                case null or Undefined:
+                    break;
+                default:
+                    throw new TemplateRuntimeException($"dict() cannot convert {TypeName(args[0])}");
+            }
+        }
+        foreach (var (k, v) in kwargs) result[k] = v;
         return result;
     }
 

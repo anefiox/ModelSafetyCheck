@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/ModelSafetyCheck.Audit/ModelSafetyCheck.Audit.csproj" />
+    <Project Path="src/ModelSafetyCheck.Classifier/ModelSafetyCheck.Classifier.csproj" />
     <Project Path="src/ModelSafetyCheck.Cli/ModelSafetyCheck.Cli.csproj" />
     <Project Path="src/ModelSafetyCheck.Core/ModelSafetyCheck.Core.csproj" />
     <Project Path="src/ModelSafetyCheck.Data/ModelSafetyCheck.Data.csproj" />

@@ -7,3 +7,5 @@
 *.props text eol=lf
 *.slnx text eol=lf
 *.gguf binary
+*.sh text eol=lf
+*.zip binary

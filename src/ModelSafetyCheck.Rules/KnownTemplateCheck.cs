@@ -40,6 +40,18 @@ public static class KnownTemplateCheck
         return Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(builder.ToString())));
     }
 
+    /// <summary>The official template this one is identical to (exact) or closest to (≥ 60% similar), if any.</summary>
+    public static (KnownTemplate? Template, bool Exact) NearestOfficial(string template)
+    {
+        if (ReferenceData.KnownTemplates.Templates.Count == 0)
+            return (null, false);
+        if (ByHash.Value.TryGetValue(NormalizedHash(template), out var exact))
+            return (exact, true);
+        var lines = LineCounts(template);
+        var best = Indexed.Value.Select(k => (k.Template, Similarity: Similarity(lines, k.Lines))).MaxBy(x => x.Similarity);
+        return best.Similarity >= CloseMatch ? (best.Template, false) : (null, false);
+    }
+
     public static Finding? Check(string template, string location)
     {
         if (ReferenceData.KnownTemplates.Templates.Count == 0)

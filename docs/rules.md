@@ -64,6 +64,7 @@ Exit codes: `0` no findings above Info, `1` Low/Medium, `2` High/Critical, `3` s
 | T011 | Medium | Possible resource exhaustion (`**`, numbers ≥ 10⁸) |
 | T013 | Info–High | **Rendered evidence**: the sandbox renderer (Jinja or Ollama's Go templates) shows the template adds text when a trigger phrase or date is present |
 | T014 | Info | The template could not be rendered in the sandbox (static checks still apply) |
+| T015 | Info–Medium | `--classifier`: a local prompt-injection model rates template or system-prompt text as injection. Info alone (it flags ordinary instructions too); Medium when a trigger (T005/T013) or an injected-looking copy (T010) corroborates it |
 
 ## Runner, network and agent (layers 3–5)
 
@@ -94,12 +95,13 @@ Exit codes: `0` no findings above Info, `1` Low/Medium, `2` High/Critical, `3` s
 | H001 | Info | Publisher, dates, downloads, lineage |
 | H002 | Medium–High | Executables, scripts, Python or archives in a model repo |
 | H003 | Medium–High | Model card tells you to run something, disable security software, or use `trust_remote_code` |
-| H004 | Info | Header-only read statistics, or files not checked |
+| H004 | Info–Low | Header-only read statistics, files not checked, or files that need HF_TOKEN (gated) |
 | H005 | Medium–High | A GGUF's template differs from the one Hugging Face displays, or quants disagree |
 | H006 | Info–Low | Abliterated / merged / uncensored lineage |
 | H007 | Low–Medium | Publisher is not an official lab or established quantizer |
 | H008 | Medium | New repo with very high downloads; card impersonating an official org |
 | H009 | Medium | Pickle-based weight files in the repo |
+| H011 | Info–High | Model card copied from an official repo: Info when the source is declared or credited, Medium when not, High when the repo also ships executables or run-this instructions |
 | P001 | Info | Ollama registry provenance |
 | P002 | Low | Source repo or file no longer on Hugging Face |
 | P003 | Info–High | Local file vs published file (size; sha256 with `--hash`) |

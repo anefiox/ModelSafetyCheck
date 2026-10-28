@@ -2,6 +2,9 @@ using System.Net;
 
 namespace ModelSafetyCheck.Hub;
 
+/// <summary>The file exists but needs credentials (gated or private repo).</summary>
+public sealed class AccessDeniedException(string message) : IOException(message);
+
 /// <summary>
 /// A read-only, seekable view of a remote file that fetches 1 MiB blocks with HTTP Range requests on
 /// demand. Lets the GGUF parser read just the header of a multi-gigabyte model. Stops with an
@@ -81,7 +84,7 @@ public sealed class HttpRangeStream : Stream
         request.Headers.Range = new System.Net.Http.Headers.RangeHeaderValue(start, end);
         using var response = _http.Send(request, HttpCompletionOption.ResponseHeadersRead);
         if (response.StatusCode is HttpStatusCode.Unauthorized or HttpStatusCode.Forbidden)
-            throw new IOException($"Access denied ({(int)response.StatusCode}). The repo may be gated: set HF_TOKEN.");
+            throw new AccessDeniedException($"Access denied ({(int)response.StatusCode}). The repo may be gated: set HF_TOKEN.");
         if (response.StatusCode != HttpStatusCode.PartialContent)
             throw new IOException($"Server did not honour the range request (HTTP {(int)response.StatusCode}).");
 

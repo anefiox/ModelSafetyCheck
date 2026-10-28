@@ -24,7 +24,9 @@ public static class MachineAudit
         report.Findings.AddRange(CheckRunners(runners));
 
         report.Findings.AddRange(NetworkExposure.CheckOllamaConfig());
-        var exposed = NetworkExposure.ExposedListeners();
+        var serverPorts = runners.Where(r => r.ServerPort is not null)
+            .Select(r => new AiPort(r.ServerPort!.Value, r.Runner == "lmstudio" ? "LM Studio" : r.Runner, true, "/v1/models"));
+        var exposed = NetworkExposure.ExposedListeners(serverPorts);
         report.Findings.AddRange(NetworkExposure.CheckListeners(exposed, exposed.Count > 0 ? PortOwners.Find() : null));
         report.Findings.AddRange(NetworkExposure.CheckDocker());
         if (options.Probe)
@@ -57,7 +59,8 @@ public static class MachineAudit
         foreach (var runner in runners)
         {
             var version = SemVersion.Parse(runner.Version);
-            yield return new Finding("A007", Severity.Info, $"Found {runner.Runner} {runner.Version ?? "(version unknown)"}", $"Detected via {runner.Source}.", runner.Runner);
+            yield return new Finding("A007", Severity.Info, $"Found {runner.Runner} {runner.Version ?? "(version unknown)"}",
+                $"Detected via {runner.Source}.{(runner.ServerPort is { } port ? $" Its API server is running on port {port}." : "")}", runner.Runner);
             if (version is null)
                 continue;
 

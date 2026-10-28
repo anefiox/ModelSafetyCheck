@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\ModelSafetyCheck.Rules\ModelSafetyCheck.Rules.csproj" />
+    <ProjectReference Include="..\..\src\ModelSafetyCheck.Classifier\ModelSafetyCheck.Classifier.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
