@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\ModelSafetyCheck.Core\ModelSafetyCheck.Core.csproj" />
+    <ProjectReference Include="..\ModelSafetyCheck.Jinja\ModelSafetyCheck.Jinja.csproj" />
+  </ItemGroup>
+
+
+</Project>

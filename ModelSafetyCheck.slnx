@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ModelSafetyCheck.Cli/ModelSafetyCheck.Cli.csproj" />
+    <Project Path="src/ModelSafetyCheck.Core/ModelSafetyCheck.Core.csproj" />
+    <Project Path="src/ModelSafetyCheck.Jinja/ModelSafetyCheck.Jinja.csproj" />
+    <Project Path="src/ModelSafetyCheck.Local/ModelSafetyCheck.Local.csproj" />
+    <Project Path="src/ModelSafetyCheck.Rules/ModelSafetyCheck.Rules.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ModelSafetyCheck.Tests/ModelSafetyCheck.Tests.csproj" />
+  </Folder>
+</Solution>
