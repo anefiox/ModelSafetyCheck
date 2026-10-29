@@ -17,6 +17,12 @@ public sealed class HttpRangeStream : Stream
     readonly HttpClient _http;
     readonly Uri _url;
     readonly long _budget;
+    readonly Lock _budgetLock = new();
+    long _reserved;
+    long _downloaded;
+
+    // Hugging Face redirects every resolve request to a signed CDN URL; reusing it halves the round trips of ReadRange.
+    volatile Uri? _resolved;
     readonly Dictionary<long, byte[]> _blocks = [];
     long _position;
 
@@ -30,7 +36,7 @@ public sealed class HttpRangeStream : Stream
         Length = FetchBlock(0, learnLength: true);
     }
 
-    public long Downloaded { get; private set; }
+    public long Downloaded => Interlocked.Read(ref _downloaded);
     public override long Length { get; }
     public override bool CanRead => true;
     public override bool CanSeek => true;
@@ -79,10 +85,69 @@ public sealed class HttpRangeStream : Stream
     {
         var start = index * BlockSize;
         var end = learnLength ? start + BlockSize - 1 : Math.Min(start + BlockSize, Length) - 1;
-        if (Downloaded + (end - start + 1) > _budget)
-            throw new IOException($"Download budget of {_budget / (1 << 20)} MiB reached before the header was fully read.");
+        var (bytes, total) = Fetch(start, end, learnLength);
+        _blocks[index] = bytes;
+        return total;
+    }
 
-        using var request = new HttpRequestMessage(HttpMethod.Get, _url);
+    /// <summary>
+    /// Reads exactly <paramref name="count"/> bytes at <paramref name="offset"/> with one Range request, bypassing the
+    /// block cache. For sampling small slices of a large file (e.g. tensor rows) without fetching whole blocks.
+    /// </summary>
+    public byte[] ReadRange(long offset, int count)
+    {
+        if (offset < 0 || count <= 0 || offset + count > Length)
+            throw new ArgumentOutOfRangeException(nameof(offset), "The range is outside the file.");
+        return Fetch(offset, offset + count - 1, learnLength: false).Bytes;
+    }
+
+    /// <summary>Fetches bytes [start, end]. Thread-safe, so <see cref="ReadRange"/> may be called in parallel.</summary>
+    (byte[] Bytes, long Total) Fetch(long start, long end, bool learnLength)
+    {
+        var size = end - start + 1;
+        lock (_budgetLock)
+        {
+            if (_reserved + size > _budget)
+                throw new IOException($"Download budget of {_budget / (1 << 20)} MiB reached.");
+            _reserved += size;
+        }
+        try
+        {
+            var resolved = _resolved;
+            if (resolved is not null)
+            {
+                try
+                {
+                    return FetchFrom(resolved, start, end, learnLength);
+                }
+                catch (Exception ex) when (ex is IOException or HttpRequestException)
+                {
+                    _resolved = null; // the signed URL may have expired: go back through the original
+                }
+            }
+            // Lineage checks make hundreds of small requests; one dropped connection should not fail the whole run.
+            for (var attempt = 0; ; attempt++)
+            {
+                try
+                {
+                    return FetchFrom(_url, start, end, learnLength);
+                }
+                catch (Exception ex) when (attempt < 2 && ex is HttpRequestException or TaskCanceledException or IOException && ex is not AccessDeniedException)
+                {
+                    Thread.Sleep(500 << attempt);
+                }
+            }
+        }
+        catch
+        {
+            lock (_budgetLock) _reserved -= size;
+            throw;
+        }
+    }
+
+    (byte[] Bytes, long Total) FetchFrom(Uri url, long start, long end, bool learnLength)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Get, url);
         request.Headers.Range = new System.Net.Http.Headers.RangeHeaderValue(start, end);
         using var response = _http.Send(request, HttpCompletionOption.ResponseHeadersRead);
         if (response.StatusCode is HttpStatusCode.Unauthorized or HttpStatusCode.Forbidden)
@@ -95,16 +160,17 @@ public sealed class HttpRangeStream : Stream
             range.To != Math.Min(end, range.Length.Value - 1) || (!learnLength && range.Length != Length))
             throw new IOException("Server returned an inconsistent Content-Range.");
         var count = checked((int)(range.To!.Value - start + 1));
-        if (count <= 0 || count > BlockSize || count > _budget - Downloaded ||
+        if (count <= 0 || count > end - start + 1 ||
             response.Content.Headers.ContentLength is { } contentLength && contentLength != count)
-            throw new IOException("Range response exceeds its expected size or download budget.");
+            throw new IOException("Range response exceeds its expected size.");
         using var body = response.Content.ReadAsStream();
         var bytes = new byte[count];
         using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(60));
         body.ReadExactlyAsync(bytes, timeout.Token).AsTask().GetAwaiter().GetResult();
-        Downloaded += bytes.Length;
-        _blocks[index] = bytes;
-        return range.Length.Value;
+        Interlocked.Add(ref _downloaded, bytes.Length);
+        if (response.RequestMessage?.RequestUri is { Scheme: "https" } final && final != url && url == _url)
+            _resolved = final;
+        return (bytes, range.Length.Value);
     }
 
     public override void Flush() { }

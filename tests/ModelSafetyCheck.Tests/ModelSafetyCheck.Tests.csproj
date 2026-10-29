@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <None Include="Fuzz\libfuzzer-corpus.zip" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures\dequant-reference.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

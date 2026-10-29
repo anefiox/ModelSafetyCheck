@@ -26,6 +26,8 @@ backdoored model into a credential stealer. `modelcheck` checks all five layers 
 ```bash
 modelcheck repo bartowski/Llama-3.2-3B-Instruct-GGUF   # before downloading: files, card, publisher, each GGUF's template (header only)
 modelcheck repo ollama:llama3.2:1b                      # before `ollama pull`: template layer + GGUF header from the registry
+modelcheck repo bartowski/Qwen2.5-0.5B-Instruct-GGUF --lineage   # ...and compare a quant's weights with the base it claims
+modelcheck lineage model.gguf --base hf:org/base-GGUF/model-f16.gguf  # is this really a quantization of that model? (~20 MiB of Range reads)
 modelcheck scan ./models                                # .gguf, .safetensors, .onnx, pickle checkpoints, tokenizer_config.json, chat_template.jinja
 modelcheck explain model.gguf                           # the exact prompt the model receives, and what trigger phrases/dates change
 modelcheck explain ollama:llama3.2:1b                   # same for an Ollama template layer (Go templates)
@@ -112,11 +114,28 @@ Findings appear in the repository's code scanning alerts (SARIF).
 
 ## Install
 
+Download a native single binary from the GitHub releases (built by `.github/workflows/release.yml`), or:
+
 ```bash
-dotnet tool install --global ModelSafetyCheck      # once published; portable, needs the .NET 10 runtime
+dotnet tool install --global ModelSafetyCheck      # once published to NuGet; portable, needs the .NET 10 runtime
 ```
 
-Or download a native single binary from the GitHub releases (built by `.github/workflows/release.yml`).
+The release also carries the `.nupkg`, and winget and Homebrew manifests (see [packaging](packaging/README.md)).
+
+### Verify a download
+
+A security tool should be verifiable itself. Every release has `SHA256SUMS`. Releases made while the repository is
+public also carry a GitHub build-provenance attestation and a Sigstore signature bundle (`<file>.sigstore.json`) for
+every asset, proving that this repository's release workflow built the file from the tagged source:
+
+```bash
+sha256sum --check --ignore-missing SHA256SUMS
+gh attestation verify modelcheck-v0.3.0-linux-x64.tar.gz --repo anefiox/ModelSafetyCheck
+cosign verify-blob modelcheck-v0.3.0-linux-x64.tar.gz   --bundle modelcheck-v0.3.0-linux-x64.tar.gz.sigstore.json   --certificate-identity-regexp '^https://github.com/anefiox/ModelSafetyCheck/.github/workflows/release.yml@refs/tags/v'   --certificate-oidc-issuer https://token.actions.githubusercontent.com
+```
+
+On Windows use `Get-FileHash` instead of `sha256sum`. The GitHub Action (`action.yml`) checks SHA256SUMS and, for a
+public repository, the attestation (`verify-provenance: auto`) before it runs the binary.
 
 ## Building
 

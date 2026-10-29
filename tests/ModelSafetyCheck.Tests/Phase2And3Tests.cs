@@ -268,6 +268,24 @@ public class HubTests
     }
 
     [Fact]
+    public void Range_stream_reads_exact_slices_in_parallel_within_budget()
+    {
+        var bytes = Enumerable.Range(0, 4 << 20).Select(i => (byte)(i * 31)).ToArray();
+        var handler = new RangeHandler(bytes);
+        using var http = new HttpClient(handler);
+        using var stream = new HttpRangeStream(http, new Uri("https://example.invalid/m.gguf"), (1 << 20) + 64 * 1000);
+
+        Parallel.For(0, 64, i =>
+        {
+            var offset = (2 << 20) + i * 5000L;
+            Assert.Equal(bytes.AsSpan((int)offset, 1000).ToArray(), stream.ReadRange(offset, 1000));
+        });
+        Assert.Equal((1 << 20) + 64 * 1000, stream.Downloaded);
+        Assert.Throws<IOException>(() => stream.ReadRange(3 << 20, 1)); // budget spent exactly
+        Assert.Throws<ArgumentOutOfRangeException>(() => stream.ReadRange(bytes.Length - 10, 20));
+    }
+
+    [Fact]
     public void Range_stream_stops_at_budget()
     {
         var bytes = new byte[3 << 20];

@@ -20,6 +20,9 @@ inputs:
   version:
     description: "Release tag of modelcheck to use. Defaults to the tag this action was referenced at, or the latest release."
     default: ""
+  verify-provenance:
+    description: "Verify the downloaded binary's GitHub build-provenance attestation (made by this repo's release workflow for that tag): true, false, or auto (verify when the action's repository is public; private repositories cannot attest)."
+    default: auto
 
 outputs:
   exit-code:
@@ -39,6 +42,7 @@ runs:
         ACTION_REPO: ${{ github.action_repository }}
         ACTION_REF: ${{ github.action_ref }}
         VERSION: ${{ inputs.version }}
+        VERIFY: ${{ inputs.verify-provenance }}
       run: |
         set -euo pipefail
         case "${RUNNER_OS}-${RUNNER_ARCH}" in
@@ -54,9 +58,24 @@ runs:
         if [[ -z "$tag" ]]; then tag=$(gh release view --repo "$ACTION_REPO" --json tagName -q .tagName); fi
         dir="$RUNNER_TEMP/modelcheck"
         mkdir -p "$dir"
-        gh release download "$tag" --repo "$ACTION_REPO" --pattern "modelcheck-${tag}-${rid}.${ext}" --pattern SHA256SUMS --dir "$dir"
-        (cd "$dir" && grep " modelcheck-${tag}-${rid}.${ext}\$" SHA256SUMS | sha256sum --check -)
-        if [[ "$ext" == zip ]]; then unzip -q -o "$dir/modelcheck-${tag}-${rid}.zip" -d "$dir"; else tar xzf "$dir/modelcheck-${tag}-${rid}.tar.gz" -C "$dir"; fi
+        asset="modelcheck-${tag}-${rid}.${ext}"
+        gh release download "$tag" --repo "$ACTION_REPO" --pattern "$asset" --pattern SHA256SUMS --dir "$dir"
+        (cd "$dir" && grep " ${asset}\$" SHA256SUMS | sha256sum --check -)
+        # The checksum only proves the file matches SHA256SUMS from the same release. The attestation proves this repo's
+        # release workflow built it from the tagged source.
+        case "$VERIFY" in
+          false) echo "::warning::Skipping provenance verification (verify-provenance: false)." ;;
+          true|auto)
+            visibility=$(gh api "repos/$ACTION_REPO" -q .visibility 2>/dev/null || echo unknown)
+            if [[ "$VERIFY" == true || "$visibility" == public ]]; then
+              gh attestation verify "$dir/$asset" --repo "$ACTION_REPO" \
+                --signer-workflow "$ACTION_REPO/.github/workflows/release.yml" --source-ref "refs/tags/$tag"
+            else
+              echo "::notice::$ACTION_REPO is $visibility; its releases carry no attestations, so only the SHA256SUMS check ran."
+            fi ;;
+          *) echo "verify-provenance must be true, false or auto"; exit 1 ;;
+        esac
+        if [[ "$ext" == zip ]]; then unzip -q -o "$dir/$asset" -d "$dir"; else tar xzf "$dir/$asset" -C "$dir"; fi
         echo "$dir" >> "$GITHUB_PATH"
 
     - name: Run modelcheck
@@ -77,7 +96,7 @@ runs:
 
     - name: Upload to code scanning
       if: inputs.upload-sarif == 'true'
-      uses: github/codeql-action/upload-sarif@v3
+      uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
       with:
         sarif_file: ${{ steps.run.outputs.sarif-file }}
         category: modelcheck

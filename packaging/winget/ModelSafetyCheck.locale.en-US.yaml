@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.9.0.schema.json
+PackageIdentifier: {{PUBLISHER}}.ModelSafetyCheck
+PackageVersion: {{VERSION}}
+PackageLocale: en-US
+Publisher: {{PUBLISHER}}
+PackageName: ModelSafetyCheck
+PackageUrl: https://github.com/{{REPO}}
+License: MIT
+LicenseUrl: https://github.com/{{REPO}}/blob/{{TAG}}/LICENSE
+ShortDescription: Scan local AI models (GGUF, safetensors, pickle, ONNX), chat templates and runner setups for malicious content.
+Moniker: modelcheck
+Tags:
+  - gguf
+  - llm
+  - security
+  - ollama
+  - lm-studio
+ManifestType: defaultLocale
+ManifestVersion: 1.9.0

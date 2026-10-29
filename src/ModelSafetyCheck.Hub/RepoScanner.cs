@@ -6,7 +6,11 @@ using ModelSafetyCheck.Rules;
 
 namespace ModelSafetyCheck.Hub;
 
-public sealed record RepoScanOptions(int MaxGgufFiles = 6, bool AllFiles = false, int BudgetMiB = 64);
+public sealed record RepoScanOptions(int MaxGgufFiles = 6, bool AllFiles = false, int BudgetMiB = 64)
+{
+    /// <summary>Also compare one GGUF's weights with the base model the repo claims to quantize (rule L001-L005).</summary>
+    public bool Lineage { get; init; }
+}
 
 /// <summary>
 /// The `repo` command: checks a Hugging Face repo before you download it. Lure files and README
@@ -74,7 +78,40 @@ public static partial class RepoScanner
 
         reports.AddRange(ScanGgufHeaders(client, repo, info, options, report));
         reports.AddRange(ScanOtherWeights(client, repo, info, options, report));
+        if (options.Lineage)
+            reports.AddRange(CheckLineage(client, repo, info, options, report));
         return reports;
+    }
+
+    /// <summary>
+    /// For a repo tagged <c>base_model:quantized:&lt;base&gt;</c>: compares the weights of one GGUF (Q4_K_M when there is one)
+    /// with an F16/BF16/Q8_0 GGUF of that base, sampling rows with Range requests.
+    /// </summary>
+    static IEnumerable<ScanReport> CheckLineage(HuggingFaceClient client, string repo, HfModelInfo info, RepoScanOptions options, ScanReport repoReport)
+    {
+        var claimed = info.Tags.Where(t => t.StartsWith("base_model:quantized:", StringComparison.Ordinal)).Select(t => t["base_model:quantized:".Length..]).FirstOrDefault();
+        if (claimed is null)
+        {
+            repoReport.Findings.Add(new Finding("L004", Severity.Info, "Lineage not checked: the repo does not claim to quantize a base model",
+                "There is no base_model:quantized tag. Use 'modelcheck lineage <file> --base <gguf>' to compare against a model of your choice.", "repo"));
+            yield break;
+        }
+        var ggufs = info.Files.Where(f => f.Path.EndsWith(".gguf", StringComparison.OrdinalIgnoreCase) && !f.Path.Contains("mmproj", StringComparison.OrdinalIgnoreCase)
+            && !LaterShardRegex().IsMatch(f.Path) && !f.Path.Contains("-of-0", StringComparison.Ordinal)).ToList();
+        var candidate = ggufs.FirstOrDefault(f => f.Path.Contains("Q4_K_M", StringComparison.OrdinalIgnoreCase))
+            ?? ggufs.FirstOrDefault(f => Regex.IsMatch(f.Path, @"(?i)q(4_k|5_k|6_k|8_0)"));
+        if (candidate is null)
+            yield break;
+        var @base = LineageSources.FindOfficialBase(client, claimed, out var note);
+        if (@base is null)
+        {
+            repoReport.Findings.Add(new Finding("L004", Severity.Info, "Lineage not checked: no GGUF of the base model to compare with", note ?? "", "repo"));
+            yield break;
+        }
+        if (@base.StartsWith($"hf:{repo}/", StringComparison.OrdinalIgnoreCase))
+            yield break; // the repo is the base's own conversion
+        yield return LineageSources.Check(client, $"hf:{repo}/{candidate.Path}", @base, Math.Max((long)options.BudgetMiB, 256) << 20,
+            claim: $"a quantization of {claimed}");
     }
 
     public static void CheckPublisherAndLineage(HfModelInfo info, ScanReport report)

@@ -190,3 +190,42 @@ with a baseline each finding has `"baseline": "new"|"existing"`. In SARIF they b
 `external`, status `accepted`, with the justification) and `baselineState` (`new`/`unchanged`), so GitHub code
 scanning shows them correctly. `--min-severity` still only changes what is displayed; the exit code is computed
 from every finding that counts.
+
+## Weight lineage
+
+`modelcheck lineage <model.gguf> --base <gguf>` and `modelcheck repo <repo> --lineage` check whether a GGUF really is
+a quantization of the model it claims. Both take local files, `hf:org/repo/file.gguf` or HTTPS URLs, and remote files
+are read with Range requests (headers plus about 16K values per tensor: ~10-20 MiB for a 0.5B model).
+
+For every tensor both files share, the same rows are dequantized (F32, F16, BF16, Q4_0, Q4_1, Q5_0, Q5_1, Q8_0, Q4_K,
+Q5_K, Q6_K, Q8_K). The difference is then divided by the quantization step at each value. Rounding to the nearest level
+leaves an RMS of about 0.29 (1/√12) whatever the type, so a real quantization of the same weights measures about 0.29.
+Edited weights measure well above 0.6 at the same tensors.
+
+Measured on Qwen2.5-0.5B-Instruct:
+- **Genuine quants** (official and bartowski Q4_K_M/Q8_0 against a direct F16 conversion) measure 0.27–0.42.
+- **An abliterated fine-tune** (Josiefied) measures 1.1–7.3 on exactly the 49 tensors abliteration touches
+  (`attn_output` and `ffn_down` in every layer, plus `token_embd`).
+- **The cosine of the abliterated tensors** stays above 0.99, so plain similarity metrics miss this.
+
+| ID | Severity | What it means |
+|---|---|---|
+| L001 | High | Weights differ from the claimed base beyond quantization noise: lists the changed tensors and a per-layer table. Fine-tuned, merged, abliterated or otherwise edited |
+| L002 | High | Weights are not derived from the claimed base (most tensors uncorrelated, or shapes differ) |
+| L003 | Info | Weights match the base within quantization noise |
+| L004 | Info–Low | Tensors not compared (unsupported types such as Q2_K/Q3_K/IQ*, or missing), or no base GGUF found for `repo --lineage` |
+| L005 | Medium | Inconclusive: one file is an activation-aware (AWQ-style) conversion |
+
+A match proves the sampled weights are the base's up to quantization. A mismatch shows modification, not malice:
+most derivatives are honest fine-tunes.
+
+**AWQ conversions (L005).** Some labs' own GGUFs are not direct conversions. For example, Qwen's official
+`Qwen2.5-*-GGUF` files differ from Qwen's published safetensors:
+- norm weights are divided by per-channel scales;
+- the next matrices are multiplied by the same scales;
+- outlier weights are clipped.
+
+That is AWQ scale migration. modelcheck fits per-row and per-column scales to recognise it. The clipping, though,
+changes weights about as much as light edits do. So when a quarter or more of the tensors are rescaled, the
+comparison reports L005 rather than L001 or L003. Compare against a direct F16/BF16/Q8_0 conversion of the published
+safetensors instead. `repo --lineage` looks for one at `ggml-org/<name>-GGUF` before the lab's own `<base>-GGUF`.

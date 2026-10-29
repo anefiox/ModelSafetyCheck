@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.9.0.schema.json
+PackageIdentifier: {{PUBLISHER}}.ModelSafetyCheck
+PackageVersion: {{VERSION}}
+InstallerType: zip
+NestedInstallerType: portable
+NestedInstallerFiles:
+  - RelativeFilePath: modelcheck.exe
+    PortableCommandAlias: modelcheck
+ReleaseDate: {{DATE}}
+Installers:
+  - Architecture: x64
+    InstallerUrl: https://github.com/{{REPO}}/releases/download/{{TAG}}/modelcheck-{{TAG}}-win-x64.zip
+    InstallerSha256: {{SHA256_win-x64}}
+  - Architecture: arm64
+    InstallerUrl: https://github.com/{{REPO}}/releases/download/{{TAG}}/modelcheck-{{TAG}}-win-arm64.zip
+    InstallerSha256: {{SHA256_win-arm64}}
+ManifestType: installer
+ManifestVersion: 1.9.0

@@ -7,16 +7,17 @@ on:
     - cron: '17 4 * * 1'
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
 
 jobs:
   refresh:
+    permissions:
+      contents: write       # push the automation branch
+      pull-requests: write  # open the pull request
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: 10.0.x
       - name: Rebuild database
@@ -25,7 +26,7 @@ jobs:
         run: dotnet run --project tools/TemplateDbBuilder -- --history
       - name: Check false positives on official templates
         run: dotnet test --filter "FullyQualifiedName~OfficialTemplateTests"
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.12'
       - name: Renderer fidelity vs jinja2 on the top 1,000 GGUF repos
@@ -34,7 +35,7 @@ jobs:
           dotnet run --project tools/TemplateCorpus -- 1000 --dump "$RUNNER_TEMP/corpus.json"
           python tools/render-fidelity/render_reference.py "$RUNNER_TEMP/corpus.json" > "$RUNNER_TEMP/corpus-ref.json"
           dotnet run --project tools/TemplateCorpus -- 1000 --compare "$RUNNER_TEMP/corpus-ref.json"
-      - uses: peter-evans/create-pull-request@v7
+      - uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           branch: automation/template-db
           title: Refresh known chat templates

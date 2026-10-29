@@ -247,6 +247,28 @@ Other
   - An AOT-safe YAML subset parser (no reflection) that rejects unsupported YAML with line numbers.
   - 65 tests; the AOT publish has no warnings.
 
+- [x] F-08 Weight lineage (`lineage <gguf> --base <gguf>`, `repo --lineage`, L001–L005):
+  - Dequantizers for F32/F16/BF16/Q4_0/Q4_1/Q5_0/Q5_1/Q8_0/Q4_K/Q5_K/Q6_K/Q8_K, matching llama.cpp's gguf-py on
+    reference blocks; each value comes with its quantization step.
+  - The same middle rows of every shared tensor are compared, using parallel exact Range reads (about 20 MiB and
+    30 s for a 0.5B pair).
+  - Normalized error (diff / step) is about 0.29 for genuine quants. Per-row and per-column scale fitting recognises
+    AWQ-style conversions (L005).
+  - Verified on real pairs: genuine official and bartowski quants match, and an abliterated fine-tune is caught on
+    exactly the abliterated tensors.
+  - Found that Qwen's official GGUFs are AWQ conversions, not direct ones.
+  - Not supported yet: Q2_K, Q3_K, IQ* and safetensors as the base (that needs per-architecture name mapping and
+    llama's Q/K permutation).
+- [x] R-04 Release hardening:
+  - Every action is pinned to a commit SHA on Node 24 versions, with `permissions: {}` at the top and least privilege
+    per job.
+  - Releases carry the `.nupkg` and rendered winget/Homebrew manifests (`packaging/`).
+  - For public repos, the release adds build-provenance attestations and cosign keyless bundles, self-verified in the
+    workflow. Private repos skip both, because Rekor would publish the repo name.
+  - `action.yml` verifies the attestation (`verify-provenance`).
+  - README has a "Verify a download" section.
+  - actionlint was not run (fetching it was not allowed in this session).
+
 ## Sources to verify against (not the video transcript)
 
 - Checkmarx — "Llama Drama", CVE-2024-34359 (llama-cpp-python SSTI)

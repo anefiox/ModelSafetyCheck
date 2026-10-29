@@ -113,12 +113,24 @@ public static class Program
         var maxFilesOption = new Option<int>("--max-files") { Description = "GGUF files to check per repo (spread across sizes).", DefaultValueFactory = _ => 6 };
         var allFilesOption = new Option<bool>("--all-files") { Description = "Check every supported weight file, including all GGUF shards." };
         var budgetOption = new Option<int>("--budget-mb") { Description = "Maximum MiB to download per GGUF header.", DefaultValueFactory = _ => 64 };
+        var repoLineageOption = new Option<bool>("--lineage") { Description = "Also compare one GGUF's weights with the base model the repo claims to quantize (samples rows; ~20-50 MiB)." };
         var repo = new Command("repo", "Check a Hugging Face repo or Ollama registry model before downloading: lure files, model card, publisher, lineage, templates, and weight-file headers (without downloading the weights).")
         {
-            repoArgument, maxFilesOption, allFilesOption, budgetOption,
+            repoArgument, maxFilesOption, allFilesOption, budgetOption, repoLineageOption,
         };
         repo.SetAction(result => Run(result, RepoScans(result.GetValue(repoArgument)!,
-            new RepoScanOptions(result.GetValue(maxFilesOption), result.GetValue(allFilesOption), result.GetValue(budgetOption)))));
+            new RepoScanOptions(result.GetValue(maxFilesOption), result.GetValue(allFilesOption), result.GetValue(budgetOption)) { Lineage = result.GetValue(repoLineageOption) })));
+
+        var lineageCandidate = new Argument<string>("model") { Description = "The GGUF to check: a local file, hf:org/repo/file.gguf, or an HTTPS URL." };
+        var lineageBase = new Option<string>("--base") { Description = "The GGUF it claims to be a quantization of (ideally the official F16/BF16/Q8_0): same forms as the model.", Required = true };
+        var lineageBudget = new Option<int>("--budget-mb") { Description = "Maximum MiB to download per remote file (headers plus sampled rows).", DefaultValueFactory = _ => 256 };
+        var lineageSample = new Option<int>("--sample") { Description = "Values compared per tensor (whole rows from the middle of each tensor).", DefaultValueFactory = _ => 16384 };
+        var lineage = new Command("lineage", "Check that a GGUF really carries its claimed base model's weights: compares sampled rows of every tensor against quantization noise.")
+        {
+            lineageCandidate, lineageBase, lineageBudget, lineageSample,
+        };
+        lineage.SetAction(result => Run(result, LineageScan(result.GetValue(lineageCandidate)!, result.GetValue(lineageBase)!,
+            result.GetValue(lineageBudget), result.GetValue(lineageSample))));
 
         var baselineOption = new Option<bool>("--baseline") { Description = "Record the current templates as the baseline and exit." };
         var updateOption = new Option<bool>("--update") { Description = "After reporting changes, accept them as the new baseline." };
@@ -153,7 +165,7 @@ public static class Program
 
         var root = new RootCommand("modelcheck: scan local AI models and setups for malicious files, templates and configuration.")
         {
-            scan, local, audit, repo, watch, explain, classifier, BatchCommand.Create(), PolicyCommand.Create(), BaselineCommand(),
+            scan, local, audit, repo, lineage, watch, explain, classifier, BatchCommand.Create(), PolicyCommand.Create(), BaselineCommand(),
             FormatOption, MinSeverityOption, DumpTemplateOption, NoColorOption, ClassifierOption,
             PolicyOption, NoPolicyOption, BaselineFileOption, WriteBaselineOption, ShowSuppressedOption,
         };
@@ -251,6 +263,20 @@ public static class Program
         foreach (var repo in repos)
             foreach (var report in OllamaRegistryScanner.IsOllamaName(repo) ? OllamaRegistryScanner.Scan(client, repo, options) : RepoScanner.Scan(client, repo, options))
                 yield return report;
+    }
+
+    static IEnumerable<ScanReport> LineageScan(string candidate, string @base, int budgetMiB, int sample)
+    {
+        if (budgetMiB <= 0 || sample <= 0)
+        {
+            yield return new ScanReport { Target = candidate, Kind = "lineage", Error = "--budget-mb and --sample must be positive." };
+            yield break;
+        }
+        using var client = new HuggingFaceClient();
+        var progress = Console.IsErrorRedirected ? null : new Action<int, int>((done, total) =>
+            Console.Error.Write(done == total ? "\r" + new string(' ', 40) + "\r" : $"\rComparing tensors {done}/{total}..."));
+        yield return LineageSources.Check(client, candidate, @base, (long)budgetMiB << 20,
+            new Rules.Lineage.LineageOptions { SampleValues = sample, Progress = progress });
     }
 
     /// <summary>Model scans first (their results feed the audit's risk rating), then the machine audit.</summary>
