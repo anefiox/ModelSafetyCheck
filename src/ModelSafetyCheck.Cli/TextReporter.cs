@@ -44,10 +44,16 @@ sealed class TextReporter(TextWriter output, bool color)
 
     public void WriteSummary(IReadOnlyList<ScanReport> reports)
     {
+        WriteSummary(reports.Count, reports.Count(r => r.Error is not null),
+            Enum.GetValues<Severity>().Select(sev => (long)reports.Sum(r => r.Findings.Count(f => f.Severity == sev))).ToArray());
+    }
+
+    public void WriteSummary(long reportCount, long errorCount, IReadOnlyList<long> severityCounts)
+    {
         var counts = Enum.GetValues<Severity>().Reverse()
-            .Select(sev => $"{reports.Sum(r => r.Findings.Count(f => f.Severity == sev))} {sev.ToString().ToLowerInvariant()}");
+            .Select(sev => $"{severityCounts[(int)sev]} {sev.ToString().ToLowerInvariant()}");
         output.WriteLine();
-        output.WriteLine($"Scanned {reports.Count} target(s): {string.Join(", ", counts)}; {reports.Count(r => r.Error is not null)} error(s).");
+        output.WriteLine($"Scanned {reportCount} target(s): {string.Join(", ", counts)}; {errorCount} error(s).");
         output.WriteLine("Note: a clean result means no known file, template or setup issue was found. It cannot prove the weights are free of backdoors.");
     }
 

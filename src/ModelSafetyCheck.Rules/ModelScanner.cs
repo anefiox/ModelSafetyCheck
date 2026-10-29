@@ -30,11 +30,11 @@ public sealed class ScanReport
     public string? Fingerprint { get; set; }
 
     /// <summary>sha256 of every template and system prompt, by location. Used by `watch` to spot rewrites.</summary>
-    public Dictionary<string, string> ContentHashes { get; } = [];
+    public Dictionary<string, string> ContentHashes { get; init; } = [];
 
     public ModelSummary? Summary { get; set; }
-    public List<Finding> Findings { get; } = [];
-    public List<ExtractedTemplate> Templates { get; } = [];
+    public List<Finding> Findings { get; init; } = [];
+    public List<ExtractedTemplate> Templates { get; init; } = [];
 
     /// <summary>Set when the target could not be scanned at all (I/O error, missing file).</summary>
     public string? Error { get; set; }
@@ -44,6 +44,7 @@ public sealed class ScanReport
 
 public static class ModelScanner
 {
+    public const int MaxTemplateFileBytes = 4 << 20;
     static readonly IGgufRule[] GgufRules = [new StructuralRules(), new MetadataRules(), new TokenizerRules()];
 
     public static ScanReport ScanFile(string path, string kind = "gguf", string? target = null)
@@ -101,7 +102,7 @@ public static class ModelScanner
             else if (kind == "onnx") OnnxScanner.Scan(stream, report, path);
             else PickleScanner.Scan(stream, report);
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException or InvalidDataException)
         {
             report.Error = ex.Message;
         }
@@ -111,7 +112,25 @@ public static class ModelScanner
     /// <summary>chat_template.jinja or the chat_template in tokenizer_config.json: what transformers and vLLM render.</summary>
     static void ScanTemplateFile(string path, string name, ScanReport report)
     {
-        var text = File.ReadAllText(path);
+        using var stream = File.OpenRead(path);
+        if (stream.Length > MaxTemplateFileBytes)
+            throw new InvalidDataException($"Template/config file exceeds the {MaxTemplateFileBytes}-byte limit.");
+        using var reader = new StreamReader(stream);
+        var buffer = new char[MaxTemplateFileBytes + 1];
+        var count = reader.ReadBlock(buffer, 0, buffer.Length);
+        if (count > MaxTemplateFileBytes)
+            throw new InvalidDataException("Template/config file exceeds the text limit.");
+        ScanTemplateText(new string(buffer, 0, count), name, report);
+    }
+
+    /// <summary>Shared validation for downloaded and local template/config files.</summary>
+    public static void ScanTemplateText(string text, string name, ScanReport report)
+    {
+        if (text.Length > MaxTemplateFileBytes)
+        {
+            report.Error = "Template/config text exceeds the size limit.";
+            return;
+        }
         var ext = System.IO.Path.GetExtension(name);
         if (TemplateExtensions.Contains(ext))
         {
@@ -121,15 +140,33 @@ public static class ModelScanner
             ScanTemplate(report, text, dialect, name);
             return;
         }
-        using var doc = System.Text.Json.JsonDocument.Parse(text);
-        if (!doc.RootElement.TryGetProperty("chat_template", out var t))
-            return;
-        if (t.ValueKind == System.Text.Json.JsonValueKind.String)
-            ScanTemplate(report, t.GetString()!, TemplateDialect.Jinja, $"{name}:chat_template");
-        else if (t.ValueKind == System.Text.Json.JsonValueKind.Array)
-            foreach (var item in t.EnumerateArray())
-                if (item.TryGetProperty("template", out var tt) && tt.GetString() is { } template)
-                    ScanTemplate(report, template, TemplateDialect.Jinja, $"{name}:chat_template.{(item.TryGetProperty("name", out var n) ? n.GetString() : "?")}");
+        try
+        {
+            using var doc = System.Text.Json.JsonDocument.Parse(text);
+            if (doc.RootElement.ValueKind != System.Text.Json.JsonValueKind.Object)
+                throw new InvalidDataException("Template/config JSON must be an object.");
+            if (!doc.RootElement.TryGetProperty("chat_template", out var t))
+                return;
+            if (t.ValueKind == System.Text.Json.JsonValueKind.String)
+                ScanTemplate(report, t.GetString()!, TemplateDialect.Jinja, $"{name}:chat_template");
+            else if (t.ValueKind == System.Text.Json.JsonValueKind.Array)
+            {
+                foreach (var item in t.EnumerateArray())
+                {
+                    if (item.ValueKind != System.Text.Json.JsonValueKind.Object ||
+                        !item.TryGetProperty("template", out var tt) || tt.ValueKind != System.Text.Json.JsonValueKind.String ||
+                        !item.TryGetProperty("name", out var n) || n.ValueKind != System.Text.Json.JsonValueKind.String)
+                        throw new InvalidDataException("Each chat_template entry must have string name and template fields.");
+                    ScanTemplate(report, tt.GetString()!, TemplateDialect.Jinja, $"{name}:chat_template.{n.GetString()}");
+                }
+            }
+            else
+                throw new InvalidDataException("chat_template must be a string or a list of named templates.");
+        }
+        catch (Exception ex) when (ex is System.Text.Json.JsonException or InvalidDataException)
+        {
+            report.Error = $"{name}: {ex.Message}";
+        }
     }
 
     public static ScanReport ScanStream(Stream stream, string target)

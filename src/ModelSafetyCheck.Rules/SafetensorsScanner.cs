@@ -74,6 +74,7 @@ public static class SafetensorsScanner
                 var location = $"tensor:{entry.Name}";
                 if (entry.Value.ValueKind != JsonValueKind.Object ||
                     !entry.Value.TryGetProperty("dtype", out var dtypeEl) || !entry.Value.TryGetProperty("shape", out var shapeEl) || !entry.Value.TryGetProperty("data_offsets", out var offsetsEl) ||
+                    dtypeEl.ValueKind != JsonValueKind.String ||
                     offsetsEl.ValueKind != JsonValueKind.Array || offsetsEl.GetArrayLength() != 2 || shapeEl.ValueKind != JsonValueKind.Array)
                 {
                     report.Findings.Add(new Finding("F002", Severity.High, "Malformed tensor entry", "Expected dtype, shape and a two-element data_offsets.", location));
@@ -81,7 +82,8 @@ public static class SafetensorsScanner
                     continue;
                 }
 
-                if (!offsetsEl[0].TryGetInt64(out var begin) || !offsetsEl[1].TryGetInt64(out var end) || begin < 0 || end < begin || end > dataLength)
+                if (offsetsEl[0].ValueKind != JsonValueKind.Number || offsetsEl[1].ValueKind != JsonValueKind.Number ||
+                    !offsetsEl[0].TryGetInt64(out var begin) || !offsetsEl[1].TryGetInt64(out var end) || begin < 0 || end < begin || end > dataLength)
                 {
                     report.Findings.Add(new Finding("F004", Severity.Critical, "Tensor data lies outside the file",
                         $"data_offsets {offsetsEl.GetRawText()} do not fit in the {dataLength:N0}-byte data section. A loader that trusts them reads out of bounds.", location));
@@ -99,7 +101,7 @@ public static class SafetensorsScanner
                 {
                     double elements = 1;
                     foreach (var d in shapeEl.EnumerateArray())
-                        elements *= d.TryGetInt64(out var n) && n >= 0 ? n : double.NaN;
+                        elements *= d.ValueKind == JsonValueKind.Number && d.TryGetInt64(out var n) && n >= 0 ? n : double.NaN;
                     var expected = elements * size;
                     if (double.IsNaN(expected) || Math.Abs(expected - (end - begin)) > 1)
                         report.Findings.Add(new Finding("F004", Severity.High, "Tensor size does not match its shape",

@@ -2,4 +2,17 @@
   <ItemGroup>
     <ProjectReference Include="..\ModelSafetyCheck.Rules\ModelSafetyCheck.Rules.csproj" />
   </ItemGroup>
+  <!-- A source fingerprint works in both managed and Native AOT builds, without relying on module metadata. -->
+  <Target Name="FingerprintScannerSources" BeforeTargets="GetAssemblyAttributes">
+    <ItemGroup>
+      <ScannerSource Include="$(MSBuildProjectDirectory)/../**/*.cs"
+                     Exclude="$(MSBuildProjectDirectory)/../**/bin/**;$(MSBuildProjectDirectory)/../**/obj/**" />
+    </ItemGroup>
+    <GetFileHash Files="@(ScannerSource)" Algorithm="SHA256">
+      <Output TaskParameter="Items" ItemName="ScannerSourceHash" />
+    </GetFileHash>
+    <ItemGroup>
+      <AssemblyMetadata Include="ScannerSources" Value="@(ScannerSourceHash->'%(FileHash)', '')" />
+    </ItemGroup>
+  </Target>
 </Project>

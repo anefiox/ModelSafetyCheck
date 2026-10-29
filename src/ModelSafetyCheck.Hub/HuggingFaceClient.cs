@@ -17,7 +17,10 @@ public sealed record HfModelInfo(
     IReadOnlyList<string> Tags,
     IReadOnlyList<string> BaseModels,
     string? DisplayedGgufTemplate,
-    IReadOnlyList<HfFile> Files);
+    IReadOnlyList<HfFile> Files)
+{
+    public string? Revision { get; init; }
+}
 
 /// <summary>Minimal read-only Hugging Face Hub client. Sends HF_TOKEN only to huggingface.co, and only when set.</summary>
 public sealed partial class HuggingFaceClient : IDisposable
@@ -31,12 +34,7 @@ public sealed partial class HuggingFaceClient : IDisposable
 
     public HuggingFaceClient(HttpMessageHandler? handler = null)
     {
-        // .NET drops the Authorization header when a redirect leaves the original host (e.g. to the CDN).
-        _http = handler is null ? new HttpClient() : new HttpClient(handler);
-        _http.Timeout = TimeSpan.FromSeconds(60);
-        _http.DefaultRequestHeaders.UserAgent.ParseAdd($"modelcheck/{typeof(HuggingFaceClient).Assembly.GetName().Version?.ToString(3) ?? "0"}");
-        if (Environment.GetEnvironmentVariable("HF_TOKEN") is { Length: > 0 } token)
-            _http.DefaultRequestHeaders.Authorization = new("Bearer", token);
+        _http = RemoteHttp.Create(handler);
     }
 
     public HttpClient Http => _http;
@@ -54,8 +52,8 @@ public sealed partial class HuggingFaceClient : IDisposable
         return RepoIdRegex().IsMatch(id) && !id.Contains("..", StringComparison.Ordinal) ? id : null;
     }
 
-    public Uri FileUrl(string repo, string path) =>
-        new($"{Host}/{repo}/resolve/main/{string.Join('/', path.Split('/').Select(Uri.EscapeDataString))}");
+    public Uri FileUrl(string repo, string path, string revision = "main") =>
+        new($"{Host}/{repo}/resolve/{Uri.EscapeDataString(revision)}/{string.Join('/', path.Split('/').Select(Uri.EscapeDataString))}");
 
     public HfModelInfo GetModel(string repo)
     {
@@ -96,23 +94,64 @@ public sealed partial class HuggingFaceClient : IDisposable
         var displayed = root.TryGetProperty("gguf", out var gguf) && gguf.ValueKind == JsonValueKind.Object ? Str(gguf, "chat_template") : null;
 
         return new HfModelInfo(Str(root, "id") ?? repo, Str(root, "author") ?? repo.Split('/')[0], Date(root, "createdAt"), Date(root, "lastModified"),
-            root.TryGetProperty("downloads", out var dl) && dl.TryGetInt64(out var d) ? d : 0, gated, tags, baseModels, displayed, files);
+            root.TryGetProperty("downloads", out var dl) && dl.TryGetInt64(out var d) ? d : 0, gated, tags, baseModels, displayed, files)
+            { Revision = Str(root, "sha") };
     }
 
     /// <summary>Downloads a small text file from the repo. Returns null when it does not exist.</summary>
-    public string? GetText(string repo, string path, int maxBytes = 1 << 20)
+    public string? GetText(string repo, string path, int maxBytes = 1 << 20, string revision = "main")
     {
-        using var response = _http.Send(new HttpRequestMessage(HttpMethod.Get, FileUrl(repo, path)), HttpCompletionOption.ResponseHeadersRead);
+        using var response = _http.Send(new HttpRequestMessage(HttpMethod.Get, FileUrl(repo, path, revision)), HttpCompletionOption.ResponseHeadersRead);
         if (response.StatusCode == HttpStatusCode.NotFound)
             return null;
         response.EnsureSuccessStatusCode();
         using var body = response.Content.ReadAsStream();
-        var buffer = new byte[maxBytes];
+        if (response.Content.Headers.ContentLength > maxBytes)
+            throw new IOException($"{path} exceeds the {maxBytes}-byte text limit.");
+        var buffer = new byte[checked(maxBytes + 1)];
         var read = 0;
         int n;
-        while (read < maxBytes && (n = body.Read(buffer, read, maxBytes - read)) > 0)
+        using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(60));
+        while (read < buffer.Length && (n = body.ReadAsync(buffer.AsMemory(read), timeout.Token).AsTask().GetAwaiter().GetResult()) > 0)
             read += n;
+        if (read > maxBytes)
+            throw new IOException($"{path} exceeds the {maxBytes}-byte text limit.");
         return Encoding.UTF8.GetString(buffer, 0, read);
+    }
+
+    /// <summary>Enumerates paginated task search results. Missing tags cannot be discovered by a task search.</summary>
+    public IEnumerable<string> ListModels(string task, int limit = int.MaxValue)
+    {
+        string? url = $"{Host}/api/models?pipeline_tag={Uri.EscapeDataString(task)}&sort=downloads&direction=-1&limit=100";
+        var count = 0;
+        while (url is not null && count < limit)
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Get, url);
+            using var response = _http.Send(request);
+            response.EnsureSuccessStatusCode();
+            using var doc = JsonDocument.Parse(response.Content.ReadAsStream());
+            foreach (var model in doc.RootElement.EnumerateArray())
+            {
+                if (count >= limit) break;
+                var id = model.GetProperty("id").GetString();
+                if (id is null || NormalizeRepoId(id) != id) continue;
+                count++;
+                yield return id;
+            }
+            url = null;
+            if (response.Headers.TryGetValues("Link", out var links))
+                foreach (var link in links.SelectMany(l => l.Split(',')))
+                {
+                    var from = link.IndexOf('<');
+                    var to = link.IndexOf('>');
+                    if (!link.Contains("rel=\"next\"", StringComparison.Ordinal) || from < 0 || to <= from) continue;
+                    if (!Uri.TryCreate(link[(from + 1)..to], UriKind.Absolute, out var next) ||
+                        next.Scheme != "https" || next.Host != "huggingface.co" || !next.IsDefaultPort ||
+                        !next.AbsolutePath.StartsWith("/api/models", StringComparison.Ordinal))
+                        throw new IOException("Invalid Hugging Face pagination URL.");
+                    url = next.AbsoluteUri;
+                }
+        }
     }
 
     public void Dispose() => _http.Dispose();

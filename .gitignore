@@ -6,6 +6,9 @@
 # dotenv files
 .env
 
+# Downloaded model files and saved batch scan state
+/modelcheck-batch/
+
 # User-specific files
 *.rsuser
 *.suo

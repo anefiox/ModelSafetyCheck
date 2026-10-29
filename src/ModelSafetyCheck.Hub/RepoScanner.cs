@@ -24,7 +24,7 @@ public static partial class RepoScanner
     [GeneratedRegex(@"abliterat|uncensor|unfilter|unaligned|jailbr|\bmerge\b|frankenmerge|-merge|merged|\bnsfw\b|heretic|decensor", RegexOptions.IgnoreCase)]
     private static partial Regex ModifiedMarkerRegex();
 
-    [GeneratedRegex(@"-0000[2-9]-of-\d+\.gguf$|-\d{4}[1-9]-of-\d+\.gguf$", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"-(?!00001-of-)\d{5}-of-\d{5}\.gguf$", RegexOptions.IgnoreCase)]
     private static partial Regex LaterShardRegex();
 
     static readonly (Regex Pattern, string Description)[] ReadmeLures =
@@ -42,6 +42,11 @@ public static partial class RepoScanner
         var repo = HuggingFaceClient.NormalizeRepoId(repoInput);
         var report = new ScanReport { Target = $"hf:{repo ?? repoInput}", Kind = "hf-repo" };
         var reports = new List<ScanReport> { report };
+        if (options.MaxGgufFiles < 0 || options.BudgetMiB <= 0)
+        {
+            report.Error = "--max-files must be nonnegative and --budget-mb must be positive.";
+            return reports;
+        }
         if (repo is null)
         {
             report.Error = "Not a Hugging Face repo id (expected 'org/name' or a huggingface.co URL).";
@@ -68,7 +73,7 @@ public static partial class RepoScanner
             ModelScanner.ScanTemplate(report, displayed, TemplateDialect.Jinja, "template shown on Hugging Face");
 
         reports.AddRange(ScanGgufHeaders(client, repo, info, options, report));
-        reports.AddRange(ScanOtherWeights(client, repo, info, options));
+        reports.AddRange(ScanOtherWeights(client, repo, info, options, report));
         return reports;
     }
 
@@ -130,8 +135,12 @@ public static partial class RepoScanner
         if (!info.Files.Any(f => f.Path.Equals("README.md", StringComparison.OrdinalIgnoreCase)))
             return;
         string? readme;
-        try { readme = client.GetText(repo, "README.md", 512 * 1024); }
-        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or IOException) { return; }
+        try { readme = client.GetText(repo, "README.md", 512 * 1024, info.Revision ?? "main"); }
+        catch (Exception ex) when (ex is HttpRequestException or OperationCanceledException or IOException)
+        {
+            report.Error = $"README.md was not checked: {ex.Message}";
+            return;
+        }
         if (readme is null)
             return;
 
@@ -250,44 +259,33 @@ public static partial class RepoScanner
             if (!info.Files.Any(f => f.Path == name))
                 continue;
             string? text;
-            try { text = client.GetText(repo, name, 4 << 20); }
-            catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException or IOException) { continue; }
-            if (text is null)
+            try { text = client.GetText(repo, name, ModelScanner.MaxTemplateFileBytes, info.Revision ?? "main"); }
+            catch (Exception ex) when (ex is HttpRequestException or OperationCanceledException or IOException)
+            {
+                report.Error = $"{name} was not checked: {ex.Message}";
                 continue;
-
-            if (name.EndsWith(".jinja", StringComparison.Ordinal))
-            {
-                ModelScanner.ScanTemplate(report, text, TemplateDialect.Jinja, name);
-                return;
             }
-            try
+            if (text is null)
             {
-                using var doc = System.Text.Json.JsonDocument.Parse(text);
-                if (!doc.RootElement.TryGetProperty("chat_template", out var t))
-                    continue;
-                if (t.ValueKind == System.Text.Json.JsonValueKind.String)
-                    ModelScanner.ScanTemplate(report, t.GetString()!, TemplateDialect.Jinja, $"{name}:chat_template");
-                else if (t.ValueKind == System.Text.Json.JsonValueKind.Array)
-                    foreach (var item in t.EnumerateArray())
-                        ModelScanner.ScanTemplate(report, item.GetProperty("template").GetString() ?? "", TemplateDialect.Jinja, $"{name}:chat_template.{item.GetProperty("name").GetString()}");
+                report.Error = $"{name} was listed but could not be downloaded.";
+                continue;
             }
-            catch (Exception ex) when (ex is System.Text.Json.JsonException or KeyNotFoundException or InvalidOperationException)
-            {
-            }
+            ModelScanner.ScanTemplateText(text, name, report);
         }
     }
 
     static IEnumerable<ScanReport> ScanGgufHeaders(HuggingFaceClient client, string repo, HfModelInfo info, RepoScanOptions options, ScanReport repoReport)
     {
-        var ggufs = info.Files.Where(f => f.Path.EndsWith(".gguf", StringComparison.OrdinalIgnoreCase) && !LaterShardRegex().IsMatch(f.Path))
+        var allGgufs = info.Files.Where(f => f.Path.EndsWith(".gguf", StringComparison.OrdinalIgnoreCase)).ToList();
+        var ggufs = allGgufs.Where(f => options.AllFiles || !LaterShardRegex().IsMatch(f.Path))
             .OrderBy(f => f.Size).ToList();
         if (ggufs.Count == 0)
             yield break;
 
         var selected = options.AllFiles || ggufs.Count <= options.MaxGgufFiles ? ggufs : Spread(ggufs, options.MaxGgufFiles);
-        if (selected.Count < ggufs.Count)
+        if (selected.Count < allGgufs.Count)
             repoReport.Findings.Add(new Finding("H004", Severity.Info, "Not every GGUF file was checked",
-                $"Checked {selected.Count} of {ggufs.Count} GGUF files (spread across sizes). A poisoned template can hide in a single quant: use --all-files to check every one.", "files"));
+                $"Checked {selected.Count} of {allGgufs.Count} GGUF files (sampling may omit later shards). A poisoned template can hide in a single quant: use --all-files to check every one.", "files"));
 
         var displayedHash = info.DisplayedGgufTemplate is { Length: > 0 } d ? KnownTemplateCheck.NormalizedHash(d) : null;
         var templatesByFile = new List<(string File, string Template, bool Suspicious)>();
@@ -297,7 +295,7 @@ public static partial class RepoScanner
             var fileReport = new ScanReport { Target = $"hf:{repo}/{file.Path}", Kind = "hf-gguf", Fingerprint = file.Sha256 };
             try
             {
-                using var stream = new HttpRangeStream(client.Http, client.FileUrl(repo, file.Path), (long)options.BudgetMiB << 20);
+                using var stream = new HttpRangeStream(client.Http, client.FileUrl(repo, file.Path, info.Revision ?? "main"), (long)options.BudgetMiB << 20);
                 ModelScanner.ScanGguf(stream, fileReport);
                 fileReport.Findings.Add(new Finding("H004", Severity.Info, "Header fetched without downloading the model",
                     $"Read {stream.Downloaded / 1024.0 / 1024.0:0.0} MiB of {file.Size / 1024.0 / 1024.0 / 1024.0:0.00} GiB. LFS sha256 {file.Sha256 ?? "unknown"}.", file.Path));
@@ -305,8 +303,9 @@ public static partial class RepoScanner
             catch (AccessDeniedException ex)
             {
                 fileReport.Findings.Add(new Finding("H004", Severity.Low, "File not checked: access denied", ex.Message, file.Path));
+                fileReport.Error = ex.Message;
             }
-            catch (Exception ex) when (ex is IOException or HttpRequestException or TaskCanceledException)
+            catch (Exception ex) when (ex is IOException or HttpRequestException or OperationCanceledException)
             {
                 fileReport.Error = ex.Message;
             }
@@ -343,12 +342,18 @@ public static partial class RepoScanner
     /// Pickle checkpoints and safetensors headers, read remotely. A PyTorch zip keeps its index at the end and
     /// data.pkl is small, so only a few MiB of a multi-gigabyte .bin are fetched.
     /// </summary>
-    static IEnumerable<ScanReport> ScanOtherWeights(HuggingFaceClient client, string repo, HfModelInfo info, RepoScanOptions options)
+    static IEnumerable<ScanReport> ScanOtherWeights(HuggingFaceClient client, string repo, HfModelInfo info, RepoScanOptions options, ScanReport repoReport)
     {
-        var pickles = info.Files.Where(f => PickleScanner.Extensions.Contains(Path.GetExtension(f.Path))).Take(options.AllFiles ? 50 : 3);
-        var safetensors = info.Files.Where(f => f.Path.EndsWith(".safetensors", StringComparison.OrdinalIgnoreCase)).Take(options.AllFiles ? 50 : 2);
-        var onnx = info.Files.Where(f => f.Path.EndsWith(".onnx", StringComparison.OrdinalIgnoreCase)).OrderBy(f => f.Size).Take(options.AllFiles ? 50 : 2);
-        foreach (var file in pickles.Concat(safetensors).Concat(onnx))
+        var pickles = info.Files.Where(f => PickleScanner.Extensions.Contains(Path.GetExtension(f.Path))).ToList();
+        var safetensors = info.Files.Where(f => f.Path.EndsWith(".safetensors", StringComparison.OrdinalIgnoreCase)).ToList();
+        var onnx = info.Files.Where(f => f.Path.EndsWith(".onnx", StringComparison.OrdinalIgnoreCase)).OrderBy(f => f.Size).ToList();
+        var selected = options.AllFiles ? pickles.Concat(safetensors).Concat(onnx).ToList() :
+            pickles.Take(3).Concat(safetensors.Take(2)).Concat(onnx.Take(2)).ToList();
+        var total = pickles.Count + safetensors.Count + onnx.Count;
+        if (selected.Count < total)
+            repoReport.Findings.Add(new Finding("H004", Severity.Info, "Not every non-GGUF weight file was checked",
+                $"Checked {selected.Count} of {total}; use --all-files for complete file coverage.", "files"));
+        foreach (var file in selected)
         {
             var ext = Path.GetExtension(file.Path).ToLowerInvariant();
             var kind = PickleScanner.Extensions.Contains(ext) ? "hf-pickle" : ext == ".onnx" ? "hf-onnx" : "hf-safetensors";
@@ -356,7 +361,7 @@ public static partial class RepoScanner
             try
             {
                 // ONNX tensors are skipped by seeking, so a model with many tensors needs more ranged reads.
-                using var stream = new HttpRangeStream(client.Http, client.FileUrl(repo, file.Path), (long)options.BudgetMiB << 20);
+                using var stream = new HttpRangeStream(client.Http, client.FileUrl(repo, file.Path, info.Revision ?? "main"), (long)options.BudgetMiB << 20);
                 if (kind == "hf-pickle") PickleScanner.Scan(stream, report);
                 else if (kind == "hf-onnx") OnnxScanner.Scan(stream, report);
                 else SafetensorsScanner.Scan(stream, report);
@@ -366,8 +371,9 @@ public static partial class RepoScanner
             catch (AccessDeniedException ex)
             {
                 report.Findings.Add(new Finding("H004", Severity.Low, "File not checked: access denied", ex.Message, file.Path));
+                report.Error = ex.Message;
             }
-            catch (Exception ex) when (ex is IOException or HttpRequestException or TaskCanceledException or InvalidDataException)
+            catch (Exception ex) when (ex is IOException or HttpRequestException or OperationCanceledException or InvalidDataException)
             {
                 report.Error = ex.Message;
             }
@@ -377,6 +383,7 @@ public static partial class RepoScanner
 
     static List<HfFile> Spread(List<HfFile> sorted, int count)
     {
+        if (count == 0) return [];
         if (count <= 1) return [sorted[0]];
         return Enumerable.Range(0, count).Select(i => sorted[(int)Math.Round(i * (sorted.Count - 1) / (double)(count - 1))]).Distinct().ToList();
     }

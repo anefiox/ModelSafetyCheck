@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\src\ModelSafetyCheck.Audit\ModelSafetyCheck.Audit.csproj" />
     <ProjectReference Include="..\..\src\ModelSafetyCheck.Hub\ModelSafetyCheck.Hub.csproj" />
     <ProjectReference Include="..\..\src\ModelSafetyCheck.Classifier\ModelSafetyCheck.Classifier.csproj" />
+    <ProjectReference Include="..\..\src\ModelSafetyCheck.Cli\ModelSafetyCheck.Cli.csproj" />
   </ItemGroup>
 
 </Project>

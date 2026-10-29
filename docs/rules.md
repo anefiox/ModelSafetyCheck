@@ -5,6 +5,9 @@ trigger alone and High when the template also carries a payload); the table give
 
 Exit codes: `0` no findings above Info, `1` Low/Medium, `2` High/Critical, `3` scan error.
 
+`D001` (Info) records batch download plans, model sets excluded by the size limit, and companion-file coverage.
+Download failures use the report's `error` field and exit code 3. See [batch scanning](batch.md).
+
 ## Model files (layer 1)
 
 | ID | Severity | What it means |

@@ -64,8 +64,12 @@ public static class OllamaUpdates
             "$s = Get-AuthenticodeSignature -LiteralPath $_; " +
             "[pscustomobject]@{ Path = $_; Status = [string]$s.Status; Signer = if ($s.SignerCertificate) { $s.SignerCertificate.Subject } else { $null } } " +
             "}); ConvertTo-Json -Compress -InputObject $r";
-        var result = ProcessRunner.Run("powershell", ["-NoProfile", "-NonInteractive", "-Command", script], TimeSpan.FromSeconds(60),
-            new Dictionary<string, string> { ["MODELCHECK_PATHS"] = string.Join('\n', paths) });
+        var environment = new Dictionary<string, string> { ["MODELCHECK_PATHS"] = string.Join('\n', paths) };
+        // A .NET child inherits PowerShell 7's PSModulePath verbatim. Windows PowerShell can then try to
+        // import incompatible PS7 modules instead of its own Authenticode and JSON commands.
+        if (OperatingSystem.IsWindows())
+            environment["PSModulePath"] = Path.Combine(Environment.SystemDirectory, "WindowsPowerShell", "v1.0", "Modules");
+        var result = ProcessRunner.Run("powershell", ["-NoProfile", "-NonInteractive", "-Command", script], TimeSpan.FromSeconds(60), environment);
         if (result is not { ExitCode: 0 } || result.Output.Trim().Length == 0)
             return null;
         try

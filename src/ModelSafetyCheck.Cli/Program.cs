@@ -18,7 +18,7 @@ public static class Program
 
     static readonly Option<string> FormatOption = new("--format", "-f")
     {
-        Description = "Output format: text, json or sarif.",
+        Description = "Output format: text, json, jsonl (streaming) or sarif.",
         DefaultValueFactory = _ => "text",
         Recursive = true,
     };
@@ -51,7 +51,7 @@ public static class Program
 
     public static int Main(string[] args)
     {
-        FormatOption.AcceptOnlyFromAmong("text", "json", "sarif");
+        FormatOption.AcceptOnlyFromAmong("text", "json", "jsonl", "sarif");
 
         var pathsArgument = new Argument<string[]>("paths")
         {
@@ -80,7 +80,7 @@ public static class Program
 
         var repoArgument = new Argument<string[]>("repos") { Description = "Hugging Face repos ('org/name' or URLs) or Ollama models ('ollama:llama3.2:1b', 'ollama:user/model').", Arity = ArgumentArity.OneOrMore };
         var maxFilesOption = new Option<int>("--max-files") { Description = "GGUF files to check per repo (spread across sizes).", DefaultValueFactory = _ => 6 };
-        var allFilesOption = new Option<bool>("--all-files") { Description = "Check every GGUF file in the repo." };
+        var allFilesOption = new Option<bool>("--all-files") { Description = "Check every supported weight file, including all GGUF shards." };
         var budgetOption = new Option<int>("--budget-mb") { Description = "Maximum MiB to download per GGUF header.", DefaultValueFactory = _ => 64 };
         var repo = new Command("repo", "Check a Hugging Face repo or Ollama registry model before downloading: lure files, model card, publisher, lineage, templates, and weight-file headers (without downloading the weights).")
         {
@@ -122,7 +122,7 @@ public static class Program
 
         var root = new RootCommand("modelcheck: scan local AI models and setups for malicious files, templates and configuration.")
         {
-            scan, local, audit, repo, watch, explain, classifier, FormatOption, MinSeverityOption, DumpTemplateOption, NoColorOption, ClassifierOption,
+            scan, local, audit, repo, watch, explain, classifier, BatchCommand.Create(), FormatOption, MinSeverityOption, DumpTemplateOption, NoColorOption, ClassifierOption,
         };
         return root.Parse(args).Invoke();
     }
@@ -232,7 +232,7 @@ public static class Program
         yield return MachineAudit.Run(options, models);
     }
 
-    static int Run(ParseResult result, IEnumerable<ScanReport> scans)
+    internal static int Run(ParseResult result, IEnumerable<ScanReport> scans)
     {
         if (result.GetResult(ClassifierOption) is not null)
         {
@@ -248,27 +248,36 @@ public static class Program
         var minSeverity = result.GetValue(MinSeverityOption);
         var reports = new List<ScanReport>();
         var format = result.GetValue(FormatOption);
-        var json = format != "text";
         var text = new TextReporter(Console.Out, !result.GetValue(NoColorOption) && !Console.IsOutputRedirected && Environment.GetEnvironmentVariable("NO_COLOR") is null);
+        Severity? max = null;
+        long reportCount = 0, errorCount = 0;
+        var severityCounts = new long[Enum.GetValues<Severity>().Length];
+        var compactJson = new CliJsonContext(new JsonSerializerOptions(CliJsonContext.Default.Options) { WriteIndented = false });
 
         foreach (var report in scans)
         {
+            if (report.MaxSeverity is { } severity && (max is null || severity > max))
+                max = severity;
             report.Findings.RemoveAll(f => f.Severity < minSeverity);
             report.Findings.Sort((a, b) => b.Severity.CompareTo(a.Severity));
-            reports.Add(report);
-            if (!json)
+            reportCount++;
+            if (report.Error is not null) errorCount++;
+            foreach (var finding in report.Findings) severityCounts[(int)finding.Severity]++;
+            if (format is "json" or "sarif") reports.Add(report);
+            if (format == "text")
                 text.Write(report, result.GetValue(DumpTemplateOption));
+            else if (format == "jsonl")
+                Console.WriteLine(JsonSerializer.Serialize(report, compactJson.ScanReport));
         }
 
         if (format == "sarif")
             Console.WriteLine(SarifWriter.Write(reports));
-        else if (json)
+        else if (format == "json")
             Console.WriteLine(JsonSerializer.Serialize(reports, CliJsonContext.Default.ListScanReport));
-        else
-            text.WriteSummary(reports);
+        else if (format == "text")
+            text.WriteSummary(reportCount, errorCount, severityCounts);
 
-        if (reports.Any(r => r.Error is not null)) return ExitError;
-        var max = reports.Select(r => r.MaxSeverity).Max();
+        if (errorCount > 0) return ExitError;
         return max switch
         {
             >= Severity.High => ExitHighRisk,

@@ -24,6 +24,8 @@ public sealed class HttpRangeStream : Stream
     {
         _http = http;
         _url = url;
+        if (budgetBytes <= 0)
+            throw new ArgumentOutOfRangeException(nameof(budgetBytes));
         _budget = budgetBytes;
         Length = FetchBlock(0, learnLength: true);
     }
@@ -88,13 +90,21 @@ public sealed class HttpRangeStream : Stream
         if (response.StatusCode != HttpStatusCode.PartialContent)
             throw new IOException($"Server did not honour the range request (HTTP {(int)response.StatusCode}).");
 
+        var range = response.Content.Headers.ContentRange;
+        if (range?.Unit != "bytes" || range.Length is not > 0 || range.From != start ||
+            range.To != Math.Min(end, range.Length.Value - 1) || (!learnLength && range.Length != Length))
+            throw new IOException("Server returned an inconsistent Content-Range.");
+        var count = checked((int)(range.To!.Value - start + 1));
+        if (count <= 0 || count > BlockSize || count > _budget - Downloaded ||
+            response.Content.Headers.ContentLength is { } contentLength && contentLength != count)
+            throw new IOException("Range response exceeds its expected size or download budget.");
         using var body = response.Content.ReadAsStream();
-        using var memory = new MemoryStream();
-        body.CopyTo(memory);
-        var bytes = memory.ToArray();
+        var bytes = new byte[count];
+        using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(60));
+        body.ReadExactlyAsync(bytes, timeout.Token).AsTask().GetAwaiter().GetResult();
         Downloaded += bytes.Length;
         _blocks[index] = bytes;
-        return learnLength ? response.Content.Headers.ContentRange?.Length ?? throw new IOException("Server did not report the file size.") : Length;
+        return range.Length.Value;
     }
 
     public override void Flush() { }

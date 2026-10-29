@@ -35,6 +35,9 @@ modelcheck local --online --hash                        # ...and check each mode
 modelcheck audit --agent-dir ~/my-agent --probe         # runner versions, network exposure, Docker, MCP tools, secrets, risk rating
 modelcheck watch --notify                               # first run: baseline; later runs: templates changed without a model update
 modelcheck watch --print-schedule                       # how an hourly check would be scheduled (--install-schedule to do it)
+modelcheck batch --discover-hf --limit 100 --dry-run     # plan a text-model crawl, below 100 GB per complete file set
+modelcheck batch https://example.org/model.gguf         # download and scan a file from any HTTP(S) provider
+modelcheck batch --manifest models.json --format jsonl # multi-file models, durable reports and streaming output
 ```
 
 To check before every download, use the wrappers in [`scripts/`](scripts): `ollama-safe-pull` and `lms-safe-get`
@@ -46,10 +49,14 @@ for rule T015. It is supporting evidence only: measured on real templates it als
 Integrations: an Open WebUI filter ([`integrations/open-webui`](integrations/open-webui)) and an LM Studio plugin
 ([`integrations/lmstudio-plugin`](integrations/lmstudio-plugin)) block chats with flagged models.
 
-Common options: `--format text|json|sarif`, `--min-severity info|low|medium|high|critical`, `--no-color`.
+Common options: `--format text|json|jsonl|sarif`, `--min-severity info|low|medium|high|critical`, `--no-color`.
 Exit codes: `0` clean, `1` warnings (low/medium), `2` high or critical findings, `3` scan error.
+`--min-severity` controls displayed findings; it does not lower the exit status.
 
-`repo` uses `HF_TOKEN` for gated repos (sent only to huggingface.co). Everything else runs offline.
+`repo`, `batch`, `local --online`, and classifier installation use the network. Other scans run offline.
+`HF_TOKEN` is sent only to the Hugging Face HTTPS origin. Other providers can use signed URLs or a bearer-token
+environment variable specified in a local manifest. See [batch scanning](docs/batch.md) for discovery, size limits,
+provider manifests, resumability and report storage.
 
 ## What it checks
 
