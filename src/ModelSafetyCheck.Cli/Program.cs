@@ -80,6 +80,13 @@ public static class Program
         Recursive = true,
     };
 
+    static readonly Option<string?> SaveOption = new("--save")
+    {
+        Description = "Also save this run (all findings, as JSON) to a timestamped file. Optional directory; default ~/.modelcheck/reports.",
+        Arity = ArgumentArity.ZeroOrOne,
+        Recursive = true,
+    };
+
     public static int Main(string[] args)
     {
         FormatOption.AcceptOnlyFromAmong("text", "json", "jsonl", "sarif");
@@ -167,7 +174,7 @@ public static class Program
         {
             scan, local, audit, repo, lineage, watch, explain, classifier, BatchCommand.Create(), PolicyCommand.Create(), BaselineCommand(),
             FormatOption, MinSeverityOption, DumpTemplateOption, NoColorOption, ClassifierOption,
-            PolicyOption, NoPolicyOption, BaselineFileOption, WriteBaselineOption, ShowSuppressedOption,
+            PolicyOption, NoPolicyOption, BaselineFileOption, WriteBaselineOption, ShowSuppressedOption, SaveOption,
         };
         return root.Parse(args).Invoke();
     }
@@ -369,9 +376,15 @@ public static class Program
         var severityCounts = new long[Enum.GetValues<Severity>().Length];
         var baselineEntries = new List<BaselineEntry>();
         var compactJson = new CliJsonContext(new JsonSerializerOptions(CliJsonContext.Default.Options) { WriteIndented = false });
+        var saveDirectory = result.GetResult(SaveOption) is null ? null
+            : result.GetValue(SaveOption) is { Length: > 0 } saveDir ? saveDir : ReportArchive.DefaultDirectory;
+        var saved = new List<ScanReport>();
+        var started = DateTimeOffset.Now;
 
         foreach (var report in Policed(scans, engine))
         {
+            if (saveDirectory is not null)
+                saved.Add(ReportArchive.Snapshot(report));
             if (writeBaseline is not null && report.Kind != "policy")
                 baselineEntries.AddRange(PolicyEngine.BaselineEntries(report));
             // The exit code considers every counting finding, before the display filter.
@@ -397,6 +410,7 @@ public static class Program
         else if (format == "text")
             text.WriteSummary(reportCount, errorCount, severityCounts, engine.Suppressed, engine.HasBaseline ? engine.Existing : null, policy.Path);
 
+        int code;
         if (writeBaseline is not null)
         {
             try
@@ -404,16 +418,35 @@ public static class Program
                 var file = PolicyEngine.CreateBaseline(baselineEntries);
                 PolicyEngine.SaveBaseline(file, writeBaseline);
                 Console.Error.WriteLine($"Wrote a baseline of {file.Entries.Count} finding(s) to {writeBaseline}.");
+                code = errorCount > 0 ? ExitError : ExitClean;
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
                 Console.Error.WriteLine($"Could not write the baseline: {ex.Message}");
-                return ExitError;
+                code = ExitError;
             }
-            return errorCount > 0 ? ExitError : ExitClean;
         }
+        else
+            code = ExitCode(errorCount, max, policy.FailOn);
 
-        return ExitCode(errorCount, max, policy.FailOn);
+        return saveDirectory is null ? code : SaveRun(result, saveDirectory, started, code, saved);
+    }
+
+    static int SaveRun(ParseResult result, string directory, DateTimeOffset started, int code, List<ScanReport> reports)
+    {
+        var command = string.Join('-', result.CommandResult.Command.Name.Split(' '));
+        var run = new SavedRun(1, command, result.Tokens.Select(t => t.Value).ToList(), started, DateTimeOffset.Now, code, reports);
+        try
+        {
+            Console.Error.WriteLine($"Saved this run to {ReportArchive.Save(run, directory)}.");
+            return code;
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            // Unattended runs rely on the saved file, so a failed save must not look like success.
+            Console.Error.WriteLine($"Could not save the run: {ex.Message}");
+            return ExitError;
+        }
     }
 
     /// <summary>3 on scan errors; 2 when a counting finding reaches the policy's fail-on; 1 for other Low+ findings; else 0.</summary>

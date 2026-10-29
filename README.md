@@ -55,6 +55,12 @@ Common options: `--format text|json|jsonl|sarif`, `--min-severity info|low|mediu
 Exit codes: `0` clean, `1` warnings (low/medium), `2` high or critical findings (or the policy's `fail-on`), `3` scan error.
 `--min-severity` controls displayed findings; it does not lower the exit status.
 
+Keeping results: add `--save` to any scan command to also write the run to
+`~/.modelcheck/reports/yyyyMMdd-HHmmss-<command>.json` (UTC; `--save <dir>` for another folder). The file holds the
+command line, start and end times, exit code and every finding, including those hidden by `--min-severity` and
+suppressed or baselined ones (flagged). A failed save exits `3`. For a running record, schedule e.g.
+`modelcheck local --save` or `modelcheck watch --notify --save`.
+
 Team policy: commit a `.modelcheck.yml` (`modelcheck policy init`) to allow-list publishers and models, suppress
 accepted findings (each needs a reason and an expiry date), override rule severities, and set `fail-on`. Add a
 baseline (`--write-baseline`) so CI fails only on new findings. Every command picks the policy up from the current
