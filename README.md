@@ -50,8 +50,14 @@ Integrations: an Open WebUI filter ([`integrations/open-webui`](integrations/ope
 ([`integrations/lmstudio-plugin`](integrations/lmstudio-plugin)) block chats with flagged models.
 
 Common options: `--format text|json|jsonl|sarif`, `--min-severity info|low|medium|high|critical`, `--no-color`.
-Exit codes: `0` clean, `1` warnings (low/medium), `2` high or critical findings, `3` scan error.
+Exit codes: `0` clean, `1` warnings (low/medium), `2` high or critical findings (or the policy's `fail-on`), `3` scan error.
 `--min-severity` controls displayed findings; it does not lower the exit status.
+
+Team policy: commit a `.modelcheck.yml` (`modelcheck policy init`) to allow-list publishers and models, suppress
+accepted findings (each needs a reason and an expiry date), override rule severities, and set `fail-on`. Add a
+baseline (`--write-baseline`) so CI fails only on new findings. Every command picks the policy up from the current
+directory or its parents. `modelcheck policy check` validates it. Suppressed findings stay in JSON and SARIF,
+flagged. See [policy files](docs/rules.md#policy-files).
 
 `repo`, `batch`, `local --online`, and classifier installation use the network. Other scans run offline.
 `HF_TOKEN` is sent only to the Hugging Face HTTPS origin. Other providers can use signed URLs or a bearer-token

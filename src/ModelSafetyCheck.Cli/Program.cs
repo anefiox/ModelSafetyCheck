@@ -6,6 +6,7 @@ using ModelSafetyCheck.Core;
 using ModelSafetyCheck.Hub;
 using ModelSafetyCheck.Local;
 using ModelSafetyCheck.Rules;
+using ModelSafetyCheck.Rules.Policy;
 
 namespace ModelSafetyCheck.Cli;
 
@@ -46,6 +47,36 @@ public static class Program
     {
         Description = "Also score template and system-prompt text with the local prompt-injection classifier (rule T015). Optional path; default ~/.modelcheck/classifier.",
         Arity = ArgumentArity.ZeroOrOne,
+        Recursive = true,
+    };
+
+    static readonly Option<string?> PolicyOption = new("--policy")
+    {
+        Description = "Policy file (.modelcheck.yml/.yaml/.json). Default: the first one found in the current directory or its parents.",
+        Recursive = true,
+    };
+
+    static readonly Option<bool> NoPolicyOption = new("--no-policy")
+    {
+        Description = "Ignore any policy file.",
+        Recursive = true,
+    };
+
+    static readonly Option<string?> BaselineFileOption = new("--baseline-file")
+    {
+        Description = "Baseline of known findings; only new findings count. Overrides the policy's 'baseline'.",
+        Recursive = true,
+    };
+
+    static readonly Option<string?> WriteBaselineOption = new("--write-baseline")
+    {
+        Description = "Record this run's findings (except suppressed ones) as a baseline file.",
+        Recursive = true,
+    };
+
+    static readonly Option<bool> ShowSuppressedOption = new("--show-suppressed")
+    {
+        Description = "In text output, also show suppressed findings and findings already in the baseline.",
         Recursive = true,
     };
 
@@ -122,7 +153,9 @@ public static class Program
 
         var root = new RootCommand("modelcheck: scan local AI models and setups for malicious files, templates and configuration.")
         {
-            scan, local, audit, repo, watch, explain, classifier, BatchCommand.Create(), FormatOption, MinSeverityOption, DumpTemplateOption, NoColorOption, ClassifierOption,
+            scan, local, audit, repo, watch, explain, classifier, BatchCommand.Create(), PolicyCommand.Create(), BaselineCommand(),
+            FormatOption, MinSeverityOption, DumpTemplateOption, NoColorOption, ClassifierOption,
+            PolicyOption, NoPolicyOption, BaselineFileOption, WriteBaselineOption, ShowSuppressedOption,
         };
         return root.Parse(args).Invoke();
     }
@@ -232,7 +265,36 @@ public static class Program
         yield return MachineAudit.Run(options, models);
     }
 
-    internal static int Run(ParseResult result, IEnumerable<ScanReport> scans)
+    static Command BaselineCommand()
+    {
+        var file = new Argument<string>("file") { Description = "Baseline file to write." };
+        var paths = new Argument<string[]>("paths") { Description = "Model files or directories to scan (as 'scan').", Arity = ArgumentArity.OneOrMore };
+        var write = new Command("write", "Scan paths and record every finding as known, so later runs with this baseline only count new findings. " +
+            "For other commands (local, repo, audit, batch) add --write-baseline <file>.") { file, paths };
+        write.SetAction(result => Run(result, ScanPaths(result.GetValue(paths)!), result.GetValue(file)));
+        return new Command("baseline", "Record known findings so CI only fails on new ones.") { write };
+    }
+
+    /// <summary>The policy for this run: --no-policy, --policy, or the first policy file above the current directory.</summary>
+    internal static ModelPolicy ResolvePolicy(ParseResult result)
+    {
+        if (result.GetValue(NoPolicyOption)) return ModelPolicy.Default;
+        var path = result.GetValue(PolicyOption) ?? ModelPolicy.Discover(Environment.CurrentDirectory);
+        if (path is null) return ModelPolicy.Default;
+        if (!File.Exists(path)) throw new PolicyException($"Policy file not found: {path}");
+        try
+        {
+            return ModelPolicy.Load(path);
+        }
+        catch (PolicyException ex)
+        {
+            throw new PolicyException($"{path}: {ex.Message}");
+        }
+    }
+
+    internal static int Run(ParseResult result, IEnumerable<ScanReport> scans) => Run(result, scans, null);
+
+    static int Run(ParseResult result, IEnumerable<ScanReport> scans, string? writeBaseline)
     {
         if (result.GetResult(ClassifierOption) is not null)
         {
@@ -245,27 +307,59 @@ public static class Program
             }
         }
 
+        ModelPolicy policy;
+        PolicyEngine engine;
+        writeBaseline ??= result.GetValue(WriteBaselineOption);
+        try
+        {
+            policy = ResolvePolicy(result);
+            // Writing a baseline records everything, so an existing baseline is not applied to that run.
+            var baselinePath = writeBaseline is null ? result.GetValue(BaselineFileOption) ?? policy.BaselinePath : null;
+            BaselineFile? baseline = null;
+            if (baselinePath is not null)
+            {
+                if (File.Exists(baselinePath))
+                    baseline = PolicyEngine.LoadBaseline(baselinePath);
+                else if (result.GetValue(BaselineFileOption) is not null)
+                    throw new PolicyException($"Baseline file not found: {baselinePath}");
+                else
+                    Console.Error.WriteLine($"Baseline {baselinePath} (from the policy) does not exist yet; every finding counts as new. Create it with --write-baseline.");
+            }
+            engine = new PolicyEngine(policy, baseline);
+        }
+        catch (Exception ex) when (ex is PolicyException or IOException or UnauthorizedAccessException)
+        {
+            Console.Error.WriteLine($"Policy error: {ex.Message}");
+            return ExitError;
+        }
+
         var minSeverity = result.GetValue(MinSeverityOption);
+        var showSuppressed = result.GetValue(ShowSuppressedOption);
         var reports = new List<ScanReport>();
         var format = result.GetValue(FormatOption);
         var text = new TextReporter(Console.Out, !result.GetValue(NoColorOption) && !Console.IsOutputRedirected && Environment.GetEnvironmentVariable("NO_COLOR") is null);
         Severity? max = null;
         long reportCount = 0, errorCount = 0;
         var severityCounts = new long[Enum.GetValues<Severity>().Length];
+        var baselineEntries = new List<BaselineEntry>();
         var compactJson = new CliJsonContext(new JsonSerializerOptions(CliJsonContext.Default.Options) { WriteIndented = false });
 
-        foreach (var report in scans)
+        foreach (var report in Policed(scans, engine))
         {
-            if (report.MaxSeverity is { } severity && (max is null || severity > max))
-                max = severity;
+            if (writeBaseline is not null && report.Kind != "policy")
+                baselineEntries.AddRange(PolicyEngine.BaselineEntries(report));
+            // The exit code considers every counting finding, before the display filter.
+            foreach (var finding in report.Findings.Where(f => f.Counts))
+                if (max is null || finding.Severity > max)
+                    max = finding.Severity;
             report.Findings.RemoveAll(f => f.Severity < minSeverity);
             report.Findings.Sort((a, b) => b.Severity.CompareTo(a.Severity));
             reportCount++;
             if (report.Error is not null) errorCount++;
-            foreach (var finding in report.Findings) severityCounts[(int)finding.Severity]++;
+            foreach (var finding in report.Findings.Where(f => f.Counts)) severityCounts[(int)finding.Severity]++;
             if (format is "json" or "sarif") reports.Add(report);
             if (format == "text")
-                text.Write(report, result.GetValue(DumpTemplateOption));
+                text.Write(report, result.GetValue(DumpTemplateOption), showSuppressed);
             else if (format == "jsonl")
                 Console.WriteLine(JsonSerializer.Serialize(report, compactJson.ScanReport));
         }
@@ -275,15 +369,45 @@ public static class Program
         else if (format == "json")
             Console.WriteLine(JsonSerializer.Serialize(reports, CliJsonContext.Default.ListScanReport));
         else if (format == "text")
-            text.WriteSummary(reportCount, errorCount, severityCounts);
+            text.WriteSummary(reportCount, errorCount, severityCounts, engine.Suppressed, engine.HasBaseline ? engine.Existing : null, policy.Path);
 
-        if (errorCount > 0) return ExitError;
-        return max switch
+        if (writeBaseline is not null)
         {
-            >= Severity.High => ExitHighRisk,
-            >= Severity.Low => ExitWarnings,
-            _ => ExitClean,
-        };
+            try
+            {
+                var file = PolicyEngine.CreateBaseline(baselineEntries);
+                PolicyEngine.SaveBaseline(file, writeBaseline);
+                Console.Error.WriteLine($"Wrote a baseline of {file.Entries.Count} finding(s) to {writeBaseline}.");
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                Console.Error.WriteLine($"Could not write the baseline: {ex.Message}");
+                return ExitError;
+            }
+            return errorCount > 0 ? ExitError : ExitClean;
+        }
+
+        return ExitCode(errorCount, max, policy.FailOn);
+    }
+
+    /// <summary>3 on scan errors; 2 when a counting finding reaches the policy's fail-on; 1 for other Low+ findings; else 0.</summary>
+    public static int ExitCode(long errorCount, Severity? max, Severity? failOn)
+    {
+        if (errorCount > 0) return ExitError;
+        if (max is null) return ExitClean;
+        if (failOn is not null && max >= failOn) return ExitHighRisk;
+        return max >= Severity.Low ? ExitWarnings : ExitClean;
+    }
+
+    static IEnumerable<ScanReport> Policed(IEnumerable<ScanReport> scans, PolicyEngine engine)
+    {
+        foreach (var report in scans)
+        {
+            engine.Apply(report);
+            yield return report;
+        }
+        if (engine.Finish() is { } policyReport)
+            yield return policyReport;
     }
 }
 

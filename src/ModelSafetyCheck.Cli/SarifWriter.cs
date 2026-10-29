@@ -57,6 +57,18 @@ static class SarifWriter
                     w.WriteString("text", $"{f.Title}: {f.Detail}");
                     w.WriteEndObject();
                     WriteLocation(w, report.Target, f.Location);
+                    if (f.Baseline is not null)
+                        w.WriteString("baselineState", f.Baseline == "existing" ? "unchanged" : "new");
+                    if (f.Suppression is not null)
+                    {
+                        w.WriteStartArray("suppressions");
+                        w.WriteStartObject();
+                        w.WriteString("kind", "external");
+                        w.WriteString("status", "accepted");
+                        w.WriteString("justification", f.Suppression);
+                        w.WriteEndObject();
+                        w.WriteEndArray();
+                    }
                     w.WriteEndObject();
                 }
                 if (report.Error is not null)

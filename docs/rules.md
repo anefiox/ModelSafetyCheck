@@ -112,3 +112,81 @@ Download failures use the report's `error` field and exit code 3. See [batch sca
 | W001 | Medium–High | Template or system prompt changed without a model update |
 | W002 | Info | Model updated, with a different template |
 | W003 | Info | Model added or removed since the baseline |
+
+## Policy
+
+| ID | Severity | What it means |
+|---|---|---|
+| PL001 | Low | A suppression in the policy file has expired: it no longer applies and the findings it covered count again |
+| PL002 | Info | A suppression matched no finding in this run (a stale entry to remove) |
+
+## Policy files
+
+A team can commit a `.modelcheck.yml` (or `.modelcheck.yaml` / `.modelcheck.json`). Every command (scan, local,
+repo, audit, watch, batch) uses the first one found in the current directory or its parents. Use `--policy <file>`
+to choose one, or `--no-policy` to ignore it. `modelcheck policy init` writes a commented starter, and
+`modelcheck policy check [file]` validates one. It lists each suppression with its expiry and exits 1 if any have
+expired, or 3 if the file is invalid.
+
+```yaml
+version: 1
+fail-on: high            # counting findings at or above this exit 2: info|low|medium|high|critical|never
+
+allow:                   # provenance findings (H006-H008, H011, P001-P003) for these become Info
+  publishers: [meta-llama, library]     # HF org / Ollama namespace ("library" = official Ollama models)
+  models:
+    - hf:Qwen/Qwen2.5-*                 # matched against the target, or the local file path
+
+severity:                # per-rule overrides; rule ids may be globs; "off" drops the finding
+  T009: low
+  P002: off
+
+suppress:                # accepted findings; kept in JSON/SARIF, not counted
+  - rule: H007
+    target: "hf:my-org/**"              # optional, default ** (everything)
+    location: general.base_model        # optional
+    reason: Fine-tune of our own model; reviewed in TICKET-123   # required
+    expires: 2027-03-31                 # required (yyyy-MM-dd); after this date: PL001
+
+baseline: .modelcheck-baseline.json     # relative to the policy file
+```
+
+The policy is applied in this order:
+
+1. Severity overrides.
+2. Allow-lists.
+3. Suppressions. A suppression applies through its `expires` date.
+4. The baseline.
+
+Globs are case-insensitive. `*` matches within one `/` segment and `**` matches across segments. `?` matches one
+character, and `\` is treated as `/`.
+
+The policy file accepts this subset of YAML:
+- block mappings and sequences;
+- `[a, b]` lists;
+- quoted and plain strings;
+- `#` comments.
+
+Anchors, tags, block scalars and `{...}` maps are rejected with the line number.
+
+**Baselines** let CI fail only on new findings. To record the current findings, add `--write-baseline <file>` to any
+command (or run `modelcheck baseline write <file> <paths>`). That run exits 0 unless a scan errors. Later runs with
+the baseline (`baseline:` in the policy, or `--baseline-file`) work like this:
+- Findings already recorded are marked `existing`. Text output shows them as KNOWN and hides them unless you pass
+  `--show-suppressed`.
+- Other findings are marked `new`.
+- Only new findings count toward the exit code.
+
+A finding's fingerprint is made from four parts:
+- the rule;
+- the target, relative to the current directory and with `/` separators;
+- the location;
+- the title, with digits masked.
+
+Wording in the detail and changed counts do not break a match. Suppressed findings are not written to a baseline.
+
+Output: in JSON/JSONL, a suppressed finding has `"suppression": "<reason> (policy suppress[i], until <date>)"`, and
+with a baseline each finding has `"baseline": "new"|"existing"`. In SARIF they become `suppressions` (kind
+`external`, status `accepted`, with the justification) and `baselineState` (`new`/`unchanged`), so GitHub code
+scanning shows them correctly. `--min-severity` still only changes what is displayed; the exit code is computed
+from every finding that counts.

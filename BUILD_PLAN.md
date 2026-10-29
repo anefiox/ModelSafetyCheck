@@ -233,6 +233,19 @@ Other
   - [x] `repo` checks up to 3 pickle and 2 safetensors files remotely (1 MiB of GPT-2's 523 MiB `pytorch_model.bin`)
   - [x] ONNX: OX001–OX005. Protobuf walk (incl. subgraphs and sparse initializers) without loading weights: external-data locations that are absolute or contain `..` (CVE-2022-25882, CVE-2024-27318), symlinks resolving outside the model folder (CVE-2026-27489, CVE-2026-34447), custom operator domains, metadata payloads. `scan` handles .onnx; `repo` reads the 2 smallest .onnx files remotely (verified on Xenova/all-MiniLM-L6-v2). `onnx`/`onnxruntime` versions added to `audit` with CVE-2024-27318 and CVE-2026-27489
 - [x] F-06 Docs: `docs/rules.md` (every rule ID), `docs/hardening.md` (five-layer guide). A docs site is not needed yet
+- [x] F-07 Policy file (`.modelcheck.yml`/`.yaml`/`.json`, found from the current directory upwards or `--policy`; `--no-policy`):
+  - Allow-lists for publishers and models, which downgrade provenance findings to Info.
+  - Suppressions with rule/target/location globs and a required reason and expiry. An expired suppression stops
+    applying and raises PL001 (Low); an unused one raises PL002 (Info).
+  - Per-rule severity overrides, including `off`, and a `fail-on` threshold.
+  - A baseline (`--write-baseline`, `baseline write`, `--baseline-file`) with stable fingerprints; only new findings
+    count, and text output marks findings NEW or KNOWN.
+  - The policy is applied centrally, so it covers scan, local, repo, audit, watch and batch.
+  - JSON/JSONL output keeps suppressed findings with a `suppression` field; SARIF output uses `suppressions` and
+    `baselineState`.
+  - `policy check` and `policy init` commands.
+  - An AOT-safe YAML subset parser (no reflection) that rejects unsupported YAML with line numbers.
+  - 65 tests; the AOT publish has no warnings.
 
 ## Sources to verify against (not the video transcript)
 
