@@ -93,9 +93,21 @@ public class NotifierTests
     public void Untrusted_text_goes_through_environment_not_the_script()
     {
         const string hostile = "x'; Remove-Item C:\\ -Recurse; '\"$(rm -rf ~)";
-        var (_, arguments, environment) = DesktopNotifier.Command("modelcheck", hostile);
-        Assert.DoesNotContain(arguments, a => a.Contains("Remove-Item", StringComparison.Ordinal) || a.Contains("rm -rf", StringComparison.Ordinal));
+        var (file, arguments, environment) = DesktopNotifier.Command("modelcheck", hostile);
         Assert.Contains(environment.Values, v => v.Contains("Remove-Item", StringComparison.Ordinal));
+        if (OperatingSystem.IsWindows() || OperatingSystem.IsMacOS())
+        {
+            // A script (PowerShell / AppleScript) runs here, so the text must never be part of it.
+            Assert.DoesNotContain(arguments, a => a.Contains("Remove-Item", StringComparison.Ordinal) || a.Contains("rm -rf", StringComparison.Ordinal));
+        }
+        else
+        {
+            // notify-send is executed directly (no shell): the text is one plain argument after "--", never parsed as options or code.
+            Assert.Equal("notify-send", file);
+            Assert.Equal(hostile, arguments[^1]);
+            Assert.Equal("--", arguments[^3]);
+            Assert.DoesNotContain(arguments.Take(arguments.Length - 2), a => a.Contains("rm -rf", StringComparison.Ordinal));
+        }
     }
 
     [Fact]
