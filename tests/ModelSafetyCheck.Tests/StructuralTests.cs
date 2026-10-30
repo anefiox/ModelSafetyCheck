@@ -111,6 +111,18 @@ public class StructuralTests
     }
 
     [Fact]
+    public void Unknown_tensor_types_give_one_finding_per_type()
+    {
+        var writer = new GgufWriter();
+        for (var i = 0; i < 40; i++)
+            writer.AddTensor($"blk.{i}.w", [4], type: 143);
+        writer.AddTensor("other", [4], type: 999);
+        var s006 = Scan(writer).Findings.Where(f => f.RuleId == "S006").ToList();
+        Assert.Equal(["tensor-type:143", "tensor-type:999"], s006.Select(f => f.Location));
+        Assert.Contains("40 tensor(s) use it: blk.0.w, blk.1.w", s006[0].Detail);
+    }
+
+    [Fact]
     public void Misaligned_offset_is_S007()
     {
         AssertRule(Scan(new GgufWriter().AddTensor("t", [4], offset: 3)), "S007", Severity.High);

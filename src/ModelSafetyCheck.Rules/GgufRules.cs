@@ -40,6 +40,8 @@ public sealed class StructuralRules : IGgufRule
         var dataStart = (ulong)file.DataStart;
         var placed = new List<(GgufTensorInfo Tensor, ulong Start, ulong Size)>();
         var allSized = true;
+        // One finding per unknown type: a file in a new format has hundreds of such tensors, which would bury everything else.
+        var unknownTypes = new SortedDictionary<uint, List<string>>();
 
         foreach (var t in file.Tensors)
         {
@@ -58,8 +60,7 @@ public sealed class StructuralRules : IGgufRule
             }
             if (!GgmlTypes.TryGet(t.Type, out var type))
             {
-                findings.Add(new("S006", Severity.Medium, "Unknown tensor type",
-                    $"Type {t.Type} is not known to this scanner. It may be a new quantization format, or an invalid value meant to confuse a runner.", location));
+                (unknownTypes.TryGetValue(t.Type, out var names) ? names : unknownTypes[t.Type] = []).Add(t.Name);
                 allSized = false;
                 continue;
             }
@@ -85,6 +86,12 @@ public sealed class StructuralRules : IGgufRule
             }
             placed.Add((t, dataStart + t.Offset, size));
         }
+
+        foreach (var (typeId, names) in unknownTypes)
+            findings.Add(new("S006", Severity.Medium, "Unknown tensor type",
+                $"Type {typeId} is not known to this scanner. It may be a new quantization format, or an invalid value meant to confuse a runner. " +
+                $"{names.Count} tensor(s) use it: {string.Join(", ", names.Take(5))}{(names.Count > 5 ? ", ..." : ".")}",
+                $"tensor-type:{typeId}"));
 
         if (allSized)
             CheckLayout(context, placed, findings);
