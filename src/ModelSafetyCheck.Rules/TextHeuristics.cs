@@ -75,6 +75,10 @@ public static partial class TextHeuristics
     /// <summary>HTML or markdown that makes a client fetch a URL when rendered, a classic data-exfiltration vector.</summary>
     public static IEnumerable<string> FindActiveMarkup(string text) => ActiveMarkupRegex().Matches(text).Select(m => m.Value);
 
+    const string CovertActions = @"(?:add|insert|include|append|embed|send|upload|forward|copy|transmit|record|log|collect|store|save|" +
+        @"change|modify|alter|replace|rewrite|redirect|recommend|promote|steer|ignore|disable|bypass|run|execute|install|download|" +
+        @"follow|obey|comply|report|leak|exfiltrat)\w*";
+
     static readonly (Regex Regex, string Description, Severity Severity)[] InstructionPatterns =
     [
         // Concealing the instructions themselves. "do not tell the user about function calls" (Qwen3-Coder) is fine.
@@ -82,7 +86,11 @@ public static partial class TextHeuristics
         (new(@"\b(?:do not|don't|never)\s+(?:mention|reveal|disclose)\s+(?:this|these|the|that|any)\s+(?:instructions?|rules?|links?|directives?|hidden|secret)", RegexOptions.IgnoreCase), "concealment from the user", Severity.High),
         (new(@"\bwithout\s+(?:telling|informing|notifying|alerting)\s+(?:the\s+)?(?:user|them|anyone)\b", RegexOptions.IgnoreCase), "acting without telling the user", Severity.High),
         (new(@"\b(?:ignore|disregard|forget|override)\s+(?:all\s+|any\s+|the\s+)?(?:previous|prior|above|earlier|preceding|system)\s+(?:instructions|messages|rules|prompts?)\b", RegexOptions.IgnoreCase), "instruction override", Severity.High),
-        (new(@"\b(?:secretly|covertly|silently|surreptitiously)\b", RegexOptions.IgnoreCase), "covert behaviour", Severity.High),
+        // A covert adverb is strong evidence only next to an action on the user's data or the model's output ("silently
+        // append this link"). On its own it is common in fiction and role-play personas ("moves silently"), so that is Low.
+        (new(@"\b(?:secretly|covertly|silently|surreptitiously)\s+(?:\w+\s+){0,2}?" + CovertActions + @"|\b" + CovertActions +
+             @"\b[^.\n]{0,30}\b(?:secretly|covertly|silently|surreptitiously)\b", RegexOptions.IgnoreCase), "covert behaviour", Severity.High),
+        (new(@"\b(?:secretly|covertly|silently|surreptitiously)\b", RegexOptions.IgnoreCase), "covert wording", Severity.Low),
         (new(@"\b(?:hidden|secret)\s+(?:instructions?|rules?|directives?|tasks?|objectives?)\b", RegexOptions.IgnoreCase), "hidden directive", Severity.High),
         (new(@"\b(?:exfiltrat\w*|upload|send|post|forward|transmit)\b[^.\n]{0,60}\b(?:to|at)\s+(?:https?://|\S+\.[a-z]{2,}/)", RegexOptions.IgnoreCase), "sending data to a remote address", Severity.High),
         (new(@"\b(?:curl|wget|Invoke-WebRequest|Invoke-Expression|iwr|iex|powershell(?:\.exe)?|bash\s+-c|sh\s+-c|nc\s+-e|base64\s+-d|certutil|bitsadmin|mshta|rundll32)\b", RegexOptions.IgnoreCase), "shell or download command", Severity.High),
@@ -93,9 +101,14 @@ public static partial class TextHeuristics
 
     public static IEnumerable<PhraseMatch> FindInstructionPhrases(string text)
     {
+        var covertAction = false;
         foreach (var (regex, description, severity) in InstructionPatterns)
             foreach (Match m in regex.Matches(text))
+            {
+                if (description == "covert behaviour") covertAction = true;
+                else if (description == "covert wording" && covertAction) continue; // already reported with its action
                 yield return new PhraseMatch(description, severity, m.Value);
+            }
     }
 
     /// <summary>Looks for executables or archives hidden inside a string, raw or base64 encoded.</summary>

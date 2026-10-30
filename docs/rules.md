@@ -57,7 +57,7 @@ Download failures use the report's `error` field and exit code 3. See [batch sca
 | T001 | Info | Template found (sha256 shown; `--dump-template` prints it) |
 | T002 | High–Critical | Jinja sandbox-escape building blocks (`__globals__`, `__subclasses__`, `lipsum`, `|attr`, `include`, …) — CVE-2024-34359, CVE-2026-5760 |
 | T003 | Low–High | URLs (Low) or markup that fetches a URL when rendered (High) |
-| T004 | Medium–High | Instruction-like text: hiding instructions from the user, overriding rules, shell/download commands, secrets |
+| T004 | Low–High | Instruction-like text: hiding instructions from the user, overriding rules, shell/download commands, secrets, covert actions ("silently append…"). A covert word with no such action ("moves silently", common in role-play personas) is Low |
 | T005 | Info–High | The template branches on a phrase in the conversation (Medium alone, High with a payload or when T013 confirms it) |
 | T006 | Info–High | Date/time/randomness in a condition (time bombs); Info when the date is only printed |
 | T007 | Medium–Critical | Invisible Unicode in the template |
