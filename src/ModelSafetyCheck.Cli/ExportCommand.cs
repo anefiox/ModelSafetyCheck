@@ -174,8 +174,11 @@ public static class ExportCommand
     }
 
     /// <summary>Removes absolute local paths (a batch download directory) from a location.</summary>
+    // Saved runs may come from another OS, so recognise Windows and Unix absolute paths whatever this machine is.
     static string? Scrub(string? location) =>
-        location is not null && (Path.IsPathFullyQualified(location) || location.StartsWith('/')) ? Path.GetFileName(location) : location;
+        location is not null && (Path.IsPathFullyQualified(location) || location.StartsWith('/') || location.StartsWith(@"\\") ||
+            location.Length > 2 && char.IsAsciiLetter(location[0]) && location[1] == ':' && location[2] is '\\' or '/')
+            ? location[(location.LastIndexOfAny(['/', '\\']) + 1)..] : location;
 
     static void WriteJsonLines<T>(string path, IEnumerable<T> rows, System.Text.Json.Serialization.Metadata.JsonTypeInfo<T> type)
     {
