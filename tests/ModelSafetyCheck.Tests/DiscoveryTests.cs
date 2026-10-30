@@ -73,6 +73,35 @@ public sealed class DiscoveryTests : IDisposable
     }
 
     [Fact]
+    public void Dropped_connections_and_server_errors_are_retried()
+    {
+        var calls = 0;
+        using var hub = new HuggingFaceClient(new Handler(_ => ++calls switch
+        {
+            1 => throw new HttpRequestException("The SSL connection could not be established"),
+            2 => new(HttpStatusCode.ServiceUnavailable),
+            3 => new((HttpStatusCode)429),
+            _ => new(HttpStatusCode.OK) { Content = new StringContent(Page) },
+        })) { RetryDelay = TimeSpan.Zero };
+        Assert.Equal(4, HfDiscovery.Discover(hub, new DiscoverQuery()).Count());
+        Assert.Equal(4, calls);
+    }
+
+    [Fact]
+    public void Retries_give_up_and_do_not_repeat_client_errors()
+    {
+        var calls = 0;
+        using var failing = new HuggingFaceClient(new Handler(_ => { calls++; throw new HttpRequestException("down"); })) { RetryDelay = TimeSpan.Zero };
+        Assert.Throws<HttpRequestException>(() => HfDiscovery.Discover(failing, new DiscoverQuery()).ToList());
+        Assert.Equal(4, calls);
+
+        calls = 0;
+        using var missing = new HuggingFaceClient(new Handler(_ => { calls++; return new(HttpStatusCode.NotFound); })) { RetryDelay = TimeSpan.Zero };
+        Assert.Throws<HttpRequestException>(() => missing.GetModel("a/b"));
+        Assert.Equal(1, calls);
+    }
+
+    [Fact]
     public void State_skips_only_repos_whose_commit_was_already_scanned()
     {
         var path = Path.Combine(_dir, "state.json");

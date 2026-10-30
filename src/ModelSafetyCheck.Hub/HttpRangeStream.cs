@@ -132,9 +132,9 @@ public sealed class HttpRangeStream : Stream
                 {
                     return FetchFrom(_url, start, end, learnLength);
                 }
-                catch (Exception ex) when (attempt < 2 && ex is HttpRequestException or TaskCanceledException or IOException && ex is not AccessDeniedException)
+                catch (Exception ex) when (attempt < 3 && ex is HttpRequestException or TaskCanceledException or IOException && ex is not AccessDeniedException)
                 {
-                    Thread.Sleep(500 << attempt);
+                    Thread.Sleep(1000 << attempt); // 1, 2, 4 s: TLS handshake failures tend to come in bursts
                 }
             }
         }

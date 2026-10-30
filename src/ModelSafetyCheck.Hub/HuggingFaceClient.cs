@@ -39,6 +39,34 @@ public sealed partial class HuggingFaceClient : IDisposable
 
     public HttpClient Http => _http;
 
+    /// <summary>Wait before the first retry; doubles for each later one. Tests set it to zero.</summary>
+    public TimeSpan RetryDelay { get; init; } = TimeSpan.FromSeconds(1);
+
+    const int Attempts = 4;
+
+    /// <summary>
+    /// GET with retries on dropped connections, timeouts, 429 and 5xx. A long discovery run makes hundreds of requests, and
+    /// one failed TLS handshake should not cost a repo or end the search. The last attempt's response or error is returned.
+    /// </summary>
+    HttpResponseMessage Send(string url, HttpCompletionOption completion = HttpCompletionOption.ResponseContentRead)
+    {
+        for (var attempt = 1; ; attempt++)
+        {
+            try
+            {
+                var response = _http.Send(new HttpRequestMessage(HttpMethod.Get, url), completion);
+                if (attempt == Attempts || !((int)response.StatusCode is 429 or >= 500))
+                    return response;
+                response.Dispose();
+            }
+            catch (Exception ex) when (attempt < Attempts && ex is HttpRequestException or TaskCanceledException or IOException)
+            {
+            }
+            if (RetryDelay > TimeSpan.Zero)
+                Thread.Sleep(RetryDelay * (1 << (attempt - 1)));
+        }
+    }
+
     /// <summary>Accepts "org/name" or a huggingface.co URL; returns null if it is neither.</summary>
     public static string? NormalizeRepoId(string input)
     {
@@ -57,7 +85,7 @@ public sealed partial class HuggingFaceClient : IDisposable
 
     public HfModelInfo GetModel(string repo)
     {
-        using var response = _http.Send(new HttpRequestMessage(HttpMethod.Get, $"{Host}/api/models/{repo}?blobs=true"));
+        using var response = Send($"{Host}/api/models/{repo}?blobs=true");
         if (response.StatusCode == HttpStatusCode.NotFound)
             throw new HttpRequestException($"Repository '{repo}' was not found (or is private: set HF_TOKEN).");
         if (response.StatusCode is HttpStatusCode.Unauthorized or HttpStatusCode.Forbidden)
@@ -101,7 +129,7 @@ public sealed partial class HuggingFaceClient : IDisposable
     /// <summary>Downloads a small text file from the repo. Returns null when it does not exist.</summary>
     public string? GetText(string repo, string path, int maxBytes = 1 << 20, string revision = "main")
     {
-        using var response = _http.Send(new HttpRequestMessage(HttpMethod.Get, FileUrl(repo, path, revision)), HttpCompletionOption.ResponseHeadersRead);
+        using var response = Send(FileUrl(repo, path, revision).AbsoluteUri, HttpCompletionOption.ResponseHeadersRead);
         if (response.StatusCode == HttpStatusCode.NotFound)
             return null;
         response.EnsureSuccessStatusCode();
@@ -141,8 +169,7 @@ public sealed partial class HuggingFaceClient : IDisposable
         string? url = $"{Host}/api/models?{query}&limit=100";
         for (var page = 0; url is not null && page < maxPages; page++)
         {
-            using var request = new HttpRequestMessage(HttpMethod.Get, url);
-            using var response = _http.Send(request);
+            using var response = Send(url);
             response.EnsureSuccessStatusCode();
             using var doc = JsonDocument.Parse(response.Content.ReadAsStream());
             foreach (var model in doc.RootElement.EnumerateArray())
