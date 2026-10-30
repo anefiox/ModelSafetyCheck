@@ -183,7 +183,7 @@ public static class Program
 
         var root = new RootCommand("modelcheck: scan local AI models and setups for malicious files, templates and configuration.")
         {
-            scan, local, audit, repo, lineage, watch, explain, classifier, BatchCommand.Create(), PolicyCommand.Create(), BaselineCommand(),
+            scan, local, audit, repo, lineage, watch, explain, classifier, BatchCommand.Create(), PolicyCommand.Create(), BaselineCommand(), ExportCommand.Create(),
             FormatOption, MinSeverityOption, DumpTemplateOption, NoColorOption, ClassifierOption,
             PolicyOption, NoPolicyOption, BaselineFileOption, WriteBaselineOption, ShowSuppressedOption, SaveOption,
         };
@@ -452,7 +452,7 @@ public static class Program
     static int SaveRun(ParseResult result, string directory, DateTimeOffset started, int code, List<ScanReport> reports)
     {
         var command = string.Join('-', result.CommandResult.Command.Name.Split(' '));
-        var run = new SavedRun(1, command, result.Tokens.Select(t => t.Value).ToList(), started, DateTimeOffset.Now, code, reports);
+        var run = new SavedRun(1, command, result.Tokens.Select(t => t.Value).ToList(), started, DateTimeOffset.Now, code, reports, ReportArchive.CurrentVersion);
         try
         {
             Console.Error.WriteLine($"Saved this run to {ReportArchive.Save(run, directory)}.");

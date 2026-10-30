@@ -62,6 +62,12 @@ command line, start and end times, exit code and every finding, including those 
 suppressed or baselined ones (flagged). A failed save exits `3`. For a running record, schedule e.g.
 `modelcheck local --save` or `modelcheck watch --notify --save`.
 
+`modelcheck export --out results/` turns saved runs into a dataset: `targets.csv`/`.jsonl` (one row per scanned
+repo or file, latest scan only, with severity counts) and `findings.csv`/`.jsonl` (one row per finding), plus a
+`README.md` summary. Query it with DuckDB, SQLite, pandas or a spreadsheet. Only remote scans (`repo`, `batch`,
+`lineage`) are exported unless `--include-local` is given, and local file paths are reduced to file names, so the
+result can be published.
+
 Watching Hugging Face: `repo --discover` finds repos with a Hub search instead of a list of names, and scans each the
 same way as `repo` (headers, templates, card and publisher; no weight downloads). `--search` (repeatable), `--filter`
 (Hub tags such as `gguf`), `--author`, `--derived finetune|merge|quantized|adapter|any` (from the repo's `base_model`

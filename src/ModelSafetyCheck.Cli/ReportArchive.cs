@@ -12,7 +12,8 @@ public sealed record SavedRun(
     DateTimeOffset Started,
     DateTimeOffset Finished,
     int ExitCode,
-    List<ScanReport> Reports);
+    List<ScanReport> Reports,
+    string? ScannerVersion = null);
 
 [JsonSourceGenerationOptions(WriteIndented = true, PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull, UseStringEnumConverter = true)]
@@ -25,6 +26,8 @@ internal sealed partial class ArchiveJsonContext : JsonSerializerContext;
 /// </summary>
 public static class ReportArchive
 {
+    public static string CurrentVersion => typeof(ReportArchive).Assembly.GetName().Version?.ToString(3) ?? "0.0.0";
+
     public static string DefaultDirectory =>
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".modelcheck", "reports");
 

@@ -56,7 +56,17 @@ internal static class RemoteHttp
             for (var attempt = 0; ; attempt++)
             {
                 using var copy = Copy(request);
-                var response = await base.SendAsync(copy, cancellationToken).ConfigureAwait(false);
+                HttpResponseMessage response;
+                try
+                {
+                    response = await base.SendAsync(copy, cancellationToken).ConfigureAwait(false);
+                }
+                catch (HttpRequestException) when (attempt < 3 && !cancellationToken.IsCancellationRequested)
+                {
+                    // No response at all (connection reset, failed TLS handshake): safe to repeat a read-only GET.
+                    await Task.Delay(TimeSpan.FromSeconds(1 << attempt), cancellationToken).ConfigureAwait(false);
+                    continue;
+                }
                 if (attempt >= 3 || !Transient(response.StatusCode)) return response;
                 var delay = Delay(response, attempt);
                 response.Dispose();
