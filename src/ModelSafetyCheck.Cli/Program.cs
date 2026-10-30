@@ -116,7 +116,7 @@ public static class Program
         };
         audit.SetAction(result => Run(result, AuditScans(new AuditOptions(result.GetValue(agentDirOption), result.GetValue(probeOption), result.GetValue(mcpOption)))));
 
-        var repoArgument = new Argument<string[]>("repos") { Description = "Hugging Face repos ('org/name' or URLs) or Ollama models ('ollama:llama3.2:1b', 'ollama:user/model').", Arity = ArgumentArity.OneOrMore };
+        var repoArgument = new Argument<string[]>("repos") { Description = "Hugging Face repos ('org/name' or URLs) or Ollama models ('ollama:llama3.2:1b', 'ollama:user/model').", Arity = ArgumentArity.ZeroOrMore };
         var maxFilesOption = new Option<int>("--max-files") { Description = "GGUF files to check per repo (spread across sizes).", DefaultValueFactory = _ => 6 };
         var allFilesOption = new Option<bool>("--all-files") { Description = "Check every supported weight file, including all GGUF shards." };
         var budgetOption = new Option<int>("--budget-mb") { Description = "Maximum MiB to download per GGUF header.", DefaultValueFactory = _ => 64 };
@@ -125,8 +125,19 @@ public static class Program
         {
             repoArgument, maxFilesOption, allFilesOption, budgetOption, repoLineageOption,
         };
-        repo.SetAction(result => Run(result, RepoScans(result.GetValue(repoArgument)!,
-            new RepoScanOptions(result.GetValue(maxFilesOption), result.GetValue(allFilesOption), result.GetValue(budgetOption)) { Lineage = result.GetValue(repoLineageOption) })));
+        var discover = DiscoverOptions.AddTo(repo);
+        repo.SetAction(result =>
+        {
+            var options = new RepoScanOptions(result.GetValue(maxFilesOption), result.GetValue(allFilesOption), result.GetValue(budgetOption)) { Lineage = result.GetValue(repoLineageOption) };
+            var repos = result.GetValue(repoArgument) ?? [];
+            if (!result.GetValue(discover.Enabled))
+                return repos.Length > 0 ? Run(result, RepoScans(repos, options)) : Usage("Name at least one repo, or use --discover.");
+            if (repos.Length > 0)
+                return Usage("Use either repo names or --discover, not both.");
+            return discover.TryCreate(result, out var query, out var state, out var error)
+                ? Run(result, DiscoverOptions.Scans(query, state, result.GetValue(discover.Rescan), options))
+                : Usage(error);
+        });
 
         var lineageCandidate = new Argument<string>("model") { Description = "The GGUF to check: a local file, hf:org/repo/file.gguf, or an HTTPS URL." };
         var lineageBase = new Option<string>("--base") { Description = "The GGUF it claims to be a quantization of (ideally the official F16/BF16/Q8_0): same forms as the model.", Required = true };
@@ -270,6 +281,12 @@ public static class Program
         foreach (var repo in repos)
             foreach (var report in OllamaRegistryScanner.IsOllamaName(repo) ? OllamaRegistryScanner.Scan(client, repo, options) : RepoScanner.Scan(client, repo, options))
                 yield return report;
+    }
+
+    static int Usage(string message)
+    {
+        Console.Error.WriteLine(message);
+        return ExitError;
     }
 
     static IEnumerable<ScanReport> LineageScan(string candidate, string @base, int budgetMiB, int sample)

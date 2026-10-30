@@ -122,22 +122,31 @@ public sealed partial class HuggingFaceClient : IDisposable
     /// <summary>Enumerates paginated task search results. Missing tags cannot be discovered by a task search.</summary>
     public IEnumerable<string> ListModels(string task, int limit = int.MaxValue)
     {
-        string? url = $"{Host}/api/models?pipeline_tag={Uri.EscapeDataString(task)}&sort=downloads&direction=-1&limit=100";
         var count = 0;
-        while (url is not null && count < limit)
+        foreach (var model in SearchModels($"pipeline_tag={Uri.EscapeDataString(task)}&sort=downloads&direction=-1"))
+        {
+            if (count >= limit) yield break;
+            if (model.GetProperty("id").GetString() is not { } id || NormalizeRepoId(id) != id) continue;
+            count++;
+            yield return id;
+        }
+    }
+
+    /// <summary>
+    /// Pages through /api/models with the given query string (without limit), yielding each model object. The caller stops
+    /// enumerating when it has enough; at most <paramref name="maxPages"/> pages of 100 are fetched.
+    /// </summary>
+    public IEnumerable<JsonElement> SearchModels(string query, int maxPages = int.MaxValue)
+    {
+        string? url = $"{Host}/api/models?{query}&limit=100";
+        for (var page = 0; url is not null && page < maxPages; page++)
         {
             using var request = new HttpRequestMessage(HttpMethod.Get, url);
             using var response = _http.Send(request);
             response.EnsureSuccessStatusCode();
             using var doc = JsonDocument.Parse(response.Content.ReadAsStream());
             foreach (var model in doc.RootElement.EnumerateArray())
-            {
-                if (count >= limit) break;
-                var id = model.GetProperty("id").GetString();
-                if (id is null || NormalizeRepoId(id) != id) continue;
-                count++;
-                yield return id;
-            }
+                yield return model.Clone();
             url = null;
             if (response.Headers.TryGetValues("Link", out var links))
                 foreach (var link in links.SelectMany(l => l.Split(',')))

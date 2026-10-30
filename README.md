@@ -27,6 +27,7 @@ backdoored model into a credential stealer. `modelcheck` checks all five layers 
 modelcheck repo bartowski/Llama-3.2-3B-Instruct-GGUF   # before downloading: files, card, publisher, each GGUF's template (header only)
 modelcheck repo ollama:llama3.2:1b                      # before `ollama pull`: template layer + GGUF header from the registry
 modelcheck repo bartowski/Qwen2.5-0.5B-Instruct-GGUF --lineage   # ...and compare a quant's weights with the base it claims
+modelcheck repo --discover --search abliterated --filter gguf --derived any --save  # find new derivative repos; skips ones already scanned
 modelcheck lineage model.gguf --base hf:org/base-GGUF/model-f16.gguf  # is this really a quantization of that model? (~20 MiB of Range reads)
 modelcheck scan ./models                                # .gguf, .safetensors, .onnx, pickle checkpoints, tokenizer_config.json, chat_template.jinja
 modelcheck explain model.gguf                           # the exact prompt the model receives, and what trigger phrases/dates change
@@ -60,6 +61,15 @@ Keeping results: add `--save` to any scan command to also write the run to
 command line, start and end times, exit code and every finding, including those hidden by `--min-severity` and
 suppressed or baselined ones (flagged). A failed save exits `3`. For a running record, schedule e.g.
 `modelcheck local --save` or `modelcheck watch --notify --save`.
+
+Watching Hugging Face: `repo --discover` finds repos with a Hub search instead of a list of names, and scans each the
+same way as `repo` (headers, templates, card and publisher; no weight downloads). `--search` (repeatable), `--filter`
+(Hub tags such as `gguf`), `--author`, `--derived finetune|merge|quantized|adapter|any` (from the repo's `base_model`
+tags), `--max-downloads`, `--sort created|modified|downloads|likes`, `--ascending` and `--limit` (per search term,
+default 50) choose the repos. The commit of every scanned repo is recorded in `~/.modelcheck/discover-state.json`
+(`--state`), so a scheduled run scans only new or changed repos; `--rescan` ignores it. Repos that failed to scan
+are tried again next time. Expect `--lineage` to flag fine-tunes and merges (L001): that shows modification, not
+malice.
 
 Team policy: commit a `.modelcheck.yml` (`modelcheck policy init`) to allow-list publishers and models, suppress
 accepted findings (each needs a reason and an expiry date), override rule severities, and set `fail-on`. Add a
