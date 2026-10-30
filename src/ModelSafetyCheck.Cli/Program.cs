@@ -183,7 +183,7 @@ public static class Program
 
         var root = new RootCommand("modelcheck: scan local AI models and setups for malicious files, templates and configuration.")
         {
-            scan, local, audit, repo, lineage, watch, explain, classifier, BatchCommand.Create(), PolicyCommand.Create(), BaselineCommand(), ExportCommand.Create(),
+            scan, local, audit, repo, lineage, watch, explain, classifier, BatchCommand.Create(), PolicyCommand.Create(), BaselineCommand(), ExportCommand.Create(), DownloadCommand.Create(),
             FormatOption, MinSeverityOption, DumpTemplateOption, NoColorOption, ClassifierOption,
             PolicyOption, NoPolicyOption, BaselineFileOption, WriteBaselineOption, ShowSuppressedOption, SaveOption,
         };
@@ -242,7 +242,7 @@ public static class Program
         }
     }
 
-    static IEnumerable<ScanReport> ScanPaths(IEnumerable<string> paths)
+    internal static IEnumerable<ScanReport> ScanPaths(IEnumerable<string> paths)
     {
         foreach (var path in paths)
         {

@@ -41,7 +41,12 @@ modelcheck watch --print-schedule                       # how an hourly check wo
 modelcheck batch --discover-hf --limit 100 --dry-run     # plan a text-model crawl, below 100 GB per complete file set
 modelcheck batch https://example.org/model.gguf         # download and scan a file from any HTTP(S) provider
 modelcheck batch --manifest models.json --format jsonl # multi-file models, durable reports and streaming output
+modelcheck download hf:org/name/model.gguf --scan        # resumable download, checked against the published sha256, then scanned
 ```
+
+Downloads (`batch` and `download`) use several connections per file and retry each one on its own. An interrupted
+download resumes when rerun: `batch` keeps partial files in `<directory>/partial/`, and `download` keeps them beside the
+target as `<file>.part`.
 
 To check before every download, use the wrappers in [`scripts/`](scripts): `ollama-safe-pull` and `lms-safe-get`
 (bash and PowerShell) run `modelcheck repo` first and refuse on high/critical findings unless `--force`.
@@ -161,7 +166,9 @@ public repository, the attestation (`verify-provenance: auto`) before it runs th
 
 ## Building
 
-Requires the .NET 10 SDK.
+Requires the .NET 10 SDK. The resumable download library is the [Downloader](https://github.com/anefiox/Downloader)
+submodule in `external/Downloader`: clone with `git clone --recursive`, or run `git submodule update --init` in an
+existing checkout.
 
 ```bash
 dotnet test

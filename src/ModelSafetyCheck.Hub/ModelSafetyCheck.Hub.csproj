@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\ModelSafetyCheck.Rules\ModelSafetyCheck.Rules.csproj" />
+    <!-- Resumable multi-connection downloads: the Downloader submodule (see README, Building). -->
+    <ProjectReference Include="..\..\external\Downloader\src\Downloader\Downloader.csproj" />
   </ItemGroup>
   <!-- A source fingerprint works in both managed and Native AOT builds, without relying on module metadata. -->
   <Target Name="FingerprintScannerSources" BeforeTargets="GetAssemblyAttributes">
