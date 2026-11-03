@@ -107,6 +107,30 @@ Treat manifests and retained reports as local configuration: reports include mod
 - For large crawls use `--format jsonl` or default text: both stream reports. JSON arrays and SARIF collect the
   invocation's reports in memory before writing them.
 
+## Long crawls across machines
+
+A crawl can be stopped on one machine and continued on another by keeping its batch directory in git:
+
+```powershell
+# Once: pin the list. One variant per repository (the smallest real model below --max-gb), exact commits and sha256.
+modelcheck batch --discover-hf --limit 117 --variant smallest --write-manifest scans/hf-top100/manifest.json
+# On any machine, any number of times: pull, scan what is not done yet, export, commit and push.
+./scripts/scan-collection.ps1 hf-top100        # or scripts/scan-collection.sh hf-top100
+```
+
+- `--write-manifest` resolves discovery to pinned file sets and writes them instead of scanning, so every run works
+  through the same list even as Hub rankings and repositories change. Repositories that fail to plan, or whose
+  smallest model is over the limit, are listed on stderr and left out.
+- `--variant smallest` keeps one file set per repository. Vision projectors (`mmproj`), imatrix calibration files,
+  vocabularies, training state and anything under 2% of the repository's largest set are not treated as the model;
+  pickle-only sets rank after safetensors, GGUF and ONNX.
+- `scans/<name>/results/` and `manifest.json` are committed; `downloads/`, `partial/` and `batch.lock` are ignored.
+  Stop with Ctrl+C: finished models are already saved, and the script still commits and pushes them.
+- Results are reused only at the same scanner build (all `src/**/*.cs` plus reference data). Run every machine on the
+  same commit; changing scanner code makes the next run scan everything again, which keeps the dataset consistent.
+- `modelcheck export --batch-dir scans/<name> --out scans/<name>/dataset` builds the dataset straight from the
+  results, with no `--save` needed. With only `--batch-dir`, `~/.modelcheck/reports` is not read.
+
 Exit codes remain 0 (no known issues), 1 (low/medium findings), 2 (high/critical) and 3 (failed/incomplete checks).
 Display filtering never lowers risk status. Hashes identify bytes; they do not certify publishers or behavior.
 Static checks cannot detect backdoors trained into weights; that requires a separate inference evaluation.

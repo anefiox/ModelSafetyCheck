@@ -18,7 +18,7 @@ public static partial class DownloadPlan
         "feature-extraction", "sentence-similarity", "text-classification", "token-classification", "question-answering",
         "summarization", "translation", "zero-shot-classification", "table-question-answering"];
 
-    [GeneratedRegex(@"^(?<prefix>.*?)-(?<part>\d{5})-of-(?<total>\d{5})(?<extension>\.(?:gguf|safetensors|bin))$", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"^(?<prefix>.*?)-(?<part>\d{5,6})-of-(?<total>\d{5,6})(?<extension>\.(?:gguf|safetensors|bin))$", RegexOptions.IgnoreCase)]
     private static partial Regex ShardPattern();
 
     public static DownloadManifest ReadManifest(string path)
@@ -70,6 +70,34 @@ public static partial class DownloadPlan
         }
     }
 
+    /// <summary>
+    /// One variant of a repository's file sets: the smallest below <paramref name="maxBytes"/> (or, when none fits, the
+    /// smallest, so the size limit is still reported). Files that ship beside a model without being one (vision
+    /// projectors, imatrix calibration data, vocabularies, training state, or anything under 2% of the repository's
+    /// largest set) are never chosen, and pickle-only sets rank after safetensors, GGUF and ONNX, which usually hold the
+    /// same weights. Errors pass through.
+    /// </summary>
+    public static IEnumerable<DownloadJob> SmallestModel(IEnumerable<DownloadJob> jobs, long maxBytes)
+    {
+        var all = jobs.ToList();
+        var sized = all.Where(j => j.Error is null)
+            .Select(j => (Job: j, Size: j.Files.Sum(f => f.Size ?? long.MaxValue / j.Files.Count))).ToList();
+        var largest = sized.Count > 0 ? sized.Max(j => j.Size) : 0;
+        var models = sized.Where(j => !Auxiliary(j.Job.Id) && j.Size >= largest / 50)
+            .OrderBy(j => j.Size >= maxBytes)
+            .ThenBy(j => !j.Job.Files.Any(f => Path.GetExtension(f.Path).ToLowerInvariant() is ".gguf" or ".safetensors" or ".onnx"))
+            .ThenBy(j => j.Size).ThenBy(j => j.Job.Id, StringComparer.Ordinal).ToList();
+        if (models.Count > 0) yield return models[0].Job;
+        else if (sized.Count > 0) yield return new DownloadJob(string.Join('/', sized[0].Job.Id.Split('/').Take(2)), [],
+            Error: "No file set looks like the model itself (only projectors, calibration data or other auxiliary files).");
+        foreach (var error in all.Where(j => j.Error is not null)) yield return error;
+    }
+
+    /// <summary>Job ids are "hf:org/name/&lt;path&gt;"; only the path is matched, not the repository name.</summary>
+    static bool Auxiliary(string id) => id.Split('/', 3) is [_, _, var path] &&
+        new[] { "mmproj", "imatrix", "vocab", "training_args", "optimizer", "vision/" }
+            .Any(word => path.Contains(word, StringComparison.OrdinalIgnoreCase));
+
     static bool IsWeight(string path) => Path.GetExtension(path).ToLowerInvariant() is ".gguf" or ".safetensors" or ".onnx" ||
         PickleScanner.Extensions.Contains(Path.GetExtension(path));
 
@@ -87,10 +115,13 @@ public static partial class DownloadPlan
         if (!first.Success) return;
         var total = int.Parse(first.Groups["total"].Value, System.Globalization.CultureInfo.InvariantCulture);
         var parts = files.Select(f => ShardPattern().Match(f.Path)).ToList();
-        if (total == 0 || files.Count != total || parts.Any(m => int.Parse(m.Groups["total"].Value,
+        var numbers = parts.Select(m => int.Parse(m.Groups["part"].Value, System.Globalization.CultureInfo.InvariantCulture))
+            .Order().ToList();
+        // Usually 1..N of N. Some exporters number from zero, ending at N-1 or at N (gpt-oss: 00000..00002-of-00002).
+        if (total == 0 || parts.Any(m => int.Parse(m.Groups["total"].Value,
             System.Globalization.CultureInfo.InvariantCulture) != total) ||
-            !parts.Select(m => int.Parse(m.Groups["part"].Value, System.Globalization.CultureInfo.InvariantCulture))
-                .Order().SequenceEqual(Enumerable.Range(1, total)))
+            !numbers.SequenceEqual(Enumerable.Range(1, total)) && !numbers.SequenceEqual(Enumerable.Range(0, total)) &&
+            !numbers.SequenceEqual(Enumerable.Range(0, total + 1)))
             throw new InvalidDataException("Missing, duplicate or inconsistent model shards.");
     }
 

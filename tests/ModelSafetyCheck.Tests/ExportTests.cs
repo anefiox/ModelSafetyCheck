@@ -63,6 +63,26 @@ public sealed class ExportTests : IDisposable
         Assert.Contains("Left out 1 run(s)", log.ToString());
     }
 
+    [Fact]
+    public void A_batch_directory_exports_without_saved_runs()
+    {
+        var batch = Path.Combine(_dir, "batch");
+        Directory.CreateDirectory(Path.Combine(batch, "results"));
+        var result = new BatchResult("hf:a/m/model.gguf", new string('a', 40), new string('f', 64),
+            new DateTimeOffset(2026, 11, 3, 9, 0, 0, TimeSpan.Zero), true,
+            [new DownloadReceipt("model.gguf", "https://huggingface.co/a/m/resolve/x/model.gguf", 5, new string('b', 64))],
+            [Report("hf:a/m/model.gguf/model.gguf", new Finding("T004", Severity.High, "Trigger", "if date"))]);
+        File.WriteAllText(Path.Combine(batch, "results", "key.json"),
+            System.Text.Json.JsonSerializer.Serialize(result, BatchJsonContext.Default.BatchResult));
+
+        var output = Path.Combine(_dir, "out");
+        Assert.Equal(0, ExportCommand.Run(null, output, includeLocal: false, new StringWriter(), [batch]));
+        var target = Assert.Single(File.ReadAllLines(Path.Combine(output, "targets.jsonl")));
+        Assert.Contains("\"max_severity\":\"high\"", target);
+        Assert.Contains("\"scanner_version\":\"build ffffffffffff\"", target);
+        Assert.Contains($"\"sha256\":\"{new string('b', 64)}\"", target);
+    }
+
     sealed class FlakyHandler : HttpMessageHandler
     {
         public int Calls;

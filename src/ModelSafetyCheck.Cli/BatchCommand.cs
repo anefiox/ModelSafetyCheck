@@ -24,9 +24,12 @@ static class BatchCommand
         var keep = new Option<bool>("--keep-downloads") { Description = "Retain downloaded files after scanning; default removes this job's downloads and retains reports." };
         var dry = new Option<bool>("--dry-run") { Description = "Discover and show file-set sizes without downloading model files or writing batch state." };
         var force = new Option<bool>("--force") { Description = "Rescan even if an unchanged immutable model has a completed report." };
+        var variant = new Option<string>("--variant") { Description = "Hugging Face variants per repository: all, or only the smallest set below --max-gb.", DefaultValueFactory = _ => "all" };
+        variant.AcceptOnlyFromAmong("all", "smallest");
+        var writeManifest = new Option<string?>("--write-manifest") { Description = "Write the pinned file sets (commits, sizes, sha256) to a manifest instead of scanning, so later runs and other machines work through the same list." };
         var command = new Command("batch", "Download and statically scan model file sets from Hugging Face or arbitrary HTTP(S) providers, with bounded downloads and saved results.")
         {
-            sources, manifest, discover, tasks, limit, directory, maxGb, totalGb, keep, dry, force,
+            sources, manifest, discover, tasks, limit, directory, maxGb, totalGb, keep, dry, force, variant, writeManifest,
         };
         command.SetAction(parse =>
         {
@@ -44,8 +47,12 @@ static class BatchCommand
                 var totalBytes = Bytes(parse.GetValue(totalGb));
                 var options = new BatchOptions(parse.GetValue(directory)!, maxBytes, totalBytes,
                     parse.GetValue(keep), parse.GetValue(dry), parse.GetValue(force));
+                var smallest = parse.GetValue(variant) == "smallest";
+                if (parse.GetValue(writeManifest) is { } output)
+                    return WriteManifest(output, inputs, parse.GetValue(manifest), parse.GetValue(discover),
+                        parse.GetValue(tasks) ?? [], repoLimit, smallest, maxBytes, cancel.Token);
                 return Program.Run(parse, Reports(inputs, parse.GetValue(manifest), parse.GetValue(discover),
-                    parse.GetValue(tasks) ?? [], repoLimit, options, cancel.Token));
+                    parse.GetValue(tasks) ?? [], repoLimit, smallest, options, cancel.Token));
             }
             catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException or
                 JsonException or HttpRequestException or OperationCanceledException or OverflowException or ArgumentException)
@@ -64,14 +71,41 @@ static class BatchCommand
         return bytes > 0 ? bytes : throw new InvalidDataException("GB limits must be positive.");
     }
 
+    /// <summary>
+    /// Resolves the sources to pinned file sets and writes them as a manifest. Scanning that manifest gives every run, on
+    /// any machine, the same list and the same result keys, however the Hub's rankings or repositories change meanwhile.
+    /// </summary>
+    static int WriteManifest(string path, string[] sources, string? manifest, bool discover, string[] tasks, int limit,
+        bool smallest, long maxBytes, CancellationToken cancellationToken)
+    {
+        using var hub = new HuggingFaceClient();
+        var errors = new Queue<ScanReport>();
+        var models = new List<DownloadJob>();
+        foreach (var job in Jobs(hub, sources, manifest, discover, tasks, limit, smallest, maxBytes, errors, cancellationToken))
+        {
+            if (job.Error is not null)
+                Console.Error.WriteLine($"Left out {job.Id}: {job.Error}");
+            else if (job.Files.All(f => f.Size is not null) && job.Files.Sum(f => f.Size!.Value) >= maxBytes)
+                Console.Error.WriteLine($"Left out {job.Id}: {job.Files.Sum(f => f.Size!.Value):N0} bytes meets or exceeds the per-model limit.");
+            else
+                models.Add(job);
+        }
+        while (errors.TryDequeue(out var error)) Console.Error.WriteLine($"{error.Target}: {error.Error}");
+        Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path))!);
+        File.WriteAllText(path, JsonSerializer.Serialize(new DownloadManifest(models), BatchJsonContext.Default.DownloadManifest) + "\n");
+        var bytes = models.SelectMany(m => m.Files).Sum(f => f.Size ?? 0);
+        Console.Error.WriteLine($"Wrote {models.Count} model file set(s), {bytes:N0} bytes, to {path}.");
+        return Program.ExitClean;
+    }
+
     static IEnumerable<ScanReport> Reports(string[] sources, string? manifest, bool discover, string[] tasks,
-        int limit, BatchOptions options, CancellationToken cancellationToken)
+        int limit, bool smallest, BatchOptions options, CancellationToken cancellationToken)
     {
         using var hub = new HuggingFaceClient();
         using var scanner = new BatchScanner();
         var errors = new Queue<ScanReport>();
         // Keep discovery lazy so a large Hub crawl can checkpoint completed models as it progresses.
-        var jobs = Jobs(hub, sources, manifest, discover, tasks, limit, errors, cancellationToken);
+        var jobs = Jobs(hub, sources, manifest, discover, tasks, limit, smallest, options.MaxBytes, errors, cancellationToken);
         foreach (var report in scanner.Scan(jobs, options, Console.Error.WriteLine, cancellationToken))
         {
             while (errors.TryDequeue(out var error)) yield return error;
@@ -81,7 +115,8 @@ static class BatchCommand
     }
 
     static IEnumerable<DownloadJob> Jobs(HuggingFaceClient hub, string[] sources, string? manifest,
-        bool discover, string[] tasks, int limit, Queue<ScanReport> errors, CancellationToken cancellationToken)
+        bool discover, string[] tasks, int limit, bool smallest, long maxBytes, Queue<ScanReport> errors,
+        CancellationToken cancellationToken)
     {
         if (manifest is not null)
             foreach (var job in DownloadPlan.ReadManifest(manifest).Models) yield return job;
@@ -108,22 +143,28 @@ static class BatchCommand
                 continue;
             }
             if (!seen.Add(repo)) continue;
-            using var iterator = DownloadPlan.FromHuggingFace(hub, repo).GetEnumerator();
-            while (true)
+            var jobs = HuggingFaceJobs(hub, repo);
+            foreach (var job in smallest ? DownloadPlan.SmallestModel(jobs, maxBytes) : jobs) yield return job;
+        }
+    }
+
+    static IEnumerable<DownloadJob> HuggingFaceJobs(HuggingFaceClient hub, string repo)
+    {
+        using var iterator = DownloadPlan.FromHuggingFace(hub, repo).GetEnumerator();
+        while (true)
+        {
+            DownloadJob? job;
+            var failed = false;
+            try { if (!iterator.MoveNext()) break; job = iterator.Current; }
+            catch (Exception ex) when (ex is IOException or InvalidDataException or HttpRequestException or
+                OperationCanceledException or JsonException or OverflowException)
             {
-                DownloadJob? job;
-                var failed = false;
-                try { if (!iterator.MoveNext()) break; job = iterator.Current; }
-                catch (Exception ex) when (ex is IOException or InvalidDataException or HttpRequestException or
-                    OperationCanceledException or JsonException or OverflowException)
-                {
-                    job = new DownloadJob("hf:" + repo, [], Error:
-                        ex is HttpRequestException ? "Hugging Face request failed." : ex.Message);
-                    failed = true;
-                }
-                yield return job;
-                if (failed) break;
+                job = new DownloadJob("hf:" + repo, [], Error:
+                    ex is HttpRequestException ? "Hugging Face request failed." : ex.Message);
+                failed = true;
             }
+            yield return job;
+            if (failed) break;
         }
     }
 

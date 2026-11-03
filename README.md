@@ -41,6 +41,7 @@ modelcheck watch --print-schedule                       # how an hourly check wo
 modelcheck batch --discover-hf --limit 100 --dry-run     # plan a text-model crawl, below 100 GB per complete file set
 modelcheck batch https://example.org/model.gguf         # download and scan a file from any HTTP(S) provider
 modelcheck batch --manifest models.json --format jsonl # multi-file models, durable reports and streaming output
+modelcheck batch --discover-hf --variant smallest --write-manifest scans/x/manifest.json  # pin a crawl to resume anywhere
 modelcheck download hf:org/name/model.gguf --scan        # resumable download, checked against the published sha256, then scanned
 ```
 

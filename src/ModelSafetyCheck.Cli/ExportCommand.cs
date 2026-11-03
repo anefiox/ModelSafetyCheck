@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using ModelSafetyCheck.Core;
+using ModelSafetyCheck.Hub;
 using ModelSafetyCheck.Rules;
 
 namespace ModelSafetyCheck.Cli;
@@ -36,32 +37,46 @@ public static class ExportCommand
 
     public static Command Create()
     {
-        var reports = new Option<string>("--reports") { Description = "Directory of saved runs.", DefaultValueFactory = _ => ReportArchive.DefaultDirectory };
+        var reports = new Option<string?>("--reports") { Description = $"Directory of saved runs (default {ReportArchive.DefaultDirectory}, unless only --batch-dir is given)." };
         var output = new Option<string>("--out", "-o") { Description = "Directory to write the dataset to.", Required = true };
-        var batchDir = new Option<string[]>("--batch-dir") { Description = "Batch directories (batch --directory) whose download receipts add each file's sha256 and pinned source URL. Repeatable." };
+        var batchDir = new Option<string[]>("--batch-dir") { Description = "Batch directories (batch --directory): their saved results are exported, with each file's sha256 and pinned source URL. Repeatable." };
         var includeLocal = new Option<bool>("--include-local") { Description = "Also export scans of this machine (scan, local, audit, watch). They contain local paths: do not publish them." };
         var command = new Command("export", "Export runs saved with --save as a queryable dataset (targets and findings as CSV and JSON Lines, plus a README summary).")
         {
             reports, output, batchDir, includeLocal,
         };
-        command.SetAction(result => Run(result.GetValue(reports)!, result.GetValue(output)!, result.GetValue(includeLocal), Console.Out,
-            result.GetValue(batchDir) ?? []));
+        command.SetAction(result =>
+        {
+            var batchDirectories = result.GetValue(batchDir) ?? [];
+            // A batch directory is a complete source on its own; mixing in this machine's other saved runs is opt-in.
+            var reportsDirectory = result.GetValue(reports) ?? (batchDirectories.Length > 0 ? null : ReportArchive.DefaultDirectory);
+            return Run(reportsDirectory, result.GetValue(output)!, result.GetValue(includeLocal), Console.Out, batchDirectories);
+        });
         return command;
     }
 
-    public static int Run(string reportsDirectory, string outputDirectory, bool includeLocal, TextWriter log, IReadOnlyList<string>? batchDirectories = null)
+    public static int Run(string? reportsDirectory, string outputDirectory, bool includeLocal, TextWriter log, IReadOnlyList<string>? batchDirectories = null)
     {
         var receipts = Receipts(batchDirectories ?? []);
-        if (!Directory.Exists(reportsDirectory))
+        var batchRuns = BatchRuns(batchDirectories ?? []);
+        if (!Directory.Exists(reportsDirectory) && batchRuns.Count == 0)
         {
             Console.Error.WriteLine($"No saved runs in {reportsDirectory}. Add --save to a scan first.");
             return Program.ExitError;
         }
 
-        // Latest scan of every target, across all saved runs.
+        // Latest scan of every target, across all saved runs and batch results.
         var latest = new Dictionary<string, (SavedRun Run, ScanReport Report)>(StringComparer.Ordinal);
         int runs = 0, skipped = 0;
-        foreach (var file in Directory.GetFiles(reportsDirectory, "*.json").Order(StringComparer.Ordinal))
+        foreach (var run in batchRuns)
+        {
+            runs++;
+            foreach (var report in run.Reports)
+                if (!latest.TryGetValue(report.Target, out var seen) || seen.Run.Started <= run.Started)
+                    latest[report.Target] = (run, report);
+        }
+        var files = Directory.Exists(reportsDirectory) ? Directory.GetFiles(reportsDirectory, "*.json") : [];
+        foreach (var file in files.Order(StringComparer.Ordinal))
         {
             SavedRun? run;
             try
@@ -164,13 +179,41 @@ public static class ExportCommand
                     {
                         string? Str(string name) => f.TryGetProperty(name, out var v) && v.ValueKind == JsonValueKind.String ? v.GetString() : null;
                         if (Str("path") is { } path)
-                            receipts[$"{id.GetString()}/{path}"] = (Str("sha256"), Str("source"));
+                            receipts[Key($"{id.GetString()}/{path}")] = (Str("sha256"), Str("source"));
                     }
                 }
                 catch (Exception ex) when (ex is JsonException or IOException) { }
             }
         }
         return receipts;
+    }
+
+    /// <summary>
+    /// Batch results/*.json as runs, so a batch directory exports without --save (and a resumed crawl does not need a full
+    /// copy of every report per invocation). The scanner version is the result's build fingerprint.
+    /// </summary>
+    static List<SavedRun> BatchRuns(IEnumerable<string> batchDirectories)
+    {
+        var runs = new List<SavedRun>();
+        foreach (var directory in batchDirectories)
+        {
+            var results = Path.Combine(directory, "results");
+            if (!Directory.Exists(results)) continue;
+            foreach (var file in Directory.GetFiles(results, "*.json").Order(StringComparer.Ordinal))
+            {
+                BatchResult? result;
+                try { result = JsonSerializer.Deserialize(File.ReadAllText(file), BatchJsonContext.Default.BatchResult); }
+                catch (Exception ex) when (ex is JsonException or IOException)
+                {
+                    Console.Error.WriteLine($"Skipping {Path.GetFileName(file)}: {ex.Message}");
+                    continue;
+                }
+                if (result is null) continue;
+                runs.Add(new SavedRun(1, "batch", [], result.FinishedAt, result.FinishedAt, result.Completed ? 0 : Program.ExitError,
+                    result.Reports, "build " + result.Scanner[..Math.Min(12, result.Scanner.Length)]));
+            }
+        }
+        return runs;
     }
 
     /// <summary>Removes absolute local paths (a batch download directory) from a location.</summary>

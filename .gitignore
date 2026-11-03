@@ -483,3 +483,10 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Committed scan results (scans/<name>/results, manifest.json, dataset/) travel between machines; downloads and
+# locks stay local
+/scans/*/downloads/
+/scans/*/partial/
+/scans/*/batch.lock
+/scans/*/results/*.tmp-*

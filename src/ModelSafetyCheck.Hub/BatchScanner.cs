@@ -28,9 +28,11 @@ public sealed class BatchScanner : IDisposable
     }
     public long DownloadedBytes => _downloaded;
 
+    // The build joins one hash per source file in glob order, which follows the file system. Sorting them makes the
+    // identity the same on every OS, so results saved on one machine are reused on another at the same commit.
     static string ScannerIdentity => DownloadPlan.Hash(string.Join('|',
-        typeof(BatchScanner).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
-            .Single(a => a.Key == "ScannerSources").Value,
+        string.Concat(typeof(BatchScanner).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
+            .Single(a => a.Key == "ScannerSources").Value!.Chunk(64).Select(c => new string(c)).Order(StringComparer.Ordinal)),
         JsonSerializer.Serialize(ReferenceData.KnownTemplates, DataJsonContext.Default.KnownTemplateFile),
         JsonSerializer.Serialize(ReferenceData.TrustedPublishers, DataJsonContext.Default.TrustedPublisherFile)));
 

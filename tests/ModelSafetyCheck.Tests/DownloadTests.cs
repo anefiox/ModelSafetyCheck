@@ -118,6 +118,28 @@ public sealed class DownloadTests : IDisposable
         Assert.Throws<InvalidDataException>(() => DownloadPlan.Validate(job with { Files = [job.Files[0]] }));
     }
 
+    [Theory]
+    [InlineData("model-00000-of-00002.safetensors", "model-00001-of-00002.safetensors", "model-00002-of-00002.safetensors")]
+    [InlineData("model-00000-of-00001.safetensors")]
+    [InlineData("model-00001-of-000002.safetensors", "model-00002-of-000002.safetensors")]
+    public void Zero_based_and_six_digit_shard_numbering_is_a_complete_set(params string[] paths) =>
+        DownloadPlan.Validate(new DownloadJob("shards", [.. paths.Select(p => new DownloadFile("https://example.com/" + p, p, 1))]));
+
+    [Fact]
+    public void Smallest_variant_is_the_smallest_real_model_that_fits()
+    {
+        static DownloadJob Set(string path, long size) => new("hf:org/repo/" + path, [new("https://example.com/" + path, path, size)]);
+        DownloadJob[] jobs = [Set("model-F16.gguf", 16_000), Set("model-Q4_K_M.gguf", 5_000), Set("model-Q2_K.gguf", 3_000),
+            Set("mmproj-F16.gguf", 900), Set("model.imatrix.gguf", 2_000), Set("tiny-test.gguf", 100), Set("pytorch_model.bin", 2_500)];
+        Assert.Equal("hf:org/repo/model-Q2_K.gguf", Assert.Single(DownloadPlan.SmallestModel(jobs, 100_000)).Id);
+        // Nothing fits: the smallest model is still returned so the size limit is reported.
+        Assert.Equal("hf:org/repo/model-Q2_K.gguf", Assert.Single(DownloadPlan.SmallestModel(jobs, 1_000)).Id);
+        // Only auxiliary files: the repository is reported, not scanned as if the projector were the model.
+        var error = Assert.Single(DownloadPlan.SmallestModel([Set("mmproj-F16.gguf", 900)], 100_000));
+        Assert.Equal("hf:org/repo", error.Id);
+        Assert.NotNull(error.Error);
+    }
+
     sealed class UnknownLengthContent(byte[] bytes) : HttpContent
     {
         protected override bool TryComputeLength(out long length) { length = 0; return false; }
