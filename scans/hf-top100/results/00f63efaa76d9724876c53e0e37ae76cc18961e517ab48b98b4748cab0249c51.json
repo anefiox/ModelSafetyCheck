@@ -1,0 +1,161 @@
+{
+  "id": "hf:trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/model.safetensors",
+  "revision": "ce8d0bf270b28c8fab026ced69fe8aa14b0f0eda",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-04T00:12:50.7669799+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model.safetensors",
+      "source": "https://huggingface.co/trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/resolve/ce8d0bf270b28c8fab026ced69fe8aa14b0f0eda/model.safetensors",
+      "size": 4872824,
+      "sha256": "653e6a0513543f691f5926b7deb442fe9a179d82cbcd59dddaf3de109c9f5f70"
+    },
+    {
+      "path": "added_tokens.json",
+      "source": "https://huggingface.co/trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/resolve/ce8d0bf270b28c8fab026ced69fe8aa14b0f0eda/added_tokens.json",
+      "size": 605,
+      "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+    },
+    {
+      "path": "chat_template.jinja",
+      "source": "https://huggingface.co/trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/resolve/ce8d0bf270b28c8fab026ced69fe8aa14b0f0eda/chat_template.jinja",
+      "size": 2507,
+      "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/resolve/ce8d0bf270b28c8fab026ced69fe8aa14b0f0eda/config.json",
+      "size": 738,
+      "sha256": "114c0f6f53f591bb5bd28e54f6aedc534171e797581b5f10078646ea468035d9"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/resolve/ce8d0bf270b28c8fab026ced69fe8aa14b0f0eda/generation_config.json",
+      "size": 243,
+      "sha256": "fd7be13576a65237b59df8656aeb8af61b94368650e2c13ae2f1ba95266c98e4"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/resolve/ce8d0bf270b28c8fab026ced69fe8aa14b0f0eda/special_tokens_map.json",
+      "size": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/resolve/ce8d0bf270b28c8fab026ced69fe8aa14b0f0eda/tokenizer.json",
+      "size": 11421896,
+      "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/resolve/ce8d0bf270b28c8fab026ced69fe8aa14b0f0eda/tokenizer_config.json",
+      "size": 4686,
+      "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614"
+    },
+    {
+      "path": "vocab.json",
+      "source": "https://huggingface.co/trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/resolve/ce8d0bf270b28c8fab026ced69fe8aa14b0f0eda/vocab.json",
+      "size": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/model.safetensors/model.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4872824;mtime:2026-11-04T00:12:43.4292494Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/model.safetensors/chat_template.jinja",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "chat_template.jinja": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "2,507 characters, Jinja, sha256 cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f. Use --dump-template to read it.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022You are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u0022\n  - \u0022# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctoo\u2026\u0022\n  - \u0022\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\u0022name\u0022: \u003Cfunct\u2026\u0022\n  - \u0022\u003C|im_start|\u003Esystem\\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u003C|im_end|\u003E\u0022",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official Qwen2.5 template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/Qwen/Qwen2.5-7B-Instruct.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "chat_template.jinja",
+          "dialect": "Jinja",
+          "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+          "length": 2507,
+          "text": "{%- if tools %}\n    {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 }}\n    {%- if messages[0][\u0027role\u0027] == \u0027system\u0027 %}\n        {{- messages[0][\u0027content\u0027] }}\n    {%- else %}\n        {{- \u0027You are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u0027 }}\n    {%- endif %}\n    {{- \u0022\\n\\n# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {{- \u0022\\n\u0022 }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\\\u0022name\\\u0022: \u003Cfunction-name\u003E, \\\u0022arguments\\\u0022: \u003Cargs-json-object\u003E}\\n\u003C/tool_call\u003E\u003C|im_end|\u003E\\n\u0022 }}\n{%- else %}\n    {%- if messages[0][\u0027role\u0027] == \u0027system\u0027 %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B messages[0][\u0027content\u0027] \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- else %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- for message in messages %}\n    {%- if (message.role == \u0022user\u0022) or (message.role == \u0022system\u0022 and not loop.first) or (message.role == \u0022assistant\u0022 and not message.tool_calls) %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B message.content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022assistant\u0022 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role }}\n        {%- if message.content %}\n            {{- \u0027\\n\u0027 \u002B message.content }}\n        {%- endif %}\n        {%- for tool_call in message.tool_calls %}\n            {%- if tool_call.function is defined %}\n                {%- set tool_call = tool_call.function %}\n            {%- endif %}\n            {{- \u0027\\n\u003Ctool_call\u003E\\n{\u0022name\u0022: \u0022\u0027 }}\n            {{- tool_call.name }}\n            {{- \u0027\u0022, \u0022arguments\u0022: \u0027 }}\n            {{- tool_call.arguments | tojson }}\n            {{- \u0027}\\n\u003C/tool_call\u003E\u0027 }}\n        {%- endfor %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if (loop.index0 == 0) or (messages[loop.index0 - 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_start|\u003Euser\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Ctool_response\u003E\\n\u0027 }}\n        {{- message.content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\u0027 }}\n        {%- if loop.last or (messages[loop.index0 \u002B 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n{%- endif %}\n"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/model.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:trl-internal-testing/tiny-Qwen2ForCausalLM-2.5/model.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "6 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

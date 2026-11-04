@@ -1,0 +1,173 @@
+{
+  "id": "hf:Qwen/Qwen3-4B-Instruct-2507/model-shards.safetensors",
+  "revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-03T23:43:06.4909785+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model-00001-of-00003.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/model-00001-of-00003.safetensors",
+      "size": 3957900840,
+      "sha256": "75311d91bb08cf0b882913da464a1e722a31fb44db35208663487efb7a3d8ed6"
+    },
+    {
+      "path": "model-00002-of-00003.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/model-00002-of-00003.safetensors",
+      "size": 3987450520,
+      "sha256": "0b48adbb1f60e901153d91907ba11ce63bd4b8b584482e730f48808d055dfba1"
+    },
+    {
+      "path": "model-00003-of-00003.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/model-00003-of-00003.safetensors",
+      "size": 99630640,
+      "sha256": "7dd39ccca5e4de123c74c14af44c9bf2eb75df33b4614382af0134528e060d5d"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/config.json",
+      "size": 727,
+      "sha256": "5beea1a4a34c62782bfb2f911c606741a3bab8f92d80a118fa053c28af12e8ba"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/generation_config.json",
+      "size": 238,
+      "sha256": "835fffe355c9438e7a25be099b3fccaa98350b83451f9fd2d99512e74f1ade48"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/model.safetensors.index.json",
+      "size": 32819,
+      "sha256": "d6c42883a895dfef5b0080ed2116a1bcd764f558406b98923d675978a1abf29c"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/tokenizer.json",
+      "size": 11422654,
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/tokenizer_config.json",
+      "size": 9377,
+      "sha256": "a62ff0a2472a0fa1b8eaabcb57c59b58afa42a22831dc141400b6e0cf2b65ce3"
+    },
+    {
+      "path": "vocab.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/resolve/cdbee75f17c01a7cc42f958dc650907174af0554/vocab.json",
+      "size": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:Qwen/Qwen3-4B-Instruct-2507/model-shards.safetensors/model-00001-of-00003.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3957900840;mtime:2026-11-03T23:41:31.0169577Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-4B-Instruct-2507/model-shards.safetensors/model-00002-of-00003.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3987450520;mtime:2026-11-03T23:42:55.7245184Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-4B-Instruct-2507/model-shards.safetensors/model-00003-of-00003.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:99630640;mtime:2026-11-03T23:43:03.0129918Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-4B-Instruct-2507/model-shards.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "tokenizer_config.json:chat_template": "64f85b198065d0fba2a81f37e10ed68161ce2c19a754c7100e67e0ca2ee9c326"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "2,630 characters, Jinja, sha256 64f85b198065d0fba2a81f37e10ed68161ce2c19a754c7100e67e0ca2ee9c326. Use --dump-template to read it.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctoo\u2026\u0022\n  - \u0022\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\u0022name\u0022: \u003Cfunct\u2026\u0022",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official Qwen3-2507 template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "tokenizer_config.json:chat_template",
+          "dialect": "Jinja",
+          "sha256": "64f85b198065d0fba2a81f37e10ed68161ce2c19a754c7100e67e0ca2ee9c326",
+          "length": 2630,
+          "text": "{%- if tools %}\n    {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 }}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {{- messages[0].content \u002B \u0027\\n\\n\u0027 }}\n    {%- endif %}\n    {{- \u0022# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {{- \u0022\\n\u0022 }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\\\u0022name\\\u0022: \u003Cfunction-name\u003E, \\\u0022arguments\\\u0022: \u003Cargs-json-object\u003E}\\n\u003C/tool_call\u003E\u003C|im_end|\u003E\\n\u0022 }}\n{%- else %}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B messages[0].content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- for message in messages %}\n    {%- if message.content is string %}\n        {%- set content = message.content %}\n    {%- else %}\n        {%- set content = \u0027\u0027 %}\n    {%- endif %}\n    {%- if (message.role == \u0022user\u0022) or (message.role == \u0022system\u0022 and not loop.first) %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022assistant\u0022 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content }}\n        {%- if message.tool_calls %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- \u0027\\n\u0027 }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- \u0027\u003Ctool_call\u003E\\n{\u0022name\u0022: \u0022\u0027 }}\n                {{- tool_call.name }}\n                {{- \u0027\u0022, \u0022arguments\u0022: \u0027 }}\n                {%- if tool_call.arguments is string %}\n                    {{- tool_call.arguments }}\n                {%- else %}\n                    {{- tool_call.arguments | tojson }}\n                {%- endif %}\n                {{- \u0027}\\n\u003C/tool_call\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_start|\u003Euser\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Ctool_response\u003E\\n\u0027 }}\n        {{- content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\u0027 }}\n        {%- if loop.last or (messages[loop.index0 \u002B 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n{%- endif %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:Qwen/Qwen3-4B-Instruct-2507/model-shards.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

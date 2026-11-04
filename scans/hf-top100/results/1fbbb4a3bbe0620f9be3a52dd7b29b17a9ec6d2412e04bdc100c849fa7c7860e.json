@@ -1,0 +1,161 @@
+{
+  "id": "hf:PrimeIntellect/Qwen3-0.6B/model.safetensors",
+  "revision": "15aba67c8ec68aeac96f57ba7e31d373564ee03c",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-04T10:48:54.1046475+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model.safetensors",
+      "source": "https://huggingface.co/PrimeIntellect/Qwen3-0.6B/resolve/15aba67c8ec68aeac96f57ba7e31d373564ee03c/model.safetensors",
+      "size": 1503300328,
+      "sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b"
+    },
+    {
+      "path": "added_tokens.json",
+      "source": "https://huggingface.co/PrimeIntellect/Qwen3-0.6B/resolve/15aba67c8ec68aeac96f57ba7e31d373564ee03c/added_tokens.json",
+      "size": 707,
+      "sha256": "c0284b582e14987fbd3d5a2cb2bd139084371ed9acbae488829a1c900833c680"
+    },
+    {
+      "path": "chat_template.jinja",
+      "source": "https://huggingface.co/PrimeIntellect/Qwen3-0.6B/resolve/15aba67c8ec68aeac96f57ba7e31d373564ee03c/chat_template.jinja",
+      "size": 6719,
+      "sha256": "12062a547e3e7fa24a53b57e6c42edd13d4a8a722974698bf66ac744671a2ab2"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/PrimeIntellect/Qwen3-0.6B/resolve/15aba67c8ec68aeac96f57ba7e31d373564ee03c/config.json",
+      "size": 726,
+      "sha256": "660db3b73d788119c04535e48cf9be5f55bc3100841a718637ae695b442f27dd"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/PrimeIntellect/Qwen3-0.6B/resolve/15aba67c8ec68aeac96f57ba7e31d373564ee03c/generation_config.json",
+      "size": 239,
+      "sha256": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/PrimeIntellect/Qwen3-0.6B/resolve/15aba67c8ec68aeac96f57ba7e31d373564ee03c/special_tokens_map.json",
+      "size": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/PrimeIntellect/Qwen3-0.6B/resolve/15aba67c8ec68aeac96f57ba7e31d373564ee03c/tokenizer.json",
+      "size": 11422654,
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/PrimeIntellect/Qwen3-0.6B/resolve/15aba67c8ec68aeac96f57ba7e31d373564ee03c/tokenizer_config.json",
+      "size": 5373,
+      "sha256": "7971dcf60600ceaabb40691d53402eafc8883bc897a9c94019290e889812fa81"
+    },
+    {
+      "path": "vocab.json",
+      "source": "https://huggingface.co/PrimeIntellect/Qwen3-0.6B/resolve/15aba67c8ec68aeac96f57ba7e31d373564ee03c/vocab.json",
+      "size": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:PrimeIntellect/Qwen3-0.6B/model.safetensors/model.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:1503300328;mtime:2026-11-04T10:48:46.9038762Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:PrimeIntellect/Qwen3-0.6B/model.safetensors/chat_template.jinja",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "chat_template.jinja": "12062a547e3e7fa24a53b57e6c42edd13d4a8a722974698bf66ac744671a2ab2"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "6,719 characters, Jinja, sha256 12062a547e3e7fa24a53b57e6c42edd13d4a8a722974698bf66ac744671a2ab2. Use --dump-template to read it.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022\u003C|im_start|\u003Esystem\\nYou are Qwen, a helpful AI assistant that can interact with a computer to solve tasks.\u0022\n  - \u0022# Tools\\n\\nYou have access to the following functions:\u0022\n  - \u0022If you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_paramet\u2026\u0022",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Modified copy of the official Qwen3-Coder template",
+          "detail": "94 % similar to https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct, with 14 line(s) added and 1 removed. Added lines:\n  \u002B {%- else %}\n  \u002B {%- endif %}\n  \u002B {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role }}\n  \u002B {%- if message.role == \u0022assistant\u0022 and message.reasoning_content is defined %}\n  \u002B {%- if message.reasoning_content -%}\n  \u002B {{ \u0027\\n\u003Cthink\u003E\u0027 \u002B message.reasoning_content.strip() \u002B \u0027\u003C/think\u003E\u0027 }}\n  \u002B {%- else -%}\n  \u002B {{ \u0027\\n\u003Cthink\u003E\u003C/think\u003E\u0027 }}\n  (\u002B6 more)",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "chat_template.jinja",
+          "dialect": "Jinja",
+          "sha256": "12062a547e3e7fa24a53b57e6c42edd13d4a8a722974698bf66ac744671a2ab2",
+          "length": 6719,
+          "text": "{% macro render_extra_keys(json_dict, handled_keys) %}\n    {%- if json_dict is mapping %}\n        {%- for json_key in json_dict if json_key not in handled_keys %}\n            {%- if json_dict[json_key] is mapping or (json_dict[json_key] is sequence and json_dict[json_key] is not string) %}\n                {{- \u0027\\n\u003C\u0027 ~ json_key ~ \u0027\u003E\u0027 ~ (json_dict[json_key] | tojson | safe) ~ \u0027\u003C/\u0027 ~ json_key ~ \u0027\u003E\u0027 }}\n            {%- else %}\n                {{-\u0027\\n\u003C\u0027 ~ json_key ~ \u0027\u003E\u0027 ~ (json_dict[json_key] | string) ~ \u0027\u003C/\u0027 ~ json_key ~ \u0027\u003E\u0027 }}\n            {%- endif %}\n        {%- endfor %}\n    {%- endif %}\n{% endmacro %}\n\n{%- if messages[0][\u0022role\u0022] == \u0022system\u0022 %}\n    {%- set system_message = messages[0][\u0022content\u0022] %}\n    {%- set loop_messages = messages[1:] %}\n{%- else %}\n    {%- set loop_messages = messages %}\n{%- endif %}\n\n{%- if not tools is defined %}\n    {%- set tools = [] %}\n{%- endif %}\n\n{%- if system_message is defined %}\n    {{- \u0022\u003C|im_start|\u003Esystem\\n\u0022 \u002B system_message }}\n{%- else %}\n    {%- if tools is iterable and tools | length \u003E 0 %}\n        {{- \u0022\u003C|im_start|\u003Esystem\\nYou are Qwen, a helpful AI assistant that can interact with a computer to solve tasks.\u0022 }}\n    {%- endif %}\n{%- endif %}\n{%- if tools is iterable and tools | length \u003E 0 %}\n    {{- \u0022\\n\\n# Tools\\n\\nYou have access to the following functions:\\n\\n\u0022 }}\n    {{- \u0022\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {%- if tool.function is defined %}\n            {%- set tool = tool.function %}\n        {%- endif %}\n        {{- \u0022\\n\u003Cfunction\u003E\\n\u003Cname\u003E\u0022 ~ tool.name ~ \u0022\u003C/name\u003E\u0022 }}\n        {%- if tool.description is defined %}\n            {{- \u0027\\n\u003Cdescription\u003E\u0027 ~ (tool.description | trim) ~ \u0027\u003C/description\u003E\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Cparameters\u003E\u0027 }}\n        {%- if tool.parameters is defined and tool.parameters is mapping and tool.parameters.properties is defined and tool.parameters.properties is mapping %}\n            {%- for param_name, param_fields in tool.parameters.properties|items %}\n                {{- \u0027\\n\u003Cparameter\u003E\u0027 }}\n                {{- \u0027\\n\u003Cname\u003E\u0027 ~ param_name ~ \u0027\u003C/name\u003E\u0027 }}\n                {%- if param_fields.type is defined %}\n                    {{- \u0027\\n\u003Ctype\u003E\u0027 ~ (param_fields.type | string) ~ \u0027\u003C/type\u003E\u0027 }}\n                {%- endif %}\n                {%- if param_fields.description is defined %}\n                    {{- \u0027\\n\u003Cdescription\u003E\u0027 ~ (param_fields.description | trim) ~ \u0027\u003C/description\u003E\u0027 }}\n                {%- endif %}\n                {%- set handled_keys = [\u0027name\u0027, \u0027type\u0027, \u0027description\u0027] %}\n                {{- render_extra_keys(param_fields, handled_keys) }}\n                {{- \u0027\\n\u003C/parameter\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {% set handled_keys = [\u0027type\u0027, \u0027properties\u0027] %}\n        {{- render_extra_keys(tool.parameters, handled_keys) }}\n        {{- \u0027\\n\u003C/parameters\u003E\u0027 }}\n        {%- set handled_keys = [\u0027type\u0027, \u0027name\u0027, \u0027description\u0027, \u0027parameters\u0027] %}\n        {{- render_extra_keys(tool, handled_keys) }}\n        {{- \u0027\\n\u003C/function\u003E\u0027 }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\u0022 }}\n    {{- \u0027\\n\\nIf you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_parameter_1\u003E\\nvalue_1\\n\u003C/parameter\u003E\\n\u003Cparameter=example_parameter_2\u003E\\nThis is the value for the second parameter\\nthat can span\\nmultiple lines\\n\u003C/parameter\u003E\\n\u003C/function\u003E\\n\u003C/tool_call\u003E\\n\\n\u003CIMPORTANT\u003E\\nReminder:\\n- Function calls MUST follow the specified format: an inner \u003Cfunction=...\u003E\u003C/function\u003E block must be nested within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags\\n- Required parameters MUST be specified\\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\\n\u003C/IMPORTANT\u003E\u0027 }}\n{%- endif %}\n{%- if system_message is defined %}\n    {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n{%- else %}\n    {%- if tools is iterable and tools | length \u003E 0 %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- for message in loop_messages %}\n    {%- if message.role == \u0022assistant\u0022 and message.tool_calls is defined and message.tool_calls is iterable and message.tool_calls | length \u003E 0 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role }}\n        {%- if message.content is defined and message.content is string and message.content | trim | length \u003E 0 %}\n            {{- \u0027\\n\u0027 \u002B message.content | trim \u002B \u0027\\n\u0027 }}\n        {%- endif %}\n        {%- for tool_call in message.tool_calls %}\n            {%- if tool_call.function is defined %}\n                {%- set tool_call = tool_call.function %}\n            {%- endif %}\n            {{- \u0027\\n\u003Ctool_call\u003E\\n\u003Cfunction=\u0027 \u002B tool_call.name \u002B \u0027\u003E\\n\u0027 }}\n            {%- if tool_call.arguments is defined %}\n                {%- for args_name, args_value in tool_call.arguments|items %}\n                    {{- \u0027\u003Cparameter=\u0027 \u002B args_name \u002B \u0027\u003E\\n\u0027 }}\n                    {%- set args_value = args_value | tojson | safe if args_value is mapping or (args_value is sequence and args_value is not string) else args_value | string %}\n                    {{- args_value }}\n                    {{- \u0027\\n\u003C/parameter\u003E\\n\u0027 }}\n                {%- endfor %}\n            {%- endif %}\n            {{- \u0027\u003C/function\u003E\\n\u003C/tool_call\u003E\u0027 }}\n        {%- endfor %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022user\u0022 or message.role == \u0022system\u0022 or message.role == \u0022assistant\u0022 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role }}\n        {%- if message.role == \u0022assistant\u0022 and message.reasoning_content is defined %}\n            {%- if message.reasoning_content -%}\n                {{ \u0027\\n\u003Cthink\u003E\u0027 \u002B message.reasoning_content.strip() \u002B \u0027\u003C/think\u003E\u0027 }}\n            {%- else -%}\n                {{ \u0027\\n\u003Cthink\u003E\u003C/think\u003E\u0027 }}\n            {%- endif -%}\n            {%- if message.content.strip() -%}\n                {{ \u0027\\n\u0027 \u002B message.content.strip() }}\n            {%- endif -%}\n        {%- else %}\n            {{- \u0027\\n\u0027 \u002B message.content }}\n        {%- endif %}\n        {{- \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.previtem and loop.previtem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_start|\u003Euser\\n\u0027 }}\n        {%- endif %}\n        {{- \u0027\u003Ctool_response\u003E\\n\u0027 }}\n        {{- message.content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\\n\u0027 }}\n        {%- if not loop.last and loop.nextitem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- elif loop.last %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- else %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B message.content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n{%- endif %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:PrimeIntellect/Qwen3-0.6B/model.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:PrimeIntellect/Qwen3-0.6B/model.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "6 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

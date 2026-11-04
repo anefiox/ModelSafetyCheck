@@ -1,0 +1,463 @@
+{
+  "id": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors",
+  "revision": "b2cff646eb4bb1d68355c01b18ae02e7cf42d120",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-04T14:15:22.8197429+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model-00001-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00001-of-00016.safetensors",
+      "size": 3998893112,
+      "sha256": "c8f4ee157c2bdb00521d0f422c08ef16f0f3f5f7e234786d829401d627d2e167"
+    },
+    {
+      "path": "model-00002-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00002-of-00016.safetensors",
+      "size": 3999974192,
+      "sha256": "8cf85f0e5a0ea8d8cd3fd1f411175d811ca735571210873fd42bb5eec0b35406"
+    },
+    {
+      "path": "model-00003-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00003-of-00016.safetensors",
+      "size": 3997360832,
+      "sha256": "4fa5cc233e965c8671d32a335045697fc4317c8d2939d8ca5fb9ef62d0233207"
+    },
+    {
+      "path": "model-00004-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00004-of-00016.safetensors",
+      "size": 3999975056,
+      "sha256": "c10ff15f08abea0ff60b2fc345dcc34191bc8049d05d3bece6b081a99cbfc4c8"
+    },
+    {
+      "path": "model-00005-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00005-of-00016.safetensors",
+      "size": 3999975400,
+      "sha256": "65d3701e2354a8cf6e5afa3f84520bf81effcdc29b0c481dbbeb089f80349100"
+    },
+    {
+      "path": "model-00006-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00006-of-00016.safetensors",
+      "size": 3999975400,
+      "sha256": "7c832bf9e527b7b6f3184b561de05f30981bdcfdffe9c69e69064cdaa97071b5"
+    },
+    {
+      "path": "model-00007-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00007-of-00016.safetensors",
+      "size": 3999975472,
+      "sha256": "71a710c3ff52e85d22ae3f5b10b9a4dd49821c9533460fb1d4bb21593f71b585"
+    },
+    {
+      "path": "model-00008-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00008-of-00016.safetensors",
+      "size": 3997362064,
+      "sha256": "cd2861625e1bd8a212151445072b9d826c9754fd4618f8b83c2857fc0854b778"
+    },
+    {
+      "path": "model-00009-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00009-of-00016.safetensors",
+      "size": 3999975408,
+      "sha256": "8335225fd61c0fe283a83463a8d9c5c19e211ea8048925b031a088f274eb9c4e"
+    },
+    {
+      "path": "model-00010-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00010-of-00016.safetensors",
+      "size": 3999975400,
+      "sha256": "421481c42e8d85891c9d88492d7530d6b6d8b15c23a6db6a9b7438e0b6161330"
+    },
+    {
+      "path": "model-00011-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00011-of-00016.safetensors",
+      "size": 3999975408,
+      "sha256": "d7dd447928ddec67a3ec06d5bc4fd99dde9ac5bdf0b6ab500faca5dfdfb963b4"
+    },
+    {
+      "path": "model-00012-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00012-of-00016.safetensors",
+      "size": 3987924896,
+      "sha256": "349a0b0247d244ffef34bc23b403ce756f515242323f024a5f8028c109a798af"
+    },
+    {
+      "path": "model-00013-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00013-of-00016.safetensors",
+      "size": 3999975088,
+      "sha256": "52e7f570649b27bc35b8cd27ac643d2158c02a5c76078c80a8afc449377b508e"
+    },
+    {
+      "path": "model-00014-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00014-of-00016.safetensors",
+      "size": 3999975400,
+      "sha256": "0b30aed1b55b3f25fbf2c5e81784438d0a08461c9518e26e11987eb10d80ebd7"
+    },
+    {
+      "path": "model-00015-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00015-of-00016.safetensors",
+      "size": 3999975400,
+      "sha256": "cb8b3b13c0519874ed0cbe6832ab57e51476e3821c83f0ffe4ec83a8d23fc5f4"
+    },
+    {
+      "path": "model-00016-of-00016.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model-00016-of-00016.safetensors",
+      "size": 1085307128,
+      "sha256": "778479fa2b8b766ba1c7bfc56a71ed9b060081e0fbc5eb4edafd19a1d6b4c116"
+    },
+    {
+      "path": "chat_template.jinja",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/chat_template.jinja",
+      "size": 6211,
+      "sha256": "5a38bfa05833266240066aedc497decc9b00cc0d3e3b8cceea98cf530196ab06"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/config.json",
+      "size": 963,
+      "sha256": "e2c8d8eea39471785cd93379d8b48241ad7dcda299013155dd02526e34a0de62"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/generation_config.json",
+      "size": 180,
+      "sha256": "c99723ab3ba28630d26ae23def77603b540a46924895af5cf234740d3b27b51d"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/model.safetensors.index.json",
+      "size": 1699758,
+      "sha256": "8dde190b862c7c80ec7403c6495de00c60bbaf246ed479cee4506284989c584c"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/tokenizer.json",
+      "size": 7032399,
+      "sha256": "19564a48c4f71a2a1b937cce34c737a1e662b171c5f5d7edf641a15cd896f07d"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/tokenizer_config.json",
+      "size": 13055,
+      "sha256": "60f6e8cb15c98dd07300a3cc465ea662de245d2095e4245616af21b2324db3fc"
+    },
+    {
+      "path": "vocab.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/resolve/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/vocab.json",
+      "size": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00001-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3998893112;mtime:2026-11-04T11:12:43.9248872Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00002-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3999974192;mtime:2026-11-04T11:27:12.4031709Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00003-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3997360832;mtime:2026-11-04T11:40:05.5740155Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00004-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3999975056;mtime:2026-11-04T11:52:59.3958224Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00005-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3999975400;mtime:2026-11-04T12:05:36.3026390Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00006-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3999975400;mtime:2026-11-04T12:17:56.3294335Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00007-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3999975472;mtime:2026-11-04T12:30:04.2017447Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00008-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3997362064;mtime:2026-11-04T12:42:05.0359262Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00009-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3999975408;mtime:2026-11-04T12:54:13.3053651Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00010-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3999975400;mtime:2026-11-04T13:06:32.0452478Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00011-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3999975408;mtime:2026-11-04T13:19:35.6673320Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00012-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3987924896;mtime:2026-11-04T13:34:10.1207587Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00013-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3999975088;mtime:2026-11-04T13:46:39.8545728Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00014-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3999975400;mtime:2026-11-04T13:59:14.5332082Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00015-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3999975400;mtime:2026-11-04T14:11:48.3537606Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/model-00016-of-00016.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:1085307128;mtime:2026-11-04T14:15:15.0508756Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/chat_template.jinja",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "chat_template.jinja": "5a38bfa05833266240066aedc497decc9b00cc0d3e3b8cceea98cf530196ab06"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "6,211 characters, Jinja, sha256 5a38bfa05833266240066aedc497decc9b00cc0d3e3b8cceea98cf530196ab06. Use --dump-template to read it.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022\u003C|im_start|\u003Esystem\\nYou are Qwen, a helpful AI assistant that can interact with a computer to solve tasks.\u0022\n  - \u0022# Tools\\n\\nYou have access to the following functions:\u0022\n  - \u0022If you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_paramet\u2026\u0022",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official Qwen3-Coder template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "chat_template.jinja",
+          "dialect": "Jinja",
+          "sha256": "5a38bfa05833266240066aedc497decc9b00cc0d3e3b8cceea98cf530196ab06",
+          "length": 6211,
+          "text": "{% macro render_extra_keys(json_dict, handled_keys) %}\n    {%- if json_dict is mapping %}\n        {%- for json_key in json_dict if json_key not in handled_keys %}\n            {%- if json_dict[json_key] is mapping or (json_dict[json_key] is sequence and json_dict[json_key] is not string) %}\n                {{- \u0027\\n\u003C\u0027 ~ json_key ~ \u0027\u003E\u0027 ~ (json_dict[json_key] | tojson | safe) ~ \u0027\u003C/\u0027 ~ json_key ~ \u0027\u003E\u0027 }}\n            {%- else %}\n                {{-\u0027\\n\u003C\u0027 ~ json_key ~ \u0027\u003E\u0027 ~ (json_dict[json_key] | string) ~ \u0027\u003C/\u0027 ~ json_key ~ \u0027\u003E\u0027 }}\n            {%- endif %}\n        {%- endfor %}\n    {%- endif %}\n{% endmacro %}\n\n{%- if messages[0][\u0022role\u0022] == \u0022system\u0022 %}\n    {%- set system_message = messages[0][\u0022content\u0022] %}\n    {%- set loop_messages = messages[1:] %}\n{%- else %}\n    {%- set loop_messages = messages %}\n{%- endif %}\n\n{%- if not tools is defined %}\n    {%- set tools = [] %}\n{%- endif %}\n\n{%- if system_message is defined %}\n    {{- \u0022\u003C|im_start|\u003Esystem\\n\u0022 \u002B system_message }}\n{%- else %}\n    {%- if tools is iterable and tools | length \u003E 0 %}\n        {{- \u0022\u003C|im_start|\u003Esystem\\nYou are Qwen, a helpful AI assistant that can interact with a computer to solve tasks.\u0022 }}\n    {%- endif %}\n{%- endif %}\n{%- if tools is iterable and tools | length \u003E 0 %}\n    {{- \u0022\\n\\n# Tools\\n\\nYou have access to the following functions:\\n\\n\u0022 }}\n    {{- \u0022\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {%- if tool.function is defined %}\n            {%- set tool = tool.function %}\n        {%- endif %}\n        {{- \u0022\\n\u003Cfunction\u003E\\n\u003Cname\u003E\u0022 ~ tool.name ~ \u0022\u003C/name\u003E\u0022 }}\n        {%- if tool.description is defined %}\n            {{- \u0027\\n\u003Cdescription\u003E\u0027 ~ (tool.description | trim) ~ \u0027\u003C/description\u003E\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Cparameters\u003E\u0027 }}\n        {%- if tool.parameters is defined and tool.parameters is mapping and tool.parameters.properties is defined and tool.parameters.properties is mapping %}\n            {%- for param_name, param_fields in tool.parameters.properties|items %}\n                {{- \u0027\\n\u003Cparameter\u003E\u0027 }}\n                {{- \u0027\\n\u003Cname\u003E\u0027 ~ param_name ~ \u0027\u003C/name\u003E\u0027 }}\n                {%- if param_fields.type is defined %}\n                    {{- \u0027\\n\u003Ctype\u003E\u0027 ~ (param_fields.type | string) ~ \u0027\u003C/type\u003E\u0027 }}\n                {%- endif %}\n                {%- if param_fields.description is defined %}\n                    {{- \u0027\\n\u003Cdescription\u003E\u0027 ~ (param_fields.description | trim) ~ \u0027\u003C/description\u003E\u0027 }}\n                {%- endif %}\n                {%- set handled_keys = [\u0027name\u0027, \u0027type\u0027, \u0027description\u0027] %}\n                {{- render_extra_keys(param_fields, handled_keys) }}\n                {{- \u0027\\n\u003C/parameter\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {% set handled_keys = [\u0027type\u0027, \u0027properties\u0027] %}\n        {{- render_extra_keys(tool.parameters, handled_keys) }}\n        {{- \u0027\\n\u003C/parameters\u003E\u0027 }}\n        {%- set handled_keys = [\u0027type\u0027, \u0027name\u0027, \u0027description\u0027, \u0027parameters\u0027] %}\n        {{- render_extra_keys(tool, handled_keys) }}\n        {{- \u0027\\n\u003C/function\u003E\u0027 }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\u0022 }}\n    {{- \u0027\\n\\nIf you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_parameter_1\u003E\\nvalue_1\\n\u003C/parameter\u003E\\n\u003Cparameter=example_parameter_2\u003E\\nThis is the value for the second parameter\\nthat can span\\nmultiple lines\\n\u003C/parameter\u003E\\n\u003C/function\u003E\\n\u003C/tool_call\u003E\\n\\n\u003CIMPORTANT\u003E\\nReminder:\\n- Function calls MUST follow the specified format: an inner \u003Cfunction=...\u003E\u003C/function\u003E block must be nested within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags\\n- Required parameters MUST be specified\\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\\n\u003C/IMPORTANT\u003E\u0027 }}\n{%- endif %}\n{%- if system_message is defined %}\n    {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n{%- else %}\n    {%- if tools is iterable and tools | length \u003E 0 %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- for message in loop_messages %}\n    {%- if message.role == \u0022assistant\u0022 and message.tool_calls is defined and message.tool_calls is iterable and message.tool_calls | length \u003E 0 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role }}\n        {%- if message.content is defined and message.content is string and message.content | trim | length \u003E 0 %}\n            {{- \u0027\\n\u0027 \u002B message.content | trim \u002B \u0027\\n\u0027 }}\n        {%- endif %}\n        {%- for tool_call in message.tool_calls %}\n            {%- if tool_call.function is defined %}\n                {%- set tool_call = tool_call.function %}\n            {%- endif %}\n            {{- \u0027\\n\u003Ctool_call\u003E\\n\u003Cfunction=\u0027 \u002B tool_call.name \u002B \u0027\u003E\\n\u0027 }}\n            {%- if tool_call.arguments is defined %}\n                {%- for args_name, args_value in tool_call.arguments|items %}\n                    {{- \u0027\u003Cparameter=\u0027 \u002B args_name \u002B \u0027\u003E\\n\u0027 }}\n                    {%- set args_value = args_value | tojson | safe if args_value is mapping or (args_value is sequence and args_value is not string) else args_value | string %}\n                    {{- args_value }}\n                    {{- \u0027\\n\u003C/parameter\u003E\\n\u0027 }}\n                {%- endfor %}\n            {%- endif %}\n            {{- \u0027\u003C/function\u003E\\n\u003C/tool_call\u003E\u0027 }}\n        {%- endfor %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022user\u0022 or message.role == \u0022system\u0022 or message.role == \u0022assistant\u0022 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B message.content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.previtem and loop.previtem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_start|\u003Euser\\n\u0027 }}\n        {%- endif %}\n        {{- \u0027\u003Ctool_response\u003E\\n\u0027 }}\n        {{- message.content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\\n\u0027 }}\n        {%- if not loop.last and loop.nextitem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- elif loop.last %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- else %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B message.content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n{%- endif %}\n"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "tokenizer_config.json:chat_template": "5a38bfa05833266240066aedc497decc9b00cc0d3e3b8cceea98cf530196ab06"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "6,211 characters, Jinja, sha256 5a38bfa05833266240066aedc497decc9b00cc0d3e3b8cceea98cf530196ab06. Use --dump-template to read it.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022\u003C|im_start|\u003Esystem\\nYou are Qwen, a helpful AI assistant that can interact with a computer to solve tasks.\u0022\n  - \u0022# Tools\\n\\nYou have access to the following functions:\u0022\n  - \u0022If you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_paramet\u2026\u0022",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official Qwen3-Coder template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "tokenizer_config.json:chat_template",
+          "dialect": "Jinja",
+          "sha256": "5a38bfa05833266240066aedc497decc9b00cc0d3e3b8cceea98cf530196ab06",
+          "length": 6211,
+          "text": "{% macro render_extra_keys(json_dict, handled_keys) %}\n    {%- if json_dict is mapping %}\n        {%- for json_key in json_dict if json_key not in handled_keys %}\n            {%- if json_dict[json_key] is mapping or (json_dict[json_key] is sequence and json_dict[json_key] is not string) %}\n                {{- \u0027\\n\u003C\u0027 ~ json_key ~ \u0027\u003E\u0027 ~ (json_dict[json_key] | tojson | safe) ~ \u0027\u003C/\u0027 ~ json_key ~ \u0027\u003E\u0027 }}\n            {%- else %}\n                {{-\u0027\\n\u003C\u0027 ~ json_key ~ \u0027\u003E\u0027 ~ (json_dict[json_key] | string) ~ \u0027\u003C/\u0027 ~ json_key ~ \u0027\u003E\u0027 }}\n            {%- endif %}\n        {%- endfor %}\n    {%- endif %}\n{% endmacro %}\n\n{%- if messages[0][\u0022role\u0022] == \u0022system\u0022 %}\n    {%- set system_message = messages[0][\u0022content\u0022] %}\n    {%- set loop_messages = messages[1:] %}\n{%- else %}\n    {%- set loop_messages = messages %}\n{%- endif %}\n\n{%- if not tools is defined %}\n    {%- set tools = [] %}\n{%- endif %}\n\n{%- if system_message is defined %}\n    {{- \u0022\u003C|im_start|\u003Esystem\\n\u0022 \u002B system_message }}\n{%- else %}\n    {%- if tools is iterable and tools | length \u003E 0 %}\n        {{- \u0022\u003C|im_start|\u003Esystem\\nYou are Qwen, a helpful AI assistant that can interact with a computer to solve tasks.\u0022 }}\n    {%- endif %}\n{%- endif %}\n{%- if tools is iterable and tools | length \u003E 0 %}\n    {{- \u0022\\n\\n# Tools\\n\\nYou have access to the following functions:\\n\\n\u0022 }}\n    {{- \u0022\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {%- if tool.function is defined %}\n            {%- set tool = tool.function %}\n        {%- endif %}\n        {{- \u0022\\n\u003Cfunction\u003E\\n\u003Cname\u003E\u0022 ~ tool.name ~ \u0022\u003C/name\u003E\u0022 }}\n        {%- if tool.description is defined %}\n            {{- \u0027\\n\u003Cdescription\u003E\u0027 ~ (tool.description | trim) ~ \u0027\u003C/description\u003E\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Cparameters\u003E\u0027 }}\n        {%- if tool.parameters is defined and tool.parameters is mapping and tool.parameters.properties is defined and tool.parameters.properties is mapping %}\n            {%- for param_name, param_fields in tool.parameters.properties|items %}\n                {{- \u0027\\n\u003Cparameter\u003E\u0027 }}\n                {{- \u0027\\n\u003Cname\u003E\u0027 ~ param_name ~ \u0027\u003C/name\u003E\u0027 }}\n                {%- if param_fields.type is defined %}\n                    {{- \u0027\\n\u003Ctype\u003E\u0027 ~ (param_fields.type | string) ~ \u0027\u003C/type\u003E\u0027 }}\n                {%- endif %}\n                {%- if param_fields.description is defined %}\n                    {{- \u0027\\n\u003Cdescription\u003E\u0027 ~ (param_fields.description | trim) ~ \u0027\u003C/description\u003E\u0027 }}\n                {%- endif %}\n                {%- set handled_keys = [\u0027name\u0027, \u0027type\u0027, \u0027description\u0027] %}\n                {{- render_extra_keys(param_fields, handled_keys) }}\n                {{- \u0027\\n\u003C/parameter\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {% set handled_keys = [\u0027type\u0027, \u0027properties\u0027] %}\n        {{- render_extra_keys(tool.parameters, handled_keys) }}\n        {{- \u0027\\n\u003C/parameters\u003E\u0027 }}\n        {%- set handled_keys = [\u0027type\u0027, \u0027name\u0027, \u0027description\u0027, \u0027parameters\u0027] %}\n        {{- render_extra_keys(tool, handled_keys) }}\n        {{- \u0027\\n\u003C/function\u003E\u0027 }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\u0022 }}\n    {{- \u0027\\n\\nIf you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_parameter_1\u003E\\nvalue_1\\n\u003C/parameter\u003E\\n\u003Cparameter=example_parameter_2\u003E\\nThis is the value for the second parameter\\nthat can span\\nmultiple lines\\n\u003C/parameter\u003E\\n\u003C/function\u003E\\n\u003C/tool_call\u003E\\n\\n\u003CIMPORTANT\u003E\\nReminder:\\n- Function calls MUST follow the specified format: an inner \u003Cfunction=...\u003E\u003C/function\u003E block must be nested within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags\\n- Required parameters MUST be specified\\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\\n\u003C/IMPORTANT\u003E\u0027 }}\n{%- endif %}\n{%- if system_message is defined %}\n    {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n{%- else %}\n    {%- if tools is iterable and tools | length \u003E 0 %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- for message in loop_messages %}\n    {%- if message.role == \u0022assistant\u0022 and message.tool_calls is defined and message.tool_calls is iterable and message.tool_calls | length \u003E 0 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role }}\n        {%- if message.content is defined and message.content is string and message.content | trim | length \u003E 0 %}\n            {{- \u0027\\n\u0027 \u002B message.content | trim \u002B \u0027\\n\u0027 }}\n        {%- endif %}\n        {%- for tool_call in message.tool_calls %}\n            {%- if tool_call.function is defined %}\n                {%- set tool_call = tool_call.function %}\n            {%- endif %}\n            {{- \u0027\\n\u003Ctool_call\u003E\\n\u003Cfunction=\u0027 \u002B tool_call.name \u002B \u0027\u003E\\n\u0027 }}\n            {%- if tool_call.arguments is defined %}\n                {%- for args_name, args_value in tool_call.arguments|items %}\n                    {{- \u0027\u003Cparameter=\u0027 \u002B args_name \u002B \u0027\u003E\\n\u0027 }}\n                    {%- set args_value = args_value | tojson | safe if args_value is mapping or (args_value is sequence and args_value is not string) else args_value | string %}\n                    {{- args_value }}\n                    {{- \u0027\\n\u003C/parameter\u003E\\n\u0027 }}\n                {%- endfor %}\n            {%- endif %}\n            {{- \u0027\u003C/function\u003E\\n\u003C/tool_call\u003E\u0027 }}\n        {%- endfor %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022user\u0022 or message.role == \u0022system\u0022 or message.role == \u0022assistant\u0022 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B message.content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.previtem and loop.previtem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_start|\u003Euser\\n\u0027 }}\n        {%- endif %}\n        {{- \u0027\u003Ctool_response\u003E\\n\u0027 }}\n        {{- message.content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\\n\u0027 }}\n        {%- if not loop.last and loop.nextitem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- elif loop.last %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- else %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B message.content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n{%- endif %}\n"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:Qwen/Qwen3-Coder-30B-A3B-Instruct/model-shards.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

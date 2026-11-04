@@ -1,0 +1,203 @@
+{
+  "id": "hf:nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/model-shards.safetensors",
+  "revision": "d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-04T05:12:47.5057037+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model-00001-of-00002.safetensors",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/model-00001-of-00002.safetensors",
+      "size": 4989051872,
+      "sha256": "e1fd4af01e69b84b090e830bf687f83576ef5b7eca1da60f377cf7e83ae074fc"
+    },
+    {
+      "path": "model-00002-of-00002.safetensors",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/model-00002-of-00002.safetensors",
+      "size": 2215324648,
+      "sha256": "b67d3920398db4ad78f0816d0bdf3887fc2174240ee42ad85992cf32cf332802"
+    },
+    {
+      "path": "added_tokens.json",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/added_tokens.json",
+      "size": 605,
+      "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b"
+    },
+    {
+      "path": "chat_template.jinja",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/chat_template.jinja",
+      "size": 1017,
+      "sha256": "a0bc6f6fc7a29a80017a433e8f03a1cc1236e838a944a2d034295a60c4f2fddb"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/config.json",
+      "size": 4588,
+      "sha256": "776d24a29b93554610fb7a10e429a71cd49ed85d39fc2f7ad984a5febf089411"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/generation_config.json",
+      "size": 214,
+      "sha256": "bc068f56ab9b6eb5eec7a27ab284fae6fd25c0752e2d0e6e8fd7916eecffe43a"
+    },
+    {
+      "path": "hf_quant_config.json",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/hf_quant_config.json",
+      "size": 318,
+      "sha256": "7ffe2f63dcdb6e58dc4cd58cb5d8e18d4c8508a3332589e0b66caf67742e38ab"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/model.safetensors.index.json",
+      "size": 109048,
+      "sha256": "7192522e412c3700695fc69fcfb3acc1e7b5e1bc7da1d7a5834a19acb4e3b160"
+    },
+    {
+      "path": "preprocessor_config.json",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/preprocessor_config.json",
+      "size": 791,
+      "sha256": "276e1dbe46dd567fce6e587665266ede535f42ab08d46f3d7febea17cb37abcd"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/special_tokens_map.json",
+      "size": 388,
+      "sha256": "a4c29a7f63146cb43eef20b92caab0e2a5000d13d4dc9cd29888bbfad8059466"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/tokenizer.json",
+      "size": 11421896,
+      "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/tokenizer_config.json",
+      "size": 4689,
+      "sha256": "60f6e7bc948cedd377a20f01d022ef664d026fbc93d72e0a9bdac233f8632181"
+    },
+    {
+      "path": "video_preprocessor_config.json",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/video_preprocessor_config.json",
+      "size": 935,
+      "sha256": "2e82d384445cd3056b851d36b6481b9a9df99362b85e9d666317c1f0331fc6aa"
+    },
+    {
+      "path": "vocab.json",
+      "source": "https://huggingface.co/nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/resolve/d13bb1f2d8fbbd9f16cbb7688c8d6b6932d797d7/vocab.json",
+      "size": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/model-shards.safetensors/model-00001-of-00002.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4989051872;mtime:2026-11-04T05:05:46.3785514Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/model-shards.safetensors/model-00002-of-00002.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:2215324648;mtime:2026-11-04T05:12:38.4699899Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/model-shards.safetensors/chat_template.jinja",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "chat_template.jinja": "a0bc6f6fc7a29a80017a433e8f03a1cc1236e838a944a2d034295a60c4f2fddb"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "1,017 characters, Jinja, sha256 a0bc6f6fc7a29a80017a433e8f03a1cc1236e838a944a2d034295a60c4f2fddb. Use --dump-template to read it.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022\u003C|im_start|\u003Esystem\\nYou are a helpful assistant.\u003C|im_end|\u003E\u0022",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Unrecognised chat template",
+          "detail": "This template does not match any official template in the database. That is normal for fine-tunes and new models; read it with --dump-template if the model will get tools.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "chat_template.jinja",
+          "dialect": "Jinja",
+          "sha256": "a0bc6f6fc7a29a80017a433e8f03a1cc1236e838a944a2d034295a60c4f2fddb",
+          "length": 1017,
+          "text": "{% set image_count = namespace(value=0) %}{% set video_count = namespace(value=0) %}{% for message in messages %}{% if loop.first and message[\u0027role\u0027] != \u0027system\u0027 %}\u003C|im_start|\u003Esystem\nYou are a helpful assistant.\u003C|im_end|\u003E\n{% endif %}\u003C|im_start|\u003E{{ message[\u0027role\u0027] }}\n{% if message[\u0027content\u0027] is string %}{{ message[\u0027content\u0027] }}\u003C|im_end|\u003E\n{% else %}{% for content in message[\u0027content\u0027] %}{% if content[\u0027type\u0027] == \u0027image\u0027 or \u0027image\u0027 in content or \u0027image_url\u0027 in content %}{% set image_count.value = image_count.value \u002B 1 %}{% if add_vision_id %}Picture {{ image_count.value }}: {% endif %}\u003C|vision_start|\u003E\u003C|image_pad|\u003E\u003C|vision_end|\u003E{% elif content[\u0027type\u0027] == \u0027video\u0027 or \u0027video\u0027 in content %}{% set video_count.value = video_count.value \u002B 1 %}{% if add_vision_id %}Video {{ video_count.value }}: {% endif %}\u003C|vision_start|\u003E\u003C|video_pad|\u003E\u003C|vision_end|\u003E{% elif \u0027text\u0027 in content %}{{ content[\u0027text\u0027] }}{% endif %}{% endfor %}\u003C|im_end|\u003E\n{% endif %}{% endfor %}{% if add_generation_prompt %}\u003C|im_start|\u003Eassistant\n{% endif %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/model-shards.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/Qwen2.5-VL-7B-Instruct-NVFP4/model-shards.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "10 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

@@ -1,0 +1,205 @@
+{
+  "id": "hf:unsloth/Llama-3.2-1B-Instruct/model.safetensors",
+  "revision": "5a8abab4a5d6f164389b1079fb721cfab8d7126c",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-04T10:44:14.5201307+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model.safetensors",
+      "source": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct/resolve/5a8abab4a5d6f164389b1079fb721cfab8d7126c/model.safetensors",
+      "size": 2471645608,
+      "sha256": "1ff795ff6a07e6a68085d206fb84417da2f083f68391c2843cd2b8ac6df8538f"
+    },
+    {
+      "path": "chat_template.jinja",
+      "source": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct/resolve/5a8abab4a5d6f164389b1079fb721cfab8d7126c/chat_template.jinja",
+      "size": 3827,
+      "sha256": "5816fce10444e03c2e9ee1ef8a4a1ea61ae7e69e438613f3b17b69d0426223a4"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct/resolve/5a8abab4a5d6f164389b1079fb721cfab8d7126c/config.json",
+      "size": 894,
+      "sha256": "dfb67fd8afe73a1c75245824ef9d64a6ba8983025447e3bf76aa1ea57ee46152"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct/resolve/5a8abab4a5d6f164389b1079fb721cfab8d7126c/generation_config.json",
+      "size": 239,
+      "sha256": "6d4f979915331212d7672c68b22a4ddad9e21ed8126cf2bd1ea6b2b88f595c1c"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct/resolve/5a8abab4a5d6f164389b1079fb721cfab8d7126c/special_tokens_map.json",
+      "size": 454,
+      "sha256": "94e708c3f5e64acf85bbe5ad01467a1248faadb73e83b41793087ecced586e8f"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct/resolve/5a8abab4a5d6f164389b1079fb721cfab8d7126c/tokenizer.json",
+      "size": 17209920,
+      "sha256": "6b9e4e7fb171f92fd137b777cc2714bf87d11576700a1dcd7a399e7bbe39537b"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/unsloth/Llama-3.2-1B-Instruct/resolve/5a8abab4a5d6f164389b1079fb721cfab8d7126c/tokenizer_config.json",
+      "size": 54669,
+      "sha256": "9ddd255c19fe319c8d4e891163540382e9fbda99f394674f2a929efc47d57458"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:unsloth/Llama-3.2-1B-Instruct/model.safetensors/model.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:2471645608;mtime:2026-11-04T10:44:07.0773428Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:unsloth/Llama-3.2-1B-Instruct/model.safetensors/chat_template.jinja",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "chat_template.jinja": "5816fce10444e03c2e9ee1ef8a4a1ea61ae7e69e438613f3b17b69d0426223a4"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "3,827 characters, Jinja, sha256 5816fce10444e03c2e9ee1ef8a4a1ea61ae7e69e438613f3b17b69d0426223a4. Use --dump-template to read it.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T006",
+          "severity": "Info",
+          "title": "Template reads the current date or time",
+          "detail": "Common and usually benign (e.g. Llama 3 inserts today\u0027s date into the system prompt).",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022You have access to the following functions. To call a function, please respond with JSON for a function call.\u0022\n  - \u0022Respond in the format {\u0022name\u0022: function name, \u0022parameters\u0022: dictionary of argument name and its value}.\u0022\n  - \u0022Cannot put tools in the first user message when there\u0027s no first user message!\u0022\n  - \u0022Given the following functions, please respond with a JSON for a function call\u0022\n  - \u0022with its proper arguments that best answers the given prompt.\u0022\n  (\u002B1 more)",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official Llama 3.2 template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/unsloth/Llama-3.2-3B-Instruct (unsloth mirror).",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "chat_template.jinja",
+          "dialect": "Jinja",
+          "sha256": "5816fce10444e03c2e9ee1ef8a4a1ea61ae7e69e438613f3b17b69d0426223a4",
+          "length": 3827,
+          "text": "{{- bos_token }}\n{%- if custom_tools is defined %}\n    {%- set tools = custom_tools %}\n{%- endif %}\n{%- if not tools_in_user_message is defined %}\n    {%- set tools_in_user_message = true %}\n{%- endif %}\n{%- if not date_string is defined %}\n    {%- if strftime_now is defined %}\n        {%- set date_string = strftime_now(\u0022%d %b %Y\u0022) %}\n    {%- else %}\n        {%- set date_string = \u002226 Jul 2024\u0022 %}\n    {%- endif %}\n{%- endif %}\n{%- if not tools is defined %}\n    {%- set tools = none %}\n{%- endif %}\n\n{#- This block extracts the system message, so we can slot it into the right place. #}\n{%- if messages[0][\u0027role\u0027] == \u0027system\u0027 %}\n    {%- set system_message = messages[0][\u0027content\u0027]|trim %}\n    {%- set messages = messages[1:] %}\n{%- else %}\n    {%- set system_message = \u0022\u0022 %}\n{%- endif %}\n\n{#- System message #}\n{{- \u0022\u003C|start_header_id|\u003Esystem\u003C|end_header_id|\u003E\\n\\n\u0022 }}\n{%- if tools is not none %}\n    {{- \u0022Environment: ipython\\n\u0022 }}\n{%- endif %}\n{{- \u0022Cutting Knowledge Date: December 2023\\n\u0022 }}\n{{- \u0022Today Date: \u0022 \u002B date_string \u002B \u0022\\n\\n\u0022 }}\n{%- if tools is not none and not tools_in_user_message %}\n    {{- \u0022You have access to the following functions. To call a function, please respond with JSON for a function call.\u0022 }}\n    {{- \u0027Respond in the format {\u0022name\u0022: function name, \u0022parameters\u0022: dictionary of argument name and its value}.\u0027 }}\n    {{- \u0022Do not use variables.\\n\\n\u0022 }}\n    {%- for t in tools %}\n        {{- t | tojson(indent=4) }}\n        {{- \u0022\\n\\n\u0022 }}\n    {%- endfor %}\n{%- endif %}\n{{- system_message }}\n{{- \u0022\u003C|eot_id|\u003E\u0022 }}\n\n{#- Custom tools are passed in a user message with some extra guidance #}\n{%- if tools_in_user_message and not tools is none %}\n    {#- Extract the first user message so we can plug it in here #}\n    {%- if messages | length != 0 %}\n        {%- set first_user_message = messages[0][\u0027content\u0027]|trim %}\n        {%- set messages = messages[1:] %}\n    {%- else %}\n        {{- raise_exception(\u0022Cannot put tools in the first user message when there\u0027s no first user message!\u0022) }}\n{%- endif %}\n    {{- \u0027\u003C|start_header_id|\u003Euser\u003C|end_header_id|\u003E\\n\\n\u0027 -}}\n    {{- \u0022Given the following functions, please respond with a JSON for a function call \u0022 }}\n    {{- \u0022with its proper arguments that best answers the given prompt.\\n\\n\u0022 }}\n    {{- \u0027Respond in the format {\u0022name\u0022: function name, \u0022parameters\u0022: dictionary of argument name and its value}.\u0027 }}\n    {{- \u0022Do not use variables.\\n\\n\u0022 }}\n    {%- for t in tools %}\n        {{- t | tojson(indent=4) }}\n        {{- \u0022\\n\\n\u0022 }}\n    {%- endfor %}\n    {{- first_user_message \u002B \u0022\u003C|eot_id|\u003E\u0022}}\n{%- endif %}\n\n{%- for message in messages %}\n    {%- if not (message.role == \u0027ipython\u0027 or message.role == \u0027tool\u0027 or \u0027tool_calls\u0027 in message) %}\n        {{- \u0027\u003C|start_header_id|\u003E\u0027 \u002B message[\u0027role\u0027] \u002B \u0027\u003C|end_header_id|\u003E\\n\\n\u0027\u002B message[\u0027content\u0027] | trim \u002B \u0027\u003C|eot_id|\u003E\u0027 }}\n    {%- elif \u0027tool_calls\u0027 in message %}\n        {%- if not message.tool_calls|length == 1 %}\n            {{- raise_exception(\u0022This model only supports single tool-calls at once!\u0022) }}\n        {%- endif %}\n        {%- set tool_call = message.tool_calls[0].function %}\n        {{- \u0027\u003C|start_header_id|\u003Eassistant\u003C|end_header_id|\u003E\\n\\n\u0027 -}}\n        {{- \u0027{\u0022name\u0022: \u0022\u0027 \u002B tool_call.name \u002B \u0027\u0022, \u0027 }}\n        {{- \u0027\u0022parameters\u0022: \u0027 }}\n        {{- tool_call.arguments | tojson }}\n        {{- \u0022}\u0022 }}\n        {{- \u0022\u003C|eot_id|\u003E\u0022 }}\n    {%- elif message.role == \u0022tool\u0022 or message.role == \u0022ipython\u0022 %}\n        {{- \u0022\u003C|start_header_id|\u003Eipython\u003C|end_header_id|\u003E\\n\\n\u0022 }}\n        {%- if message.content is mapping or message.content is iterable %}\n            {{- message.content | tojson }}\n        {%- else %}\n            {{- message.content }}\n        {%- endif %}\n        {{- \u0022\u003C|eot_id|\u003E\u0022 }}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|start_header_id|\u003Eassistant\u003C|end_header_id|\u003E\\n\\n\u0027 }}\n{%- endif %}\n"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:unsloth/Llama-3.2-1B-Instruct/model.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "tokenizer_config.json:chat_template": "5816fce10444e03c2e9ee1ef8a4a1ea61ae7e69e438613f3b17b69d0426223a4"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "3,827 characters, Jinja, sha256 5816fce10444e03c2e9ee1ef8a4a1ea61ae7e69e438613f3b17b69d0426223a4. Use --dump-template to read it.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T006",
+          "severity": "Info",
+          "title": "Template reads the current date or time",
+          "detail": "Common and usually benign (e.g. Llama 3 inserts today\u0027s date into the system prompt).",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022You have access to the following functions. To call a function, please respond with JSON for a function call.\u0022\n  - \u0022Respond in the format {\u0022name\u0022: function name, \u0022parameters\u0022: dictionary of argument name and its value}.\u0022\n  - \u0022Cannot put tools in the first user message when there\u0027s no first user message!\u0022\n  - \u0022Given the following functions, please respond with a JSON for a function call\u0022\n  - \u0022with its proper arguments that best answers the given prompt.\u0022\n  (\u002B1 more)",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official Llama 3.2 template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/unsloth/Llama-3.2-3B-Instruct (unsloth mirror).",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "tokenizer_config.json:chat_template",
+          "dialect": "Jinja",
+          "sha256": "5816fce10444e03c2e9ee1ef8a4a1ea61ae7e69e438613f3b17b69d0426223a4",
+          "length": 3827,
+          "text": "{{- bos_token }}\n{%- if custom_tools is defined %}\n    {%- set tools = custom_tools %}\n{%- endif %}\n{%- if not tools_in_user_message is defined %}\n    {%- set tools_in_user_message = true %}\n{%- endif %}\n{%- if not date_string is defined %}\n    {%- if strftime_now is defined %}\n        {%- set date_string = strftime_now(\u0022%d %b %Y\u0022) %}\n    {%- else %}\n        {%- set date_string = \u002226 Jul 2024\u0022 %}\n    {%- endif %}\n{%- endif %}\n{%- if not tools is defined %}\n    {%- set tools = none %}\n{%- endif %}\n\n{#- This block extracts the system message, so we can slot it into the right place. #}\n{%- if messages[0][\u0027role\u0027] == \u0027system\u0027 %}\n    {%- set system_message = messages[0][\u0027content\u0027]|trim %}\n    {%- set messages = messages[1:] %}\n{%- else %}\n    {%- set system_message = \u0022\u0022 %}\n{%- endif %}\n\n{#- System message #}\n{{- \u0022\u003C|start_header_id|\u003Esystem\u003C|end_header_id|\u003E\\n\\n\u0022 }}\n{%- if tools is not none %}\n    {{- \u0022Environment: ipython\\n\u0022 }}\n{%- endif %}\n{{- \u0022Cutting Knowledge Date: December 2023\\n\u0022 }}\n{{- \u0022Today Date: \u0022 \u002B date_string \u002B \u0022\\n\\n\u0022 }}\n{%- if tools is not none and not tools_in_user_message %}\n    {{- \u0022You have access to the following functions. To call a function, please respond with JSON for a function call.\u0022 }}\n    {{- \u0027Respond in the format {\u0022name\u0022: function name, \u0022parameters\u0022: dictionary of argument name and its value}.\u0027 }}\n    {{- \u0022Do not use variables.\\n\\n\u0022 }}\n    {%- for t in tools %}\n        {{- t | tojson(indent=4) }}\n        {{- \u0022\\n\\n\u0022 }}\n    {%- endfor %}\n{%- endif %}\n{{- system_message }}\n{{- \u0022\u003C|eot_id|\u003E\u0022 }}\n\n{#- Custom tools are passed in a user message with some extra guidance #}\n{%- if tools_in_user_message and not tools is none %}\n    {#- Extract the first user message so we can plug it in here #}\n    {%- if messages | length != 0 %}\n        {%- set first_user_message = messages[0][\u0027content\u0027]|trim %}\n        {%- set messages = messages[1:] %}\n    {%- else %}\n        {{- raise_exception(\u0022Cannot put tools in the first user message when there\u0027s no first user message!\u0022) }}\n{%- endif %}\n    {{- \u0027\u003C|start_header_id|\u003Euser\u003C|end_header_id|\u003E\\n\\n\u0027 -}}\n    {{- \u0022Given the following functions, please respond with a JSON for a function call \u0022 }}\n    {{- \u0022with its proper arguments that best answers the given prompt.\\n\\n\u0022 }}\n    {{- \u0027Respond in the format {\u0022name\u0022: function name, \u0022parameters\u0022: dictionary of argument name and its value}.\u0027 }}\n    {{- \u0022Do not use variables.\\n\\n\u0022 }}\n    {%- for t in tools %}\n        {{- t | tojson(indent=4) }}\n        {{- \u0022\\n\\n\u0022 }}\n    {%- endfor %}\n    {{- first_user_message \u002B \u0022\u003C|eot_id|\u003E\u0022}}\n{%- endif %}\n\n{%- for message in messages %}\n    {%- if not (message.role == \u0027ipython\u0027 or message.role == \u0027tool\u0027 or \u0027tool_calls\u0027 in message) %}\n        {{- \u0027\u003C|start_header_id|\u003E\u0027 \u002B message[\u0027role\u0027] \u002B \u0027\u003C|end_header_id|\u003E\\n\\n\u0027\u002B message[\u0027content\u0027] | trim \u002B \u0027\u003C|eot_id|\u003E\u0027 }}\n    {%- elif \u0027tool_calls\u0027 in message %}\n        {%- if not message.tool_calls|length == 1 %}\n            {{- raise_exception(\u0022This model only supports single tool-calls at once!\u0022) }}\n        {%- endif %}\n        {%- set tool_call = message.tool_calls[0].function %}\n        {{- \u0027\u003C|start_header_id|\u003Eassistant\u003C|end_header_id|\u003E\\n\\n\u0027 -}}\n        {{- \u0027{\u0022name\u0022: \u0022\u0027 \u002B tool_call.name \u002B \u0027\u0022, \u0027 }}\n        {{- \u0027\u0022parameters\u0022: \u0027 }}\n        {{- tool_call.arguments | tojson }}\n        {{- \u0022}\u0022 }}\n        {{- \u0022\u003C|eot_id|\u003E\u0022 }}\n    {%- elif message.role == \u0022tool\u0022 or message.role == \u0022ipython\u0022 %}\n        {{- \u0022\u003C|start_header_id|\u003Eipython\u003C|end_header_id|\u003E\\n\\n\u0022 }}\n        {%- if message.content is mapping or message.content is iterable %}\n            {{- message.content | tojson }}\n        {%- else %}\n            {{- message.content }}\n        {%- endif %}\n        {{- \u0022\u003C|eot_id|\u003E\u0022 }}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|start_header_id|\u003Eassistant\u003C|end_header_id|\u003E\\n\\n\u0027 }}\n{%- endif %}\n"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:unsloth/Llama-3.2-1B-Instruct/model.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "4 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

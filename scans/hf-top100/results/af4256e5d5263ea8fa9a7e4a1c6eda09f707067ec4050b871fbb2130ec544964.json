@@ -1,0 +1,99 @@
+{
+  "id": "hf:HuggingFaceTB/SmolLM2-135M/model.safetensors",
+  "revision": "93efa2f097d58c2a74874c7e644dbc9b0cee75a2",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-04T00:06:16.3960946+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model.safetensors",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M/resolve/93efa2f097d58c2a74874c7e644dbc9b0cee75a2/model.safetensors",
+      "size": 269060552,
+      "sha256": "80521b40281d6ce74e35c9282c22539e75aa0ac8578892b2a59955ef78d55da1"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M/resolve/93efa2f097d58c2a74874c7e644dbc9b0cee75a2/config.json",
+      "size": 704,
+      "sha256": "1d556eab73b69c7f11f64c557a2f9c6f440bd4c6b89bb2584a6b498c92603843"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M/resolve/93efa2f097d58c2a74874c7e644dbc9b0cee75a2/generation_config.json",
+      "size": 111,
+      "sha256": "2056c988e990b0d13670f63f2f3b87b3b6d07edaf7a3416998ba27dab2d8a059"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M/resolve/93efa2f097d58c2a74874c7e644dbc9b0cee75a2/special_tokens_map.json",
+      "size": 831,
+      "sha256": "e786b595b9a23148bf1630df78d9037a048ea671e48bfd3549a1e3c233742bb3"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M/resolve/93efa2f097d58c2a74874c7e644dbc9b0cee75a2/tokenizer.json",
+      "size": 2104556,
+      "sha256": "9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M/resolve/93efa2f097d58c2a74874c7e644dbc9b0cee75a2/tokenizer_config.json",
+      "size": 3658,
+      "sha256": "4bb9af56a342753d39374f4016a16574cab299fe088e896f425ce3c433f61424"
+    },
+    {
+      "path": "vocab.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M/resolve/93efa2f097d58c2a74874c7e644dbc9b0cee75a2/vocab.json",
+      "size": 800662,
+      "sha256": "82b84012e3add4d01d12ba14442026e49b8cbbaead1f79ecf3d919784f82dc79"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:HuggingFaceTB/SmolLM2-135M/model.safetensors/model.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:269060552;mtime:2026-11-04T00:06:14.6073899Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:HuggingFaceTB/SmolLM2-135M/model.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:HuggingFaceTB/SmolLM2-135M/model.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

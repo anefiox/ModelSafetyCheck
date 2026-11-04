@@ -1,0 +1,103 @@
+{
+  "id": "hf:facebook/opt-125m/pytorch_model.bin",
+  "revision": "27dcfa74d334bc871f3234de431e71c6eeba5dd6",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-03T13:29:31.2386691+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "pytorch_model.bin",
+      "source": "https://huggingface.co/facebook/opt-125m/resolve/27dcfa74d334bc871f3234de431e71c6eeba5dd6/pytorch_model.bin",
+      "size": 250540281,
+      "sha256": "2d74da6615135c58cf3cf9ad4cb11e7c613ff9e55fe658a47ab83b6c8d1174a9"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/facebook/opt-125m/resolve/27dcfa74d334bc871f3234de431e71c6eeba5dd6/config.json",
+      "size": 651,
+      "sha256": "54162c9cd0377110df1859dfabebb106fc0988c8aadb88207ce1ee0d34985df6"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/facebook/opt-125m/resolve/27dcfa74d334bc871f3234de431e71c6eeba5dd6/generation_config.json",
+      "size": 137,
+      "sha256": "d37de99f9835d7a4d0916257f724504d12c4a668f36a50b2d42e09ba4ebd05d5"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/facebook/opt-125m/resolve/27dcfa74d334bc871f3234de431e71c6eeba5dd6/special_tokens_map.json",
+      "size": 441,
+      "sha256": "0f3cd5f307a2735cfee31ddf33be88655e8be165ee2cdc26ced966f04258adf0"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/facebook/opt-125m/resolve/27dcfa74d334bc871f3234de431e71c6eeba5dd6/tokenizer_config.json",
+      "size": 685,
+      "sha256": "d1e4185b43a0a06421ab7218d5c1a775350bd13024507b34fbed25dcf6c14c6b"
+    },
+    {
+      "path": "vocab.json",
+      "source": "https://huggingface.co/facebook/opt-125m/resolve/27dcfa74d334bc871f3234de431e71c6eeba5dd6/vocab.json",
+      "size": 898822,
+      "sha256": "06b4d46c8e752d410213d9548eb27a54db70fda0319b6271fb8d59dead5e1cab"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:facebook/opt-125m/pytorch_model.bin/pytorch_model.bin",
+      "kind": "pickle",
+      "path": null,
+      "fingerprint": "size:250540281;mtime:2026-11-03T13:29:29.2027469Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "PK004",
+          "severity": "Info",
+          "title": "Pickle-based weights",
+          "detail": "3 distinct import(s). Pickle runs code by design; prefer safetensors or GGUF, which cannot.",
+          "location": "archive/data.pkl",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:facebook/opt-125m/pytorch_model.bin/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:facebook/opt-125m/pytorch_model.bin",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "4 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "id": "hf:distilbert/distilgpt2/model.safetensors",
+  "revision": "2290a62682d06624634c1f46a6ad5be0f47f38aa",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-04T02:46:18.6443803+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model.safetensors",
+      "source": "https://huggingface.co/distilbert/distilgpt2/resolve/2290a62682d06624634c1f46a6ad5be0f47f38aa/model.safetensors",
+      "size": 352824413,
+      "sha256": "e1ff18884359fe8beb795a5f414feb85a6ce3d929ad019c0d958c039d2b94a1b"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/distilbert/distilgpt2/resolve/2290a62682d06624634c1f46a6ad5be0f47f38aa/config.json",
+      "size": 762,
+      "sha256": "4ec5947c1d59fee6212cdf3b0ec1a53eac02092554c5ff0a733488cbd2c64f3a"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/distilbert/distilgpt2/resolve/2290a62682d06624634c1f46a6ad5be0f47f38aa/generation_config.json",
+      "size": 124,
+      "sha256": "b90eadacf585a743a30ea51e8b5c88b8d282a2a34dc0c7e556d0987cdbd68805"
+    },
+    {
+      "path": "generation_config_for_text_generation.json",
+      "source": "https://huggingface.co/distilbert/distilgpt2/resolve/2290a62682d06624634c1f46a6ad5be0f47f38aa/generation_config_for_text_generation.json",
+      "size": 165,
+      "sha256": "a69e99c4a690c2015aaaeaef066516f1df9316317b3605869039fa896108efce"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/distilbert/distilgpt2/resolve/2290a62682d06624634c1f46a6ad5be0f47f38aa/tokenizer.json",
+      "size": 1355256,
+      "sha256": "8414cab924d8b9b33013f0d221c5862f365ee9be39c5c2bfae8a5a9e970478a6"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/distilbert/distilgpt2/resolve/2290a62682d06624634c1f46a6ad5be0f47f38aa/tokenizer_config.json",
+      "size": 26,
+      "sha256": "5e04eb606e3a1583530a42e36c2a6b6615c86f34fe77e44d9ddeb43ff940931f"
+    },
+    {
+      "path": "vocab.json",
+      "source": "https://huggingface.co/distilbert/distilgpt2/resolve/2290a62682d06624634c1f46a6ad5be0f47f38aa/vocab.json",
+      "size": 1042301,
+      "sha256": "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:distilbert/distilgpt2/model.safetensors/model.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:352824413;mtime:2026-11-04T02:46:13.9784017Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:distilbert/distilgpt2/model.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:distilbert/distilgpt2/model.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "id": "hf:kindlingai/glm-5.3-exlr8-k2-k3-k4/index-slices/tp3/k2/rank0.safetensors",
+  "revision": "a36ae4680871ffa6412061d5daf66c4d4ad5802c",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-04T14:15:48.7121617+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "index-slices/tp3/k2/rank0.safetensors",
+      "source": "https://huggingface.co/kindlingai/glm-5.3-exlr8-k2-k3-k4/resolve/a36ae4680871ffa6412061d5daf66c4d4ad5802c/index-slices/tp3/k2/rank0.safetensors",
+      "size": 90462312,
+      "sha256": "84a760a4240d4f2d0cdcb1de0d5707de06ca5780a5e5064848d067ac474b6c4e"
+    },
+    {
+      "path": "chat_template.jinja",
+      "source": "https://huggingface.co/kindlingai/glm-5.3-exlr8-k2-k3-k4/resolve/a36ae4680871ffa6412061d5daf66c4d4ad5802c/chat_template.jinja",
+      "size": 10734,
+      "sha256": "3740abcea51c45830cb3ca562084ad5fb2ef53589376f73332e9886f93ade41c"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/kindlingai/glm-5.3-exlr8-k2-k3-k4/resolve/a36ae4680871ffa6412061d5daf66c4d4ad5802c/config.json",
+      "size": 3732,
+      "sha256": "ca8f2f47b07919a514c0ca223dc2ea2bc7445afaa5ac76c013a3784e096426ca"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/kindlingai/glm-5.3-exlr8-k2-k3-k4/resolve/a36ae4680871ffa6412061d5daf66c4d4ad5802c/generation_config.json",
+      "size": 194,
+      "sha256": "ac76b43d8683d3b930126870fc8be73d8679308fe752fa1f381096d8354f6a55"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/kindlingai/glm-5.3-exlr8-k2-k3-k4/resolve/a36ae4680871ffa6412061d5daf66c4d4ad5802c/tokenizer.json",
+      "size": 20217442,
+      "sha256": "19e773648cb4e65de8660ea6365e10acca112d42a854923df93db4a6f333a82d"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/kindlingai/glm-5.3-exlr8-k2-k3-k4/resolve/a36ae4680871ffa6412061d5daf66c4d4ad5802c/tokenizer_config.json",
+      "size": 761,
+      "sha256": "98b1271574f41abf89427ae2dda030d94dc9478f0edc5a8bd240db213c6fd5fc"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:kindlingai/glm-5.3-exlr8-k2-k3-k4/index-slices/tp3/k2/rank0.safetensors/index-slices/tp3/k2/rank0.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:90462312;mtime:2026-11-04T14:15:42.2460945Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:kindlingai/glm-5.3-exlr8-k2-k3-k4/index-slices/tp3/k2/rank0.safetensors/chat_template.jinja",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "chat_template.jinja": "3740abcea51c45830cb3ca562084ad5fb2ef53589376f73332e9886f93ade41c"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "10,734 characters, Jinja, sha256 3740abcea51c45830cb3ca562084ad5fb2ef53589376f73332e9886f93ade41c. Use --dump-template to read it.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022\u003C|system|\u003E\\n# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML\u2026\u0022\n  - \u0022\u003C/tools\u003E\\n\\nFor each function call, output the function name and arguments within the following XML format:\\n\u003Ctool_call\u003E{function-name}\u003Carg_key\u003E{arg-key-1}\u003C/arg\u2026\u0022\n  - \u0022because you don\u0027t have multi-modal input ability. Try different methods.\u003C/reminder\u003E\u0022",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Unrecognised chat template",
+          "detail": "This template does not match any official template in the database. That is normal for fine-tunes and new models; read it with --dump-template if the model will get tools.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "chat_template.jinja",
+          "dialect": "Jinja",
+          "sha256": "3740abcea51c45830cb3ca562084ad5fb2ef53589376f73332e9886f93ade41c",
+          "length": 10734,
+          "text": "[gMASK]\u003Csop\u003E\n{%- set effective_reasoning_effort = reasoning_effort if reasoning_effort is defined and reasoning_effort in [\u0027low\u0027, \u0027high\u0027] else \u0027max\u0027 -%}\n{%- if effective_reasoning_effort is not none -%}\u003C|system|\u003EReasoning Effort: {{ effective_reasoning_effort | capitalize }}{%- endif -%}\n{%- set clear_thinking = clear_thinking if clear_thinking is defined else false -%}\n{%- if tools -%}\n{%- macro tool_to_json(tool) -%}\n    {%- set ns_tool = namespace(first=true) -%}\n    {{ \u0027{\u0027 -}}\n    {%- for k, v in tool.items() -%}\n        {%- if k != \u0027defer_loading\u0027 and k != \u0027strict\u0027 -%}\n            {%- if not ns_tool.first -%}{{- \u0027, \u0027 -}}{%- endif -%}\n            {%- set ns_tool.first = false -%}\n            \u0022{{ k }}\u0022: {{ v | tojson(ensure_ascii=False) }}\n        {%- endif -%}\n    {%- endfor -%}\n    {{- \u0027}\u0027 -}}\n{%- endmacro -%}\n{%- macro tool_references_to_response(refs) -%}\n    {{- \u0027\u003Ctool_response\u003E\u003Ctools\u003E\\n\u0027 -}}\n    {%- for tr in refs -%}\n        {%- for tool in tools -%}\n            {%- if \u0027function\u0027 in tool -%}\n                {%- set tool = tool[\u0027function\u0027] -%}\n            {%- endif -%}\n            {%- if tool.name == tr.name -%}\n                {{- tool_to_json(tool) \u002B \u0027\\n\u0027 -}}\n            {%- endif -%}\n        {%- endfor -%}\n    {%- endfor -%}\n    {{- \u0027\u003C/tools\u003E\u003C/tool_response\u003E\u0027 -}}\n{%- endmacro -%}\n\u003C|system|\u003E\n# Tools\n\nYou may call one or more functions to assist with the user query.\n\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\n\u003Ctools\u003E\n{% for tool in tools %}\n{%- if \u0027function\u0027 in tool -%}\n    {%- set tool = tool[\u0027function\u0027] -%}\n{%- endif -%}\n{% if tool.defer_loading is not defined or not tool.defer_loading %}\n{{ tool_to_json(tool) }}\n{% endif %}\n{% endfor %}\n\u003C/tools\u003E\n\nFor each function call, output the function name and arguments within the following XML format:\n\u003Ctool_call\u003E{function-name}\u003Carg_key\u003E{arg-key-1}\u003C/arg_key\u003E\u003Carg_value\u003E{arg-value-1}\u003C/arg_value\u003E\u003Carg_key\u003E{arg-key-2}\u003C/arg_key\u003E\u003Carg_value\u003E{arg-value-2}\u003C/arg_value\u003E...\u003C/tool_call\u003E{%- endif -%}\n{%- macro visible_text(content) -%}\n    {%- if content is string -%}\n        {{- content }}\n    {%- elif content is iterable and content is not mapping -%}\n        {%- for item in content -%}\n            {%- if item is mapping and item.type == \u0027text\u0027 -%}\n                {{- item.text }}\n            {%- elif item is string -%}\n                {{- item }}\n            {%- elif item is mapping and item.type in [\u0027image\u0027, \u0027image_url\u0027, \u0027video\u0027, \u0027video_url\u0027, \u0027audio\u0027, \u0027audio_url\u0027, \u0027input_audio\u0027] -%}\n                {%- set media_type = item.type | replace(\u0027_url\u0027, \u0027\u0027) | replace(\u0027input_\u0027, \u0027\u0027) -%}\n                {{- \u0022\u003Creminder\u003EYou are unable to process this \u0022 ~ media_type ~ \u0022 because you don\u0027t have multi-modal input ability. Try different methods.\u003C/reminder\u003E\u0022 }}\n            {%- endif -%}\n        {%- endfor -%}\n    {%- elif content is not none -%}\n        {{- content }}\n    {%- endif -%}\n{%- endmacro -%}\n{%- macro tool_response(text) -%}\n{{- \u0027\u003Ctool_response\u003E\u0027 \u002B text \u002B \u0027\u003C/tool_response\u003E\u0027 -}}\n{%- endmacro -%}\n{%- macro render_tool_response(m) -%}\n{%- if m.content is string -%}\n    {{- tool_response(m.content) -}}\n{%- elif m.content and m.content is not mapping and m.content.0.type == \u0022tool_reference\u0022 -%}\n    {{- tool_references_to_response(m.content) -}}\n{%- elif is_list_of_outputs(m) -%}\n    {%- for tr in m.content -%}\n        {%- if tr.output is iterable and tr.output is not string and tr.output is not mapping and tr.output and tr.output.0.type == \u0022tool_reference\u0022 -%}\n            {{- tool_references_to_response(tr.output) -}}\n        {%- else -%}\n            {{- tool_response(visible_text(tr.output)) -}}\n        {%- endif -%}\n    {%- endfor -%}\n{%- else -%}\n    {{- tool_response(visible_text(m.content)) -}}\n{%- endif -%}\n{%- endmacro -%}\n{%- macro id_of(obj) -%}\n    {%- if obj.tool_call_id -%}\n        {{- obj.tool_call_id -}}\n    {%- elif obj.id -%}\n        {{- obj.id -}}\n    {%- endif -%}\n{%- endmacro -%}\n{%- macro is_list_of_outputs(m) -%}\n    {%- if m.content and m.content.0.output is defined -%}1{%- endif -%}\n{%- endmacro -%}\n{%- macro has_dup_tool_result_id(lo, hi, target) -%}\n    {%- set ns_cnt = namespace(n=0) -%}\n    {%- for k in range(lo, hi \u002B 1) -%}\n        {%- set m = messages[k] -%}\n        {%- if is_list_of_outputs(m) -%}\n            {%- for entry in m.content -%}\n                {%- if id_of(entry) == target -%}\n                    {%- set ns_cnt.n = ns_cnt.n \u002B 1 -%}\n                {%- endif -%}\n            {%- endfor -%}\n        {%- elif id_of(m) == target -%}\n            {%- set ns_cnt.n = ns_cnt.n \u002B 1 -%}\n        {%- endif -%}\n        {%- if ns_cnt.n \u003E 1 -%}{%- break -%}{%- endif -%}\n    {%- endfor -%}\n    {%- if ns_cnt.n \u003E 1 -%}1{%- endif -%}\n{%- endmacro -%}\n{%- macro tc_id_exists(tcs, target) -%}\n    {%- set ns_f = namespace(found=false) -%}\n    {%- for tc in tcs -%}\n        {%- if id_of(tc) == target -%}\n            {%- set ns_f.found = true -%}\n            {%- break -%}\n        {%- endif -%}\n    {%- endfor -%}\n    {%- if ns_f.found -%}1{%- endif -%}\n{%- endmacro -%}\n{%- set ns = namespace(last_user_index=-1) -%}\n{%- for m in messages %}\n    {%- if m.role == \u0027user\u0027 %}\n        {%- set ns.last_user_index = loop.index0 -%}\n    {%- endif %}\n{%- endfor %}\n{%- for m in messages -%}\n{%- if m.role == \u0027user\u0027 -%}\u003C|user|\u003E{{ visible_text(m.content) }}\n{%- elif m.role == \u0027assistant\u0027 -%}\n\u003C|assistant|\u003E\n{%- set content = visible_text(m.content) %}\n{%- if m.reasoning_content is string %}\n    {%- set reasoning_content = m.reasoning_content %}\n{%- elif \u0027\u003C/think\u003E\u0027 in content %}\n    {%- set reasoning_content = content.split(\u0027\u003C/think\u003E\u0027)[0].split(\u0027\u003Cthink\u003E\u0027)[-1] %}\n    {%- set content = content.split(\u0027\u003C/think\u003E\u0027)[-1] %}\n{%- endif %}\n{%- if (not clear_thinking or loop.index0 \u003E ns.last_user_index) and reasoning_content is defined -%}\n{{ \u0027\u003Cthink\u003E\u0027 \u002B reasoning_content \u002B  \u0027\u003C/think\u003E\u0027}}\n{%- else -%}\n{{ \u0027\u003Cthink\u003E\u003C/think\u003E\u0027 }}\n{%- endif -%}\n{%- if content.strip() -%}\n{{ content.strip() }}\n{%- endif -%}\n{% if m.tool_calls %}\n{% for tc in m.tool_calls %}\n{%- if tc.function %}\n    {%- set tc = tc.function %}\n{%- endif %}\n{{- \u0027\u003Ctool_call\u003E\u0027 \u002B tc.name -}}\n{% set _args = tc.arguments %}{% for k, v in _args.items() %}\u003Carg_key\u003E{{ k }}\u003C/arg_key\u003E\u003Carg_value\u003E{{ v | tojson(ensure_ascii=False) if v is not string else v }}\u003C/arg_value\u003E{% endfor %}\u003C/tool_call\u003E{% endfor %}\n{% endif %}\n{%- elif m.role == \u0027tool\u0027 -%}\n{%- if loop.first or (messages[loop.index0 - 1].role != \u0022tool\u0022) %}\n    {{- \u0027\u003C|observation|\u003E\u0027 -}}\n    {%- set block_start = loop.index0 -%}\n    {%- set ns_blk = namespace(end=block_start) -%}\n    {%- for j in range(block_start, messages|length) -%}\n        {%- if messages[j].role == \u0027tool\u0027 -%}\n            {%- set ns_blk.end = j -%}\n        {%- else -%}\n            {%- break -%}\n        {%- endif -%}\n    {%- endfor -%}\n    {%- set ns_a = namespace(tool_calls=none) -%}\n    {%- if block_start \u003E 0 and messages[block_start - 1].role == \u0027assistant\u0027 and messages[block_start - 1].tool_calls -%}\n        {%- set ns_a.tool_calls = messages[block_start - 1].tool_calls -%}\n    {%- endif -%}\n    {%- set ns_chk = namespace(can_sort=true) -%}\n    {%- if not ns_a.tool_calls -%}\n        {%- set ns_chk.can_sort = false -%}\n    {%- else -%}\n        {%- for k in range(block_start, ns_blk.end \u002B 1) -%}\n            {%- if not ns_chk.can_sort -%}{%- break -%}{%- endif -%}\n            {%- set m = messages[k] -%}\n            {%- if is_list_of_outputs(m) -%}\n                {%- for entry in m.content -%}\n                    {%- if not ns_chk.can_sort -%}{%- break -%}{%- endif -%}\n                    {%- set eid = id_of(entry) -%}\n                    {%- if not eid -%}\n                        {%- set ns_chk.can_sort = false -%}\n                    {%- elif has_dup_tool_result_id(block_start, ns_blk.end, eid) -%}\n                        {%- set ns_chk.can_sort = false -%}\n                    {%- elif not tc_id_exists(ns_a.tool_calls, eid) -%}\n                        {%- set ns_chk.can_sort = false -%}\n                    {%- endif -%}\n                {%- endfor -%}\n            {%- else -%}\n                {%- set tk_id = id_of(m) -%}\n                {%- if not tk_id -%}\n                    {%- set ns_chk.can_sort = false -%}\n                {%- elif has_dup_tool_result_id(block_start, ns_blk.end, tk_id) -%}\n                    {%- set ns_chk.can_sort = false -%}\n                {%- elif not tc_id_exists(ns_a.tool_calls, tk_id) -%}\n                    {%- set ns_chk.can_sort = false -%}\n                {%- endif -%}\n            {%- endif -%}\n        {%- endfor -%}\n        {%- for i in range(ns_a.tool_calls | length) -%}\n            {%- if not ns_chk.can_sort -%}{%- break -%}{%- endif -%}\n            {%- set tc_id = id_of(ns_a.tool_calls[i]) -%}\n            {%- if not tc_id -%}\n                {%- set ns_chk.can_sort = false -%}\n            {%- endif -%}\n            {%- for j in range(i \u002B 1, ns_a.tool_calls | length) -%}\n                {%- if id_of(ns_a.tool_calls[j]) == tc_id -%}\n                    {%- set ns_chk.can_sort = false -%}\n                    {%- break -%}\n                {%- endif -%}\n            {%- endfor -%}\n        {%- endfor -%}\n    {%- endif -%}\n    {%- if ns_chk.can_sort -%}\n        {%- for tc in ns_a.tool_calls -%}\n            {%- set tc_id = id_of(tc) -%}\n            {%- for k in range(block_start, ns_blk.end \u002B 1) -%}\n                {%- set m = messages[k] -%}\n                {%- if is_list_of_outputs(m) -%}\n                    {%- for entry in m.content -%}\n                        {%- set eid = id_of(entry) -%}\n                        {%- if eid == tc_id -%}\n                            {%- if entry.output is iterable and entry.output is not string and entry.output is not mapping and entry.output and entry.output.0.type == \u0022tool_reference\u0022 -%}\n                                {{- tool_references_to_response(entry.output) -}}\n                            {%- else -%}\n                                {{- tool_response(visible_text(entry.output)) -}}\n                            {%- endif -%}\n                        {%- endif -%}\n                    {%- endfor -%}\n                {%- else -%}\n                    {%- set tk_id = id_of(m) -%}\n                    {%- if tk_id == tc_id -%}\n                        {{- render_tool_response(m) -}}\n                    {%- endif -%}\n                {%- endif -%}\n            {%- endfor -%}\n        {%- endfor -%}\n    {%- else -%}\n        {%- for k in range(block_start, ns_blk.end \u002B 1) -%}\n            {{- render_tool_response(messages[k]) -}}\n        {%- endfor -%}\n    {%- endif -%}\n{% endif -%}\n{%- elif m.role == \u0027system\u0027 -%}\n\u003C|system|\u003E{{ visible_text(m.content) }}\n{%- endif -%}\n{%- endfor -%}\n{%- if add_generation_prompt -%}\n    \u003C|assistant|\u003E{{- \u0027\u003Cthink\u003E\u0027 -}}\n{%- endif -%}\n"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:kindlingai/glm-5.3-exlr8-k2-k3-k4/index-slices/tp3/k2/rank0.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:kindlingai/glm-5.3-exlr8-k2-k3-k4/index-slices/tp3/k2/rank0.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "3 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

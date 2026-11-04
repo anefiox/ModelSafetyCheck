@@ -1,0 +1,173 @@
+{
+  "id": "hf:Qwen/Qwen3-4B/model-shards.safetensors",
+  "revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-03T11:04:07.5855428+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model-00001-of-00003.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B/resolve/1cfa9a7208912126459214e8b04321603b3df60c/model-00001-of-00003.safetensors",
+      "size": 3957900840,
+      "sha256": "328a91d3122359d5547f9d79521205bc0a46e1f79a792dfe650e99fc2d651223"
+    },
+    {
+      "path": "model-00002-of-00003.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B/resolve/1cfa9a7208912126459214e8b04321603b3df60c/model-00002-of-00003.safetensors",
+      "size": 3987450520,
+      "sha256": "6cd087b316306a68c562436b5492edbcf6e16c6dba3a1308279caa5a58e21ca5"
+    },
+    {
+      "path": "model-00003-of-00003.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B/resolve/1cfa9a7208912126459214e8b04321603b3df60c/model-00003-of-00003.safetensors",
+      "size": 99630640,
+      "sha256": "e4bf436957184f4eeb86a80e9db394503f1f56446b2e6b7edeac5b81470f4ca1"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B/resolve/1cfa9a7208912126459214e8b04321603b3df60c/config.json",
+      "size": 726,
+      "sha256": "8ba006f74fecfaaeb392872a60f4a480e7ec9860153d2e1b769ec81f9a147f8a"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B/resolve/1cfa9a7208912126459214e8b04321603b3df60c/generation_config.json",
+      "size": 239,
+      "sha256": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B/resolve/1cfa9a7208912126459214e8b04321603b3df60c/model.safetensors.index.json",
+      "size": 32819,
+      "sha256": "6dc0981b8829fead746441f68f38f24c5ca4a3a66351f652c26c6df0efc43ab2"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B/resolve/1cfa9a7208912126459214e8b04321603b3df60c/tokenizer.json",
+      "size": 11422654,
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B/resolve/1cfa9a7208912126459214e8b04321603b3df60c/tokenizer_config.json",
+      "size": 9732,
+      "sha256": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101"
+    },
+    {
+      "path": "vocab.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B/resolve/1cfa9a7208912126459214e8b04321603b3df60c/vocab.json",
+      "size": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:Qwen/Qwen3-4B/model-shards.safetensors/model-00001-of-00003.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3957900840;mtime:2026-11-03T10:59:12.0067589Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-4B/model-shards.safetensors/model-00002-of-00003.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3987450520;mtime:2026-11-03T11:03:50.5820119Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-4B/model-shards.safetensors/model-00003-of-00003.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:99630640;mtime:2026-11-03T11:04:02.9845019Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-4B/model-shards.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "tokenizer_config.json:chat_template": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "4,168 characters, Jinja, sha256 a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8. Use --dump-template to read it.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctoo\u2026\u0022\n  - \u0022\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\u0022name\u0022: \u003Cfunct\u2026\u0022",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official Qwen3 template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/Qwen/Qwen3-8B.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "tokenizer_config.json:chat_template",
+          "dialect": "Jinja",
+          "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8",
+          "length": 4168,
+          "text": "{%- if tools %}\n    {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 }}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {{- messages[0].content \u002B \u0027\\n\\n\u0027 }}\n    {%- endif %}\n    {{- \u0022# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {{- \u0022\\n\u0022 }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\\\u0022name\\\u0022: \u003Cfunction-name\u003E, \\\u0022arguments\\\u0022: \u003Cargs-json-object\u003E}\\n\u003C/tool_call\u003E\u003C|im_end|\u003E\\n\u0022 }}\n{%- else %}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B messages[0].content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \u0022user\u0022 and message.content is string and not(message.content.startswith(\u0027\u003Ctool_response\u003E\u0027) and message.content.endswith(\u0027\u003C/tool_response\u003E\u0027)) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n{%- for message in messages %}\n    {%- if message.content is string %}\n        {%- set content = message.content %}\n    {%- else %}\n        {%- set content = \u0027\u0027 %}\n    {%- endif %}\n    {%- if (message.role == \u0022user\u0022) or (message.role == \u0022system\u0022 and not loop.first) %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022assistant\u0022 %}\n        {%- set reasoning_content = \u0027\u0027 %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if \u0027\u003C/think\u003E\u0027 in content %}\n                {%- set reasoning_content = content.split(\u0027\u003C/think\u003E\u0027)[0].rstrip(\u0027\\n\u0027).split(\u0027\u003Cthink\u003E\u0027)[-1].lstrip(\u0027\\n\u0027) %}\n                {%- set content = content.split(\u0027\u003C/think\u003E\u0027)[-1].lstrip(\u0027\\n\u0027) %}\n            {%- endif %}\n        {%- endif %}\n        {%- if loop.index0 \u003E ns.last_query_index %}\n            {%- if loop.last or (not loop.last and reasoning_content) %}\n                {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u003Cthink\u003E\\n\u0027 \u002B reasoning_content.strip(\u0027\\n\u0027) \u002B \u0027\\n\u003C/think\u003E\\n\\n\u0027 \u002B content.lstrip(\u0027\\n\u0027) }}\n            {%- else %}\n                {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content }}\n            {%- endif %}\n        {%- else %}\n            {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content }}\n        {%- endif %}\n        {%- if message.tool_calls %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- \u0027\\n\u0027 }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- \u0027\u003Ctool_call\u003E\\n{\u0022name\u0022: \u0022\u0027 }}\n                {{- tool_call.name }}\n                {{- \u0027\u0022, \u0022arguments\u0022: \u0027 }}\n                {%- if tool_call.arguments is string %}\n                    {{- tool_call.arguments }}\n                {%- else %}\n                    {{- tool_call.arguments | tojson }}\n                {%- endif %}\n                {{- \u0027}\\n\u003C/tool_call\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_start|\u003Euser\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Ctool_response\u003E\\n\u0027 }}\n        {{- content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\u0027 }}\n        {%- if loop.last or (messages[loop.index0 \u002B 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- \u0027\u003Cthink\u003E\\n\\n\u003C/think\u003E\\n\\n\u0027 }}\n    {%- endif %}\n{%- endif %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:Qwen/Qwen3-4B/model-shards.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

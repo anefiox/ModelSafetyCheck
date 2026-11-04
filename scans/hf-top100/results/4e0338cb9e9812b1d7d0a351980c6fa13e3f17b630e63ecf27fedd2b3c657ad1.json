@@ -1,0 +1,389 @@
+{
+  "id": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors",
+  "revision": "a9904d24bcc1d289a1950fa9d2b978c47cf903b9",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-04T20:19:24.9552953+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model-00001-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00001-of-00014.safetensors",
+      "size": 4991210024,
+      "sha256": "7a3e74d24969eac6657cb9b6422091fd062b7d30fd4bc90ecee6c3d7f692626a"
+    },
+    {
+      "path": "model-00002-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00002-of-00014.safetensors",
+      "size": 4992601016,
+      "sha256": "a80c3846e959f6dda34aa031cbb668b766643691ac7e5c9f43f62e6fb1221059"
+    },
+    {
+      "path": "model-00003-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00003-of-00014.safetensors",
+      "size": 4992601368,
+      "sha256": "996bf3a46668e14075cb82259390267c2b1f71446caeb3a5f1f9e0bd7a079ae7"
+    },
+    {
+      "path": "model-00004-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00004-of-00014.safetensors",
+      "size": 4995692800,
+      "sha256": "cce1d79e7ff2e2b746b9d97166156aa1dcec796116675cc7fd1aa70a8d73ccb2"
+    },
+    {
+      "path": "model-00005-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00005-of-00014.safetensors",
+      "size": 4980553832,
+      "sha256": "9338f59d3fd5f074288c71a9559452d5b5c581da00e9ccb9fe7aa2ce9b04d2ad"
+    },
+    {
+      "path": "model-00006-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00006-of-00014.safetensors",
+      "size": 4989423536,
+      "sha256": "e947fa4097c68263ba3d097fceb32a300a22cebd9d909fb5198af7d18a4022fe"
+    },
+    {
+      "path": "model-00007-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00007-of-00014.safetensors",
+      "size": 4992601488,
+      "sha256": "c7362630bf4256275ca58354ed8f31506cec67ffab30573e753703fd5ae48795"
+    },
+    {
+      "path": "model-00008-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00008-of-00014.safetensors",
+      "size": 4992601520,
+      "sha256": "1b33a5a6b5505b25b57c90ddda19e9cd1598176468917df0c56116fa6f6072cb"
+    },
+    {
+      "path": "model-00009-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00009-of-00014.safetensors",
+      "size": 4995692800,
+      "sha256": "fcc9b48caff427beaf1f87b78cf4ab42bc2a3c43b3c487bccb013ba22d7468b2"
+    },
+    {
+      "path": "model-00010-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00010-of-00014.safetensors",
+      "size": 4992601520,
+      "sha256": "d1924fd54d1b77a15aff8df591a317e8a82a58e46d6f5742fa21e90e0be3cfa6"
+    },
+    {
+      "path": "model-00011-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00011-of-00014.safetensors",
+      "size": 4995692800,
+      "sha256": "e9d0b83bcf04bd4d5758b94e6495a3f1595d121d82faffaa27ce6a884e2c8757"
+    },
+    {
+      "path": "model-00012-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00012-of-00014.safetensors",
+      "size": 4995692816,
+      "sha256": "fce184f112cb0b97024cadc60f993f6f660e365d04e21c240fb3c75747bd3a01"
+    },
+    {
+      "path": "model-00013-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00013-of-00014.safetensors",
+      "size": 3249723504,
+      "sha256": "f427d037d2a3e4d44323325aa38571e3551e8ad702f469c3dacc4e59ea2e50d1"
+    },
+    {
+      "path": "model-00014-of-00014.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00014-of-00014.safetensors",
+      "size": 2670685240,
+      "sha256": "64577b275ca4e7e5266eae0903674f7f46ec2a8cbf4f4f1a3207f80d503cd1d0"
+    },
+    {
+      "path": "chat_template.jinja",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/chat_template.jinja",
+      "size": 9867,
+      "sha256": "58933db77d3099b4f78c55a38347a72e1ea05b97d6bd8f38775303dc0194e0a9"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/config.json",
+      "size": 2352,
+      "sha256": "a3827a0f5e311547b40943dc081e3ff2f8a277466e8c1a3df2291e8db8a7617c"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/generation_config.json",
+      "size": 210,
+      "sha256": "0ed94823ae737b507aef6af01e837041b7aa2fb0306793a310cd201d89a31ff4"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model.safetensors.index.json",
+      "size": 612207,
+      "sha256": "67f21da80ce245a3e24967f54eef3fa10e67a63eba16ef19a2d0569f06103f50"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/special_tokens_map.json",
+      "size": 563,
+      "sha256": "e9435fefd6d838fd9fcbbc44b97a8e3ff322be7f6dfb7e4fd2468586574bb52b"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/tokenizer.json",
+      "size": 17077484,
+      "sha256": "623c34567aebb18582765289fbe23d901c62704d6518d71866e0e58db892b5b7"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/tokenizer_config.json",
+      "size": 177209,
+      "sha256": "10f93eabcb9b1602fbb991d6308e787ce1df28ee9cd7a1c6d1e8c3f338b957bc"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00001-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4991210024;mtime:2026-11-04T16:53:14.1744976Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00002-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4992601016;mtime:2026-11-04T17:09:22.4504036Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00003-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4992601368;mtime:2026-11-04T17:25:10.2898121Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00004-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4995692800;mtime:2026-11-04T17:41:01.7033502Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00005-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4980553832;mtime:2026-11-04T17:58:08.6891113Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00006-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4989423536;mtime:2026-11-04T18:15:22.3968548Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00007-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4992601488;mtime:2026-11-04T18:32:06.3757290Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00008-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4992601520;mtime:2026-11-04T18:49:45.5435359Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00009-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4995692800;mtime:2026-11-04T19:07:37.6924839Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00010-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4992601520;mtime:2026-11-04T19:25:37.4980976Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00011-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4995692800;mtime:2026-11-04T19:43:34.3667312Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00012-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4995692816;mtime:2026-11-04T20:00:24.5255331Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00013-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3249723504;mtime:2026-11-04T20:10:45.7322826Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/model-00014-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:2670685240;mtime:2026-11-04T20:19:14.3779667Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/chat_template.jinja",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "chat_template.jinja": "58933db77d3099b4f78c55a38347a72e1ea05b97d6bd8f38775303dc0194e0a9"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "9,867 characters, Jinja, sha256 58933db77d3099b4f78c55a38347a72e1ea05b97d6bd8f38775303dc0194e0a9. Use --dump-template to read it.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022# Tools\\n\\nYou have access to the following functions:\u0022\n  - \u0022If you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_paramet\u2026\u0022",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Different version of the Qwen3-Coder template",
+          "detail": "65 % similar to https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct (91 line(s) added, 15 removed). Large differences usually mean a different release of the template, such as an older download. Added lines:\n  \u002B {{- \u0022# Tools\\n\\nYou have access to the following functions:\\n\\n\u0022 }}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  (\u002B83 more)",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "chat_template.jinja",
+          "dialect": "Jinja",
+          "sha256": "58933db77d3099b4f78c55a38347a72e1ea05b97d6bd8f38775303dc0194e0a9",
+          "length": 9867,
+          "text": "{% macro render_extra_keys(json_dict, handled_keys) %}\n    {%- if json_dict is mapping %}\n        {%- for json_key in json_dict if json_key not in handled_keys %}\n            {%- if json_dict[json_key] is mapping or (json_dict[json_key] is sequence and json_dict[json_key] is not string) %}\n                {{- \u0027\\n\u003C\u0027 ~ json_key ~ \u0027\u003E\u0027 ~ (json_dict[json_key] | tojson | safe) ~ \u0027\u003C/\u0027 ~ json_key ~ \u0027\u003E\u0027 }}\n            {%- else %}\n                {{-\u0027\\n\u003C\u0027 ~ json_key ~ \u0027\u003E\u0027 ~ (json_dict[json_key] | string) ~ \u0027\u003C/\u0027 ~ json_key ~ \u0027\u003E\u0027 }}\n            {%- endif %}\n        {%- endfor %}\n    {%- endif %}\n{% endmacro %}\n{%- set enable_thinking = enable_thinking if enable_thinking is defined else True %}\n{%- set truncate_history_thinking = truncate_history_thinking if truncate_history_thinking is defined else True %}\n{%- set ns = namespace(last_user_idx = -1) %}\n{%- set loop_messages = messages %}\n{%- for m in loop_messages %}\n  {%- if m[\u0022role\u0022] == \u0022user\u0022 %}\n    {%- set ns.last_user_idx = loop.index0 %}\n  {%- endif %}\n{%- endfor %}\n{%- if messages[0][\u0022role\u0022] == \u0022system\u0022 %}\n    {%- set system_message = messages[0][\u0022content\u0022] %}\n    {%- set loop_messages = messages[1:] %}\n{%- else %}\n    {%- set system_message = \u0022\u0022 %}\n    {%- set loop_messages = messages %}\n{%- endif %}\n{%- if not tools is defined %}\n    {%- set tools = [] %}\n{%- endif %}\n{%- set ns = namespace(last_user_idx = -1) %}\n{%- for m in loop_messages %}\n  {%- if m[\u0022role\u0022] == \u0022user\u0022 %}\n    {%- set ns.last_user_idx = loop.index0 %}\n  {%- endif %}\n{%- endfor %}\n{%- if system_message is defined %}\n    {{- \u0022\u003C|im_start|\u003Esystem\\n\u0022 \u002B system_message }}\n{%- else %}\n    {%- if tools is iterable and tools | length \u003E 0 %}\n        {{- \u0022\u003C|im_start|\u003Esystem\\n\u0022 }}\n    {%- endif %}\n{%- endif %}\n{%- if tools is iterable and tools | length \u003E 0 %}\n    {%- if system_message is defined and system_message | length \u003E 0 %}\n        {{- \u0022\\n\\n\u0022 }}\n    {%- endif %}\n    {{- \u0022# Tools\\n\\nYou have access to the following functions:\\n\\n\u0022 }}\n    {{- \u0022\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {%- if tool.function is defined %}\n            {%- set tool = tool.function %}\n        {%- endif %}\n        {{- \u0022\\n\u003Cfunction\u003E\\n\u003Cname\u003E\u0022 ~ tool.name ~ \u0022\u003C/name\u003E\u0022 }}\n        {%- if tool.description is defined %}\n            {{- \u0027\\n\u003Cdescription\u003E\u0027 ~ (tool.description | trim) ~ \u0027\u003C/description\u003E\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Cparameters\u003E\u0027 }}\n        {%- if tool.parameters is defined and tool.parameters is mapping and tool.parameters.properties is defined and tool.parameters.properties is mapping %}\n            {%- for param_name, param_fields in tool.parameters.properties|items %}\n                {{- \u0027\\n\u003Cparameter\u003E\u0027 }}\n                {{- \u0027\\n\u003Cname\u003E\u0027 ~ param_name ~ \u0027\u003C/name\u003E\u0027 }}\n                {%- if param_fields.type is defined %}\n                    {{- \u0027\\n\u003Ctype\u003E\u0027 ~ (param_fields.type | string) ~ \u0027\u003C/type\u003E\u0027 }}\n                {%- endif %}\n                {%- if param_fields.description is defined %}\n                    {{- \u0027\\n\u003Cdescription\u003E\u0027 ~ (param_fields.description | trim) ~ \u0027\u003C/description\u003E\u0027 }}\n                {%- endif %}\n                {%- if param_fields.enum is defined %}\n                    {{- \u0027\\n\u003Cenum\u003E\u0027 ~ (param_fields.enum | tojson | safe) ~ \u0027\u003C/enum\u003E\u0027 }}\n                {%- endif %}\n                {%- set handled_keys = [\u0027name\u0027, \u0027type\u0027, \u0027description\u0027, \u0027enum\u0027] %}\n                {{- render_extra_keys(param_fields, handled_keys) }}\n                {{- \u0027\\n\u003C/parameter\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {% set handled_keys = [\u0027type\u0027, \u0027properties\u0027, \u0027required\u0027] %}\n        {{- render_extra_keys(tool.parameters, handled_keys) }}\n        {%- if tool.parameters is defined and tool.parameters.required is defined %}\n            {{- \u0027\\n\u003Crequired\u003E\u0027 ~ (tool.parameters.required | tojson | safe) ~ \u0027\u003C/required\u003E\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003C/parameters\u003E\u0027 }}\n        {%- set handled_keys = [\u0027type\u0027, \u0027name\u0027, \u0027description\u0027, \u0027parameters\u0027] %}\n        {{- render_extra_keys(tool, handled_keys) }}\n        {{- \u0027\\n\u003C/function\u003E\u0027 }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\u0022 }}\n    {{- \u0027\\n\\nIf you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_parameter_1\u003E\\nvalue_1\\n\u003C/parameter\u003E\\n\u003Cparameter=example_parameter_2\u003E\\nThis is the value for the second parameter\\nthat can span\\nmultiple lines\\n\u003C/parameter\u003E\\n\u003C/function\u003E\\n\u003C/tool_call\u003E\\n\\n\u003CIMPORTANT\u003E\\nReminder:\\n- Function calls MUST follow the specified format: an inner \u003Cfunction=...\u003E\u003C/function\u003E block must be nested within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags\\n- Required parameters MUST be specified\\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\\n\u003C/IMPORTANT\u003E\u0027 }}\n{%- endif %}\n{%- if system_message is defined %}\n    {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n{%- else %}\n    {%- if tools is iterable and tools | length \u003E 0 %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- for message in loop_messages %}\n    {%- if message.role == \u0022assistant\u0022 %}\n        {%- if message.reasoning_content is defined and message.reasoning_content is string and message.reasoning_content | trim | length \u003E 0 %}\n            {%- set content = \u0022\u003Cthink\u003E\\n\u0022 ~ message.reasoning_content ~ \u0022\u003C/think\u003E\u0022 ~ (message.content | default(\u0027\u0027, true)) %}\n        {%- else %}\n            {%- set content = message.content | default(\u0027\u0027, true) %}\n            {%- if content is string -%}\n                {%- if \u0027\u003Cthink\u003E\u0027 not in content and \u0027\u003C/think\u003E\u0027 not in content -%}\n                    {%- set content = \u0022\u003Cthink\u003E\u003C/think\u003E\u0022 ~ content -%}\n                {%- endif -%}\n            {%- else -%}\n                {%- set content = content -%}\n            {%- endif -%}\n        {%- endif %}\n        {%- if message.tool_calls is defined and message.tool_calls is iterable and message.tool_calls | length \u003E 0 %}\n            {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n                {%- set include_content = not (truncate_history_thinking and loop.index0 \u003C ns.last_user_idx) %}\n                {%- if content is string and content | trim | length \u003E 0 %}\n                    {%- if include_content %}\n                        {{- (content | trim) ~ \u0027\\n\u0027 -}}\n                    {%- else %}\n                        {%- set c = (content | string) %}\n                        {%- if \u0027\u003C/think\u003E\u0027 in c %}\n                            {%- set c = c.split(\u0027\u003C/think\u003E\u0027)[-1] %}\n                        {%- elif \u0027\u003Cthink\u003E\u0027 in c %}\n                            {%- set c = c.split(\u0027\u003Cthink\u003E\u0027)[0] %}\n                        {%- endif %}\n                        {%- set c = \u0022\u003Cthink\u003E\u003C/think\u003E\u0022 ~ c %}\n                        {%- if c | length \u003E 0 %}\n                            {{- c ~ \u0027\\n\u0027 -}}\n                        {%- endif %}\n                    {%- endif %}\n                {%- else %}\n                    {{- \u0022\u003Cthink\u003E\u003C/think\u003E\u0022 -}}\n                {%- endif %}\n                {%- for tool_call in message.tool_calls %}\n                    {%- if tool_call.function is defined %}\n                        {%- set tool_call = tool_call.function %}\n                    {%- endif %}\n                    {{- \u0027\u003Ctool_call\u003E\\n\u003Cfunction=\u0027 ~ tool_call.name ~ \u0027\u003E\\n\u0027 -}}\n                        {%- if tool_call.arguments is defined %}\n                            {%- for args_name, args_value in tool_call.arguments|items %}\n                                {{- \u0027\u003Cparameter=\u0027 ~ args_name ~ \u0027\u003E\\n\u0027 -}}\n                                    {%- set args_value = args_value | tojson | safe if args_value is mapping or (args_value is sequence and args_value is not string) else args_value | string %}\n                                {{- args_value ~ \u0027\\n\u003C/parameter\u003E\\n\u0027 -}}\n                            {%- endfor %}\n                        {%- endif %}\n                    {{- \u0027\u003C/function\u003E\\n\u003C/tool_call\u003E\\n\u0027 -}}\n                {%- endfor %}\n                {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- else %}\n            {%- if not (truncate_history_thinking and loop.index0 \u003C ns.last_user_idx) %}\n                {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 ~ (content | default(\u0027\u0027, true) | string | trim) ~ \u0027\u003C|im_end|\u003E\\n\u0027 }}\n            {%- else %}\n                {%- set c = (content | default(\u0027\u0027, true) | string) %}\n                {%- if \u0027\u003Cthink\u003E\u0027 in c and \u0027\u003C/think\u003E\u0027 in c %}\n                    {%- set c = \u0022\u003Cthink\u003E\u003C/think\u003E\u0022 ~ c.split(\u0027\u003C/think\u003E\u0027)[-1] %}\n                {%- endif %}\n                {%- set c = c | trim %}\n                {%- if c | length \u003E 0 %}\n                    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 ~ c ~ \u0027\u003C|im_end|\u003E\\n\u0027 }}\n                {%- else %}\n                    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u003C|im_end|\u003E\\n\u0027 }}\n                {%- endif %}\n            {%- endif %}\n        {%- endif %}\n    {%- elif message.role == \u0022user\u0022 or message.role == \u0022system\u0022 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 }}\n        {%- set content = message.content | string %}\n        {{- content }}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.previtem and loop.previtem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_start|\u003Euser\\n\u0027 }}\n        {%- endif %}\n        {{- \u0027\u003Ctool_response\u003E\\n\u0027 }}\n        {{- message.content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\\n\u0027 }}\n        {%- if not loop.last and loop.nextitem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- elif loop.last %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- else %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B message.content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {%- if enable_thinking %}\n        {{- \u0027\u003C|im_start|\u003Eassistant\\n\u003Cthink\u003E\\n\u0027 }}\n    {%- else %}\n        {{- \u0027\u003C|im_start|\u003Eassistant\\n\u003Cthink\u003E\u003C/think\u003E\u0027 }}\n    {%- endif %}\n{%- endif %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/model-shards.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

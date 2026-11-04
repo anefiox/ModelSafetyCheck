@@ -1,0 +1,425 @@
+{
+  "id": "hf:Qwen/Qwen3-32B/model-shards.safetensors",
+  "revision": "9216db5781bf21249d130ec9da846c4624c16137",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-03T23:40:10.2220177+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model-00001-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00001-of-00017.safetensors",
+      "size": 3957109648,
+      "sha256": "52562b2ff97b61764260273e71bf5b4cf8a66f569399398f26dec0300fcf1316"
+    },
+    {
+      "path": "model-00002-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00002-of-00017.safetensors",
+      "size": 3900791760,
+      "sha256": "e26764b2c6878e3fb7198895fa833ec62838d84a19665e6abfbae43c6daf02b3"
+    },
+    {
+      "path": "model-00003-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00003-of-00017.safetensors",
+      "size": 3900791760,
+      "sha256": "6c5ba7bed9c52bc121e75cbe8a7be46936d0006cc80f42a6d5886ed40b4c2a62"
+    },
+    {
+      "path": "model-00004-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00004-of-00017.safetensors",
+      "size": 3900791800,
+      "sha256": "f736f6ac4d8c30866107fb1185a05b3c3cfce9717720082f466fa44e691bcec8"
+    },
+    {
+      "path": "model-00005-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00005-of-00017.safetensors",
+      "size": 3900791800,
+      "sha256": "a52ed375c083209c54d42ac510afeb1fbb5af4f193be2dc7d103f665a0f212d3"
+    },
+    {
+      "path": "model-00006-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00006-of-00017.safetensors",
+      "size": 3900791800,
+      "sha256": "37fae28990b0e4a70228549d040c0393e87bee3820d59e58e47844974d8dff5b"
+    },
+    {
+      "path": "model-00007-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00007-of-00017.safetensors",
+      "size": 3900791800,
+      "sha256": "37776006aeaba29eca8bc73b2b963fe3477e1c2e3f6a27cb9527be75b905e1bf"
+    },
+    {
+      "path": "model-00008-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00008-of-00017.safetensors",
+      "size": 3900791800,
+      "sha256": "73e74e9129674fe330948005075d70ab4fa0b92b68fb220c5a693f9cea553730"
+    },
+    {
+      "path": "model-00009-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00009-of-00017.safetensors",
+      "size": 3900791800,
+      "sha256": "a044b3602a01bd8ea62ff51badf9cc038ab1d73d97399480e6a55b4c86fa7fa6"
+    },
+    {
+      "path": "model-00010-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00010-of-00017.safetensors",
+      "size": 3900791800,
+      "sha256": "9966612ba7ecfc2cd2e592fb95224b86d743271ff88e172cc272a4b26382aa75"
+    },
+    {
+      "path": "model-00011-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00011-of-00017.safetensors",
+      "size": 3900791800,
+      "sha256": "e2a058a0ac7d4b992b731c29221ecfb4b76b8a48d9004d0e8a62ba44f699845c"
+    },
+    {
+      "path": "model-00012-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00012-of-00017.safetensors",
+      "size": 3900791800,
+      "sha256": "58a1aa89093fea07325f787072a468e3482a470ff4b7fe5ead5f749683907c40"
+    },
+    {
+      "path": "model-00013-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00013-of-00017.safetensors",
+      "size": 3900791800,
+      "sha256": "35f3381bab31a23370c37d922290aeecdf603418336058fb86fe42d8f51ac40c"
+    },
+    {
+      "path": "model-00014-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00014-of-00017.safetensors",
+      "size": 3900791800,
+      "sha256": "8713b062ddc178acf5917610b7f4b64eede833b2ea4aa37bd562dcf2f3a3339d"
+    },
+    {
+      "path": "model-00015-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00015-of-00017.safetensors",
+      "size": 3900791800,
+      "sha256": "bec439d23931821a236d8f62fa79deecf5551bd25602278aa2ae0ce432b378cf"
+    },
+    {
+      "path": "model-00016-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00016-of-00017.safetensors",
+      "size": 3900791800,
+      "sha256": "e569139fadd61fe7c8f9eb1c976d9a627cae48c57ddf228cfbd0593c59c64ff7"
+    },
+    {
+      "path": "model-00017-of-00017.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model-00017-of-00017.safetensors",
+      "size": 3055341992,
+      "sha256": "1f47c318fcd7797c0f85b4233cb754438b10e795b8bc874889090c416a94bd38"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/config.json",
+      "size": 728,
+      "sha256": "97e295b63283935788fac5e4f8860862a56d4089538cafc93f0431f2ebe483bb"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/generation_config.json",
+      "size": 239,
+      "sha256": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/model.safetensors.index.json",
+      "size": 58330,
+      "sha256": "bed42c6c55274bc08a1f616bceb3bcb84b3f02cb6584c573bd18c6519291ecd0"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/tokenizer.json",
+      "size": 11422654,
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/tokenizer_config.json",
+      "size": 9732,
+      "sha256": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101"
+    },
+    {
+      "path": "vocab.json",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B/resolve/9216db5781bf21249d130ec9da846c4624c16137/vocab.json",
+      "size": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00001-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3957109648;mtime:2026-11-03T23:18:56.2269689Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00002-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791760;mtime:2026-11-03T23:20:02.6121930Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00003-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791760;mtime:2026-11-03T23:21:22.1616027Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00004-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791800;mtime:2026-11-03T23:22:33.1274264Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00005-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791800;mtime:2026-11-03T23:23:57.1025495Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00006-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791800;mtime:2026-11-03T23:25:19.6818133Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00007-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791800;mtime:2026-11-03T23:26:42.0464214Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00008-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791800;mtime:2026-11-03T23:28:03.6721904Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00009-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791800;mtime:2026-11-03T23:29:25.9078926Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00010-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791800;mtime:2026-11-03T23:30:52.5593461Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00011-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791800;mtime:2026-11-03T23:32:15.3683115Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00012-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791800;mtime:2026-11-03T23:33:39.7496827Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00013-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791800;mtime:2026-11-03T23:35:02.5635456Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00014-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791800;mtime:2026-11-03T23:36:26.4548652Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00015-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791800;mtime:2026-11-03T23:37:28.8617508Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00016-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3900791800;mtime:2026-11-03T23:38:52.9774658Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/model-00017-of-00017.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3055341992;mtime:2026-11-03T23:40:00.5574979Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "tokenizer_config.json:chat_template": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "4,168 characters, Jinja, sha256 a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8. Use --dump-template to read it.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctoo\u2026\u0022\n  - \u0022\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\u0022name\u0022: \u003Cfunct\u2026\u0022",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official Qwen3 template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/Qwen/Qwen3-8B.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "tokenizer_config.json:chat_template",
+          "dialect": "Jinja",
+          "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8",
+          "length": 4168,
+          "text": "{%- if tools %}\n    {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 }}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {{- messages[0].content \u002B \u0027\\n\\n\u0027 }}\n    {%- endif %}\n    {{- \u0022# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {{- \u0022\\n\u0022 }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\\\u0022name\\\u0022: \u003Cfunction-name\u003E, \\\u0022arguments\\\u0022: \u003Cargs-json-object\u003E}\\n\u003C/tool_call\u003E\u003C|im_end|\u003E\\n\u0022 }}\n{%- else %}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B messages[0].content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \u0022user\u0022 and message.content is string and not(message.content.startswith(\u0027\u003Ctool_response\u003E\u0027) and message.content.endswith(\u0027\u003C/tool_response\u003E\u0027)) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n{%- for message in messages %}\n    {%- if message.content is string %}\n        {%- set content = message.content %}\n    {%- else %}\n        {%- set content = \u0027\u0027 %}\n    {%- endif %}\n    {%- if (message.role == \u0022user\u0022) or (message.role == \u0022system\u0022 and not loop.first) %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022assistant\u0022 %}\n        {%- set reasoning_content = \u0027\u0027 %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if \u0027\u003C/think\u003E\u0027 in content %}\n                {%- set reasoning_content = content.split(\u0027\u003C/think\u003E\u0027)[0].rstrip(\u0027\\n\u0027).split(\u0027\u003Cthink\u003E\u0027)[-1].lstrip(\u0027\\n\u0027) %}\n                {%- set content = content.split(\u0027\u003C/think\u003E\u0027)[-1].lstrip(\u0027\\n\u0027) %}\n            {%- endif %}\n        {%- endif %}\n        {%- if loop.index0 \u003E ns.last_query_index %}\n            {%- if loop.last or (not loop.last and reasoning_content) %}\n                {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u003Cthink\u003E\\n\u0027 \u002B reasoning_content.strip(\u0027\\n\u0027) \u002B \u0027\\n\u003C/think\u003E\\n\\n\u0027 \u002B content.lstrip(\u0027\\n\u0027) }}\n            {%- else %}\n                {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content }}\n            {%- endif %}\n        {%- else %}\n            {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content }}\n        {%- endif %}\n        {%- if message.tool_calls %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- \u0027\\n\u0027 }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- \u0027\u003Ctool_call\u003E\\n{\u0022name\u0022: \u0022\u0027 }}\n                {{- tool_call.name }}\n                {{- \u0027\u0022, \u0022arguments\u0022: \u0027 }}\n                {%- if tool_call.arguments is string %}\n                    {{- tool_call.arguments }}\n                {%- else %}\n                    {{- tool_call.arguments | tojson }}\n                {%- endif %}\n                {{- \u0027}\\n\u003C/tool_call\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_start|\u003Euser\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Ctool_response\u003E\\n\u0027 }}\n        {{- content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\u0027 }}\n        {%- if loop.last or (messages[loop.index0 \u002B 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- \u0027\u003Cthink\u003E\\n\\n\u003C/think\u003E\\n\\n\u0027 }}\n    {%- endif %}\n{%- endif %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:Qwen/Qwen3-32B/model-shards.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}
