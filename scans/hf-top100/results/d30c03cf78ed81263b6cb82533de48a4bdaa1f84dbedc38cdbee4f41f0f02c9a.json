@@ -1,0 +1,57 @@
+{
+  "id": "hf:openbmb/MiniCPM5-2B-DSpark/model.safetensors",
+  "revision": "114a20fdbf53220712c7fbdd7dccddbf1dedebb4",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T13:52:53.3190803+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model.safetensors",
+      "source": "https://huggingface.co/openbmb/MiniCPM5-2B-DSpark/resolve/114a20fdbf53220712c7fbdd7dccddbf1dedebb4/model.safetensors",
+      "size": 647558522,
+      "sha256": "ae9ff4a8c944e2f88f266cc9452f6b8908a6d2bfce57cd4cf12cfb5cb979bc97"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/openbmb/MiniCPM5-2B-DSpark/resolve/114a20fdbf53220712c7fbdd7dccddbf1dedebb4/config.json",
+      "size": 1414,
+      "sha256": "bfbcab77ce2b466928deeb23109e7ff7738639c499d45f2c15941743b475d14b"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:openbmb/MiniCPM5-2B-DSpark/model.safetensors/model.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:647558522;mtime:2026-11-05T13:52:52.4244606Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:openbmb/MiniCPM5-2B-DSpark/model.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "1 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

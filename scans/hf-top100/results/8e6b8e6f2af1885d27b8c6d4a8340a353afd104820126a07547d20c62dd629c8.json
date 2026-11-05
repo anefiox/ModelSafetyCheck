@@ -1,0 +1,263 @@
+{
+  "id": "hf:Qwen/Qwen2.5-14B-Instruct/model-shards.safetensors",
+  "revision": "cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T15:10:49.2928493+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model-00001-of-00008.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/model-00001-of-00008.safetensors",
+      "size": 3885154816,
+      "sha256": "b477be7572f0ab3ae3cbba38d508cc33e70600b2045669c4ad848051c3432094"
+    },
+    {
+      "path": "model-00002-of-00008.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/model-00002-of-00008.safetensors",
+      "size": 3995327992,
+      "sha256": "eb356aacae443e30f52712b1e98fadf206976365e2f5ee886321b0bb38c7cea8"
+    },
+    {
+      "path": "model-00003-of-00008.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/model-00003-of-00008.safetensors",
+      "size": 3995328080,
+      "sha256": "cee9dbdf738ce61adb21c70ad5c5585747caaab6457c9ffc3bfa20d73127c2c6"
+    },
+    {
+      "path": "model-00004-of-00008.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/model-00004-of-00008.safetensors",
+      "size": 3995338432,
+      "sha256": "b1201a6edcac8ef96a37040524fe37a5a84e446513ed40491e764a37302385fa"
+    },
+    {
+      "path": "model-00005-of-00008.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/model-00005-of-00008.safetensors",
+      "size": 3979624824,
+      "sha256": "fbbda3cdee31895d0c57d617449af5579d219df34f3d63f7a23acbfe7fb0a647"
+    },
+    {
+      "path": "model-00006-of-00008.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/model-00006-of-00008.safetensors",
+      "size": 3995328080,
+      "sha256": "f7ac652aa101717c97cfeccf5109985cca5b04529b57d3f4d2ec7a802266296b"
+    },
+    {
+      "path": "model-00007-of-00008.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/model-00007-of-00008.safetensors",
+      "size": 3995328080,
+      "sha256": "e9115e615b575acb6e8b3a06524b32cbf7f680f07517125e4334f62c3f4acb0d"
+    },
+    {
+      "path": "model-00008-of-00008.safetensors",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/model-00008-of-00008.safetensors",
+      "size": 1698703696,
+      "sha256": "a77f603d8368749c19d3ac9cf2a300e476edcc794ea41af8e473ee12935eadb8"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/config.json",
+      "size": 663,
+      "sha256": "0f2085dbbe2ee251bd6a6a0797d84a6ce34436044d629aa3cba793b43d311a9e"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/generation_config.json",
+      "size": 242,
+      "sha256": "ea35dfb6fc5051b01114f9b995820d55dab01ed33ee490f6378b442af82c09f9"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/model.safetensors.index.json",
+      "size": 47472,
+      "sha256": "46627f7a9e851d9cede6a7a4c49999082148ced9c22d2b9cfaaa5ba8b65dc68f"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/tokenizer.json",
+      "size": 7031645,
+      "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/tokenizer_config.json",
+      "size": 7305,
+      "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+    },
+    {
+      "path": "vocab.json",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/resolve/cf98f3b3bbb457ad9e2bb7baf9a0125b6b88caa8/vocab.json",
+      "size": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:Qwen/Qwen2.5-14B-Instruct/model-shards.safetensors/model-00001-of-00008.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3885154816;mtime:2026-11-05T15:02:59.2210459Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen2.5-14B-Instruct/model-shards.safetensors/model-00002-of-00008.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3995327992;mtime:2026-11-05T15:04:08.1134408Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen2.5-14B-Instruct/model-shards.safetensors/model-00003-of-00008.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3995328080;mtime:2026-11-05T15:05:15.0148205Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen2.5-14B-Instruct/model-shards.safetensors/model-00004-of-00008.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3995338432;mtime:2026-11-05T15:06:22.5337340Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen2.5-14B-Instruct/model-shards.safetensors/model-00005-of-00008.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3979624824;mtime:2026-11-05T15:07:36.1436274Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen2.5-14B-Instruct/model-shards.safetensors/model-00006-of-00008.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3995328080;mtime:2026-11-05T15:08:50.1640076Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen2.5-14B-Instruct/model-shards.safetensors/model-00007-of-00008.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3995328080;mtime:2026-11-05T15:10:08.7681360Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen2.5-14B-Instruct/model-shards.safetensors/model-00008-of-00008.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:1698703696;mtime:2026-11-05T15:10:42.2483373Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:Qwen/Qwen2.5-14B-Instruct/model-shards.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "tokenizer_config.json:chat_template": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "2,507 characters, Jinja, sha256 cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f. Use --dump-template to read it.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022You are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u0022\n  - \u0022# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctoo\u2026\u0022\n  - \u0022\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\u0022name\u0022: \u003Cfunct\u2026\u0022\n  - \u0022\u003C|im_start|\u003Esystem\\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u003C|im_end|\u003E\u0022",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official Qwen2.5 template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/Qwen/Qwen2.5-7B-Instruct.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "tokenizer_config.json:chat_template",
+          "dialect": "Jinja",
+          "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+          "length": 2507,
+          "text": "{%- if tools %}\n    {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 }}\n    {%- if messages[0][\u0027role\u0027] == \u0027system\u0027 %}\n        {{- messages[0][\u0027content\u0027] }}\n    {%- else %}\n        {{- \u0027You are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u0027 }}\n    {%- endif %}\n    {{- \u0022\\n\\n# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {{- \u0022\\n\u0022 }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\\\u0022name\\\u0022: \u003Cfunction-name\u003E, \\\u0022arguments\\\u0022: \u003Cargs-json-object\u003E}\\n\u003C/tool_call\u003E\u003C|im_end|\u003E\\n\u0022 }}\n{%- else %}\n    {%- if messages[0][\u0027role\u0027] == \u0027system\u0027 %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B messages[0][\u0027content\u0027] \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- else %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- for message in messages %}\n    {%- if (message.role == \u0022user\u0022) or (message.role == \u0022system\u0022 and not loop.first) or (message.role == \u0022assistant\u0022 and not message.tool_calls) %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B message.content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022assistant\u0022 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role }}\n        {%- if message.content %}\n            {{- \u0027\\n\u0027 \u002B message.content }}\n        {%- endif %}\n        {%- for tool_call in message.tool_calls %}\n            {%- if tool_call.function is defined %}\n                {%- set tool_call = tool_call.function %}\n            {%- endif %}\n            {{- \u0027\\n\u003Ctool_call\u003E\\n{\u0022name\u0022: \u0022\u0027 }}\n            {{- tool_call.name }}\n            {{- \u0027\u0022, \u0022arguments\u0022: \u0027 }}\n            {{- tool_call.arguments | tojson }}\n            {{- \u0027}\\n\u003C/tool_call\u003E\u0027 }}\n        {%- endfor %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if (loop.index0 == 0) or (messages[loop.index0 - 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_start|\u003Euser\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Ctool_response\u003E\\n\u0027 }}\n        {{- message.content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\u0027 }}\n        {%- if loop.last or (messages[loop.index0 \u002B 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n{%- endif %}\n"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:Qwen/Qwen2.5-14B-Instruct/model-shards.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

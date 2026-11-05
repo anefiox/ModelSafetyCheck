@@ -1,0 +1,271 @@
+{
+  "id": "hf:nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/model-shards.safetensors",
+  "revision": "6efb4a2a1c1fa277ce7b3df7a1416255011b1c99",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T11:47:13.0291454+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model-00001-of-00005.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/resolve/6efb4a2a1c1fa277ce7b3df7a1416255011b1c99/model-00001-of-00005.safetensors",
+      "size": 3998838864,
+      "sha256": "2fdac76b3e4906ce0fb0dd33ab51f011372a5473e0d6c5bb479b6f10d3f29fdb"
+    },
+    {
+      "path": "model-00002-of-00005.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/resolve/6efb4a2a1c1fa277ce7b3df7a1416255011b1c99/model-00002-of-00005.safetensors",
+      "size": 4000414120,
+      "sha256": "559806ee0cb6edcfc01805e24bac9182cb2611bad3993e0da05487d7a79b4f38"
+    },
+    {
+      "path": "model-00003-of-00005.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/resolve/6efb4a2a1c1fa277ce7b3df7a1416255011b1c99/model-00003-of-00005.safetensors",
+      "size": 3999641680,
+      "sha256": "d820849788701123d041501fb8ac88e4ade24a28a63cd663118797cfae910be2"
+    },
+    {
+      "path": "model-00004-of-00005.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/resolve/6efb4a2a1c1fa277ce7b3df7a1416255011b1c99/model-00004-of-00005.safetensors",
+      "size": 4000413336,
+      "sha256": "f5ccb7cfa7870ab2d099134c3f771ad4a158e0421b3bf7b2a0da53311a09cb14"
+    },
+    {
+      "path": "model-00005-of-00005.safetensors",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/resolve/6efb4a2a1c1fa277ce7b3df7a1416255011b1c99/model-00005-of-00005.safetensors",
+      "size": 3343488520,
+      "sha256": "c9dd9142839367ad274019a7683bc84993217c8a63e70dd8e18656de0c4050eb"
+    },
+    {
+      "path": "chat_template.jinja",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/resolve/6efb4a2a1c1fa277ce7b3df7a1416255011b1c99/chat_template.jinja",
+      "size": 10504,
+      "sha256": "ab7813c3abdd9cb655905a410728b26c7884eca45ddfab8d9f931553485a7862"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/resolve/6efb4a2a1c1fa277ce7b3df7a1416255011b1c99/config.json",
+      "size": 1817,
+      "sha256": "f4fcbaaaed3ee215f86205a7600636cd930bde069f2b603d7ff908c046a0cd96"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/resolve/6efb4a2a1c1fa277ce7b3df7a1416255011b1c99/generation_config.json",
+      "size": 197,
+      "sha256": "7a8f2d91a749d7a09b755daceacab14da9d66ebfdaea7e8583e48c0be01ee73d"
+    },
+    {
+      "path": "hf_quant_config.json",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/resolve/6efb4a2a1c1fa277ce7b3df7a1416255011b1c99/hf_quant_config.json",
+      "size": 3050,
+      "sha256": "37ff9e85d04311916a38ff7bc28cae1972dfdc54d39da8439d3f85204b9e8fbf"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/resolve/6efb4a2a1c1fa277ce7b3df7a1416255011b1c99/model.safetensors.index.json",
+      "size": 2497886,
+      "sha256": "e076394997f518b64a2b81b9648a58063faa611c95a1d5fb5495e77194e5dfb7"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/resolve/6efb4a2a1c1fa277ce7b3df7a1416255011b1c99/special_tokens_map.json",
+      "size": 420,
+      "sha256": "e3a4f63da745f02317a45e00e6476c17fc66ac41faf14bb1b0be1f3211b0ca53"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/resolve/6efb4a2a1c1fa277ce7b3df7a1416255011b1c99/tokenizer.json",
+      "size": 17077485,
+      "sha256": "c6021eb6847e682f89aa52d5eb6e8c7d902a23acfc8137e25211cf84828f1592"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/resolve/6efb4a2a1c1fa277ce7b3df7a1416255011b1c99/tokenizer_config.json",
+      "size": 188049,
+      "sha256": "3d568e506d0905285ae90a3fdd1482be7b6d0bf0b8ca9514d75dad4257b0827a"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/model-shards.safetensors/model-00001-of-00005.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3998838864;mtime:2026-11-05T11:42:19.4807874Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/model-shards.safetensors/model-00002-of-00005.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4000414120;mtime:2026-11-05T11:43:29.5573904Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/model-shards.safetensors/model-00003-of-00005.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3999641680;mtime:2026-11-05T11:44:43.0902056Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/model-shards.safetensors/model-00004-of-00005.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4000413336;mtime:2026-11-05T11:46:00.5166234Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/model-shards.safetensors/model-00005-of-00005.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3343488520;mtime:2026-11-05T11:47:05.4818658Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/model-shards.safetensors/chat_template.jinja",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "chat_template.jinja": "ab7813c3abdd9cb655905a410728b26c7884eca45ddfab8d9f931553485a7862"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "10,504 characters, Jinja, sha256 ab7813c3abdd9cb655905a410728b26c7884eca45ddfab8d9f931553485a7862. Use --dump-template to read it.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022# Tools\\n\\nYou have access to the following functions:\u0022\n  - \u0022If you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_paramet\u2026\u0022",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Different version of the Qwen3-Coder template",
+          "detail": "65 % similar to https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct (91 line(s) added, 15 removed). Large differences usually mean a different release of the template, such as an older download. Added lines:\n  \u002B {{- \u0022# Tools\\n\\nYou have access to the following functions:\\n\\n\u0022 }}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  (\u002B83 more)",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "chat_template.jinja",
+          "dialect": "Jinja",
+          "sha256": "ab7813c3abdd9cb655905a410728b26c7884eca45ddfab8d9f931553485a7862",
+          "length": 10504,
+          "text": "{% macro render_extra_keys(json_dict, handled_keys) %}\n    {%- if json_dict is mapping %}\n        {%- for json_key in json_dict if json_key not in handled_keys %}\n            {%- if json_dict[json_key] is mapping or (json_dict[json_key] is sequence and json_dict[json_key] is not string) %}\n                {{- \u0027\\n\u003C\u0027 ~ json_key ~ \u0027\u003E\u0027 ~ (json_dict[json_key] | tojson | safe) ~ \u0027\u003C/\u0027 ~ json_key ~ \u0027\u003E\u0027 }}\n            {%- else %}\n                {{-\u0027\\n\u003C\u0027 ~ json_key ~ \u0027\u003E\u0027 ~ (json_dict[json_key] | string) ~ \u0027\u003C/\u0027 ~ json_key ~ \u0027\u003E\u0027 }}\n            {%- endif %}\n        {%- endfor %}\n    {%- endif %}\n{% endmacro %}\n{%- set enable_thinking = enable_thinking if enable_thinking is defined else True %}\n{%- set truncate_history_thinking = truncate_history_thinking if truncate_history_thinking is defined else True %}\n\n{%- set ns = namespace(last_user_idx = -1) %}\n{%- set loop_messages = messages %}\n{%- for m in loop_messages %}\n  {%- if m[\u0022role\u0022] == \u0022user\u0022 %}\n    {%- set ns.last_user_idx = loop.index0 %}\n  {%- endif %}\n{%- endfor %}\n\n{%- if messages[0][\u0022role\u0022] == \u0022system\u0022 %}\n    {%- set system_message = messages[0][\u0022content\u0022] %}\n    {%- set loop_messages = messages[1:] %}\n{%- else %}\n    {%- set system_message = \u0022\u0022 %}\n    {%- set loop_messages = messages %}\n{%- endif %}\n{%- if not tools is defined %}\n    {%- set tools = [] %}\n{%- endif %}\n{# Recompute last_user_idx relative to loop_messages after handling system #}\n{%- set ns = namespace(last_user_idx = -1) %}\n{%- for m in loop_messages %}\n  {%- if m[\u0022role\u0022] == \u0022user\u0022 %}\n    {%- set ns.last_user_idx = loop.index0 %}\n  {%- endif %}\n{%- endfor %}\n{%- if system_message is defined %}\n    {{- \u0022\u003C|im_start|\u003Esystem\\n\u0022 \u002B system_message }}\n{%- else %}\n    {%- if tools is iterable and tools | length \u003E 0 %}\n        {{- \u0022\u003C|im_start|\u003Esystem\\n\u0022 }}\n    {%- endif %}\n{%- endif %}\n{%- if tools is iterable and tools | length \u003E 0 %}\n    {%- if system_message is defined and system_message | length \u003E 0 %}\n        {{- \u0022\\n\\n\u0022 }}\n    {%- endif %}\n    {{- \u0022# Tools\\n\\nYou have access to the following functions:\\n\\n\u0022 }}\n    {{- \u0022\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {%- if tool.function is defined %}\n            {%- set tool = tool.function %}\n        {%- endif %}\n        {{- \u0022\\n\u003Cfunction\u003E\\n\u003Cname\u003E\u0022 ~ tool.name ~ \u0022\u003C/name\u003E\u0022 }}\n        {%- if tool.description is defined %}\n            {{- \u0027\\n\u003Cdescription\u003E\u0027 ~ (tool.description | trim) ~ \u0027\u003C/description\u003E\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Cparameters\u003E\u0027 }}\n        {%- if tool.parameters is defined and tool.parameters is mapping and tool.parameters.properties is defined and tool.parameters.properties is mapping %}\n            {%- for param_name, param_fields in tool.parameters.properties|items %}\n                {{- \u0027\\n\u003Cparameter\u003E\u0027 }}\n                {{- \u0027\\n\u003Cname\u003E\u0027 ~ param_name ~ \u0027\u003C/name\u003E\u0027 }}\n                {%- if param_fields.type is defined %}\n                    {{- \u0027\\n\u003Ctype\u003E\u0027 ~ (param_fields.type | string) ~ \u0027\u003C/type\u003E\u0027 }}\n                {%- endif %}\n                {%- if param_fields.description is defined %}\n                    {{- \u0027\\n\u003Cdescription\u003E\u0027 ~ (param_fields.description | trim) ~ \u0027\u003C/description\u003E\u0027 }}\n                {%- endif %}\n                {%- if param_fields.enum is defined %}\n                    {{- \u0027\\n\u003Cenum\u003E\u0027 ~ (param_fields.enum | tojson | safe) ~ \u0027\u003C/enum\u003E\u0027 }}\n                {%- endif %}\n                {%- set handled_keys = [\u0027name\u0027, \u0027type\u0027, \u0027description\u0027, \u0027enum\u0027] %}\n                {{- render_extra_keys(param_fields, handled_keys) }}\n                {{- \u0027\\n\u003C/parameter\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {% set handled_keys = [\u0027type\u0027, \u0027properties\u0027, \u0027required\u0027] %}\n        {{- render_extra_keys(tool.parameters, handled_keys) }}\n        {%- if tool.parameters is defined and tool.parameters.required is defined %}\n            {{- \u0027\\n\u003Crequired\u003E\u0027 ~ (tool.parameters.required | tojson | safe) ~ \u0027\u003C/required\u003E\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003C/parameters\u003E\u0027 }}\n        {%- set handled_keys = [\u0027type\u0027, \u0027name\u0027, \u0027description\u0027, \u0027parameters\u0027] %}\n        {{- render_extra_keys(tool, handled_keys) }}\n        {{- \u0027\\n\u003C/function\u003E\u0027 }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\u0022 }}\n\n    {{- \u0027\\n\\nIf you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_parameter_1\u003E\\nvalue_1\\n\u003C/parameter\u003E\\n\u003Cparameter=example_parameter_2\u003E\\nThis is the value for the second parameter\\nthat can span\\nmultiple lines\\n\u003C/parameter\u003E\\n\u003C/function\u003E\\n\u003C/tool_call\u003E\\n\\n\u003CIMPORTANT\u003E\\nReminder:\\n- Function calls MUST follow the specified format: an inner \u003Cfunction=...\u003E\u003C/function\u003E block must be nested within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags\\n- Required parameters MUST be specified\\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\\n\u003C/IMPORTANT\u003E\u0027 }}\n{%- endif %}\n\n\n{%- if system_message is defined %}\n    {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n{%- else %}\n    {%- if tools is iterable and tools | length \u003E 0 %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n\n{%- for message in loop_messages %}\n    {%- if message.role == \u0022assistant\u0022 %}\n        {# Add reasoning content in to content field for unified processing below. #}\n        {%- if message.reasoning_content is defined and message.reasoning_content is string and message.reasoning_content | trim | length \u003E 0 %}\n            {%- set content = \u0022\u003Cthink\u003E\\n\u0022 ~ message.reasoning_content ~ \u0022\\n\u003C/think\u003E\\n\u0022 ~ (message.content | default(\u0027\u0027, true)) %}\n        {%- else %}\n            {%- set content = message.content | default(\u0027\u0027, true) %}\n            {%- if content is string -%}\n                {# Allow downstream logic to to take care of broken thought, only handle coherent reasoning here. #}\n                {%- if \u0027\u003Cthink\u003E\u0027 not in content and \u0027\u003C/think\u003E\u0027 not in content -%}\n                    {%- set content = \u0022\u003Cthink\u003E\u003C/think\u003E\u0022 ~ content -%}\n                {%- endif -%}\n            {%- else -%}\n                {%- set content = content -%}\n            {%- endif -%}\n        {%- endif %}\n        {%- if message.tool_calls is defined and message.tool_calls is iterable and message.tool_calls | length \u003E 0 %}\n            {# Assistant message has tool calls. #}\n            {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n                {%- set include_content = not (truncate_history_thinking and loop.index0 \u003C ns.last_user_idx) %}\n                {%- if content is string and content | trim | length \u003E 0 %}\n                    {%- if include_content %}\n                        {{- (content | trim) ~ \u0027\\n\u0027 -}}\n                    {%- else %}\n                        {%- set c = (content | string) %}\n                        {%- if \u0027\u003C/think\u003E\u0027 in c %}\n                            {# Keep only content after the last closing think. Also generation prompt causes this. #}\n                            {%- set c = c.split(\u0027\u003C/think\u003E\u0027)[-1] %}\n                        {%- elif \u0027\u003Cthink\u003E\u0027 in c %}\n                            {# If \u003Cthink\u003E was opened but never closed, drop the trailing think segment #}\n                            {%- set c = c.split(\u0027\u003Cthink\u003E\u0027)[0] %}\n                        {%- endif %}\n                        {%- set c = \u0022\u003Cthink\u003E\u003C/think\u003E\u0022 ~ c | trim %}\n                        {%- if c | length \u003E 0 %}\n                            {{- c ~ \u0027\\n\u0027 -}}\n                        {%- endif %}\n                    {%- endif %}\n                {%- else %}\n                    {{- \u0022\u003Cthink\u003E\u003C/think\u003E\u0022 -}}\n                {%- endif %}\n                {%- for tool_call in message.tool_calls %}\n                    {%- if tool_call.function is defined %}\n                        {%- set tool_call = tool_call.function %}\n                    {%- endif %}\n                    {{- \u0027\u003Ctool_call\u003E\\n\u003Cfunction=\u0027 ~ tool_call.name ~ \u0027\u003E\\n\u0027 -}}\n                        {%- if tool_call.arguments is defined %}\n                            {%- for args_name, args_value in tool_call.arguments|items %}\n                                {{- \u0027\u003Cparameter=\u0027 ~ args_name ~ \u0027\u003E\\n\u0027 -}}\n                                    {%- set args_value = args_value | tojson | safe if args_value is mapping or (args_value is sequence and args_value is not string) else args_value | string %}\n                                {{- args_value ~ \u0027\\n\u003C/parameter\u003E\\n\u0027 -}}\n                            {%- endfor %}\n                        {%- endif %}\n                    {{- \u0027\u003C/function\u003E\\n\u003C/tool_call\u003E\\n\u0027 -}}\n                {%- endfor %}\n                {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- else %}\n            {# Assistant message doesn\u0027t have tool calls. #}\n            {%- if not (truncate_history_thinking and loop.index0 \u003C ns.last_user_idx) %}\n                {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 ~ (content | default(\u0027\u0027, true) | string | trim) ~ \u0027\u003C|im_end|\u003E\\n\u0027 }}\n            {%- else %}\n                {%- set c = (content | default(\u0027\u0027, true) | string) %}\n                {%- if \u0027\u003Cthink\u003E\u0027 in c and \u0027\u003C/think\u003E\u0027 in c %}\n                    {%- set c = \u0022\u003Cthink\u003E\u003C/think\u003E\u0022 ~ c.split(\u0027\u003C/think\u003E\u0027)[-1] %}\n                {%- endif %}\n                {%- set c = c | trim %}\n                {%- if c | length \u003E 0 %}\n                    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 ~ c ~ \u0027\u003C|im_end|\u003E\\n\u0027 }}\n                {%- else %}\n                    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u003C|im_end|\u003E\\n\u0027 }}\n                {%- endif %}\n            {%- endif %}\n        {%- endif %}\n    {%- elif message.role == \u0022user\u0022 or message.role == \u0022system\u0022 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 }}\n        {%- set content = message.content | string %}\n        {{- content }}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.previtem and loop.previtem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_start|\u003Euser\\n\u0027 }}\n        {%- endif %}\n        {{- \u0027\u003Ctool_response\u003E\\n\u0027 }}\n        {{- message.content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\\n\u0027 }}\n        {%- if not loop.last and loop.nextitem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- elif loop.last %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- else %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B message.content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endfor %}\n\n{%- if add_generation_prompt %}\n    {%- if enable_thinking %}\n        {{- \u0027\u003C|im_start|\u003Eassistant\\n\u003Cthink\u003E\\n\u0027 }}\n    {%- else %}\n        {{- \u0027\u003C|im_start|\u003Eassistant\\n\u003Cthink\u003E\u003C/think\u003E\u0027 }}\n    {%- endif %}\n{%- endif %}\n"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/model-shards.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "tokenizer_config.json:chat_template": "ab7813c3abdd9cb655905a410728b26c7884eca45ddfab8d9f931553485a7862"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "10,504 characters, Jinja, sha256 ab7813c3abdd9cb655905a410728b26c7884eca45ddfab8d9f931553485a7862. Use --dump-template to read it.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022# Tools\\n\\nYou have access to the following functions:\u0022\n  - \u0022If you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_paramet\u2026\u0022",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Different version of the Qwen3-Coder template",
+          "detail": "65 % similar to https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct (91 line(s) added, 15 removed). Large differences usually mean a different release of the template, such as an older download. Added lines:\n  \u002B {{- \u0022# Tools\\n\\nYou have access to the following functions:\\n\\n\u0022 }}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  \u002B {%- else %}\n  (\u002B83 more)",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "tokenizer_config.json:chat_template",
+          "dialect": "Jinja",
+          "sha256": "ab7813c3abdd9cb655905a410728b26c7884eca45ddfab8d9f931553485a7862",
+          "length": 10504,
+          "text": "{% macro render_extra_keys(json_dict, handled_keys) %}\n    {%- if json_dict is mapping %}\n        {%- for json_key in json_dict if json_key not in handled_keys %}\n            {%- if json_dict[json_key] is mapping or (json_dict[json_key] is sequence and json_dict[json_key] is not string) %}\n                {{- \u0027\\n\u003C\u0027 ~ json_key ~ \u0027\u003E\u0027 ~ (json_dict[json_key] | tojson | safe) ~ \u0027\u003C/\u0027 ~ json_key ~ \u0027\u003E\u0027 }}\n            {%- else %}\n                {{-\u0027\\n\u003C\u0027 ~ json_key ~ \u0027\u003E\u0027 ~ (json_dict[json_key] | string) ~ \u0027\u003C/\u0027 ~ json_key ~ \u0027\u003E\u0027 }}\n            {%- endif %}\n        {%- endfor %}\n    {%- endif %}\n{% endmacro %}\n{%- set enable_thinking = enable_thinking if enable_thinking is defined else True %}\n{%- set truncate_history_thinking = truncate_history_thinking if truncate_history_thinking is defined else True %}\n\n{%- set ns = namespace(last_user_idx = -1) %}\n{%- set loop_messages = messages %}\n{%- for m in loop_messages %}\n  {%- if m[\u0022role\u0022] == \u0022user\u0022 %}\n    {%- set ns.last_user_idx = loop.index0 %}\n  {%- endif %}\n{%- endfor %}\n\n{%- if messages[0][\u0022role\u0022] == \u0022system\u0022 %}\n    {%- set system_message = messages[0][\u0022content\u0022] %}\n    {%- set loop_messages = messages[1:] %}\n{%- else %}\n    {%- set system_message = \u0022\u0022 %}\n    {%- set loop_messages = messages %}\n{%- endif %}\n{%- if not tools is defined %}\n    {%- set tools = [] %}\n{%- endif %}\n{# Recompute last_user_idx relative to loop_messages after handling system #}\n{%- set ns = namespace(last_user_idx = -1) %}\n{%- for m in loop_messages %}\n  {%- if m[\u0022role\u0022] == \u0022user\u0022 %}\n    {%- set ns.last_user_idx = loop.index0 %}\n  {%- endif %}\n{%- endfor %}\n{%- if system_message is defined %}\n    {{- \u0022\u003C|im_start|\u003Esystem\\n\u0022 \u002B system_message }}\n{%- else %}\n    {%- if tools is iterable and tools | length \u003E 0 %}\n        {{- \u0022\u003C|im_start|\u003Esystem\\n\u0022 }}\n    {%- endif %}\n{%- endif %}\n{%- if tools is iterable and tools | length \u003E 0 %}\n    {%- if system_message is defined and system_message | length \u003E 0 %}\n        {{- \u0022\\n\\n\u0022 }}\n    {%- endif %}\n    {{- \u0022# Tools\\n\\nYou have access to the following functions:\\n\\n\u0022 }}\n    {{- \u0022\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {%- if tool.function is defined %}\n            {%- set tool = tool.function %}\n        {%- endif %}\n        {{- \u0022\\n\u003Cfunction\u003E\\n\u003Cname\u003E\u0022 ~ tool.name ~ \u0022\u003C/name\u003E\u0022 }}\n        {%- if tool.description is defined %}\n            {{- \u0027\\n\u003Cdescription\u003E\u0027 ~ (tool.description | trim) ~ \u0027\u003C/description\u003E\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Cparameters\u003E\u0027 }}\n        {%- if tool.parameters is defined and tool.parameters is mapping and tool.parameters.properties is defined and tool.parameters.properties is mapping %}\n            {%- for param_name, param_fields in tool.parameters.properties|items %}\n                {{- \u0027\\n\u003Cparameter\u003E\u0027 }}\n                {{- \u0027\\n\u003Cname\u003E\u0027 ~ param_name ~ \u0027\u003C/name\u003E\u0027 }}\n                {%- if param_fields.type is defined %}\n                    {{- \u0027\\n\u003Ctype\u003E\u0027 ~ (param_fields.type | string) ~ \u0027\u003C/type\u003E\u0027 }}\n                {%- endif %}\n                {%- if param_fields.description is defined %}\n                    {{- \u0027\\n\u003Cdescription\u003E\u0027 ~ (param_fields.description | trim) ~ \u0027\u003C/description\u003E\u0027 }}\n                {%- endif %}\n                {%- if param_fields.enum is defined %}\n                    {{- \u0027\\n\u003Cenum\u003E\u0027 ~ (param_fields.enum | tojson | safe) ~ \u0027\u003C/enum\u003E\u0027 }}\n                {%- endif %}\n                {%- set handled_keys = [\u0027name\u0027, \u0027type\u0027, \u0027description\u0027, \u0027enum\u0027] %}\n                {{- render_extra_keys(param_fields, handled_keys) }}\n                {{- \u0027\\n\u003C/parameter\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {% set handled_keys = [\u0027type\u0027, \u0027properties\u0027, \u0027required\u0027] %}\n        {{- render_extra_keys(tool.parameters, handled_keys) }}\n        {%- if tool.parameters is defined and tool.parameters.required is defined %}\n            {{- \u0027\\n\u003Crequired\u003E\u0027 ~ (tool.parameters.required | tojson | safe) ~ \u0027\u003C/required\u003E\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003C/parameters\u003E\u0027 }}\n        {%- set handled_keys = [\u0027type\u0027, \u0027name\u0027, \u0027description\u0027, \u0027parameters\u0027] %}\n        {{- render_extra_keys(tool, handled_keys) }}\n        {{- \u0027\\n\u003C/function\u003E\u0027 }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\u0022 }}\n\n    {{- \u0027\\n\\nIf you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_parameter_1\u003E\\nvalue_1\\n\u003C/parameter\u003E\\n\u003Cparameter=example_parameter_2\u003E\\nThis is the value for the second parameter\\nthat can span\\nmultiple lines\\n\u003C/parameter\u003E\\n\u003C/function\u003E\\n\u003C/tool_call\u003E\\n\\n\u003CIMPORTANT\u003E\\nReminder:\\n- Function calls MUST follow the specified format: an inner \u003Cfunction=...\u003E\u003C/function\u003E block must be nested within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags\\n- Required parameters MUST be specified\\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\\n\u003C/IMPORTANT\u003E\u0027 }}\n{%- endif %}\n\n\n{%- if system_message is defined %}\n    {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n{%- else %}\n    {%- if tools is iterable and tools | length \u003E 0 %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n\n{%- for message in loop_messages %}\n    {%- if message.role == \u0022assistant\u0022 %}\n        {# Add reasoning content in to content field for unified processing below. #}\n        {%- if message.reasoning_content is defined and message.reasoning_content is string and message.reasoning_content | trim | length \u003E 0 %}\n            {%- set content = \u0022\u003Cthink\u003E\\n\u0022 ~ message.reasoning_content ~ \u0022\\n\u003C/think\u003E\\n\u0022 ~ (message.content | default(\u0027\u0027, true)) %}\n        {%- else %}\n            {%- set content = message.content | default(\u0027\u0027, true) %}\n            {%- if content is string -%}\n                {# Allow downstream logic to to take care of broken thought, only handle coherent reasoning here. #}\n                {%- if \u0027\u003Cthink\u003E\u0027 not in content and \u0027\u003C/think\u003E\u0027 not in content -%}\n                    {%- set content = \u0022\u003Cthink\u003E\u003C/think\u003E\u0022 ~ content -%}\n                {%- endif -%}\n            {%- else -%}\n                {%- set content = content -%}\n            {%- endif -%}\n        {%- endif %}\n        {%- if message.tool_calls is defined and message.tool_calls is iterable and message.tool_calls | length \u003E 0 %}\n            {# Assistant message has tool calls. #}\n            {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n                {%- set include_content = not (truncate_history_thinking and loop.index0 \u003C ns.last_user_idx) %}\n                {%- if content is string and content | trim | length \u003E 0 %}\n                    {%- if include_content %}\n                        {{- (content | trim) ~ \u0027\\n\u0027 -}}\n                    {%- else %}\n                        {%- set c = (content | string) %}\n                        {%- if \u0027\u003C/think\u003E\u0027 in c %}\n                            {# Keep only content after the last closing think. Also generation prompt causes this. #}\n                            {%- set c = c.split(\u0027\u003C/think\u003E\u0027)[-1] %}\n                        {%- elif \u0027\u003Cthink\u003E\u0027 in c %}\n                            {# If \u003Cthink\u003E was opened but never closed, drop the trailing think segment #}\n                            {%- set c = c.split(\u0027\u003Cthink\u003E\u0027)[0] %}\n                        {%- endif %}\n                        {%- set c = \u0022\u003Cthink\u003E\u003C/think\u003E\u0022 ~ c | trim %}\n                        {%- if c | length \u003E 0 %}\n                            {{- c ~ \u0027\\n\u0027 -}}\n                        {%- endif %}\n                    {%- endif %}\n                {%- else %}\n                    {{- \u0022\u003Cthink\u003E\u003C/think\u003E\u0022 -}}\n                {%- endif %}\n                {%- for tool_call in message.tool_calls %}\n                    {%- if tool_call.function is defined %}\n                        {%- set tool_call = tool_call.function %}\n                    {%- endif %}\n                    {{- \u0027\u003Ctool_call\u003E\\n\u003Cfunction=\u0027 ~ tool_call.name ~ \u0027\u003E\\n\u0027 -}}\n                        {%- if tool_call.arguments is defined %}\n                            {%- for args_name, args_value in tool_call.arguments|items %}\n                                {{- \u0027\u003Cparameter=\u0027 ~ args_name ~ \u0027\u003E\\n\u0027 -}}\n                                    {%- set args_value = args_value | tojson | safe if args_value is mapping or (args_value is sequence and args_value is not string) else args_value | string %}\n                                {{- args_value ~ \u0027\\n\u003C/parameter\u003E\\n\u0027 -}}\n                            {%- endfor %}\n                        {%- endif %}\n                    {{- \u0027\u003C/function\u003E\\n\u003C/tool_call\u003E\\n\u0027 -}}\n                {%- endfor %}\n                {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- else %}\n            {# Assistant message doesn\u0027t have tool calls. #}\n            {%- if not (truncate_history_thinking and loop.index0 \u003C ns.last_user_idx) %}\n                {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 ~ (content | default(\u0027\u0027, true) | string | trim) ~ \u0027\u003C|im_end|\u003E\\n\u0027 }}\n            {%- else %}\n                {%- set c = (content | default(\u0027\u0027, true) | string) %}\n                {%- if \u0027\u003Cthink\u003E\u0027 in c and \u0027\u003C/think\u003E\u0027 in c %}\n                    {%- set c = \u0022\u003Cthink\u003E\u003C/think\u003E\u0022 ~ c.split(\u0027\u003C/think\u003E\u0027)[-1] %}\n                {%- endif %}\n                {%- set c = c | trim %}\n                {%- if c | length \u003E 0 %}\n                    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 ~ c ~ \u0027\u003C|im_end|\u003E\\n\u0027 }}\n                {%- else %}\n                    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u003C|im_end|\u003E\\n\u0027 }}\n                {%- endif %}\n            {%- endif %}\n        {%- endif %}\n    {%- elif message.role == \u0022user\u0022 or message.role == \u0022system\u0022 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 }}\n        {%- set content = message.content | string %}\n        {{- content }}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.previtem and loop.previtem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_start|\u003Euser\\n\u0027 }}\n        {%- endif %}\n        {{- \u0027\u003Ctool_response\u003E\\n\u0027 }}\n        {{- message.content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\\n\u0027 }}\n        {%- if not loop.last and loop.nextitem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- elif loop.last %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- else %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B message.content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endfor %}\n\n{%- if add_generation_prompt %}\n    {%- if enable_thinking %}\n        {{- \u0027\u003C|im_start|\u003Eassistant\\n\u003Cthink\u003E\\n\u0027 }}\n    {%- else %}\n        {{- \u0027\u003C|im_start|\u003Eassistant\\n\u003Cthink\u003E\u003C/think\u003E\u0027 }}\n    {%- endif %}\n{%- endif %}\n"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4/model-shards.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "6 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

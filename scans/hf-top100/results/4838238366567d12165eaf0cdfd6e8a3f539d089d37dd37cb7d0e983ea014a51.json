@@ -1,0 +1,87 @@
+{
+  "id": "hf:EleutherAI/pythia-70m-deduped/model.safetensors",
+  "revision": "e93a9faa9c77e5d09219f6c868bfc7a1bd65593c",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T12:48:08.9209725+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model.safetensors",
+      "source": "https://huggingface.co/EleutherAI/pythia-70m-deduped/resolve/e93a9faa9c77e5d09219f6c868bfc7a1bd65593c/model.safetensors",
+      "size": 166029852,
+      "sha256": "3da388330e4549156d76b58d6d268c63cd005e9336b4f4d2d378421e7b7a33fd"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/EleutherAI/pythia-70m-deduped/resolve/e93a9faa9c77e5d09219f6c868bfc7a1bd65593c/config.json",
+      "size": 567,
+      "sha256": "002050231a9b1ec3ac77aa6b9b3bbdc4d923f4068a7dd33b8da72a9bd6ad9a43"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/EleutherAI/pythia-70m-deduped/resolve/e93a9faa9c77e5d09219f6c868bfc7a1bd65593c/special_tokens_map.json",
+      "size": 99,
+      "sha256": "6f50ab5a5a509a1c309d6171f339b196a900dc9c99ad0408ff23bb615fdae7ad"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/EleutherAI/pythia-70m-deduped/resolve/e93a9faa9c77e5d09219f6c868bfc7a1bd65593c/tokenizer.json",
+      "size": 2113710,
+      "sha256": "c24618a1b3e6a38167beff1c72cffd126c3a66254347304b50547d12c5f25624"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/EleutherAI/pythia-70m-deduped/resolve/e93a9faa9c77e5d09219f6c868bfc7a1bd65593c/tokenizer_config.json",
+      "size": 396,
+      "sha256": "70e38394e494931c6f773ba41e19460dd4436526b852207367f04341b4066d3f"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:EleutherAI/pythia-70m-deduped/model.safetensors/model.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:166029852;mtime:2026-11-05T12:48:07.2484004Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:EleutherAI/pythia-70m-deduped/model.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:EleutherAI/pythia-70m-deduped/model.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "3 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

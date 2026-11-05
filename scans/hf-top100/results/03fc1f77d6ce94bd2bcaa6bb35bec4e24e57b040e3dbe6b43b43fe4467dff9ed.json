@@ -1,0 +1,427 @@
+{
+  "id": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors",
+  "revision": "c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T15:00:30.688151+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model-00001-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00001-of-00014.safetensors",
+      "size": 5120041576,
+      "sha256": "86288833ce515f50a6250326f2ccb4b33a5046c17a979116fcddf9ac9cfaa8a7"
+    },
+    {
+      "path": "model-00002-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00002-of-00014.safetensors",
+      "size": 5119449520,
+      "sha256": "2d7cacbaa76207154ca3996aacbd396a2b0bd2cfa8a3a275f15f892210c18dba"
+    },
+    {
+      "path": "model-00003-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00003-of-00014.safetensors",
+      "size": 5119449504,
+      "sha256": "4ee9c12d460da29064ad5183844dcc2683d6ee994c93a1ad62ce7f713feedd2e"
+    },
+    {
+      "path": "model-00004-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00004-of-00014.safetensors",
+      "size": 5119450272,
+      "sha256": "c0d52fff49688679c923e0969d7647d59f502e7bcda757922b43bc48136374f5"
+    },
+    {
+      "path": "model-00005-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00005-of-00014.safetensors",
+      "size": 5119451824,
+      "sha256": "a12f9cbc3180b9129f435f93388f50b0d6e45414329b084402e8b5ddc9a03c5d"
+    },
+    {
+      "path": "model-00006-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00006-of-00014.safetensors",
+      "size": 5119451944,
+      "sha256": "f75306fb1a345440d177dfed5bb859e50e21108a5a544e891efa61ad33d094a1"
+    },
+    {
+      "path": "model-00007-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00007-of-00014.safetensors",
+      "size": 5119451960,
+      "sha256": "6aaeed1042b88e4dadd162b544c2bc0931b006f64f0e0bd5faf1412a57a021c4"
+    },
+    {
+      "path": "model-00008-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00008-of-00014.safetensors",
+      "size": 5119451960,
+      "sha256": "09854eebb5b314166dfc21851ce83a28c204233692577127d1fe9eee0ac48f45"
+    },
+    {
+      "path": "model-00009-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00009-of-00014.safetensors",
+      "size": 5119451872,
+      "sha256": "e3ffe57522141e492885b6528c6672b3ed9494a4f39e2b701e9c68167b9fe50d"
+    },
+    {
+      "path": "model-00010-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00010-of-00014.safetensors",
+      "size": 5119451824,
+      "sha256": "17ca972076637f41147ed55401c2c348c5ed9ecb0370c94dabd604525cd14cf5"
+    },
+    {
+      "path": "model-00011-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00011-of-00014.safetensors",
+      "size": 5119451856,
+      "sha256": "9093a9821cc0bf03001af1150ec4e9edf47b5157e490c9247cd4faaa6018ff8e"
+    },
+    {
+      "path": "model-00012-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00012-of-00014.safetensors",
+      "size": 5119451960,
+      "sha256": "0f262af6eb5807868265a15598e64a372fcda471b6bb90355b1da4fffd7e6b57"
+    },
+    {
+      "path": "model-00013-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00013-of-00014.safetensors",
+      "size": 5119451960,
+      "sha256": "3aff2437362a1830c667eddb43e0e66dfa1765b4b1cc96b7e4aeb137b6faea11"
+    },
+    {
+      "path": "model-00014-of-00014.safetensors",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model-00014-of-00014.safetensors",
+      "size": 335563984,
+      "sha256": "732c167b2fda5985a6046556eb454b91de7bdafe49a4c38700a92a2d929bd658"
+    },
+    {
+      "path": "chat_template.jinja",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/chat_template.jinja",
+      "size": 3874,
+      "sha256": "2d3c724b3c2e9eb71fe9ccc5423ff268a370a8bfa89e9238b6de14fe000825c8"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/config.json",
+      "size": 4098,
+      "sha256": "de84031daa00903361001b0ed684aba7e574952f51de84fdc3da6d6239b451ea"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/generation_config.json",
+      "size": 477,
+      "sha256": "e1c5c1322a73e17b5d0a04132bd7828840d6354df40a02961619fa3b0eb0749d"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/model.safetensors.index.json",
+      "size": 2763907,
+      "sha256": "dac3e8cbce10487c9c78bfb59c967a4e15d63bc45aae8b9247295abbc498d215"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/special_tokens_map.json",
+      "size": 214,
+      "sha256": "70cd3459fde61761e9440751a590e89a108c09b1803cc7727f5ad1ed1ea6122b"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/tokenizer.json",
+      "size": 7287678,
+      "sha256": "807c53a95141e77c14e45f68c51db3f84d2ea6b555a6ea832bc99c88dae6a279"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1/resolve/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/tokenizer_config.json",
+      "size": 16985,
+      "sha256": "faf352639727d5f21d017ed014b28f2951557da280819b681c404fdc131101ee"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00001-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5120041576;mtime:2026-11-05T14:41:10.3026625Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00002-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5119449520;mtime:2026-11-05T14:42:45.7154807Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00003-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5119449504;mtime:2026-11-05T14:44:21.2890745Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00004-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5119450272;mtime:2026-11-05T14:45:57.0640504Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00005-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5119451824;mtime:2026-11-05T14:47:34.5803557Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00006-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5119451944;mtime:2026-11-05T14:49:10.1466446Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00007-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5119451960;mtime:2026-11-05T14:50:44.0183209Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00008-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5119451960;mtime:2026-11-05T14:52:15.5339649Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00009-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5119451872;mtime:2026-11-05T14:53:57.4535826Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00010-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5119451824;mtime:2026-11-05T14:55:39.9338748Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00011-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5119451856;mtime:2026-11-05T14:57:09.2912645Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00012-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5119451960;mtime:2026-11-05T14:58:38.9397524Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00013-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5119451960;mtime:2026-11-05T15:00:10.1373320Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/model-00014-of-00014.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:335563984;mtime:2026-11-05T15:00:22.7325197Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/chat_template.jinja",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "chat_template.jinja": "2d3c724b3c2e9eb71fe9ccc5423ff268a370a8bfa89e9238b6de14fe000825c8"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "3,788 characters, Jinja, sha256 2d3c724b3c2e9eb71fe9ccc5423ff268a370a8bfa89e9238b6de14fe000825c8. Use --dump-template to read it.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022You are a helpful, conversationally-fluent assistant made by Poolside. You are here to be helpful to users through natural language conversations.\u0022\n  - \u0022You may call functions to assist with the user query.\u0022",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Unrecognised chat template",
+          "detail": "This template does not match any official template in the database. That is normal for fine-tunes and new models; read it with --dump-template if the model will get tools.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "chat_template.jinja",
+          "dialect": "Jinja",
+          "sha256": "2d3c724b3c2e9eb71fe9ccc5423ff268a370a8bfa89e9238b6de14fe000825c8",
+          "length": 3788,
+          "text": "{#- Iteration on laguna_glm_thinking_v8/chat_template.jinja -#}\n{#- No formatting instructions -#}\n{{- \u0022\u3008|EOS|\u3009\u0022 -}}\n{%- set enable_thinking = enable_thinking | default(false) -%}\n{%- set add_generation_prompt = add_generation_prompt | default(false) -%}\n\n{#- \u2500\u2500\u2500\u2500\u2500 header (system message) \u2500\u2500\u2500\u2500\u2500 -#}\n{#- A caller-supplied system message with empty content opts out of the default below, producing no \u003Csystem\u003E block \u2014 used to train without a system message. -#}\n{%- set system_message = \u0022You are a helpful, conversationally-fluent assistant made by Poolside. You are here to be helpful to users through natural language conversations.\u0022 -%}\n{%- if messages and messages[0].role == \u0022system\u0022 -%}\n  {%- set system_message = messages[0].content -%}\n  {%- set messages = messages[1:] -%}\n{%- endif -%}\n\n{%- set has_sys = system_message and system_message.strip() -%}\n{%- if has_sys or tools or enable_thinking -%}\n  {{- \u0022\u003Csystem\u003E\u0022 -}}\n\n  {%- if has_sys -%}\n    {{- system_message.rstrip() -}}\n    {%- if tools -%}{{- \u0022\\n\\n\u0022 -}}{%- endif -%}\n  {%- endif -%}\n\n  {%- if tools -%}\n    {{- \u0022### Tools\\n\\n\u0022 -}}\n    {{- \u0022You may call functions to assist with the user query.\\n\u0022 -}}\n    {{- \u0022All available function signatures are listed below:\\n\u0022 -}}\n    {{- \u0022\u003Cavailable_tools\u003E\\n\u0022 -}}\n    {%- for tool in tools -%}\n      {{- (tool | tojson) ~ \u0022\\n\u0022 -}}\n    {%- endfor -%}\n    {{- \u0022\u003C/available_tools\u003E\u0022 -}}\n  {%- endif -%}\n\n  {{- \u0022\u003C/system\u003E\\n\u0022 -}}\n{%- endif -%}\n\n{#- \u2500\u2500\u2500\u2500\u2500 main loop \u2500\u2500\u2500\u2500\u2500 -#}\n{%- for message in messages -%}\n  {%- set content = message.content if message.content is string else \u0022\u0022 -%}\n  {%- if message.role == \u0022user\u0022 -%}\n    {{- \u0022\u003Cuser\u003E\u0022 \u002B content \u002B \u0022\u003C/user\u003E\\n\u0022 -}}\n  {%- elif message.role == \u0022assistant\u0022 -%}\n    {%- generation -%}\n      {{- \u0022\u003Cassistant\u003E\u0022 -}}\n      {#- Extract reasoning content from message.reasoning (vLLM field name) or message.reasoning_content -#}\n      {%- set reasoning_content = \u0027\u0027 -%}\n      {%- if message.reasoning is string -%}\n        {%- set reasoning_content = message.reasoning -%}\n      {%- elif message.reasoning_content is string -%}\n        {%- set reasoning_content = message.reasoning_content -%}\n      {%- endif -%}\n      {#- Display reasoning content for all messages if enable_thinking -#}\n      {%- if enable_thinking -%}\n        {{- \u0027\u003Cthink\u003E\u0027 \u002B reasoning_content \u002B \u0027\u003C/think\u003E\u0027 -}}\n      {%- else -%}\n        {{- \u0027\u003C/think\u003E\u0027 -}}\n      {%- endif -%}\n      {#- Display main content (trailing newline only when no tool_calls follow) -#}\n      {%- if content -%}\n        {{- content -}}\n      {%- endif -%}\n      {%- if message.tool_calls -%}\n        {%- for tool_call in message.tool_calls -%}\n          {%- set function_data = tool_call.function -%}\n          {{- \u0027\u003Ctool_call\u003E\u0027 \u002B function_data.name -}}\n          {%- set _args = function_data.arguments -%}\n          {%- for k, v in _args.items() -%}\n            {{- \u0022\u003Carg_key\u003E\u0022 ~ k ~ \u0022\u003C/arg_key\u003E\u0022 -}}\n            {{- \u0022\u003Carg_value\u003E\u0022 -}}{{- v | tojson(ensure_ascii=False) if v is not string else v -}}{{- \u0022\u003C/arg_value\u003E\u0022 -}}\n          {%- endfor -%}\n          {{- \u0022\u003C/tool_call\u003E\u0022 -}}\n        {%- endfor -%}\n      {%- endif -%}\n      {{- \u0022\u003C/assistant\u003E\\n\u0022 -}}\n    {%- endgeneration -%}\n  {%- elif message.role == \u0022tool\u0022 -%}\n    {{- \u0022\u003Ctool_response\u003E\u0022 \u002B content \u002B \u0022\u003C/tool_response\u003E\\n\u0022 -}}\n  {%- elif message.role == \u0022system\u0022 -%}\n    {#- Render additional system messages (the first one, if any, is handled separately in the header and was sliced off above) -#}\n    {{- \u0022\u003Csystem\u003E\u0022 \u002B content \u002B \u0022\u003C/system\u003E\\n\u0022 -}}\n  {%- endif -%}\n{%- endfor -%}\n{#- \u2500\u2500\u2500\u2500\u2500 generation prompt \u2500\u2500\u2500\u2500\u2500 -#}\n{%- if add_generation_prompt -%}\n  {{- \u0022\u003Cassistant\u003E\u0022 -}}\n  {#- \u2500\u2500\u2500\u2500\u2500 Include reasoning mode directive \u2500\u2500\u2500\u2500\u2500 -#}\n  {%- if enable_thinking -%}\n    {{- \u0027\u003Cthink\u003E\u0027 -}}\n  {%- else -%}\n    {{- \u0027\u003C/think\u003E\u0027 -}}\n  {%- endif -%}\n{%- endif -%}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "tokenizer_config.json:chat_template": "2d3c724b3c2e9eb71fe9ccc5423ff268a370a8bfa89e9238b6de14fe000825c8"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "3,788 characters, Jinja, sha256 2d3c724b3c2e9eb71fe9ccc5423ff268a370a8bfa89e9238b6de14fe000825c8. Use --dump-template to read it.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022You are a helpful, conversationally-fluent assistant made by Poolside. You are here to be helpful to users through natural language conversations.\u0022\n  - \u0022You may call functions to assist with the user query.\u0022",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Unrecognised chat template",
+          "detail": "This template does not match any official template in the database. That is normal for fine-tunes and new models; read it with --dump-template if the model will get tools.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "tokenizer_config.json:chat_template",
+          "dialect": "Jinja",
+          "sha256": "2d3c724b3c2e9eb71fe9ccc5423ff268a370a8bfa89e9238b6de14fe000825c8",
+          "length": 3788,
+          "text": "{#- Iteration on laguna_glm_thinking_v8/chat_template.jinja -#}\n{#- No formatting instructions -#}\n{{- \u0022\u3008|EOS|\u3009\u0022 -}}\n{%- set enable_thinking = enable_thinking | default(false) -%}\n{%- set add_generation_prompt = add_generation_prompt | default(false) -%}\n\n{#- \u2500\u2500\u2500\u2500\u2500 header (system message) \u2500\u2500\u2500\u2500\u2500 -#}\n{#- A caller-supplied system message with empty content opts out of the default below, producing no \u003Csystem\u003E block \u2014 used to train without a system message. -#}\n{%- set system_message = \u0022You are a helpful, conversationally-fluent assistant made by Poolside. You are here to be helpful to users through natural language conversations.\u0022 -%}\n{%- if messages and messages[0].role == \u0022system\u0022 -%}\n  {%- set system_message = messages[0].content -%}\n  {%- set messages = messages[1:] -%}\n{%- endif -%}\n\n{%- set has_sys = system_message and system_message.strip() -%}\n{%- if has_sys or tools or enable_thinking -%}\n  {{- \u0022\u003Csystem\u003E\u0022 -}}\n\n  {%- if has_sys -%}\n    {{- system_message.rstrip() -}}\n    {%- if tools -%}{{- \u0022\\n\\n\u0022 -}}{%- endif -%}\n  {%- endif -%}\n\n  {%- if tools -%}\n    {{- \u0022### Tools\\n\\n\u0022 -}}\n    {{- \u0022You may call functions to assist with the user query.\\n\u0022 -}}\n    {{- \u0022All available function signatures are listed below:\\n\u0022 -}}\n    {{- \u0022\u003Cavailable_tools\u003E\\n\u0022 -}}\n    {%- for tool in tools -%}\n      {{- (tool | tojson) ~ \u0022\\n\u0022 -}}\n    {%- endfor -%}\n    {{- \u0022\u003C/available_tools\u003E\u0022 -}}\n  {%- endif -%}\n\n  {{- \u0022\u003C/system\u003E\\n\u0022 -}}\n{%- endif -%}\n\n{#- \u2500\u2500\u2500\u2500\u2500 main loop \u2500\u2500\u2500\u2500\u2500 -#}\n{%- for message in messages -%}\n  {%- set content = message.content if message.content is string else \u0022\u0022 -%}\n  {%- if message.role == \u0022user\u0022 -%}\n    {{- \u0022\u003Cuser\u003E\u0022 \u002B content \u002B \u0022\u003C/user\u003E\\n\u0022 -}}\n  {%- elif message.role == \u0022assistant\u0022 -%}\n    {%- generation -%}\n      {{- \u0022\u003Cassistant\u003E\u0022 -}}\n      {#- Extract reasoning content from message.reasoning (vLLM field name) or message.reasoning_content -#}\n      {%- set reasoning_content = \u0027\u0027 -%}\n      {%- if message.reasoning is string -%}\n        {%- set reasoning_content = message.reasoning -%}\n      {%- elif message.reasoning_content is string -%}\n        {%- set reasoning_content = message.reasoning_content -%}\n      {%- endif -%}\n      {#- Display reasoning content for all messages if enable_thinking -#}\n      {%- if enable_thinking -%}\n        {{- \u0027\u003Cthink\u003E\u0027 \u002B reasoning_content \u002B \u0027\u003C/think\u003E\u0027 -}}\n      {%- else -%}\n        {{- \u0027\u003C/think\u003E\u0027 -}}\n      {%- endif -%}\n      {#- Display main content (trailing newline only when no tool_calls follow) -#}\n      {%- if content -%}\n        {{- content -}}\n      {%- endif -%}\n      {%- if message.tool_calls -%}\n        {%- for tool_call in message.tool_calls -%}\n          {%- set function_data = tool_call.function -%}\n          {{- \u0027\u003Ctool_call\u003E\u0027 \u002B function_data.name -}}\n          {%- set _args = function_data.arguments -%}\n          {%- for k, v in _args.items() -%}\n            {{- \u0022\u003Carg_key\u003E\u0022 ~ k ~ \u0022\u003C/arg_key\u003E\u0022 -}}\n            {{- \u0022\u003Carg_value\u003E\u0022 -}}{{- v | tojson(ensure_ascii=False) if v is not string else v -}}{{- \u0022\u003C/arg_value\u003E\u0022 -}}\n          {%- endfor -%}\n          {{- \u0022\u003C/tool_call\u003E\u0022 -}}\n        {%- endfor -%}\n      {%- endif -%}\n      {{- \u0022\u003C/assistant\u003E\\n\u0022 -}}\n    {%- endgeneration -%}\n  {%- elif message.role == \u0022tool\u0022 -%}\n    {{- \u0022\u003Ctool_response\u003E\u0022 \u002B content \u002B \u0022\u003C/tool_response\u003E\\n\u0022 -}}\n  {%- elif message.role == \u0022system\u0022 -%}\n    {#- Render additional system messages (the first one, if any, is handled separately in the header and was sliced off above) -#}\n    {{- \u0022\u003Csystem\u003E\u0022 \u002B content \u002B \u0022\u003C/system\u003E\\n\u0022 -}}\n  {%- endif -%}\n{%- endfor -%}\n{#- \u2500\u2500\u2500\u2500\u2500 generation prompt \u2500\u2500\u2500\u2500\u2500 -#}\n{%- if add_generation_prompt -%}\n  {{- \u0022\u003Cassistant\u003E\u0022 -}}\n  {#- \u2500\u2500\u2500\u2500\u2500 Include reasoning mode directive \u2500\u2500\u2500\u2500\u2500 -#}\n  {%- if enable_thinking -%}\n    {{- \u0027\u003Cthink\u003E\u0027 -}}\n  {%- else -%}\n    {{- \u0027\u003C/think\u003E\u0027 -}}\n  {%- endif -%}\n{%- endif -%}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:poolside/Laguna-XS-2.1/model-shards.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

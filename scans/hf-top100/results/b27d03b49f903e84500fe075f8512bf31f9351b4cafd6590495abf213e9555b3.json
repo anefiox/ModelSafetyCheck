@@ -1,0 +1,128 @@
+{
+  "id": "hf:TinyLlama/TinyLlama-1.1B-Chat-v1.0/model.safetensors",
+  "revision": "fe8a4ea1ffedaf415f4da2f062534de366a451e6",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T12:48:53.4805661+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model.safetensors",
+      "source": "https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0/resolve/fe8a4ea1ffedaf415f4da2f062534de366a451e6/model.safetensors",
+      "size": 2200119864,
+      "sha256": "6e6001da2106d4757498752a021df6c2bdc332c650aae4bae6b0c004dcf14933"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0/resolve/fe8a4ea1ffedaf415f4da2f062534de366a451e6/config.json",
+      "size": 608,
+      "sha256": "486bedda3a6988332e60d9638a09ca4b260d34ebcf1b19e22cf3b140b63d8fe9"
+    },
+    {
+      "path": "eval_results.json",
+      "source": "https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0/resolve/fe8a4ea1ffedaf415f4da2f062534de366a451e6/eval_results.json",
+      "size": 566,
+      "sha256": "637daaebe7aa8af0e678f9e79ec33fa29f8635090d45ec813f0e7474320d7351"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0/resolve/fe8a4ea1ffedaf415f4da2f062534de366a451e6/generation_config.json",
+      "size": 124,
+      "sha256": "18046d04f5bd8b4998095ecabdd17a1bf0053d9acdccead4a05be4a3575f3c5c"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0/resolve/fe8a4ea1ffedaf415f4da2f062534de366a451e6/special_tokens_map.json",
+      "size": 551,
+      "sha256": "82d96d7a9e6ced037f12394b7ea6a5b02e6ca87e0d11edaa8d60d9be857ce7db"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0/resolve/fe8a4ea1ffedaf415f4da2f062534de366a451e6/tokenizer.json",
+      "size": 1842767,
+      "sha256": "bcd04f0eadf90287bd26e1a183ac487d8a141b09b06aecb7725bbdd343640f2e"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0/resolve/fe8a4ea1ffedaf415f4da2f062534de366a451e6/tokenizer_config.json",
+      "size": 1289,
+      "sha256": "7b41ba7d0eb91e77914ca3dafde559ea3e19878769b7e68409e89bed5222e77a"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:TinyLlama/TinyLlama-1.1B-Chat-v1.0/model.safetensors/model.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:2200119864;mtime:2026-11-05T12:48:49.1004039Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:TinyLlama/TinyLlama-1.1B-Chat-v1.0/model.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "tokenizer_config.json:chat_template": "66291cf0045c2425a3a667cf3cbb7af2b11f09e025c02f97245323ab79119362"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "410 characters, Jinja, sha256 66291cf0045c2425a3a667cf3cbb7af2b11f09e025c02f97245323ab79119362. Use --dump-template to read it.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Unrecognised chat template",
+          "detail": "This template does not match any official template in the database. That is normal for fine-tunes and new models; read it with --dump-template if the model will get tools.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "tokenizer_config.json:chat_template",
+          "dialect": "Jinja",
+          "sha256": "66291cf0045c2425a3a667cf3cbb7af2b11f09e025c02f97245323ab79119362",
+          "length": 410,
+          "text": "{% for message in messages %}\n{% if message[\u0027role\u0027] == \u0027user\u0027 %}\n{{ \u0027\u003C|user|\u003E\n\u0027 \u002B message[\u0027content\u0027] \u002B eos_token }}\n{% elif message[\u0027role\u0027] == \u0027system\u0027 %}\n{{ \u0027\u003C|system|\u003E\n\u0027 \u002B message[\u0027content\u0027] \u002B eos_token }}\n{% elif message[\u0027role\u0027] == \u0027assistant\u0027 %}\n{{ \u0027\u003C|assistant|\u003E\n\u0027  \u002B message[\u0027content\u0027] \u002B eos_token }}\n{% endif %}\n{% if loop.last and add_generation_prompt %}\n{{ \u0027\u003C|assistant|\u003E\u0027 }}\n{% endif %}\n{% endfor %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:TinyLlama/TinyLlama-1.1B-Chat-v1.0/model.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

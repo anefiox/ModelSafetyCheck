@@ -1,0 +1,22 @@
+{
+  "id": "hf:meta-llama/Llama-3.2-3B-Instruct/model-shards.safetensors",
+  "revision": "0cb88a4f764b7a12671c53f0838cd831a0843b95",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T12:27:13.2843783+00:00",
+  "completed": false,
+  "files": [],
+  "reports": [
+    {
+      "target": "hf:meta-llama/Llama-3.2-3B-Instruct/model-shards.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": "model-00001-of-00002.safetensors: HTTP 403 from https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct/resolve/0cb88a4f764b7a12671c53f0838cd831a0843b95/model-00001-of-00002.safetensors",
+      "maxSeverity": null
+    }
+  ]
+}

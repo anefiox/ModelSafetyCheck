@@ -1,0 +1,155 @@
+{
+  "id": "hf:hugging-quants/gemma-2-9b-it-AWQ-INT4/model-shards.safetensors",
+  "revision": "6e62725da8e92309167814dad7aacc0ed8cb2484",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T15:48:05.4563613+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model-00001-of-00002.safetensors",
+      "source": "https://huggingface.co/hugging-quants/gemma-2-9b-it-AWQ-INT4/resolve/6e62725da8e92309167814dad7aacc0ed8cb2484/model-00001-of-00002.safetensors",
+      "size": 5000054416,
+      "sha256": "ac1c13c9c4d84b052a0dd0ba7922ebfdd408a9b8d1f7bd4b1d594f1102f73d8d"
+    },
+    {
+      "path": "model-00002-of-00002.safetensors",
+      "source": "https://huggingface.co/hugging-quants/gemma-2-9b-it-AWQ-INT4/resolve/6e62725da8e92309167814dad7aacc0ed8cb2484/model-00002-of-00002.safetensors",
+      "size": 1160653576,
+      "sha256": "052625318509988353e325b19c7fb08e133637862d0c98336785e5d139d6f7f4"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/hugging-quants/gemma-2-9b-it-AWQ-INT4/resolve/6e62725da8e92309167814dad7aacc0ed8cb2484/config.json",
+      "size": 1228,
+      "sha256": "f469ba36ef2dbfeba0532dd902fde7590b6677282fc7ab84dabaed295a3f8113"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/hugging-quants/gemma-2-9b-it-AWQ-INT4/resolve/6e62725da8e92309167814dad7aacc0ed8cb2484/generation_config.json",
+      "size": 189,
+      "sha256": "18b55a06b8049b84d654c20732a3196d3684f551bc2dbe62e2f5985b90f54f1a"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "source": "https://huggingface.co/hugging-quants/gemma-2-9b-it-AWQ-INT4/resolve/6e62725da8e92309167814dad7aacc0ed8cb2484/model.safetensors.index.json",
+      "size": 87105,
+      "sha256": "a11275966b12f1a00e93eac2a5a4fa8869fb4a777bc65f515b3dc7919947ed87"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/hugging-quants/gemma-2-9b-it-AWQ-INT4/resolve/6e62725da8e92309167814dad7aacc0ed8cb2484/special_tokens_map.json",
+      "size": 636,
+      "sha256": "baec30ea10906f16adb8c18af7a34023002c1746542612b8b41c9f09e1351351"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/hugging-quants/gemma-2-9b-it-AWQ-INT4/resolve/6e62725da8e92309167814dad7aacc0ed8cb2484/tokenizer.json",
+      "size": 34362873,
+      "sha256": "5f7eee611703c5ce5d1eee32d9cdcfe465647b8aff0c1dfb3bed7ad7dbb05060"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/hugging-quants/gemma-2-9b-it-AWQ-INT4/resolve/6e62725da8e92309167814dad7aacc0ed8cb2484/tokenizer_config.json",
+      "size": 46996,
+      "sha256": "cb32b7929c62608d46572e813112b3ad8a841fb98fdd6a4da8559e368a951c89"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:hugging-quants/gemma-2-9b-it-AWQ-INT4/model-shards.safetensors/model-00001-of-00002.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5000054416;mtime:2026-11-05T15:47:35.8169734Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:hugging-quants/gemma-2-9b-it-AWQ-INT4/model-shards.safetensors/model-00002-of-00002.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:1160653576;mtime:2026-11-05T15:48:00.8708591Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:hugging-quants/gemma-2-9b-it-AWQ-INT4/model-shards.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "tokenizer_config.json:chat_template": "ecd6ae513fe103f0eb62e8ab5bfa8d0fe45c1074fa398b089c93a7e70c15cfd6"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "591 characters, Jinja, sha256 ecd6ae513fe103f0eb62e8ab5bfa8d0fe45c1074fa398b089c93a7e70c15cfd6. Use --dump-template to read it.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022Conversation roles must alternate user/assistant/user/assistant/...\u0022",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official Gemma 2 template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/bartowski/gemma-2-9b-it-GGUF (bartowski).",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "tokenizer_config.json:chat_template",
+          "dialect": "Jinja",
+          "sha256": "ecd6ae513fe103f0eb62e8ab5bfa8d0fe45c1074fa398b089c93a7e70c15cfd6",
+          "length": 591,
+          "text": "{{ bos_token }}{% if messages[0][\u0027role\u0027] == \u0027system\u0027 %}{{ raise_exception(\u0027System role not supported\u0027) }}{% endif %}{% for message in messages %}{% if (message[\u0027role\u0027] == \u0027user\u0027) != (loop.index0 % 2 == 0) %}{{ raise_exception(\u0027Conversation roles must alternate user/assistant/user/assistant/...\u0027) }}{% endif %}{% if (message[\u0027role\u0027] == \u0027assistant\u0027) %}{% set role = \u0027model\u0027 %}{% else %}{% set role = message[\u0027role\u0027] %}{% endif %}{{ \u0027\u003Cstart_of_turn\u003E\u0027 \u002B role \u002B \u0027\n\u0027 \u002B message[\u0027content\u0027] | trim \u002B \u0027\u003Cend_of_turn\u003E\n\u0027 }}{% endfor %}{% if add_generation_prompt %}{{\u0027\u003Cstart_of_turn\u003Emodel\n\u0027}}{% endif %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:hugging-quants/gemma-2-9b-it-AWQ-INT4/model-shards.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

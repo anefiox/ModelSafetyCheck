@@ -1,0 +1,171 @@
+{
+  "id": "hf:HuggingFaceTB/SmolLM2-135M-Instruct/onnx/model_q4f16.onnx",
+  "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T13:54:48.5415489+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "onnx/model_q4f16.onnx",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/12fd25f77366fa6b3b4b768ec3050bf629380bac/onnx/model_q4f16.onnx",
+      "size": 117691126,
+      "sha256": "9358cd4ce037c304621f8c194a525607ae7c5ea73239fcae4c21bd02f2e34ff7"
+    },
+    {
+      "path": "all_results.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/12fd25f77366fa6b3b4b768ec3050bf629380bac/all_results.json",
+      "size": 783,
+      "sha256": "1f68a2e167194d764c414643b54f0960945dc3f46bc47ec53b02475df527f376"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/12fd25f77366fa6b3b4b768ec3050bf629380bac/config.json",
+      "size": 861,
+      "sha256": "8eb740e8bbe4cff95ea7b4588d17a2432deb16e8075bc5828ff7ba9be94d982a"
+    },
+    {
+      "path": "eval_results.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/12fd25f77366fa6b3b4b768ec3050bf629380bac/eval_results.json",
+      "size": 586,
+      "sha256": "6c7ecd0c2c0e8f6af8cbb34065fb2d5eb4c504febf2e266a7c7f948f13c70b7c"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/12fd25f77366fa6b3b4b768ec3050bf629380bac/generation_config.json",
+      "size": 132,
+      "sha256": "87b916edaaab66b3899b9d0dd0752727dff6666686da0504d89ae0a6e055a013"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/12fd25f77366fa6b3b4b768ec3050bf629380bac/special_tokens_map.json",
+      "size": 655,
+      "sha256": "2b7379f3ae813529281a5c602bc5a11c1d4e0a99107aaa597fe936c1e813ca52"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/12fd25f77366fa6b3b4b768ec3050bf629380bac/tokenizer.json",
+      "size": 2104556,
+      "sha256": "9ca9acddb6525a194ec8ac7a87f24fbba7232a9a15ffa1af0c1224fcd888e47c"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/12fd25f77366fa6b3b4b768ec3050bf629380bac/tokenizer_config.json",
+      "size": 3764,
+      "sha256": "4ec77d44f62efeb38d7e044a1db318f6a939438425312dfa333b8382dbad98df"
+    },
+    {
+      "path": "train_results.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/12fd25f77366fa6b3b4b768ec3050bf629380bac/train_results.json",
+      "size": 232,
+      "sha256": "713996ce10b9d99a440fec73c0f3bdb2f3c4db6adba3d027bdaa40796f059b2d"
+    },
+    {
+      "path": "trainer_state.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/12fd25f77366fa6b3b4b768ec3050bf629380bac/trainer_state.json",
+      "size": 57225,
+      "sha256": "9664b2f12a8a29cad27a12da7b0d3a1081c8ba1392bcec71fa3bfd4fafc11284"
+    },
+    {
+      "path": "vocab.json",
+      "source": "https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct/resolve/12fd25f77366fa6b3b4b768ec3050bf629380bac/vocab.json",
+      "size": 800662,
+      "sha256": "82b84012e3add4d01d12ba14442026e49b8cbbaead1f79ecf3d919784f82dc79"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:HuggingFaceTB/SmolLM2-135M-Instruct/onnx/model_q4f16.onnx/onnx/model_q4f16.onnx",
+      "kind": "onnx",
+      "path": null,
+      "fingerprint": "size:117691126;mtime:2026-11-05T13:54:43.1024504Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "OX004",
+          "severity": "Info",
+          "title": "ONNX model",
+          "detail": "486 tensor(s), 0 stored in external files, operator domains: com.microsoft, ai.onnx.",
+          "location": null,
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:HuggingFaceTB/SmolLM2-135M-Instruct/onnx/model_q4f16.onnx/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "tokenizer_config.json:chat_template": "872be49dbb638044ad01b60388f48d469ff2980e5f0dccdc22ec907db54d0788"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "368 characters, Jinja, sha256 872be49dbb638044ad01b60388f48d469ff2980e5f0dccdc22ec907db54d0788. Use --dump-template to read it.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022\u003C|im_start|\u003Esystem\\nYou are a helpful AI assistant named SmolLM, trained by Hugging Face\u003C|im_end|\u003E\u0022",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official SmolLM2 template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "tokenizer_config.json:chat_template",
+          "dialect": "Jinja",
+          "sha256": "872be49dbb638044ad01b60388f48d469ff2980e5f0dccdc22ec907db54d0788",
+          "length": 368,
+          "text": "{% for message in messages %}{% if loop.first and messages[0][\u0027role\u0027] != \u0027system\u0027 %}{{ \u0027\u003C|im_start|\u003Esystem\nYou are a helpful AI assistant named SmolLM, trained by Hugging Face\u003C|im_end|\u003E\n\u0027 }}{% endif %}{{\u0027\u003C|im_start|\u003E\u0027 \u002B message[\u0027role\u0027] \u002B \u0027\n\u0027 \u002B message[\u0027content\u0027] \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\n\u0027}}{% endfor %}{% if add_generation_prompt %}{{ \u0027\u003C|im_start|\u003Eassistant\n\u0027 }}{% endif %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:HuggingFaceTB/SmolLM2-135M-Instruct/onnx/model_q4f16.onnx",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "9 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

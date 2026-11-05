@@ -1,0 +1,87 @@
+{
+  "id": "hf:bigscience/bloomz-560m/model.safetensors",
+  "revision": "a2845d7e13dd12efae154a9f1c63fcc2e0cc4b05",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T13:30:16.1785835+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model.safetensors",
+      "source": "https://huggingface.co/bigscience/bloomz-560m/resolve/a2845d7e13dd12efae154a9f1c63fcc2e0cc4b05/model.safetensors",
+      "size": 1118459450,
+      "sha256": "365b2c5e9bd1057eb1e3f1a4fc3f89ae6584d20f24b682d2406bc7e90178ec13"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/bigscience/bloomz-560m/resolve/a2845d7e13dd12efae154a9f1c63fcc2e0cc4b05/config.json",
+      "size": 715,
+      "sha256": "ee4ce2e30325d9b0e2969748bc9945081be52e68a10f2aa66ce9bb33759c70bb"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/bigscience/bloomz-560m/resolve/a2845d7e13dd12efae154a9f1c63fcc2e0cc4b05/special_tokens_map.json",
+      "size": 85,
+      "sha256": "bb7068de1150661a10b55f9e4b12a0e77af8bf91f5e45e1b58afaf1d0e17f675"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/bigscience/bloomz-560m/resolve/a2845d7e13dd12efae154a9f1c63fcc2e0cc4b05/tokenizer.json",
+      "size": 14500438,
+      "sha256": "3fa39cd4b1500feb205bcce3b9703a4373414cafe4970e0657b413f7ddd2a9d3"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/bigscience/bloomz-560m/resolve/a2845d7e13dd12efae154a9f1c63fcc2e0cc4b05/tokenizer_config.json",
+      "size": 222,
+      "sha256": "ae85f7ec32efe4ba09f3914743b0187528eab0322fe90c4e077a9229d1de64a9"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:bigscience/bloomz-560m/model.safetensors/model.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:1118459450;mtime:2026-11-05T13:30:11.5751677Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:bigscience/bloomz-560m/model.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:bigscience/bloomz-560m/model.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "3 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

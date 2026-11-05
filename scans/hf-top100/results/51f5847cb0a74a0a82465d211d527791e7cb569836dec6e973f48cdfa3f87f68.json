@@ -1,0 +1,75 @@
+{
+  "id": "hf:Qwen/Qwen2.5-7B-Instruct-GGUF/qwen2.5-7b-instruct-q2_k.gguf",
+  "revision": "bb5d59e06d9551d752d08b292a50eb208b07ab1f",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T15:17:20.0058196+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "qwen2.5-7b-instruct-q2_k.gguf",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct-GGUF/resolve/bb5d59e06d9551d752d08b292a50eb208b07ab1f/qwen2.5-7b-instruct-q2_k.gguf",
+      "size": 3015940000,
+      "sha256": "a0fc885ff014d73c02dcc4ad093f110c6dd4e0e308f84efe1accf078d364a87a"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:Qwen/Qwen2.5-7B-Instruct-GGUF/qwen2.5-7b-instruct-q2_k.gguf/qwen2.5-7b-instruct-q2_k.gguf",
+      "kind": "gguf",
+      "path": null,
+      "fingerprint": "size:3015940000;mtime:2026-11-05T15:17:16.0121853Z",
+      "contentHashes": {
+        "kv:tokenizer.chat_template": "d5495a1e5db0611132a97e46a65dbb64a642a499421228b9c8b93229097fa9a4"
+      },
+      "summary": {
+        "version": 3,
+        "architecture": "qwen2",
+        "name": "qwen2.5-7b-instruct",
+        "tensorCount": 339,
+        "metadataCount": 26,
+        "fileSize": 3015940000,
+        "baseModels": []
+      },
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "2,509 characters, Jinja, sha256 d5495a1e5db0611132a97e46a65dbb64a642a499421228b9c8b93229097fa9a4. Use --dump-template to read it.",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022You are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u0022\n  - \u0022# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctoo\u2026\u0022\n  - \u0022\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{{\u0022name\u0022: \u003Cfunc\u2026\u0022\n  - \u0022\u003C|im_start|\u003Esystem\\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u003C|im_end|\u003E\u0022",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official Qwen2.5 template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/Qwen/Qwen2.5-7B-Instruct-GGUF.",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "kv:tokenizer.chat_template",
+          "dialect": "Jinja",
+          "sha256": "d5495a1e5db0611132a97e46a65dbb64a642a499421228b9c8b93229097fa9a4",
+          "length": 2509,
+          "text": "{%- if tools %}\n    {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 }}\n    {%- if messages[0][\u0027role\u0027] == \u0027system\u0027 %}\n        {{- messages[0][\u0027content\u0027] }}\n    {%- else %}\n        {{- \u0027You are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u0027 }}\n    {%- endif %}\n    {{- \u0022\\n\\n# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {{- \u0022\\n\u0022 }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{{\\\u0022name\\\u0022: \u003Cfunction-name\u003E, \\\u0022arguments\\\u0022: \u003Cargs-json-object\u003E}}\\n\u003C/tool_call\u003E\u003C|im_end|\u003E\\n\u0022 }}\n{%- else %}\n    {%- if messages[0][\u0027role\u0027] == \u0027system\u0027 %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B messages[0][\u0027content\u0027] \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- else %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- for message in messages %}\n    {%- if (message.role == \u0022user\u0022) or (message.role == \u0022system\u0022 and not loop.first) or (message.role == \u0022assistant\u0022 and not message.tool_calls) %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B message.content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022assistant\u0022 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role }}\n        {%- if message.content %}\n            {{- \u0027\\n\u0027 \u002B message.content }}\n        {%- endif %}\n        {%- for tool_call in message.tool_calls %}\n            {%- if tool_call.function is defined %}\n                {%- set tool_call = tool_call.function %}\n            {%- endif %}\n            {{- \u0027\\n\u003Ctool_call\u003E\\n{\u0022name\u0022: \u0022\u0027 }}\n            {{- tool_call.name }}\n            {{- \u0027\u0022, \u0022arguments\u0022: \u0027 }}\n            {{- tool_call.arguments | tojson }}\n            {{- \u0027}\\n\u003C/tool_call\u003E\u0027 }}\n        {%- endfor %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if (loop.index0 == 0) or (messages[loop.index0 - 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_start|\u003Euser\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Ctool_response\u003E\\n\u0027 }}\n        {{- message.content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\u0027 }}\n        {%- if loop.last or (messages[loop.index0 \u002B 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n{%- endif %}\n"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

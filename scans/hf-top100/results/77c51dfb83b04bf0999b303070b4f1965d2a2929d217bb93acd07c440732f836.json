@@ -1,0 +1,75 @@
+{
+  "id": "hf:Qwen/Qwen3-4B-GGUF/Qwen3-4B-Q4_K_M.gguf",
+  "revision": "bc640142c66e1fdd12af0bd68f40445458f3869b",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T15:48:50.752244+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "Qwen3-4B-Q4_K_M.gguf",
+      "source": "https://huggingface.co/Qwen/Qwen3-4B-GGUF/resolve/bc640142c66e1fdd12af0bd68f40445458f3869b/Qwen3-4B-Q4_K_M.gguf",
+      "size": 2497280256,
+      "sha256": "7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:Qwen/Qwen3-4B-GGUF/Qwen3-4B-Q4_K_M.gguf/Qwen3-4B-Q4_K_M.gguf",
+      "kind": "gguf",
+      "path": null,
+      "fingerprint": "size:2497280256;mtime:2026-11-05T15:48:48.1887866Z",
+      "contentHashes": {
+        "kv:tokenizer.chat_template": "57f1fd00f0013a2be96aa79b857391f27e23df5b5f847072b524c897e24d0361"
+      },
+      "summary": {
+        "version": 3,
+        "architecture": "qwen3",
+        "name": "Qwen3 4B Instruct Awq",
+        "tensorCount": 398,
+        "metadataCount": 28,
+        "fileSize": 2497280256,
+        "baseModels": []
+      },
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "4,100 characters, Jinja, sha256 57f1fd00f0013a2be96aa79b857391f27e23df5b5f847072b524c897e24d0361. Use --dump-template to read it.",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctoo\u2026\u0022\n  - \u0022\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\u0022name\u0022: \u003Cfunct\u2026\u0022",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official Qwen3 template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/Qwen/Qwen3-8B-GGUF.",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "kv:tokenizer.chat_template",
+          "dialect": "Jinja",
+          "sha256": "57f1fd00f0013a2be96aa79b857391f27e23df5b5f847072b524c897e24d0361",
+          "length": 4100,
+          "text": "{%- if tools %}\n    {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 }}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {{- messages[0].content \u002B \u0027\\n\\n\u0027 }}\n    {%- endif %}\n    {{- \u0022# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {{- \u0022\\n\u0022 }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\\\u0022name\\\u0022: \u003Cfunction-name\u003E, \\\u0022arguments\\\u0022: \u003Cargs-json-object\u003E}\\n\u003C/tool_call\u003E\u003C|im_end|\u003E\\n\u0022 }}\n{%- else %}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B messages[0].content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for index in range(ns.last_query_index, -1, -1) %}\n    {%- set message = messages[index] %}\n    {%- if ns.multi_step_tool and message.role == \u0022user\u0022 and not(\u0027\u003Ctool_response\u003E\u0027 in message.content and \u0027\u003C/tool_response\u003E\u0027 in message.content) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n{%- for message in messages %}\n    {%- if (message.role == \u0022user\u0022) or (message.role == \u0022system\u0022 and not loop.first) %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B message.content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022assistant\u0022 %}\n        {%- set content = message.content %}\n        {%- set reasoning_content = \u0027\u0027 %}\n        {%- if message.reasoning_content is defined and message.reasoning_content is not none %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if \u0027\u003C/think\u003E\u0027 in message.content %}\n                {%- set content = message.content.split(\u0027\u003C/think\u003E\u0027)[-1].lstrip(\u0027\\n\u0027) %}\n                {%- set reasoning_content = message.content.split(\u0027\u003C/think\u003E\u0027)[0].rstrip(\u0027\\n\u0027).split(\u0027\u003Cthink\u003E\u0027)[-1].lstrip(\u0027\\n\u0027) %}\n            {%- endif %}\n        {%- endif %}\n        {%- if loop.index0 \u003E ns.last_query_index %}\n            {%- if loop.last or (not loop.last and reasoning_content) %}\n                {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u003Cthink\u003E\\n\u0027 \u002B reasoning_content.strip(\u0027\\n\u0027) \u002B \u0027\\n\u003C/think\u003E\\n\\n\u0027 \u002B content.lstrip(\u0027\\n\u0027) }}\n            {%- else %}\n                {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content }}\n            {%- endif %}\n        {%- else %}\n            {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content }}\n        {%- endif %}\n        {%- if message.tool_calls %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- \u0027\\n\u0027 }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- \u0027\u003Ctool_call\u003E\\n{\u0022name\u0022: \u0022\u0027 }}\n                {{- tool_call.name }}\n                {{- \u0027\u0022, \u0022arguments\u0022: \u0027 }}\n                {%- if tool_call.arguments is string %}\n                    {{- tool_call.arguments }}\n                {%- else %}\n                    {{- tool_call.arguments | tojson }}\n                {%- endif %}\n                {{- \u0027}\\n\u003C/tool_call\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_start|\u003Euser\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Ctool_response\u003E\\n\u0027 }}\n        {{- message.content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\u0027 }}\n        {%- if loop.last or (messages[loop.index0 \u002B 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- \u0027\u003Cthink\u003E\\n\\n\u003C/think\u003E\\n\\n\u0027 }}\n    {%- endif %}\n{%- endif %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

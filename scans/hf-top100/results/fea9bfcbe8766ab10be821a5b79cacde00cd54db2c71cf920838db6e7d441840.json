@@ -1,0 +1,95 @@
+{
+  "id": "hf:ConwayResearch/Underdog-Saluki-27B-1.0/Underdog-Saluki-27B-1.0-IQ2-mix.gguf",
+  "revision": "5acfd9218fa54731f237eea8b3243d430dd85a69",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T15:16:20.2532826+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "Underdog-Saluki-27B-1.0-IQ2-mix.gguf",
+      "source": "https://huggingface.co/ConwayResearch/Underdog-Saluki-27B-1.0/resolve/5acfd9218fa54731f237eea8b3243d430dd85a69/Underdog-Saluki-27B-1.0-IQ2-mix.gguf",
+      "size": 7898369152,
+      "sha256": "4a673518b11b1c4445f9b9a9d3c40356f5ba39f6a6260dcb25f3fbfd475d9efb"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:ConwayResearch/Underdog-Saluki-27B-1.0/Underdog-Saluki-27B-1.0-IQ2-mix.gguf/Underdog-Saluki-27B-1.0-IQ2-mix.gguf",
+      "kind": "gguf",
+      "path": null,
+      "fingerprint": "size:7898369152;mtime:2026-11-05T15:16:09.8829304Z",
+      "contentHashes": {
+        "kv:tokenizer.chat_template": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041"
+      },
+      "summary": {
+        "version": 3,
+        "architecture": "qwen35",
+        "name": "Qwen3.8-27B GSQ-RCO",
+        "tensorCount": 851,
+        "metadataCount": 52,
+        "fileSize": 7898369152,
+        "baseModels": [
+          "Qwen Qwen3.8 27B (https://huggingface.co/Qwen/Qwen3.8-27B)"
+        ]
+      },
+      "findings": [
+        {
+          "ruleId": "M004",
+          "severity": "Info",
+          "title": "URL in metadata",
+          "detail": "https://huggingface.co/ISTA-DASLab",
+          "location": "kv:general.repo_url",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "M004",
+          "severity": "Info",
+          "title": "URL in metadata",
+          "detail": "https://huggingface.co/Qwen/Qwen3.8-27B",
+          "location": "kv:general.base_model.0.repo_url",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "8,952 characters, Jinja, sha256 c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041. Use --dump-template to read it.",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022. Supported types are xhigh (default), medium, and low.\u0022\n  - \u0022Reasoning effort is set to xhigh. Please think carefully through the task, validate key assumptions, consider plausible alternatives, and prioritize correctness\u2026\u0022\n  - \u0022Reasoning effort is set to low. Keep your thinking brief and focused, moving directly to the conclusion without unnecessary elaboration.\u0022\n  - \u0022# Tools\\n\\nYou have access to the following functions:\\n\\n\u003Ctools\u003E\u0022\n  - \u0022If you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_paramet\u2026\u0022",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Unrecognised chat template",
+          "detail": "This template does not match any official template in the database. That is normal for fine-tunes and new models; read it with --dump-template if the model will get tools.",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "kv:tokenizer.chat_template",
+          "dialect": "Jinja",
+          "sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+          "length": 8952,
+          "text": "{%- set image_count = namespace(value=0) %}\n{%- set video_count = namespace(value=0) %}\n{%- macro render_content(content, do_vision_count, is_system_content=false) %}\n    {%- if content is string %}\n        {{- content }}\n    {%- elif content is iterable and content is not mapping %}\n        {%- for item in content %}\n            {%- if \u0027image\u0027 in item or \u0027image_url\u0027 in item or item.type == \u0027image\u0027 %}\n                {%- if is_system_content %}\n                    {{- raise_exception(\u0027System message cannot contain images.\u0027) }}\n                {%- endif %}\n                {%- if do_vision_count %}\n                    {%- set image_count.value = image_count.value \u002B 1 %}\n                {%- endif %}\n                {%- if add_vision_id %}\n                    {{- \u0027Picture \u0027 ~ image_count.value ~ \u0027: \u0027 }}\n                {%- endif %}\n                {{- \u0027\u003C|vision_start|\u003E\u003C|image_pad|\u003E\u003C|vision_end|\u003E\u0027 }}\n            {%- elif \u0027video\u0027 in item or item.type == \u0027video\u0027 %}\n                {%- if is_system_content %}\n                    {{- raise_exception(\u0027System message cannot contain videos.\u0027) }}\n                {%- endif %}\n                {%- if do_vision_count %}\n                    {%- set video_count.value = video_count.value \u002B 1 %}\n                {%- endif %}\n                {%- if add_vision_id %}\n                    {{- \u0027Video \u0027 ~ video_count.value ~ \u0027: \u0027 }}\n                {%- endif %}\n                {{- \u0027\u003C|vision_start|\u003E\u003C|video_pad|\u003E\u003C|vision_end|\u003E\u0027 }}\n            {%- elif \u0027text\u0027 in item %}\n                {{- item.text }}\n            {%- else %}\n                {{- raise_exception(\u0027Unexpected item type in content.\u0027) }}\n            {%- endif %}\n        {%- endfor %}\n    {%- elif content is none or content is undefined %}\n        {{- \u0027\u0027 }}\n    {%- else %}\n        {{- raise_exception(\u0027Unexpected content type.\u0027) }}\n    {%- endif %}\n{%- endmacro %}\n{%- if not messages %}\n    {{- raise_exception(\u0027No messages provided.\u0027) }}\n{%- endif %}\n{%- set reasoning_instructions = \u0027\u0027 %}\n{%- if enable_thinking is undefined or enable_thinking is true %}\n    {%- set resolved_reasoning_effort = reasoning_effort|default(\u0027xhigh\u0027) %}\n    {%- if resolved_reasoning_effort not in (\u0027xhigh\u0027, \u0027medium\u0027, \u0027low\u0027) %}\n        {{- raise_exception(\u0027Unexpected reasoning effort \u0027 ~ reasoning_effort ~ \u0027. Supported types are xhigh (default), medium, and low.\u0027) }}\n    {%- endif %}\n    {%- if resolved_reasoning_effort == \u0027xhigh\u0027 %}\n        {%- set reasoning_instructions = \u0027Reasoning effort is set to xhigh. Please think carefully through the task, validate key assumptions, consider plausible alternatives, and prioritize correctness, consistency, and clarity in the final answer.\u0027 %}\n    {%- elif resolved_reasoning_effort == \u0027low\u0027 %}\n        {%- set reasoning_instructions = \u0027Reasoning effort is set to low. Keep your thinking brief and focused, moving directly to the conclusion without unnecessary elaboration.\u0027 %}\n    {%- endif %}\n{%- endif %}\n{%- if tools and tools is iterable and tools is not mapping %}\n    {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 }}\n    {%- if reasoning_instructions %}\n        {{- reasoning_instructions \u002B \u0027\\n\\n\u0027 }}\n    {%- endif %}\n    {{- \u0022# Tools\\n\\nYou have access to the following functions:\\n\\n\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {{- \u0022\\n\u0022 }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\u0022 }}\n    {{- \u0027\\n\\nIf you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=example_function_name\u003E\\n\u003Cparameter=example_parameter_1\u003E\\nvalue_1\\n\u003C/parameter\u003E\\n\u003Cparameter=example_parameter_2\u003E\\nThis is the value for the second parameter\\nthat can span\\nmultiple lines\\n\u003C/parameter\u003E\\n\u003C/function\u003E\\n\u003C/tool_call\u003E\\n\\n\u003CIMPORTANT\u003E\\nReminder:\\n- Function calls MUST follow the specified format: an inner \u003Cfunction=...\u003E\u003C/function\u003E block must be nested within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags\\n- Required parameters MUST be specified\\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\\n\u003C/IMPORTANT\u003E\u0027 }}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {%- set content = render_content(messages[0].content, false, true)|trim %}\n        {%- if content %}\n            {{- \u0027\\n\\n\u0027 \u002B content }}\n        {%- endif %}\n    {%- endif %}\n    {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n{%- else %}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {%- set content = render_content(messages[0].content, false, true)|trim %}\n        {%- if content %}\n            {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B (reasoning_instructions \u002B \u0027\\n\\n\u0027 if reasoning_instructions else \u0027\u0027)  \u002B content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- elif reasoning_instructions %}\n            {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B reasoning_instructions \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- elif reasoning_instructions %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B reasoning_instructions \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \u0022user\u0022 %}\n        {%- set content = render_content(message.content, false)|trim %}\n        {%- if not(content.startswith(\u0027\u003Ctool_response\u003E\u0027) and content.endswith(\u0027\u003C/tool_response\u003E\u0027)) %}\n            {%- set ns.multi_step_tool = false %}\n            {%- set ns.last_query_index = index %}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if ns.multi_step_tool %}\n    {{- raise_exception(\u0027No user query found in messages.\u0027) }}\n{%- endif %}\n{%- for message in messages %}\n    {%- set content = render_content(message.content, true)|trim %}\n    {%- if message.role == \u0022system\u0022 %}\n        {%- if not loop.first %}\n            {{- raise_exception(\u0027System message must be at the beginning.\u0027) }}\n        {%- endif %}\n    {%- elif message.role == \u0022user\u0022 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022assistant\u0022 %}\n        {%- set reasoning_content = \u0027\u0027 %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- endif %}\n        {%- set reasoning_content = reasoning_content|trim %}\n        {%- if preserve_thinking is undefined or preserve_thinking is true or loop.index0 \u003E ns.last_query_index %}\n            {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u003Cthink\u003E\\n\u0027 \u002B reasoning_content \u002B \u0027\\n\u003C/think\u003E\\n\\n\u0027 \u002B content }}\n        {%- else %}\n            {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content }}\n        {%- endif %}\n        {%- if message.tool_calls and message.tool_calls is iterable and message.tool_calls is not mapping %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if tool_call.function is defined %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {%- if loop.first %}\n                    {%- if content|trim %}\n                        {{- \u0027\\n\\n\u003Ctool_call\u003E\\n\u003Cfunction=\u0027 \u002B tool_call.name \u002B \u0027\u003E\\n\u0027 }}\n                    {%- else %}\n                        {{- \u0027\u003Ctool_call\u003E\\n\u003Cfunction=\u0027 \u002B tool_call.name \u002B \u0027\u003E\\n\u0027 }}\n                    {%- endif %}\n                {%- else %}\n                    {{- \u0027\\n\u003Ctool_call\u003E\\n\u003Cfunction=\u0027 \u002B tool_call.name \u002B \u0027\u003E\\n\u0027 }}\n                {%- endif %}\n                {%- if tool_call.arguments is defined and tool_call.arguments != \u0027\u0027 %}\n                    {%- for args_name, args_value in tool_call.arguments|items %}\n                        {{- \u0027\u003Cparameter=\u0027 \u002B args_name \u002B \u0027\u003E\\n\u0027 }}\n                        {%- set args_value = args_value | string if args_value is string else args_value | tojson | safe %}\n                        {{- args_value }}\n                        {{- \u0027\\n\u003C/parameter\u003E\\n\u0027 }}\n                    {%- endfor %}\n                {%- endif %}\n                {{- \u0027\u003C/function\u003E\\n\u003C/tool_call\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.previtem and loop.previtem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_start|\u003Euser\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Ctool_response\u003E\\n\u0027 }}\n        {{- content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\u0027 }}\n        {%- if not loop.last and loop.nextitem.role != \u0022tool\u0022 %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- elif loop.last %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- else %}\n        {{- raise_exception(\u0027Unexpected message role.\u0027) }}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- \u0027\u003Cthink\u003E\\n\\n\u003C/think\u003E\\n\\n\u0027 }}\n    {%- else %}\n        {{- \u0027\u003Cthink\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

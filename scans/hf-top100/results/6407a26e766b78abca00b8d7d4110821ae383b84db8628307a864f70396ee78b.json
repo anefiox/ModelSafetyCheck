@@ -1,0 +1,99 @@
+{
+  "id": "hf:openai-community/gpt2-large/model.safetensors",
+  "revision": "32b71b12589c2f8d625668d2335a01cac3249519",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T13:53:50.3102823+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model.safetensors",
+      "source": "https://huggingface.co/openai-community/gpt2-large/resolve/32b71b12589c2f8d625668d2335a01cac3249519/model.safetensors",
+      "size": 3247159078,
+      "sha256": "5f47f3e12f91cd33b662ce7e433b6150ad5512b5884a2cee961b50e9c3bbebce"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/openai-community/gpt2-large/resolve/32b71b12589c2f8d625668d2335a01cac3249519/config.json",
+      "size": 666,
+      "sha256": "7fccdcfd6622055342a734c663ee0b61ff4fd697f42467595df0bf4448c8c170"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/openai-community/gpt2-large/resolve/32b71b12589c2f8d625668d2335a01cac3249519/generation_config.json",
+      "size": 124,
+      "sha256": "b90eadacf585a743a30ea51e8b5c88b8d282a2a34dc0c7e556d0987cdbd68805"
+    },
+    {
+      "path": "generation_config_for_text_generation.json",
+      "source": "https://huggingface.co/openai-community/gpt2-large/resolve/32b71b12589c2f8d625668d2335a01cac3249519/generation_config_for_text_generation.json",
+      "size": 165,
+      "sha256": "a69e99c4a690c2015aaaeaef066516f1df9316317b3605869039fa896108efce"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/openai-community/gpt2-large/resolve/32b71b12589c2f8d625668d2335a01cac3249519/tokenizer.json",
+      "size": 1355256,
+      "sha256": "8414cab924d8b9b33013f0d221c5862f365ee9be39c5c2bfae8a5a9e970478a6"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/openai-community/gpt2-large/resolve/32b71b12589c2f8d625668d2335a01cac3249519/tokenizer_config.json",
+      "size": 26,
+      "sha256": "5e04eb606e3a1583530a42e36c2a6b6615c86f34fe77e44d9ddeb43ff940931f"
+    },
+    {
+      "path": "vocab.json",
+      "source": "https://huggingface.co/openai-community/gpt2-large/resolve/32b71b12589c2f8d625668d2335a01cac3249519/vocab.json",
+      "size": 1042301,
+      "sha256": "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:openai-community/gpt2-large/model.safetensors/model.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3247159078;mtime:2026-11-05T13:53:45.4471884Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:openai-community/gpt2-large/model.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:openai-community/gpt2-large/model.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

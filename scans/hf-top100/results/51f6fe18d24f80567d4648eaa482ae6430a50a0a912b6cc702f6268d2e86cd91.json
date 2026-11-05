@@ -1,0 +1,116 @@
+{
+  "id": "hf:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B/model.safetensors",
+  "revision": "ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T15:13:46.2278665+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model.safetensors",
+      "source": "https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B/resolve/ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562/model.safetensors",
+      "size": 3554214621,
+      "sha256": "58858233513d76b8703e72eed6ce16807b523328188e13329257fb9594462945"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B/resolve/ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562/config.json",
+      "size": 679,
+      "sha256": "37bd455e9679d2959536270fed49d25cc7c290a64f6e52abb97c71345a9cee41"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B/resolve/ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562/generation_config.json",
+      "size": 181,
+      "sha256": "72cbec1015da9ed03ad025483005cbf6481403abf947adfd54e504d1a66a2126"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B/resolve/ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562/tokenizer.json",
+      "size": 7031660,
+      "sha256": "88145e3c3249adc2546ede277e9819d6e405e19072456e4b521cbc724bd60773"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B/resolve/ad9f0ae0864d7fbcd1cd905e3c6c5b069cc8b562/tokenizer_config.json",
+      "size": 3071,
+      "sha256": "8ac8c85fb242563c2260baec0909debd69d718af6a0b3d90e6cab62b4d341cd5"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B/model.safetensors/model.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:3554214621;mtime:2026-11-05T15:13:40.1604675Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B/model.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "tokenizer_config.json:chat_template": "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "2,090 characters, Jinja, sha256 56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f. Use --dump-template to read it.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official DeepSeek-R1-Distill template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "tokenizer_config.json:chat_template",
+          "dialect": "Jinja",
+          "sha256": "56a1447ad31926fdc21fb07e56e5642bd9c850c4f52d8c8af7bbe5f079a84f5f",
+          "length": 2090,
+          "text": "{% if not add_generation_prompt is defined %}{% set add_generation_prompt = false %}{% endif %}{% set ns = namespace(is_first=false, is_tool=false, is_output_first=true, system_prompt=\u0027\u0027) %}{%- for message in messages %}{%- if message[\u0027role\u0027] == \u0027system\u0027 %}{% set ns.system_prompt = message[\u0027content\u0027] %}{%- endif %}{%- endfor %}{{bos_token}}{{ns.system_prompt}}{%- for message in messages %}{%- if message[\u0027role\u0027] == \u0027user\u0027 %}{%- set ns.is_tool = false -%}{{\u0027\u003C\uFF5CUser\uFF5C\u003E\u0027 \u002B message[\u0027content\u0027]}}{%- endif %}{%- if message[\u0027role\u0027] == \u0027assistant\u0027 and message[\u0027content\u0027] is none %}{%- set ns.is_tool = false -%}{%- for tool in message[\u0027tool_calls\u0027]%}{%- if not ns.is_first %}{{\u0027\u003C\uFF5CAssistant\uFF5C\u003E\u003C\uFF5Ctool\u2581calls\u2581begin\uFF5C\u003E\u003C\uFF5Ctool\u2581call\u2581begin\uFF5C\u003E\u0027 \u002B tool[\u0027type\u0027] \u002B \u0027\u003C\uFF5Ctool\u2581sep\uFF5C\u003E\u0027 \u002B tool[\u0027function\u0027][\u0027name\u0027] \u002B \u0027\\n\u0027 \u002B \u0027\u0060\u0060\u0060json\u0027 \u002B \u0027\\n\u0027 \u002B tool[\u0027function\u0027][\u0027arguments\u0027] \u002B \u0027\\n\u0027 \u002B \u0027\u0060\u0060\u0060\u0027 \u002B \u0027\u003C\uFF5Ctool\u2581call\u2581end\uFF5C\u003E\u0027}}{%- set ns.is_first = true -%}{%- else %}{{\u0027\\n\u0027 \u002B \u0027\u003C\uFF5Ctool\u2581call\u2581begin\uFF5C\u003E\u0027 \u002B tool[\u0027type\u0027] \u002B \u0027\u003C\uFF5Ctool\u2581sep\uFF5C\u003E\u0027 \u002B tool[\u0027function\u0027][\u0027name\u0027] \u002B \u0027\\n\u0027 \u002B \u0027\u0060\u0060\u0060json\u0027 \u002B \u0027\\n\u0027 \u002B tool[\u0027function\u0027][\u0027arguments\u0027] \u002B \u0027\\n\u0027 \u002B \u0027\u0060\u0060\u0060\u0027 \u002B \u0027\u003C\uFF5Ctool\u2581call\u2581end\uFF5C\u003E\u0027}}{{\u0027\u003C\uFF5Ctool\u2581calls\u2581end\uFF5C\u003E\u003C\uFF5Cend\u2581of\u2581sentence\uFF5C\u003E\u0027}}{%- endif %}{%- endfor %}{%- endif %}{%- if message[\u0027role\u0027] == \u0027assistant\u0027 and message[\u0027content\u0027] is not none %}{%- if ns.is_tool %}{{\u0027\u003C\uFF5Ctool\u2581outputs\u2581end\uFF5C\u003E\u0027 \u002B message[\u0027content\u0027] \u002B \u0027\u003C\uFF5Cend\u2581of\u2581sentence\uFF5C\u003E\u0027}}{%- set ns.is_tool = false -%}{%- else %}{% set content = message[\u0027content\u0027] %}{% if \u0027\u003C/think\u003E\u0027 in content %}{% set content = content.split(\u0027\u003C/think\u003E\u0027)[-1] %}{% endif %}{{\u0027\u003C\uFF5CAssistant\uFF5C\u003E\u0027 \u002B content \u002B \u0027\u003C\uFF5Cend\u2581of\u2581sentence\uFF5C\u003E\u0027}}{%- endif %}{%- endif %}{%- if message[\u0027role\u0027] == \u0027tool\u0027 %}{%- set ns.is_tool = true -%}{%- if ns.is_output_first %}{{\u0027\u003C\uFF5Ctool\u2581outputs\u2581begin\uFF5C\u003E\u003C\uFF5Ctool\u2581output\u2581begin\uFF5C\u003E\u0027 \u002B message[\u0027content\u0027] \u002B \u0027\u003C\uFF5Ctool\u2581output\u2581end\uFF5C\u003E\u0027}}{%- set ns.is_output_first = false %}{%- else %}{{\u0027\\n\u003C\uFF5Ctool\u2581output\u2581begin\uFF5C\u003E\u0027 \u002B message[\u0027content\u0027] \u002B \u0027\u003C\uFF5Ctool\u2581output\u2581end\uFF5C\u003E\u0027}}{%- endif %}{%- endif %}{%- endfor -%}{% if ns.is_tool %}{{\u0027\u003C\uFF5Ctool\u2581outputs\u2581end\uFF5C\u003E\u0027}}{% endif %}{% if add_generation_prompt and not ns.is_tool %}{{\u0027\u003C\uFF5CAssistant\uFF5C\u003E\u003Cthink\u003E\\n\u0027}}{% endif %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B/model.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "3 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

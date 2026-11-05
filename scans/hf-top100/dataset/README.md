@@ -1,6 +1,6 @@
 # modelcheck scan results
 
-Scanned 62 Hugging Face repo(s) and 347 model file(s) between 2026-11-03 and 2026-11-05 with modelcheck build 8de0aa2db355.
+Scanned 100 Hugging Face repo(s) and 637 model file(s) between 2026-11-03 and 2026-11-05 with modelcheck build 8de0aa2db355.
 
 Only the latest scan of each target is included. A finding marks something to review, not proof of malice; 
 a clean result cannot prove weights are free of trained-in backdoors. See the rule reference in docs/rules.md.
@@ -12,16 +12,17 @@ a clean result cannot prove weights are free of trained-in backdoors. See the ru
 | critical | 0 | 0 |
 | high | 0 | 0 |
 | medium | 1 | 1 |
-| low | 0 | 0 |
-| info | 248 | 114 |
+| low | 1 | 1 |
+| info | 391 | 179 |
 
-3 target(s) could not be scanned (see the `error` column of targets.csv).
+4 target(s) could not be scanned (see the `error` column of targets.csv).
 
 ## Findings by rule
 
 | Rule | Severity | Title | Findings | Repos |
 |---|---|---|---:|---:|
 | S006 | medium | Unknown tensor type | 1 | 1 |
+| T003 | low | URL in template | 1 | 1 |
 
 ## Medium and above, one row per repo and rule
 

@@ -1,0 +1,229 @@
+{
+  "id": "hf:cyankiwi/MiniCPM-SALA-AWQ-8bit/model-shards.safetensors",
+  "revision": "6fe18f158e17be2dec656cd7afd586487dc0433c",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T15:55:46.9028626+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model-00001-of-00003.safetensors",
+      "source": "https://huggingface.co/cyankiwi/MiniCPM-SALA-AWQ-8bit/resolve/6fe18f158e17be2dec656cd7afd586487dc0433c/model-00001-of-00003.safetensors",
+      "size": 4938202640,
+      "sha256": "d5bf6fb6afbe763243a45d44fa992a7503d9161faefaf1b04438d2cd8143015c"
+    },
+    {
+      "path": "model-00002-of-00003.safetensors",
+      "source": "https://huggingface.co/cyankiwi/MiniCPM-SALA-AWQ-8bit/resolve/6fe18f158e17be2dec656cd7afd586487dc0433c/model-00002-of-00003.safetensors",
+      "size": 4951544768,
+      "sha256": "4082ab00d52e99845bff61cf642d6bb5878d552f3ee564fc72fe684044c6561d"
+    },
+    {
+      "path": "model-00003-of-00003.safetensors",
+      "source": "https://huggingface.co/cyankiwi/MiniCPM-SALA-AWQ-8bit/resolve/6fe18f158e17be2dec656cd7afd586487dc0433c/model-00003-of-00003.safetensors",
+      "size": 744317952,
+      "sha256": "949c2e121ece845538f9a74e33ef740cfbe3727afce218f10297bbd96e756f46"
+    },
+    {
+      "path": "chat_template.jinja",
+      "source": "https://huggingface.co/cyankiwi/MiniCPM-SALA-AWQ-8bit/resolve/6fe18f158e17be2dec656cd7afd586487dc0433c/chat_template.jinja",
+      "size": 8803,
+      "sha256": "accdbc3c45c7ee51df8357bacbc491c1231133221bdee6e8c0ec583b97b5d22b"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/cyankiwi/MiniCPM-SALA-AWQ-8bit/resolve/6fe18f158e17be2dec656cd7afd586487dc0433c/config.json",
+      "size": 3311,
+      "sha256": "cde529934ff1e0403e3f3e42c5c3b4cf115f60d1c83acf3eb00029ddc0c2b8e5"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/cyankiwi/MiniCPM-SALA-AWQ-8bit/resolve/6fe18f158e17be2dec656cd7afd586487dc0433c/generation_config.json",
+      "size": 153,
+      "sha256": "43b983b5c0d531f0955a4ac30259feb424adb67a0193419957b46dc175fabcb0"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "source": "https://huggingface.co/cyankiwi/MiniCPM-SALA-AWQ-8bit/resolve/6fe18f158e17be2dec656cd7afd586487dc0433c/model.safetensors.index.json",
+      "size": 79080,
+      "sha256": "8b245a0787a7572a687dd9c15a3f9ef79db1f4a8940253175da6c8f8752bc1ba"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/cyankiwi/MiniCPM-SALA-AWQ-8bit/resolve/6fe18f158e17be2dec656cd7afd586487dc0433c/special_tokens_map.json",
+      "size": 3497,
+      "sha256": "ddea9320bf580e177483618f0baacadb4365c9bcd26a6a793d8b6ca2534932c8"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/cyankiwi/MiniCPM-SALA-AWQ-8bit/resolve/6fe18f158e17be2dec656cd7afd586487dc0433c/tokenizer.json",
+      "size": 3676708,
+      "sha256": "f6c51b273a33a35eab2af6d9ee20f047f81ba911ef0f8305b19c83aeb0940918"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/cyankiwi/MiniCPM-SALA-AWQ-8bit/resolve/6fe18f158e17be2dec656cd7afd586487dc0433c/tokenizer_config.json",
+      "size": 14276,
+      "sha256": "e30916c934e40d4d1817139fedf8c882453b7d62fe712748efb676874ed17dfe"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:cyankiwi/MiniCPM-SALA-AWQ-8bit/model-shards.safetensors/model-00001-of-00003.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4938202640;mtime:2026-11-05T15:53:49.2127004Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:cyankiwi/MiniCPM-SALA-AWQ-8bit/model-shards.safetensors/model-00002-of-00003.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:4951544768;mtime:2026-11-05T15:55:21.8117257Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:cyankiwi/MiniCPM-SALA-AWQ-8bit/model-shards.safetensors/model-00003-of-00003.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:744317952;mtime:2026-11-05T15:55:42.5227787Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:cyankiwi/MiniCPM-SALA-AWQ-8bit/model-shards.safetensors/chat_template.jinja",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "chat_template.jinja": "accdbc3c45c7ee51df8357bacbc491c1231133221bdee6e8c0ec583b97b5d22b"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "8,803 characters, Jinja, sha256 accdbc3c45c7ee51df8357bacbc491c1231133221bdee6e8c0ec583b97b5d22b. Use --dump-template to read it.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022# Tools\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022\n  - \u0022\u003C/tools\u003E\\n\\nTool usage guidelines:\\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any \u003Cfunctio\u2026\u0022",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Unrecognised chat template",
+          "detail": "This template does not match any official template in the database. That is normal for fine-tunes and new models; read it with --dump-template if the model will get tools.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "chat_template.jinja",
+          "dialect": "Jinja",
+          "sha256": "accdbc3c45c7ee51df8357bacbc491c1231133221bdee6e8c0ec583b97b5d22b",
+          "length": 8803,
+          "text": "{%- if tools %}\n    {%- set tool_definitions %}\n        {{- \u0022# Tools\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022 }}\n        {%- for tool in tools %}\n            {{- \u0022\\n\u0022 }}\n            {{- tool | tojson(ensure_ascii=False) }}\n        {%- endfor %}\n        {{- \u0027\\n\u003C/tools\u003E\\n\\nTool usage guidelines:\\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any \u003Cfunction ... \u003C/function\u003E.\\n- When calling a function, return an XML object within \u003Cfunction ... \u003C/function\u003E using:\\n\u003Cfunction name=\u0022function-name\u0022\u003E\u003Cparam name=\u0022param-name\u0022\u003Eparam-value\u003C/param\u003E\u003C/function\u003E\\n- param-value may be multi-line. If it contains \u003C, \u0026 or newline characters, wrap it in a CDATA block: \u003Cparam name=\u0022param-name\u0022\u003E\u003C![CDATA[...multi-line value...]]\u003E\u003C/param\u003E\u0027 }}\n    {%- endset %}\n    \n    {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 }}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {%- if \u0027\u003Ctool_def_sep\u003E\u0027 in messages[0].content %}\n            {{- messages[0].content.replace(\u0027\u003Ctool_def_sep\u003E\u0027, tool_definitions) }}\n        {%- else %}\n            {{- messages[0].content \u002B \u0027\\n\\n\u0027 \u002B tool_definitions }}\n        {%- endif %}\n    {%- else %}\n        {{- tool_definitions.lstrip() }}\n    {%- endif %}\n    {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n{%- else %}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B messages[0].content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \u0022user\u0022 and message.content is string and not(message.content.startswith(\u0027\u003Ctool_response\u003E\u0027) and message.content.endswith(\u0027\u003C/tool_response\u003E\u0027)) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n{%- for message in messages %}\n    {%- if message.content is string %}\n        {%- set content = message.content %}\n    {%- else %}\n        {%- set content = \u0027\u0027 %}\n    {%- endif %}\n    {%- if (message.role == \u0022user\u0022) or (message.role == \u0022system\u0022 and not loop.first) %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022assistant\u0022 %}\n        {%- set reasoning_content = \u0027\u0027 %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if \u0027\u003C/think\u003E\u0027 in content %}\n                {%- set reasoning_content = content.split(\u0027\u003C/think\u003E\u0027)[0].rstrip(\u0027\\n\u0027).split(\u0027\u003Cthink\u003E\u0027)[-1].lstrip(\u0027\\n\u0027) %}\n                {%- set content = content.split(\u0027\u003C/think\u003E\u0027)[-1].lstrip(\u0027\\n\u0027) %}\n            {%- endif %}\n        {%- endif %}\n        \n        {%- if message.tool_calls %}\n            {%- set content_parts = content.split(\u0027\u003Ctool_sep\u003E\u0027) %}\n            {%- set processed_content = content_parts[0] %}\n            {%- set tool_calls_count = message.tool_calls|length %}\n            {%- set tool_sep_count = content_parts|length - 1 %}\n            {%- set min_count = [tool_calls_count, tool_sep_count]|min %}\n            \n            {%- for i in range(1, content_parts|length) %}\n                {%- set tool_index = i - 1 %}\n                {%- if tool_index \u003C tool_calls_count %}\n                    {%- set tool_call = message.tool_calls[tool_index] %}\n                    {%- if tool_call.function %}\n                        {%- set tool_call = tool_call.function %}\n                    {%- endif %}\n                    {%- set single_tool_xml %}\n                        {{- \u0027\u003Cfunction name=\u0022\u0027 ~ tool_call.name ~ \u0027\u0022\u003E\u0027 }}\n                        {%- if tool_call.arguments %}\n                            {%- set args_dict = tool_call.arguments %}\n                            {%- for param_name, param_value in args_dict.items() %}\n                                {{- \u0027\u003Cparam name=\u0022\u0027 ~ param_name ~ \u0027\u0022\u003E\u0027 }}\n                                {%- if param_value is string and (\u0027\u003C\u0027 in param_value or \u0027\u0026\u0027 in param_value or \u0027\\n\u0027 in param_value) %}\n                                    {{- \u0027\u003C![CDATA[\u0027 \u002B param_value \u002B \u0027]]\u003E\u0027 }}\n                                {%- else %}\n                                    {{- param_value }}\n                                {%- endif %}\n                                {{- \u0027\u003C/param\u003E\u0027 }}\n                            {%- endfor %}\n                        {%- endif %}\n                        {{- \u0027\u003C/function\u003E\u0027 }}\n                    {%- endset %}\n                    {%- set processed_content = processed_content \u002B single_tool_xml \u002B content_parts[i] %}\n                {%- else %}\n                    {%- set processed_content = processed_content \u002B content_parts[i] %}\n                {%- endif %}\n            {%- endfor %}\n            \n            {%- if tool_calls_count \u003E tool_sep_count %}\n                {%- for remaining_index in range(tool_sep_count, tool_calls_count) %}\n                    {%- set tool_call = message.tool_calls[remaining_index] %}\n                    {%- if tool_call.function %}\n                        {%- set tool_call = tool_call.function %}\n                    {%- endif %}\n                    {%- set remaining_tool_xml %}\n                        {{- \u0027\u003Cfunction name=\u0022\u0027 ~ tool_call.name ~ \u0027\u0022\u003E\u0027 }}\n                        {%- if tool_call.arguments %}\n                            {%- set args_dict = tool_call.arguments %}\n                            {%- for param_name, param_value in args_dict.items() %}\n                                {{- \u0027\u003Cparam name=\u0022\u0027 ~ param_name ~ \u0027\u0022\u003E\u0027 }}\n                                {%- if param_value is string and (\u0027\u003C\u0027 in param_value or \u0027\u0026\u0027 in param_value or \u0027\\n\u0027 in param_value) %}\n                                    {{- \u0027\u003C![CDATA[\u0027 \u002B param_value \u002B \u0027]]\u003E\u0027 }}\n                                {%- else %}\n                                    {{- param_value }}\n                                {%- endif %}\n                                {{- \u0027\u003C/param\u003E\u0027 }}\n                            {%- endfor %}\n                        {%- endif %}\n                        {{- \u0027\u003C/function\u003E\u0027 }}\n                    {%- endset %}\n                    {%- set processed_content = processed_content \u002B remaining_tool_xml %}\n                {%- endfor %}\n            {%- endif %}\n            \n            {%- set content = processed_content %}\n        {%- endif %}\n        \n        {%- if loop.index0 \u003E ns.last_query_index %}\n            {%- if reasoning_content %}\n                {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u003Cthink\u003E\\n\u0027 \u002B reasoning_content.strip(\u0027\\n\u0027) \u002B \u0027\\n\u003C/think\u003E\\n\\n\u0027 \u002B content.lstrip(\u0027\\n\u0027) }}\n            {%- else %}\n                {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content }}\n            {%- endif %}\n        {%- else %}\n            {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content }}\n        {%- endif %}\n        \n        {%- if message.tool_calls and not has_tool_sep %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- \u0027\\n\u0027 }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- \u0027\u003Cfunction name=\u0022\u0027 ~ tool_call.name ~ \u0027\u0022\u003E\u0027 }}\n                {%- if tool_call.arguments %}\n                    {%- set args_dict = tool_call.arguments %}\n                    {%- for param_name, param_value in args_dict.items() %}\n                        {{- \u0027\u003Cparam name=\u0022\u0027 ~ param_name ~ \u0027\u0022\u003E\u0027 }}\n                        {%- if param_value is string and (\u0027\u003C\u0027 in param_value or \u0027\u0026\u0027 in param_value or \u0027\\n\u0027 in param_value) %}\n                            {{- \u0027\u003C![CDATA[\u0027 \u002B param_value \u002B \u0027]]\u003E\u0027 }}\n                        {%- else %}\n                            {{- param_value }}\n                        {%- endif %}\n                        {{- \u0027\u003C/param\u003E\u0027 }}\n                    {%- endfor %}\n                {%- endif %}\n                {{- \u0027\u003C/function\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_start|\u003Euser\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Ctool_response\u003E\\n\u0027 }}\n        {%- if message.content is string %}\n            {{- content }}\n        {%- else %}\n            {{- message.content | tojson(ensure_ascii=False) }}\n        {%- endif %}\n        {{- \u0027\\n\u003C/tool_response\u003E\u0027 }}\n        {%- if loop.last or (messages[loop.index0 \u002B 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n{%- endif %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:cyankiwi/MiniCPM-SALA-AWQ-8bit/model-shards.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "tokenizer_config.json:chat_template": "accdbc3c45c7ee51df8357bacbc491c1231133221bdee6e8c0ec583b97b5d22b"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "8,803 characters, Jinja, sha256 accdbc3c45c7ee51df8357bacbc491c1231133221bdee6e8c0ec583b97b5d22b. Use --dump-template to read it.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022# Tools\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022\n  - \u0022\u003C/tools\u003E\\n\\nTool usage guidelines:\\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any \u003Cfunctio\u2026\u0022",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Unrecognised chat template",
+          "detail": "This template does not match any official template in the database. That is normal for fine-tunes and new models; read it with --dump-template if the model will get tools.",
+          "location": "tokenizer_config.json:chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "tokenizer_config.json:chat_template",
+          "dialect": "Jinja",
+          "sha256": "accdbc3c45c7ee51df8357bacbc491c1231133221bdee6e8c0ec583b97b5d22b",
+          "length": 8803,
+          "text": "{%- if tools %}\n    {%- set tool_definitions %}\n        {{- \u0022# Tools\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022 }}\n        {%- for tool in tools %}\n            {{- \u0022\\n\u0022 }}\n            {{- tool | tojson(ensure_ascii=False) }}\n        {%- endfor %}\n        {{- \u0027\\n\u003C/tools\u003E\\n\\nTool usage guidelines:\\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any \u003Cfunction ... \u003C/function\u003E.\\n- When calling a function, return an XML object within \u003Cfunction ... \u003C/function\u003E using:\\n\u003Cfunction name=\u0022function-name\u0022\u003E\u003Cparam name=\u0022param-name\u0022\u003Eparam-value\u003C/param\u003E\u003C/function\u003E\\n- param-value may be multi-line. If it contains \u003C, \u0026 or newline characters, wrap it in a CDATA block: \u003Cparam name=\u0022param-name\u0022\u003E\u003C![CDATA[...multi-line value...]]\u003E\u003C/param\u003E\u0027 }}\n    {%- endset %}\n    \n    {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 }}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {%- if \u0027\u003Ctool_def_sep\u003E\u0027 in messages[0].content %}\n            {{- messages[0].content.replace(\u0027\u003Ctool_def_sep\u003E\u0027, tool_definitions) }}\n        {%- else %}\n            {{- messages[0].content \u002B \u0027\\n\\n\u0027 \u002B tool_definitions }}\n        {%- endif %}\n    {%- else %}\n        {{- tool_definitions.lstrip() }}\n    {%- endif %}\n    {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n{%- else %}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B messages[0].content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \u0022user\u0022 and message.content is string and not(message.content.startswith(\u0027\u003Ctool_response\u003E\u0027) and message.content.endswith(\u0027\u003C/tool_response\u003E\u0027)) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n{%- for message in messages %}\n    {%- if message.content is string %}\n        {%- set content = message.content %}\n    {%- else %}\n        {%- set content = \u0027\u0027 %}\n    {%- endif %}\n    {%- if (message.role == \u0022user\u0022) or (message.role == \u0022system\u0022 and not loop.first) %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022assistant\u0022 %}\n        {%- set reasoning_content = \u0027\u0027 %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if \u0027\u003C/think\u003E\u0027 in content %}\n                {%- set reasoning_content = content.split(\u0027\u003C/think\u003E\u0027)[0].rstrip(\u0027\\n\u0027).split(\u0027\u003Cthink\u003E\u0027)[-1].lstrip(\u0027\\n\u0027) %}\n                {%- set content = content.split(\u0027\u003C/think\u003E\u0027)[-1].lstrip(\u0027\\n\u0027) %}\n            {%- endif %}\n        {%- endif %}\n        \n        {%- if message.tool_calls %}\n            {%- set content_parts = content.split(\u0027\u003Ctool_sep\u003E\u0027) %}\n            {%- set processed_content = content_parts[0] %}\n            {%- set tool_calls_count = message.tool_calls|length %}\n            {%- set tool_sep_count = content_parts|length - 1 %}\n            {%- set min_count = [tool_calls_count, tool_sep_count]|min %}\n            \n            {%- for i in range(1, content_parts|length) %}\n                {%- set tool_index = i - 1 %}\n                {%- if tool_index \u003C tool_calls_count %}\n                    {%- set tool_call = message.tool_calls[tool_index] %}\n                    {%- if tool_call.function %}\n                        {%- set tool_call = tool_call.function %}\n                    {%- endif %}\n                    {%- set single_tool_xml %}\n                        {{- \u0027\u003Cfunction name=\u0022\u0027 ~ tool_call.name ~ \u0027\u0022\u003E\u0027 }}\n                        {%- if tool_call.arguments %}\n                            {%- set args_dict = tool_call.arguments %}\n                            {%- for param_name, param_value in args_dict.items() %}\n                                {{- \u0027\u003Cparam name=\u0022\u0027 ~ param_name ~ \u0027\u0022\u003E\u0027 }}\n                                {%- if param_value is string and (\u0027\u003C\u0027 in param_value or \u0027\u0026\u0027 in param_value or \u0027\\n\u0027 in param_value) %}\n                                    {{- \u0027\u003C![CDATA[\u0027 \u002B param_value \u002B \u0027]]\u003E\u0027 }}\n                                {%- else %}\n                                    {{- param_value }}\n                                {%- endif %}\n                                {{- \u0027\u003C/param\u003E\u0027 }}\n                            {%- endfor %}\n                        {%- endif %}\n                        {{- \u0027\u003C/function\u003E\u0027 }}\n                    {%- endset %}\n                    {%- set processed_content = processed_content \u002B single_tool_xml \u002B content_parts[i] %}\n                {%- else %}\n                    {%- set processed_content = processed_content \u002B content_parts[i] %}\n                {%- endif %}\n            {%- endfor %}\n            \n            {%- if tool_calls_count \u003E tool_sep_count %}\n                {%- for remaining_index in range(tool_sep_count, tool_calls_count) %}\n                    {%- set tool_call = message.tool_calls[remaining_index] %}\n                    {%- if tool_call.function %}\n                        {%- set tool_call = tool_call.function %}\n                    {%- endif %}\n                    {%- set remaining_tool_xml %}\n                        {{- \u0027\u003Cfunction name=\u0022\u0027 ~ tool_call.name ~ \u0027\u0022\u003E\u0027 }}\n                        {%- if tool_call.arguments %}\n                            {%- set args_dict = tool_call.arguments %}\n                            {%- for param_name, param_value in args_dict.items() %}\n                                {{- \u0027\u003Cparam name=\u0022\u0027 ~ param_name ~ \u0027\u0022\u003E\u0027 }}\n                                {%- if param_value is string and (\u0027\u003C\u0027 in param_value or \u0027\u0026\u0027 in param_value or \u0027\\n\u0027 in param_value) %}\n                                    {{- \u0027\u003C![CDATA[\u0027 \u002B param_value \u002B \u0027]]\u003E\u0027 }}\n                                {%- else %}\n                                    {{- param_value }}\n                                {%- endif %}\n                                {{- \u0027\u003C/param\u003E\u0027 }}\n                            {%- endfor %}\n                        {%- endif %}\n                        {{- \u0027\u003C/function\u003E\u0027 }}\n                    {%- endset %}\n                    {%- set processed_content = processed_content \u002B remaining_tool_xml %}\n                {%- endfor %}\n            {%- endif %}\n            \n            {%- set content = processed_content %}\n        {%- endif %}\n        \n        {%- if loop.index0 \u003E ns.last_query_index %}\n            {%- if reasoning_content %}\n                {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u003Cthink\u003E\\n\u0027 \u002B reasoning_content.strip(\u0027\\n\u0027) \u002B \u0027\\n\u003C/think\u003E\\n\\n\u0027 \u002B content.lstrip(\u0027\\n\u0027) }}\n            {%- else %}\n                {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content }}\n            {%- endif %}\n        {%- else %}\n            {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content }}\n        {%- endif %}\n        \n        {%- if message.tool_calls and not has_tool_sep %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- \u0027\\n\u0027 }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- \u0027\u003Cfunction name=\u0022\u0027 ~ tool_call.name ~ \u0027\u0022\u003E\u0027 }}\n                {%- if tool_call.arguments %}\n                    {%- set args_dict = tool_call.arguments %}\n                    {%- for param_name, param_value in args_dict.items() %}\n                        {{- \u0027\u003Cparam name=\u0022\u0027 ~ param_name ~ \u0027\u0022\u003E\u0027 }}\n                        {%- if param_value is string and (\u0027\u003C\u0027 in param_value or \u0027\u0026\u0027 in param_value or \u0027\\n\u0027 in param_value) %}\n                            {{- \u0027\u003C![CDATA[\u0027 \u002B param_value \u002B \u0027]]\u003E\u0027 }}\n                        {%- else %}\n                            {{- param_value }}\n                        {%- endif %}\n                        {{- \u0027\u003C/param\u003E\u0027 }}\n                    {%- endfor %}\n                {%- endif %}\n                {{- \u0027\u003C/function\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_start|\u003Euser\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Ctool_response\u003E\\n\u0027 }}\n        {%- if message.content is string %}\n            {{- content }}\n        {%- else %}\n            {{- message.content | tojson(ensure_ascii=False) }}\n        {%- endif %}\n        {{- \u0027\\n\u003C/tool_response\u003E\u0027 }}\n        {%- if loop.last or (messages[loop.index0 \u002B 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n{%- endif %}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:cyankiwi/MiniCPM-SALA-AWQ-8bit/model-shards.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "id": "hf:bartowski/Qwen2.5-32B-Instruct-GGUF/Qwen2.5-32B-Instruct-IQ2_XXS.gguf",
+  "revision": "2116cbb385b8ce3a4d28cf3bf1cd2039a55821a6",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T14:27:20.288438+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "Qwen2.5-32B-Instruct-IQ2_XXS.gguf",
+      "source": "https://huggingface.co/bartowski/Qwen2.5-32B-Instruct-GGUF/resolve/2116cbb385b8ce3a4d28cf3bf1cd2039a55821a6/Qwen2.5-32B-Instruct-IQ2_XXS.gguf",
+      "size": 9028250496,
+      "sha256": "48f89b4e11bb844ac98062d32bbde6dec6cc4b7aca06afdcf22b807c6c0de4dd"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:bartowski/Qwen2.5-32B-Instruct-GGUF/Qwen2.5-32B-Instruct-IQ2_XXS.gguf/Qwen2.5-32B-Instruct-IQ2_XXS.gguf",
+      "kind": "gguf",
+      "path": null,
+      "fingerprint": "size:9028250496;mtime:2026-11-05T14:27:12.1451270Z",
+      "contentHashes": {
+        "kv:tokenizer.chat_template": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+      },
+      "summary": {
+        "version": 3,
+        "architecture": "qwen2",
+        "name": "Qwen2.5 32B Instruct",
+        "tensorCount": 771,
+        "metadataCount": 38,
+        "fileSize": 9028250496,
+        "baseModels": [
+          "Qwen Qwen2.5 32B (https://huggingface.co/Qwen/Qwen2.5-32B)"
+        ]
+      },
+      "findings": [
+        {
+          "ruleId": "M004",
+          "severity": "Info",
+          "title": "URL in metadata",
+          "detail": "https://huggingface.co/Qwen/Qwen2.5-32B-Instruct/blob/main/LICENSE",
+          "location": "kv:general.license.link",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "M004",
+          "severity": "Info",
+          "title": "URL in metadata",
+          "detail": "https://huggingface.co/Qwen/Qwen2.5-32B",
+          "location": "kv:general.base_model.0.repo_url",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "2,507 characters, Jinja, sha256 cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f. Use --dump-template to read it.",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022You are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u0022\n  - \u0022# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctoo\u2026\u0022\n  - \u0022\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\u0022name\u0022: \u003Cfunct\u2026\u0022\n  - \u0022\u003C|im_start|\u003Esystem\\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u003C|im_end|\u003E\u0022",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Matches the official Qwen2.5 template",
+          "detail": "Identical (ignoring whitespace) to the template in https://huggingface.co/Qwen/Qwen2.5-7B-Instruct.",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "kv:tokenizer.chat_template",
+          "dialect": "Jinja",
+          "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+          "length": 2507,
+          "text": "{%- if tools %}\n    {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 }}\n    {%- if messages[0][\u0027role\u0027] == \u0027system\u0027 %}\n        {{- messages[0][\u0027content\u0027] }}\n    {%- else %}\n        {{- \u0027You are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u0027 }}\n    {%- endif %}\n    {{- \u0022\\n\\n# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022 }}\n    {%- for tool in tools %}\n        {{- \u0022\\n\u0022 }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \u0022\\n\u003C/tools\u003E\\n\\nFor each function call, return a json object with function name and arguments within \u003Ctool_call\u003E\u003C/tool_call\u003E XML tags:\\n\u003Ctool_call\u003E\\n{\\\u0022name\\\u0022: \u003Cfunction-name\u003E, \\\u0022arguments\\\u0022: \u003Cargs-json-object\u003E}\\n\u003C/tool_call\u003E\u003C|im_end|\u003E\\n\u0022 }}\n{%- else %}\n    {%- if messages[0][\u0027role\u0027] == \u0027system\u0027 %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B messages[0][\u0027content\u0027] \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- else %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- for message in messages %}\n    {%- if (message.role == \u0022user\u0022) or (message.role == \u0022system\u0022 and not loop.first) or (message.role == \u0022assistant\u0022 and not message.tool_calls) %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B message.content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022assistant\u0022 %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role }}\n        {%- if message.content %}\n            {{- \u0027\\n\u0027 \u002B message.content }}\n        {%- endif %}\n        {%- for tool_call in message.tool_calls %}\n            {%- if tool_call.function is defined %}\n                {%- set tool_call = tool_call.function %}\n            {%- endif %}\n            {{- \u0027\\n\u003Ctool_call\u003E\\n{\u0022name\u0022: \u0022\u0027 }}\n            {{- tool_call.name }}\n            {{- \u0027\u0022, \u0022arguments\u0022: \u0027 }}\n            {{- tool_call.arguments | tojson }}\n            {{- \u0027}\\n\u003C/tool_call\u003E\u0027 }}\n        {%- endfor %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if (loop.index0 == 0) or (messages[loop.index0 - 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_start|\u003Euser\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Ctool_response\u003E\\n\u0027 }}\n        {{- message.content }}\n        {{- \u0027\\n\u003C/tool_response\u003E\u0027 }}\n        {%- if loop.last or (messages[loop.index0 \u002B 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n{%- endif %}\n"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}
