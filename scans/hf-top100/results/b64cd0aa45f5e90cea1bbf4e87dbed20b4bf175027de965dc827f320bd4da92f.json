@@ -2,10 +2,184 @@
   "id": "hf:nvidia/Gemma-4-31B-IT-NVFP4/model-shards.safetensors",
   "revision": "4135a98a9b728a548947683219633b25682223ac",
   "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
-  "finishedAt": "2026-11-04T20:22:28.2006306+00:00",
-  "completed": false,
-  "files": [],
+  "finishedAt": "2026-11-04T22:14:04.7382787+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model-00001-of-00004.safetensors",
+      "source": "https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/resolve/4135a98a9b728a548947683219633b25682223ac/model-00001-of-00004.safetensors",
+      "size": 9954637578,
+      "sha256": "4d955de1f740f16dcf3e9206a42082102cbf2d1b0c42adf1fc39190e186e3ae8"
+    },
+    {
+      "path": "model-00002-of-00004.safetensors",
+      "source": "https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/resolve/4135a98a9b728a548947683219633b25682223ac/model-00002-of-00004.safetensors",
+      "size": 9977124474,
+      "sha256": "f8418783fa27ab2a3a92baaebe6c65c762bfe236fe0f7ec1e3c05b5617a1e6e4"
+    },
+    {
+      "path": "model-00003-of-00004.safetensors",
+      "source": "https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/resolve/4135a98a9b728a548947683219633b25682223ac/model-00003-of-00004.safetensors",
+      "size": 9999145338,
+      "sha256": "5cfe8ee0f73c48536a21680d87257e5d7d93fc6706a236dc6a909f86e0ec578a"
+    },
+    {
+      "path": "model-00004-of-00004.safetensors",
+      "source": "https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/resolve/4135a98a9b728a548947683219633b25682223ac/model-00004-of-00004.safetensors",
+      "size": 2702570418,
+      "sha256": "4dbb1ed31e5954cd9722a4789087f797417de40fc66a90ed5b46bfecfb7d3091"
+    },
+    {
+      "path": "chat_template.jinja",
+      "source": "https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/resolve/4135a98a9b728a548947683219633b25682223ac/chat_template.jinja",
+      "size": 16934,
+      "sha256": "94899c0f917d93f6fe81c95744d1e8ddab2d21d39228d2e4aec1fb2a25bff413"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/resolve/4135a98a9b728a548947683219633b25682223ac/config.json",
+      "size": 9464,
+      "sha256": "aa03a6a490fb743b8186f09c60ec39a30fdbaf7c3a18dfef8e52a62c2beb9ae4"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/resolve/4135a98a9b728a548947683219633b25682223ac/generation_config.json",
+      "size": 208,
+      "sha256": "d4226bbe3117d2d253ba4609720ba82c6c4ce4627a9a6ae05387c78983ac03de"
+    },
+    {
+      "path": "hf_quant_config.json",
+      "source": "https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/resolve/4135a98a9b728a548947683219633b25682223ac/hf_quant_config.json",
+      "size": 3748,
+      "sha256": "7295b239347a50abc3888c4a8208b8644eb0bd3d92810117bdea1768e5f21129"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "source": "https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/resolve/4135a98a9b728a548947683219633b25682223ac/model.safetensors.index.json",
+      "size": 174516,
+      "sha256": "aff5569bed013db014afe23db3986434729bb33d9f817017cc0617cd479212b9"
+    },
+    {
+      "path": "processor_config.json",
+      "source": "https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/resolve/4135a98a9b728a548947683219633b25682223ac/processor_config.json",
+      "size": 1689,
+      "sha256": "32bdf45d2ad4cc29a0822ddd157a182de76644f0419a6228d151495256e9813c"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/resolve/4135a98a9b728a548947683219633b25682223ac/tokenizer.json",
+      "size": 32169626,
+      "sha256": "cc8d3a0ce36466ccc1278bf987df5f71db1719b9ca6b4118264f45cb627bfe0f"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/nvidia/Gemma-4-31B-IT-NVFP4/resolve/4135a98a9b728a548947683219633b25682223ac/tokenizer_config.json",
+      "size": 2094,
+      "sha256": "e467669cfe172dfb0c4e7de7bfbe7553c42bfa5de95acd71f423f58a434d80de"
+    }
+  ],
   "reports": [
+    {
+      "target": "hf:nvidia/Gemma-4-31B-IT-NVFP4/model-shards.safetensors/model-00001-of-00004.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:9954637578;mtime:2026-11-04T20:56:28.7980196Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/Gemma-4-31B-IT-NVFP4/model-shards.safetensors/model-00002-of-00004.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:9977124474;mtime:2026-11-04T21:30:57.4886579Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/Gemma-4-31B-IT-NVFP4/model-shards.safetensors/model-00003-of-00004.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:9999145338;mtime:2026-11-04T22:04:27.6735557Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/Gemma-4-31B-IT-NVFP4/model-shards.safetensors/model-00004-of-00004.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:2702570418;mtime:2026-11-04T22:13:50.5200350Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:nvidia/Gemma-4-31B-IT-NVFP4/model-shards.safetensors/chat_template.jinja",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "chat_template.jinja": "94899c0f917d93f6fe81c95744d1e8ddab2d21d39228d2e4aec1fb2a25bff413"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "16,934 characters, Jinja, sha256 94899c0f917d93f6fe81c95744d1e8ddab2d21d39228d2e4aec1fb2a25bff413. Use --dump-template to read it.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Modified copy of the official Gemma 4 template",
+          "detail": "87 % similar to https://huggingface.co/lmstudio-community/gemma-4-12B-it-GGUF, with 32 line(s) added and 55 removed. Added lines:\n  \u002B {%- if argument is string -%}\n  \u002B {%- set ns = namespace(prev_message_type=None) -%}\n  \u002B {%- if (enable_thinking is defined and enable_thinking) or tools or messages[0][\u0027role\u0027] in [\u0027system\u0027, \u0027developer\u0027] -%}\n  \u002B {%- if enable_thinking is defined and enable_thinking -%}\n  \u002B {%- if messages[0][\u0027role\u0027] in [\u0027system\u0027, \u0027developer\u0027] -%}\n  \u002B {%- set prev_nt = namespace(role=None, found=false) -%}\n  \u002B {%- if loop.index0 \u003E 0 -%}\n  \u002B {%- for j in range(loop.index0 - 1, -1, -1) -%}\n  (\u002B24 more)",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "chat_template.jinja",
+          "dialect": "Jinja",
+          "sha256": "94899c0f917d93f6fe81c95744d1e8ddab2d21d39228d2e4aec1fb2a25bff413",
+          "length": 16934,
+          "text": "{%- macro format_parameters(properties, required, filter_keys=false) -%}\n    {%- set standard_keys = [\u0027description\u0027, \u0027type\u0027, \u0027properties\u0027, \u0027required\u0027, \u0027nullable\u0027] -%}\n    {%- set ns = namespace(found_first=false) -%}\n    {%- for key, value in properties | dictsort -%}\n        {%- set add_comma = false -%}\n        {%- if not filter_keys or key not in standard_keys -%}\n            {%- if ns.found_first %},{% endif -%}\n            {%- set ns.found_first = true -%}\n            {{ key }}:{\n            {%- if value[\u0027description\u0027] -%}\n                description:\u003C|\u0022|\u003E{{ value[\u0027description\u0027] }}\u003C|\u0022|\u003E\n                {%- set add_comma = true -%}\n            {%- endif -%}\n            {%- if value[\u0027type\u0027] | upper == \u0027STRING\u0027 -%}\n                {%- if value[\u0027enum\u0027] -%}\n                    {%- if add_comma %},{%- else -%} {%- set add_comma = true -%} {% endif -%}\n                    enum:{{ format_argument(value[\u0027enum\u0027]) }}\n                {%- endif -%}\n            {%- elif value[\u0027type\u0027] | upper == \u0027ARRAY\u0027 -%}\n                {%- if value[\u0027items\u0027] is mapping and value[\u0027items\u0027] -%}\n                    {%- if add_comma %},{%- else -%} {%- set add_comma = true -%} {% endif -%}\n                    items:{\n                    {%- set ns_items = namespace(found_first=false) -%}\n                    {%- for item_key, item_value in value[\u0027items\u0027] | dictsort -%}\n                        {%- if item_value is not none -%}\n                            {%- if ns_items.found_first %},{% endif -%}\n                            {%- set ns_items.found_first = true -%}\n                            {%- if item_key == \u0027properties\u0027 -%}\n                                properties:{\n                                {%- if item_value is mapping -%}\n                                    {{- format_parameters(item_value, value[\u0027items\u0027][\u0027required\u0027] | default([])) -}}\n                                {%- endif -%}\n                                }\n                            {%- elif item_key == \u0027required\u0027 -%}\n                                required:[\n                                {%- for req_item in item_value -%}\n                                    \u003C|\u0022|\u003E{{- req_item -}}\u003C|\u0022|\u003E\n                                    {%- if not loop.last %},{% endif -%}\n                                {%- endfor -%}\n                                ]\n                            {%- elif item_key == \u0027type\u0027 -%}\n                                {%- if item_value is string -%}\n                                    type:{{ format_argument(item_value | upper) }}\n                                {%- else -%}\n                                    type:{{ format_argument(item_value | map(\u0027upper\u0027) | list) }}\n                                {%- endif -%}\n                            {%- else -%}\n                                {{ item_key }}:{{ format_argument(item_value) }}\n                            {%- endif -%}\n                        {%- endif -%}\n                    {%- endfor -%}\n                    }\n                {%- endif -%}\n            {%- endif -%}\n            {%- if value[\u0027nullable\u0027] %}\n                {%- if add_comma %},{%- else -%} {%- set add_comma = true -%} {% endif -%}\n                nullable:true\n            {%- endif -%}\n            {%- if value[\u0027type\u0027] | upper == \u0027OBJECT\u0027 -%}\n                {%- if value[\u0027properties\u0027] is defined and value[\u0027properties\u0027] is mapping -%}\n                    {%- if add_comma %},{%- else -%} {%- set add_comma = true -%} {% endif -%}\n                    properties:{\n                    {{- format_parameters(value[\u0027properties\u0027], value[\u0027required\u0027] | default([])) -}}\n                    }\n                {%- elif value is mapping -%}\n                    {%- if add_comma %},{%- else -%} {%- set add_comma = true -%} {% endif -%}\n                    properties:{\n                    {{- format_parameters(value, value[\u0027required\u0027] | default([]), filter_keys=true) -}}\n                    }\n                {%- endif -%}\n                {%- if value[\u0027required\u0027] -%}\n                    {%- if add_comma %},{%- else -%} {%- set add_comma = true -%} {% endif -%}\n                    required:[\n                    {%- for item in value[\u0027required\u0027] | default([]) -%}\n                        \u003C|\u0022|\u003E{{- item -}}\u003C|\u0022|\u003E\n                        {%- if not loop.last %},{% endif -%}\n                    {%- endfor -%}\n                    ]\n                {%- endif -%}\n            {%- endif -%}\n            {%- if add_comma %},{%- else -%} {%- set add_comma = true -%} {% endif -%}\n            type:\u003C|\u0022|\u003E{{ value[\u0027type\u0027] | upper }}\u003C|\u0022|\u003E}\n        {%- endif -%}\n    {%- endfor -%}\n{%- endmacro -%}\n{%- macro format_function_declaration(tool_data) -%}\n    declaration:{{- tool_data[\u0027function\u0027][\u0027name\u0027] -}}{description:\u003C|\u0022|\u003E{{- tool_data[\u0027function\u0027][\u0027description\u0027] -}}\u003C|\u0022|\u003E\n    {%- set params = tool_data[\u0027function\u0027][\u0027parameters\u0027] -%}\n    {%- if params -%}\n        ,parameters:{\n        {%- if params[\u0027properties\u0027] -%}\n            properties:{ {{- format_parameters(params[\u0027properties\u0027], params[\u0027required\u0027]) -}} },\n        {%- endif -%}\n        {%- if params[\u0027required\u0027] -%}\n            required:[\n            {%- for item in params[\u0027required\u0027] -%}\n                \u003C|\u0022|\u003E{{- item -}}\u003C|\u0022|\u003E\n                {{- \u0027,\u0027 if not loop.last -}}\n            {%- endfor -%}\n            ],\n        {%- endif -%}\n        {%- if params[\u0027type\u0027] -%}\n            type:\u003C|\u0022|\u003E{{- params[\u0027type\u0027] | upper -}}\u003C|\u0022|\u003E}\n        {%- endif -%}\n    {%- endif -%}\n    {%- if \u0027response\u0027 in tool_data[\u0027function\u0027] -%}\n        {%- set response_declaration = tool_data[\u0027function\u0027][\u0027response\u0027] -%}\n        ,response:{\n        {%- if response_declaration[\u0027description\u0027] -%}\n            description:\u003C|\u0022|\u003E{{- response_declaration[\u0027description\u0027] -}}\u003C|\u0022|\u003E,\n        {%- endif -%}\n        {%- if response_declaration[\u0027type\u0027] | upper == \u0027OBJECT\u0027 -%}\n            type:\u003C|\u0022|\u003E{{- response_declaration[\u0027type\u0027] | upper -}}\u003C|\u0022|\u003E}\n        {%- endif -%}\n    {%- endif -%}\n    }\n{%- endmacro -%}\n{%- macro format_argument(argument, escape_keys=True) -%}\n    {%- if argument is string -%}\n        {{- \u0027\u003C|\u0022|\u003E\u0027 \u002B argument \u002B \u0027\u003C|\u0022|\u003E\u0027 -}}\n    {%- elif argument is boolean -%}\n        {{- \u0027true\u0027 if argument else \u0027false\u0027 -}}\n    {%- elif argument is mapping -%}\n        {{- \u0027{\u0027 -}}\n        {%- set ns = namespace(found_first=false) -%}\n        {%- for key, value in argument | dictsort -%}\n            {%- if ns.found_first %},{% endif -%}\n            {%- set ns.found_first = true -%}\n            {%- if escape_keys -%}\n                {{- \u0027\u003C|\u0022|\u003E\u0027 \u002B key \u002B \u0027\u003C|\u0022|\u003E\u0027 -}}\n            {%- else -%}\n                {{- key -}}\n            {%- endif -%}\n            :{{- format_argument(value, escape_keys=escape_keys) -}}\n        {%- endfor -%}\n        {{- \u0027}\u0027 -}}\n    {%- elif argument is sequence -%}\n        {{- \u0027[\u0027 -}}\n        {%- for item in argument -%}\n            {{- format_argument(item, escape_keys=escape_keys) -}}\n            {%- if not loop.last %},{% endif -%}\n        {%- endfor -%}\n        {{- \u0027]\u0027 -}}\n    {%- else -%}\n        {{- argument -}}\n    {%- endif -%}\n{%- endmacro -%}\n{%- macro strip_thinking(text) -%}\n    {%- set ns = namespace(result=\u0027\u0027) -%}\n    {%- for part in text.split(\u0027\u003Cchannel|\u003E\u0027) -%}\n        {%- if \u0027\u003C|channel\u003E\u0027 in part -%}\n            {%- set ns.result = ns.result \u002B part.split(\u0027\u003C|channel\u003E\u0027)[0] -%}\n        {%- else -%}\n            {%- set ns.result = ns.result \u002B part -%}\n        {%- endif -%}\n    {%- endfor -%}\n    {{- ns.result | trim -}}\n{%- endmacro -%}\n\n{%- macro format_tool_response_block(tool_name, response) -%}\n    {{- \u0027\u003C|tool_response\u003E\u0027 -}}\n    {%- if response is mapping -%}\n        {{- \u0027response:\u0027 \u002B tool_name \u002B \u0027{\u0027 -}}\n        {%- for key, value in response | dictsort -%}\n            {{- key -}}:{{- format_argument(value, escape_keys=False) -}}\n            {%- if not loop.last %},{% endif -%}\n        {%- endfor -%}\n        {{- \u0027}\u0027 -}}\n    {%- else -%}\n        {{- \u0027response:\u0027 \u002B tool_name \u002B \u0027{value:\u0027 \u002B format_argument(response, escape_keys=False) \u002B \u0027}\u0027 -}}\n    {%- endif -%}\n    {{- \u0027\u003Ctool_response|\u003E\u0027 -}}\n{%- endmacro -%}\n\n{%- set ns = namespace(prev_message_type=None) -%}\n{%- set loop_messages = messages -%}\n{{- bos_token -}}\n{#- Handle System/Tool Definitions Block -#}\n{%- if (enable_thinking is defined and enable_thinking) or tools or messages[0][\u0027role\u0027] in [\u0027system\u0027, \u0027developer\u0027] -%}\n    {{- \u0027\u003C|turn\u003Esystem\\n\u0027 -}}\n    {#- Inject Thinking token at the very top of the FIRST system turn -#}\n    {%- if enable_thinking is defined and enable_thinking -%}\n        {{- \u0027\u003C|think|\u003E\\n\u0027 -}}\n        {%- set ns.prev_message_type = \u0027think\u0027 -%}\n    {%- endif -%}\n    {%- if messages[0][\u0027role\u0027] in [\u0027system\u0027, \u0027developer\u0027] -%}\n        {%- if messages[0][\u0027content\u0027] is string -%}\n            {{- messages[0][\u0027content\u0027] | trim -}}\n        {%- elif messages[0][\u0027content\u0027] is sequence -%}\n            {%- for item in messages[0][\u0027content\u0027] -%}\n                {{- item[\u0027text\u0027] | trim \u002B \u0027 \u0027-}}\n            {%- endfor -%}\n        {%- endif -%}\n        {%- set loop_messages = messages[1:] -%}\n    {%- endif -%}\n    {%- if tools -%}\n        {%- for tool in tools %}\n            {{- \u0027\u003C|tool\u003E\u0027 -}}\n            {{- format_function_declaration(tool) | trim -}}\n            {{- \u0027\u003Ctool|\u003E\u0027 -}}\n        {%- endfor %}\n        {%- set ns.prev_message_type = \u0027tool\u0027 -%}\n    {%- endif -%}\n    {{- \u0027\u003Cturn|\u003E\\n\u0027 -}}\n{%- endif %}\n\n{#- Pre-scan: find last user message index for reasoning guard -#}\n{%- set ns_turn = namespace(last_user_idx=-1) -%}\n{%- for i in range(loop_messages | length) -%}\n    {%- if loop_messages[i][\u0027role\u0027] == \u0027user\u0027 -%}\n        {%- set ns_turn.last_user_idx = i -%}\n    {%- endif -%}\n{%- endfor -%}\n\n{#- Loop through messages -#}\n{%- for message in loop_messages -%}\n    {%- if message[\u0027role\u0027] != \u0027tool\u0027 -%}\n    {%- set ns.prev_message_type = None -%}\n    {%- set role = \u0027model\u0027 if message[\u0027role\u0027] == \u0027assistant\u0027 else message[\u0027role\u0027] -%}\n    {#- Detect continuation: suppress duplicate \u003C|turn\u003Emodel when previous non-tool message was also assistant -#}\n    {%- set prev_nt = namespace(role=None, found=false) -%}\n    {%- if loop.index0 \u003E 0 -%}\n        {%- for j in range(loop.index0 - 1, -1, -1) -%}\n            {%- if not prev_nt.found -%}\n                {%- if loop_messages[j][\u0027role\u0027] != \u0027tool\u0027 -%}\n                    {%- set prev_nt.role = loop_messages[j][\u0027role\u0027] -%}\n                    {%- set prev_nt.found = true -%}\n                {%- endif -%}\n            {%- endif -%}\n        {%- endfor -%}\n    {%- endif -%}\n    {%- set continue_same_model_turn = (role == \u0027model\u0027 and prev_nt.role == \u0027assistant\u0027) -%}\n    {%- if not continue_same_model_turn -%}\n        {{- \u0027\u003C|turn\u003E\u0027 \u002B role \u002B \u0027\\n\u0027 }}\n    {%- endif -%}\n\n    {#- Render reasoning/reasoning_content as thinking channel -#}\n    {%- set thinking_text = message.get(\u0027reasoning\u0027) or message.get(\u0027reasoning_content\u0027) -%}\n    {%- if thinking_text and loop.index0 \u003E ns_turn.last_user_idx and message.get(\u0027tool_calls\u0027) -%}\n        {{- \u0027\u003C|channel\u003Ethought\\n\u0027 \u002B thinking_text \u002B \u0027\\n\u003Cchannel|\u003E\u0027 -}}\n    {%- endif -%}\n\n            {%- if message[\u0027tool_calls\u0027] -%}\n                {%- for tool_call in message[\u0027tool_calls\u0027] -%}\n                    {%- set function = tool_call[\u0027function\u0027] -%}\n                    {{- \u0027\u003C|tool_call\u003Ecall:\u0027 \u002B function[\u0027name\u0027] \u002B \u0027{\u0027 -}}\n                    {%- if function[\u0027arguments\u0027] is mapping -%}\n                        {%- set ns_args = namespace(found_first=false) -%}\n                        {%- for key, value in function[\u0027arguments\u0027] | dictsort -%}\n                            {%- if ns_args.found_first %},{% endif -%}\n                            {%- set ns_args.found_first = true -%}\n                            {{- key -}}:{{- format_argument(value, escape_keys=False) -}}\n                        {%- endfor -%}\n                    {%- elif function[\u0027arguments\u0027] is string -%}\n                        {{- function[\u0027arguments\u0027] -}}\n                    {%- endif -%}\n                    {{- \u0027}\u003Ctool_call|\u003E\u0027 -}}\n                {%- endfor -%}\n                {%- set ns.prev_message_type = \u0027tool_call\u0027 -%}\n            {%- endif -%}\n\n            {%- set ns_tr_out = namespace(flag=false) -%}\n            {%- if message.get(\u0027tool_responses\u0027) -%}\n                {#- Legacy: tool_responses embedded on the assistant message (Google/Gemma native) -#}\n                {%- for tool_response in message[\u0027tool_responses\u0027] -%}\n                    {{- format_tool_response_block(tool_response[\u0027name\u0027] | default(\u0027unknown\u0027), tool_response[\u0027response\u0027]) -}}\n                    {%- set ns_tr_out.flag = true -%}\n                    {%- set ns.prev_message_type = \u0027tool_response\u0027 -%}\n                {%- endfor -%}\n            {%- elif message.get(\u0027tool_calls\u0027) -%}\n                {#- OpenAI Chat Completions: forward-scan consecutive role:tool messages -#}\n                {%- set ns_tool_scan = namespace(stopped=false) -%}\n                {%- for k in range(loop.index0 \u002B 1, loop_messages | length) -%}\n                    {%- if ns_tool_scan.stopped -%}\n                    {%- elif loop_messages[k][\u0027role\u0027] != \u0027tool\u0027 -%}\n                        {%- set ns_tool_scan.stopped = true -%}\n                    {%- else -%}\n                        {%- set follow = loop_messages[k] -%}\n                        {#- Resolve tool_call_id to function name -#}\n                        {%- set ns_tname = namespace(name=follow.get(\u0027name\u0027) | default(\u0027unknown\u0027)) -%}\n                        {%- for tc in message[\u0027tool_calls\u0027] -%}\n                            {%- if tc.get(\u0027id\u0027) == follow.get(\u0027tool_call_id\u0027) -%}\n                                {%- set ns_tname.name = tc[\u0027function\u0027][\u0027name\u0027] -%}\n                            {%- endif -%}\n                        {%- endfor -%}\n                        {#- Handle content as string or content-parts array -#}\n                        {%- set tool_body = follow.get(\u0027content\u0027) -%}\n                        {%- if tool_body is string -%}\n                            {{- format_tool_response_block(ns_tname.name, tool_body) -}}\n                        {%- elif tool_body is sequence and tool_body is not string -%}\n                            {%- set ns_txt = namespace(s=\u0027\u0027) -%}\n                            {%- for part in tool_body -%}\n                                {%- if part.get(\u0027type\u0027) == \u0027text\u0027 -%}\n                                    {%- set ns_txt.s = ns_txt.s \u002B (part.get(\u0027text\u0027) | default(\u0027\u0027)) -%}\n                                {%- endif -%}\n                            {%- endfor -%}\n                            {{- format_tool_response_block(ns_tname.name, ns_txt.s) -}}\n                        {%- else -%}\n                            {{- format_tool_response_block(ns_tname.name, tool_body) -}}\n                        {%- endif -%}\n                        {%- set ns_tr_out.flag = true -%}\n                        {%- set ns.prev_message_type = \u0027tool_response\u0027 -%}\n                    {%- endif -%}\n                {%- endfor -%}\n            {%- endif -%}\n\n            {%- set captured_content -%}\n            {%- if message[\u0027content\u0027] is string -%}\n                {%- if role == \u0027model\u0027 -%}\n                    {{- strip_thinking(message[\u0027content\u0027]) -}}\n                {%- else -%}\n                    {{- message[\u0027content\u0027] | trim -}}\n                {%- endif -%}\n            {%- elif message[\u0027content\u0027] is sequence -%}\n                {%- for item in message[\u0027content\u0027] -%}\n                    {%- if item[\u0027type\u0027] == \u0027text\u0027 -%}\n                        {%- if role == \u0027model\u0027 -%}\n                            {{- strip_thinking(item[\u0027text\u0027]) -}}\n                        {%- else -%}\n                            {{- item[\u0027text\u0027] | trim -}}\n                        {%- endif -%}\n                    {%- elif item[\u0027type\u0027] == \u0027image\u0027 -%}\n                        {{- \u0027\u003C|image|\u003E\u0027 -}}\n                        {%- set ns.prev_message_type = \u0027image\u0027 -%}\n                    {%- elif item[\u0027type\u0027] == \u0027audio\u0027 -%}\n                        {{- \u0027\u003C|audio|\u003E\u0027 -}}\n                        {%- set ns.prev_message_type = \u0027audio\u0027 -%}\n                    {%- elif item[\u0027type\u0027] == \u0027video\u0027 -%}\n                        {{- \u0027\u003C|video|\u003E\u0027 -}}\n                        {%- set ns.prev_message_type = \u0027video\u0027 -%}\n                    {%- endif -%}\n                {%- endfor -%}\n            {%- endif -%}\n            {%- endset -%}\n\n            {{- captured_content -}}\n            {%- set has_content = captured_content | trim | length \u003E 0 -%}\n\n        {%- if ns.prev_message_type == \u0027tool_call\u0027 and not ns_tr_out.flag -%}\n            {{- \u0027\u003C|tool_response\u003E\u0027 -}}\n        {%- elif not (ns_tr_out.flag and not has_content) -%}\n            {{- \u0027\u003Cturn|\u003E\\n\u0027 -}}\n        {%- endif -%}\n    {%- endif -%}\n{%- endfor -%}\n\n{%- if add_generation_prompt -%}\n    {%- if ns.prev_message_type != \u0027tool_response\u0027 and ns.prev_message_type != \u0027tool_call\u0027 -%}\n        {{- \u0027\u003C|turn\u003Emodel\\n\u0027 -}}\n        {%- if not enable_thinking | default(false) -%}\n            {{- \u0027\u003C|channel\u003Ethought\\n\u003Cchannel|\u003E\u0027 -}}\n        {%- endif -%}\n    {%- endif -%}\n{%- endif -%}"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:nvidia/Gemma-4-31B-IT-NVFP4/model-shards.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
     {
       "target": "hf:nvidia/Gemma-4-31B-IT-NVFP4/model-shards.safetensors",
       "kind": "download",
@@ -13,10 +187,20 @@
       "fingerprint": null,
       "contentHashes": {},
       "summary": null,
-      "findings": [],
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "6 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
       "templates": [],
-      "error": "Download cancelled or timed out; this job remains incomplete.",
-      "maxSeverity": null
+      "error": null,
+      "maxSeverity": "Info"
     }
   ]
 }

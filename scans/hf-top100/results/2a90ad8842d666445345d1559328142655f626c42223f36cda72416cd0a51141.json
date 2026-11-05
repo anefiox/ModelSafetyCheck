@@ -1,0 +1,155 @@
+{
+  "id": "hf:openbmb/MiniCPM5-2B/model-shards.safetensors",
+  "revision": "f97400052a43d642bbc6e9975e2397e3ae6a6b52",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T07:56:29.4658464+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "model-00000-of-00001.safetensors",
+      "source": "https://huggingface.co/openbmb/MiniCPM5-2B/resolve/f97400052a43d642bbc6e9975e2397e3ae6a6b52/model-00000-of-00001.safetensors",
+      "size": 5033557096,
+      "sha256": "14fb8e7f0a18d53d1f239773758bf581cee7e456a4523a54622c3a245b64402c"
+    },
+    {
+      "path": "chat_template.jinja",
+      "source": "https://huggingface.co/openbmb/MiniCPM5-2B/resolve/f97400052a43d642bbc6e9975e2397e3ae6a6b52/chat_template.jinja",
+      "size": 5435,
+      "sha256": "bc1f78ef8a86b6bdf64a056cf89dd0ac506db4f198ab363d85168e2500ab44dd"
+    },
+    {
+      "path": "config.json",
+      "source": "https://huggingface.co/openbmb/MiniCPM5-2B/resolve/f97400052a43d642bbc6e9975e2397e3ae6a6b52/config.json",
+      "size": 704,
+      "sha256": "59613157e5357d62bcb121e04cb90f2170b43d789b142380c12c3d4277d95180"
+    },
+    {
+      "path": "generation_config.json",
+      "source": "https://huggingface.co/openbmb/MiniCPM5-2B/resolve/f97400052a43d642bbc6e9975e2397e3ae6a6b52/generation_config.json",
+      "size": 213,
+      "sha256": "9ac4f32e5f32358697a9f438a3ea89ef80e6ba786c72c49e932f9f21c122fdb1"
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "source": "https://huggingface.co/openbmb/MiniCPM5-2B/resolve/f97400052a43d642bbc6e9975e2397e3ae6a6b52/model.safetensors.index.json",
+      "size": 31378,
+      "sha256": "6d839cd76e8395de548a0e6cc310386f66d1ecbb2c75d198a8dfd3d70892b756"
+    },
+    {
+      "path": "special_tokens_map.json",
+      "source": "https://huggingface.co/openbmb/MiniCPM5-2B/resolve/f97400052a43d642bbc6e9975e2397e3ae6a6b52/special_tokens_map.json",
+      "size": 551,
+      "sha256": "82d96d7a9e6ced037f12394b7ea6a5b02e6ca87e0d11edaa8d60d9be857ce7db"
+    },
+    {
+      "path": "tokenizer.json",
+      "source": "https://huggingface.co/openbmb/MiniCPM5-2B/resolve/f97400052a43d642bbc6e9975e2397e3ae6a6b52/tokenizer.json",
+      "size": 9894271,
+      "sha256": "3e065a558a034185fe299917b398685c1facd0169a9eea1e629eb30c171fed81"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "source": "https://huggingface.co/openbmb/MiniCPM5-2B/resolve/f97400052a43d642bbc6e9975e2397e3ae6a6b52/tokenizer_config.json",
+      "size": 94391,
+      "sha256": "e9b1064649e771d7a8e15637c68b2d2749724877ba3648bd74a4ece31c26303b"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:openbmb/MiniCPM5-2B/model-shards.safetensors/model-00000-of-00001.safetensors",
+      "kind": "safetensors",
+      "path": null,
+      "fingerprint": "size:5033557096;mtime:2026-11-05T07:56:18.0577798Z",
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:openbmb/MiniCPM5-2B/model-shards.safetensors/chat_template.jinja",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {
+        "chat_template.jinja": "bc1f78ef8a86b6bdf64a056cf89dd0ac506db4f198ab363d85168e2500ab44dd"
+      },
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "5,435 characters, Jinja, sha256 bc1f78ef8a86b6bdf64a056cf89dd0ac506db4f198ab363d85168e2500ab44dd. Use --dump-template to read it.",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022# Tools\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022\n  - \u0022\u003C/tools\u003E\\n\\nTool usage guidelines:\\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any \u003Cfunctio\u2026\u0022",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Different version of the Qwen3 template",
+          "detail": "74 % similar to https://huggingface.co/Qwen/Qwen3-8B (36 line(s) added, 16 removed). Large differences usually mean a different release of the template, such as an older download. Added lines:\n  \u002B {{- \u0022# Tools\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022 }}\n  \u002B {{- \u0027\\n\u003C/tools\u003E\\n\\nTool usage guidelines:\\n- You may call zero or more functions. If no function calls are needed, just answer normally and \u2026\n  \u002B {{- bos_token }}{%- if tools %}\n  \u002B {%- set tool_definitions %}\n  \u002B {{- tool | tojson(ensure_ascii=False) }}\n  \u002B {%- endfor %}\n  \u002B {%- endset %}\n  \u002B {%- if \u0027\u003Ctool_def_sep\u003E\u0027 in messages[0].content %}\n  (\u002B28 more)",
+          "location": "chat_template.jinja",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "chat_template.jinja",
+          "dialect": "Jinja",
+          "sha256": "bc1f78ef8a86b6bdf64a056cf89dd0ac506db4f198ab363d85168e2500ab44dd",
+          "length": 5435,
+          "text": "{{- bos_token }}{%- if tools %}\n    {%- set tool_definitions %}\n        {{- \u0022# Tools\\n\\nYou are provided with function signatures within \u003Ctools\u003E\u003C/tools\u003E XML tags:\\n\u003Ctools\u003E\u0022 }}\n        {%- for tool in tools %}\n            {{- \u0022\\n\u0022 }}\n            {{- tool | tojson(ensure_ascii=False) }}\n        {%- endfor %}\n        {{- \u0027\\n\u003C/tools\u003E\\n\\nTool usage guidelines:\\n- You may call zero or more functions. If no function calls are needed, just answer normally and do not include any \u003Cfunction ... \u003C/function\u003E.\\n- When calling a function, return an XML object within \u003Cfunction ... \u003C/function\u003E using:\\n\u003Cfunction name=\u0022function-name\u0022\u003E\u003Cparam name=\u0022param-name\u0022\u003Eparam-value\u003C/param\u003E\u003C/function\u003E\\n- param-value may be multi-line. If it contains \u003C, \u0026 or newline characters, wrap it in a CDATA block: \u003Cparam name=\u0022param-name\u0022\u003E\u003C![CDATA[...multi-line value...]]\u003E\u003C/param\u003E\u0027 }}\n    {%- endset %}\n    \n    {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 }}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {%- if \u0027\u003Ctool_def_sep\u003E\u0027 in messages[0].content %}\n            {{- messages[0].content.replace(\u0027\u003Ctool_def_sep\u003E\u0027, tool_definitions) }}\n        {%- else %}\n            {{- messages[0].content \u002B \u0027\\n\\n\u0027 \u002B tool_definitions }}\n        {%- endif %}\n    {%- else %}\n        {{- tool_definitions.lstrip() }}\n    {%- endif %}\n    {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n{%- else %}\n    {%- if messages[0].role == \u0027system\u0027 %}\n        {{- \u0027\u003C|im_start|\u003Esystem\\n\u0027 \u002B messages[0].content \u002B \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \u0022user\u0022 and message.content is string and not(message.content.startswith(\u0027\u003Ctool_response\u003E\u0027) and message.content.endswith(\u0027\u003C/tool_response\u003E\u0027)) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n{%- for message in messages %}\n    {%- if message.content is string %}\n        {%- set content = message.content %}\n    {%- else %}\n        {%- set content = \u0027\u0027 %}\n    {%- endif %}\n    {%- if (message.role == \u0022user\u0022) or (message.role == \u0022system\u0022 and not loop.first) %}\n        {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content \u002B \u0027\u003C|im_end|\u003E\u0027 \u002B \u0027\\n\u0027 }}\n    {%- elif message.role == \u0022assistant\u0022 %}\n        {%- set reasoning_content = \u0027\u0027 %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if \u0027\u003C/think\u003E\u0027 in content %}\n                {%- set reasoning_content = content.split(\u0027\u003C/think\u003E\u0027)[0].rstrip(\u0027\\n\u0027).split(\u0027\u003Cthink\u003E\u0027)[-1].lstrip(\u0027\\n\u0027) %}\n                {%- set content = content.split(\u0027\u003C/think\u003E\u0027)[-1].lstrip(\u0027\\n\u0027) %}\n            {%- endif %}\n        {%- endif %}\n        \n        {%- if reasoning_content %}\n            {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u003Cthink\u003E\\n\u0027 \u002B reasoning_content.strip(\u0027\\n\u0027) \u002B \u0027\\n\u003C/think\u003E\\n\\n\u0027 \u002B content.lstrip(\u0027\\n\u0027) }}\n        {%- elif \u0027\u003Cthink\u003E\u0027 not in content and \u0027\u003C/think\u003E\u0027 not in content %}\n            {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u003Cthink\u003E\\n\\n\u003C/think\u003E\\n\\n\u0027 \u002B content.lstrip(\u0027\\n\u0027) }}\n        {%- else %}\n            {{- \u0027\u003C|im_start|\u003E\u0027 \u002B message.role \u002B \u0027\\n\u0027 \u002B content }}\n        {%- endif %}\n        \n        {%- if message.tool_calls %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- \u0027\\n\u0027 }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- \u0027\u003Cfunction name=\u0022\u0027 ~ tool_call.name ~ \u0027\u0022\u003E\u0027 }}\n                {%- if tool_call.arguments %}\n                    {%- set args_dict = tool_call.arguments %}\n                    {%- for param_name, param_value in args_dict.items() %}\n                        {{- \u0027\u003Cparam name=\u0022\u0027 ~ param_name ~ \u0027\u0022\u003E\u0027 }}\n                        {%- if param_value is string and (\u0027\u003C\u0027 in param_value or \u0027\u0026\u0027 in param_value or \u0027\\n\u0027 in param_value) %}\n                            {{- \u0027\u003C![CDATA[\u0027 \u002B param_value \u002B \u0027]]\u003E\u0027 }}\n                        {%- else %}\n                            {{- param_value }}\n                        {%- endif %}\n                        {{- \u0027\u003C/param\u003E\u0027 }}\n                    {%- endfor %}\n                {%- endif %}\n                {{- \u0027\u003C/function\u003E\u0027 }}\n            {%- endfor %}\n        {%- endif %}\n        {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n    {%- elif message.role == \u0022tool\u0022 %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_start|\u003Euser\u0027 }}\n        {%- endif %}\n        {{- \u0027\\n\u003Ctool_response\u003E\\n\u0027 }}\n        {%- if message.content is string %}\n            {{- content }}\n        {%- else %}\n            {{- message.content | tojson(ensure_ascii=False) }}\n        {%- endif %}\n        {{- \u0027\\n\u003C/tool_response\u003E\u0027 }}\n        {%- if loop.last or (messages[loop.index0 \u002B 1].role != \u0022tool\u0022) %}\n            {{- \u0027\u003C|im_end|\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- \u0027\u003C|im_start|\u003Eassistant\\n\u0027 }}\n    {%- if enable_thinking is defined %}\n        {%- if enable_thinking is false %}\n            {{- \u0027\u003Cthink\u003E\\n\\n\u003C/think\u003E\\n\\n\u0027 }}\n        {%- elif enable_thinking is true %}\n            {{- \u0027\u003Cthink\u003E\\n\u0027 }}\n        {%- endif %}\n    {%- endif %}\n{%- endif %}\n"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    },
+    {
+      "target": "hf:openbmb/MiniCPM5-2B/model-shards.safetensors/tokenizer_config.json",
+      "kind": "template-file",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [],
+      "templates": [],
+      "error": null,
+      "maxSeverity": null
+    },
+    {
+      "target": "hf:openbmb/MiniCPM5-2B/model-shards.safetensors",
+      "kind": "download",
+      "path": null,
+      "fingerprint": null,
+      "contentHashes": {},
+      "summary": null,
+      "findings": [
+        {
+          "ruleId": "D001",
+          "severity": "Info",
+          "title": "Companion files downloaded",
+          "detail": "5 companion file(s) downloaded for model context. Their formats have no standalone scanner.",
+          "location": "download",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}

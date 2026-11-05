@@ -1,0 +1,75 @@
+{
+  "id": "hf:antirez/deepseek-v4-gguf/DeepSeek-V4-Flash-IQ2XXS-w2Q2K-AProjQ8-SExpQ8-OutQ8-chat-v2.gguf",
+  "revision": "f71f23d552d664e523b422157b2befbf74040380",
+  "scanner": "8de0aa2db355ffb42ade6bf24e87461d6171942b4f6a811f4a1365ee0e2040ab",
+  "finishedAt": "2026-11-05T04:12:37.5701063+00:00",
+  "completed": true,
+  "files": [
+    {
+      "path": "DeepSeek-V4-Flash-IQ2XXS-w2Q2K-AProjQ8-SExpQ8-OutQ8-chat-v2.gguf",
+      "source": "https://huggingface.co/antirez/deepseek-v4-gguf/resolve/f71f23d552d664e523b422157b2befbf74040380/DeepSeek-V4-Flash-IQ2XXS-w2Q2K-AProjQ8-SExpQ8-OutQ8-chat-v2.gguf",
+      "size": 86720111200,
+      "sha256": "31598c67c8b8744d3bcebcd19aa62253c6dc43cef3b8adf9f593656c9e86fd8c"
+    }
+  ],
+  "reports": [
+    {
+      "target": "hf:antirez/deepseek-v4-gguf/DeepSeek-V4-Flash-IQ2XXS-w2Q2K-AProjQ8-SExpQ8-OutQ8-chat-v2.gguf/DeepSeek-V4-Flash-IQ2XXS-w2Q2K-AProjQ8-SExpQ8-OutQ8-chat-v2.gguf",
+      "kind": "gguf",
+      "path": null,
+      "fingerprint": "size:86720111200;mtime:2026-11-05T04:10:21.7318393Z",
+      "contentHashes": {
+        "kv:tokenizer.chat_template": "872492071c22c8d2025238120309ffbddddb666b49f4433f55c19b69bf51af27"
+      },
+      "summary": {
+        "version": 3,
+        "architecture": "deepseek4",
+        "name": "DeepSeek V4 Flash",
+        "tensorCount": 1328,
+        "metadataCount": 58,
+        "fileSize": 86720111200,
+        "baseModels": []
+      },
+      "findings": [
+        {
+          "ruleId": "T001",
+          "severity": "Info",
+          "title": "Chat template found",
+          "detail": "4,988 characters, Jinja, sha256 872492071c22c8d2025238120309ffbddddb666b49f4433f55c19b69bf51af27. Use --dump-template to read it.",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T009",
+          "severity": "Info",
+          "title": "Template adds fixed text the model will read",
+          "detail": "Review this text; it is sent to the model with your messages: \n  - \u0022## Tools\\n\\nYou have access to a set of tools to help answer the user question. You can invoke tools by writing a \u0022\u003C\u0022\n  - \u0022parameter name=\u0022$PARAMETER_NAME\u0022 string=\u0022true|false\u0022\u003E$PARAMETER_VALUE\u003C/\u0022\n  - \u0022tool_calls\u003E\\n\\nString parameters should be specified as is and set \u0060string=\u0022true\u0022\u0060. For all other types (numbers, booleans, arrays, objects), pass the value in \u2026\u0022\n  - \u0022BEFORE any tool calls or final response.\\n\\nOtherwise, output directly after\u0022\n  - \u0022with tool calls or final response.\\n\\n### Available Tool Schemas\u0022\n  (\u002B1 more)",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        },
+        {
+          "ruleId": "T010",
+          "severity": "Info",
+          "title": "Unrecognised chat template",
+          "detail": "This template does not match any official template in the database. That is normal for fine-tunes and new models; read it with --dump-template if the model will get tools.",
+          "location": "kv:tokenizer.chat_template",
+          "suppression": null,
+          "baseline": null
+        }
+      ],
+      "templates": [
+        {
+          "location": "kv:tokenizer.chat_template",
+          "dialect": "Jinja",
+          "sha256": "872492071c22c8d2025238120309ffbddddb666b49f4433f55c19b69bf51af27",
+          "length": 4988,
+          "text": "{%- if not add_generation_prompt is defined -%}\n  {%- set add_generation_prompt = false -%}\n{%- endif -%}\n{%- if not thinking is defined -%}\n  {%- if enable_thinking is defined -%}\n    {%- set thinking = enable_thinking -%}\n  {%- else -%}\n    {%- set thinking = false -%}\n  {%- endif -%}\n{%- endif -%}\n{%- set dsml_token = \u0027\uFF5CDSML\uFF5C\u0027 -%}\n{%- set thinking_start_token = \u0027\u003Cthink\u003E\u0027 -%}\n{%- set thinking_end_token = \u0027\u003C/think\u003E\u0027 -%}\n{%- set tools_header = \u0027## Tools\\n\\nYou have access to a set of tools to help answer the user question. You can invoke tools by writing a \u0022\u003C\u0027 \u002B dsml_token \u002B \u0027tool_calls\u003E\u0022 block like the following:\\n\\n\u003C\u0027 \u002B dsml_token \u002B \u0027tool_calls\u003E\\n\u003C\u0027 \u002B dsml_token \u002B \u0027invoke name=\u0022$TOOL_NAME\u0022\u003E\\n\u003C\u0027 \u002B dsml_token \u002B \u0027parameter name=\u0022$PARAMETER_NAME\u0022 string=\u0022true|false\u0022\u003E$PARAMETER_VALUE\u003C/\u0027 \u002B dsml_token \u002B \u0027parameter\u003E\\n...\\n\u003C/\u0027 \u002B dsml_token \u002B \u0027invoke\u003E\\n\u003C\u0027 \u002B dsml_token \u002B \u0027invoke name=\u0022$TOOL_NAME2\u0022\u003E\\n...\\n\u003C/\u0027 \u002B dsml_token \u002B \u0027invoke\u003E\\n\u003C/\u0027 \u002B dsml_token \u002B \u0027tool_calls\u003E\\n\\nString parameters should be specified as is and set \u0060string=\u0022true\u0022\u0060. For all other types (numbers, booleans, arrays, objects), pass the value in JSON format and set \u0060string=\u0022false\u0022\u0060.\\n\\nIf thinking_mode is enabled (triggered by \u0027 \u002B thinking_start_token \u002B \u0027), you MUST output your complete reasoning inside \u0027 \u002B thinking_start_token \u002B \u0027...\u0027 \u002B thinking_end_token \u002B \u0027 BEFORE any tool calls or final response.\\n\\nOtherwise, output directly after \u0027 \u002B thinking_end_token \u002B \u0027 with tool calls or final response.\\n\\n### Available Tool Schemas\\n\\n\u0027 -%}\n{%- set tools_footer = \u0027\\n\\nYou MUST strictly follow the above defined tool name and parameter schemas to invoke tool calls.\u0027 -%}\n{%- set ns = namespace(system_prompt=\u0027\u0027, is_first_system=true, pending_assistant=false, pending_tool_result=false) -%}\n{%- for message in messages -%}\n  {%- if message[\u0027role\u0027] == \u0027system\u0027 -%}\n    {%- if ns.is_first_system -%}\n      {%- set ns.system_prompt = ns.system_prompt \u002B (message[\u0027content\u0027] or \u0027\u0027) -%}\n      {%- set ns.is_first_system = false -%}\n    {%- else -%}\n      {%- set ns.system_prompt = ns.system_prompt \u002B \u0027\\n\\n\u0027 \u002B (message[\u0027content\u0027] or \u0027\u0027) -%}\n    {%- endif -%}\n  {%- endif -%}\n{%- endfor -%}\n{%- if tools is defined and tools -%}\n  {%- set ts = namespace(schemas=\u0027\u0027) -%}\n  {%- for tool in tools -%}\n    {%- if tool[\u0027type\u0027] == \u0027function\u0027 -%}\n      {%- set ts.schemas = ts.schemas \u002B (tool[\u0027function\u0027] | tojson) \u002B \u0027\\n\u0027 -%}\n    {%- endif -%}\n  {%- endfor -%}\n  {%- if ns.system_prompt -%}\n    {%- set ns.system_prompt = ns.system_prompt \u002B \u0027\\n\\n\u0027 \u002B tools_header \u002B ts.schemas \u002B tools_footer -%}\n  {%- else -%}\n    {%- set ns.system_prompt = tools_header \u002B ts.schemas \u002B tools_footer -%}\n  {%- endif -%}\n{%- endif -%}\n{{- bos_token -}}\n{{- ns.system_prompt -}}\n{%- for message in messages -%}\n  {%- if message[\u0027role\u0027] == \u0027user\u0027 -%}\n    {{- \u0027\u003C\uFF5CUser\uFF5C\u003E\u0027 \u002B (message[\u0027content\u0027] or \u0027\u0027) -}}\n    {%- set ns.pending_assistant = true -%}\n    {%- set ns.pending_tool_result = false -%}\n  {%- elif message[\u0027role\u0027] == \u0027tool\u0027 -%}\n    {%- if not ns.pending_tool_result -%}\n      {{- \u0027\u003C\uFF5CUser\uFF5C\u003E\u0027 -}}\n    {%- endif -%}\n    {{- \u0027\u003Ctool_result\u003E\u0027 \u002B (message[\u0027content\u0027] or \u0027\u0027) \u002B \u0027\u003C/tool_result\u003E\u0027 -}}\n    {%- set ns.pending_assistant = true -%}\n    {%- set ns.pending_tool_result = true -%}\n  {%- elif message[\u0027role\u0027] == \u0027assistant\u0027 -%}\n    {%- if ns.pending_assistant -%}\n      {{- \u0027\u003C\uFF5CAssistant\uFF5C\u003E\u0027 -}}\n      {%- if thinking and message[\u0027reasoning_content\u0027] is defined and message[\u0027reasoning_content\u0027] -%}\n        {{- thinking_start_token \u002B message[\u0027reasoning_content\u0027] \u002B thinking_end_token -}}\n      {%- else -%}\n        {{- thinking_end_token -}}\n      {%- endif -%}\n    {%- endif -%}\n    {{- (message[\u0027content\u0027] or \u0027\u0027) -}}\n    {%- if message[\u0027tool_calls\u0027] -%}\n      {{- \u0027\\n\\n\u003C\u0027 \u002B dsml_token \u002B \u0027tool_calls\u003E\\n\u0027 -}}\n      {%- for tool in message[\u0027tool_calls\u0027] -%}\n        {%- set func = tool[\u0027function\u0027] -%}\n        {{- \u0027\u003C\u0027 \u002B dsml_token \u002B \u0027invoke name=\u0022\u0027 \u002B func[\u0027name\u0027] \u002B \u0027\u0022\u003E\\n\u0027 -}}\n        {%- set args = func[\u0027arguments\u0027] -%}\n        {%- if args is string -%}\n          {%- set args = args | from_json -%}\n        {%- endif -%}\n        {%- for key, val in args.items() -%}\n          {%- if val is string -%}\n            {{- \u0027\u003C\u0027 \u002B dsml_token \u002B \u0027parameter name=\u0022\u0027 \u002B key \u002B \u0027\u0022 string=\u0022true\u0022\u003E\u0027 \u002B val \u002B \u0027\u003C/\u0027 \u002B dsml_token \u002B \u0027parameter\u003E\\n\u0027 -}}\n          {%- else -%}\n            {{- \u0027\u003C\u0027 \u002B dsml_token \u002B \u0027parameter name=\u0022\u0027 \u002B key \u002B \u0027\u0022 string=\u0022false\u0022\u003E\u0027 \u002B (val | tojson) \u002B \u0027\u003C/\u0027 \u002B dsml_token \u002B \u0027parameter\u003E\\n\u0027 -}}\n          {%- endif -%}\n        {%- endfor -%}\n        {{- \u0027\u003C/\u0027 \u002B dsml_token \u002B \u0027invoke\u003E\\n\u0027 -}}\n      {%- endfor -%}\n      {{- \u0027\u003C/\u0027 \u002B dsml_token \u002B \u0027tool_calls\u003E\u0027 -}}\n    {%- endif -%}\n    {{- \u0027\u003C\uFF5Cend\u2581of\u2581sentence\uFF5C\u003E\u0027 -}}\n    {%- set ns.pending_assistant = false -%}\n    {%- set ns.pending_tool_result = false -%}\n  {%- endif -%}\n{%- endfor -%}\n{%- if add_generation_prompt and ns.pending_assistant -%}\n  {{- \u0027\u003C\uFF5CAssistant\uFF5C\u003E\u0027 -}}\n  {%- if thinking -%}\n    {{- thinking_start_token -}}\n  {%- else -%}\n    {{- thinking_end_token -}}\n  {%- endif -%}\n{%- endif -%}\n"
+        }
+      ],
+      "error": null,
+      "maxSeverity": "Info"
+    }
+  ]
+}
